@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		120FFED660BC55B756EBD72A /* Pods_SeeMeet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E4152A410430753EE447189 /* Pods_SeeMeet.framework */; };
+		360E6F4627898D4400DACFD8 /* HomeEventCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360E6F4427898D4400DACFD8 /* HomeEventCVC.swift */; };
+		360E6F4727898D4400DACFD8 /* HomeEventCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 360E6F4527898D4400DACFD8 /* HomeEventCVC.xib */; };
 		3682123E2785E643005D7236 /* DINNeuzeitGroteskStd-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3682122F2785E642005D7236 /* DINNeuzeitGroteskStd-Light.otf */; };
 		3682123F2785E643005D7236 /* SpoqaHanSansNeo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 368212302785E642005D7236 /* SpoqaHanSansNeo-Light.ttf */; };
 		368212402785E643005D7236 /* DINMittelschriftStd.otf in Resources */ = {isa = PBXBuildFile; fileRef = 368212312785E642005D7236 /* DINMittelschriftStd.otf */; };
@@ -25,9 +27,6 @@
 		3682124C2785E643005D7236 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3682123D2785E642005D7236 /* LICENSE */; };
 		368212522789779C005D7236 /* dummy3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368212512789779C005D7236 /* dummy3.swift */; };
 		3682125427897806005D7236 /* dummy1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3682125327897806005D7236 /* dummy1.swift */; };
-		3682125727898BFA005D7236 /* HomeEventTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3682125527898BFA005D7236 /* HomeEventTVC.swift */; };
-		3682125827898BFA005D7236 /* HomeEventTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3682125627898BFA005D7236 /* HomeEventTVC.xib */; };
-		3682125C27898C62005D7236 /* dummy4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3682125B27898C62005D7236 /* dummy4.swift */; };
 		36EFE2ED2785682200466818 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EFE2EC2785682200466818 /* AppDelegate.swift */; };
 		36EFE2EF2785682200466818 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EFE2EE2785682200466818 /* SceneDelegate.swift */; };
 		36EFE2F62785682400466818 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36EFE2F52785682400466818 /* Assets.xcassets */; };
@@ -45,6 +44,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		360E6F4427898D4400DACFD8 /* HomeEventCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEventCVC.swift; sourceTree = "<group>"; };
+		360E6F4527898D4400DACFD8 /* HomeEventCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeEventCVC.xib; sourceTree = "<group>"; };
 		3682122F2785E642005D7236 /* DINNeuzeitGroteskStd-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DINNeuzeitGroteskStd-Light.otf"; sourceTree = "<group>"; };
 		368212302785E642005D7236 /* SpoqaHanSansNeo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Light.ttf"; sourceTree = "<group>"; };
 		368212312785E642005D7236 /* DINMittelschriftStd.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DINMittelschriftStd.otf; sourceTree = "<group>"; };
@@ -62,9 +63,6 @@
 		3682123D2785E642005D7236 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		368212512789779C005D7236 /* dummy3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy3.swift; sourceTree = "<group>"; };
 		3682125327897806005D7236 /* dummy1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy1.swift; sourceTree = "<group>"; };
-		3682125B27898C62005D7236 /* dummy4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy4.swift; sourceTree = "<group>"; };
-		3682125527898BFA005D7236 /* HomeEventTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEventTVC.swift; sourceTree = "<group>"; };
-		3682125627898BFA005D7236 /* HomeEventTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeEventTVC.xib; sourceTree = "<group>"; };
 		36EFE2E92785682200466818 /* SeeMeet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeeMeet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36EFE2EC2785682200466818 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		36EFE2EE2785682200466818 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +96,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		360E6F48278998CB00DACFD8 /* HomeScene */ = {
+			isa = PBXGroup;
+			children = (
+				360E6F4427898D4400DACFD8 /* HomeEventCVC.swift */,
+			);
+			path = HomeScene;
+			sourceTree = "<group>";
+		};
+		360E6F49278998DA00DACFD8 /* HomeScene */ = {
+			isa = PBXGroup;
+			children = (
+				360E6F4527898D4400DACFD8 /* HomeEventCVC.xib */,
+			);
+			path = HomeScene;
+			sourceTree = "<group>";
+		};
 		3682122E2785E579005D7236 /* Font */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,7 +145,7 @@
 		3682125A27898C51005D7236 /* CVC */ = {
 			isa = PBXGroup;
 			children = (
-				3682125B27898C62005D7236 /* dummy4.swift */,
+				360E6F48278998CB00DACFD8 /* HomeScene */,
 			);
 			path = CVC;
 			sourceTree = "<group>";
@@ -246,8 +260,7 @@
 		36EFE3082785C81700466818 /* CVC */ = {
 			isa = PBXGroup;
 			children = (
-				3682125527898BFA005D7236 /* HomeEventTVC.swift */,
-				3682125627898BFA005D7236 /* HomeEventTVC.xib */,
+				360E6F49278998DA00DACFD8 /* HomeScene */,
 			);
 			path = CVC;
 			sourceTree = "<group>";
@@ -382,9 +395,9 @@
 				368212442785E643005D7236 /* SpoqaHanSansNeo-Regular.ttf in Resources */,
 				368212452785E643005D7236 /* DINPro-Regular.otf in Resources */,
 				3682124A2785E643005D7236 /* DINPro-Light.otf in Resources */,
+				360E6F4727898D4400DACFD8 /* HomeEventCVC.xib in Resources */,
 				368212462785E643005D7236 /* DINNeuzeitGroteskStd-BdCond.otf in Resources */,
 				368212402785E643005D7236 /* DINMittelschriftStd.otf in Resources */,
-				3682125827898BFA005D7236 /* HomeEventTVC.xib in Resources */,
 				368212432785E643005D7236 /* DINPro-Black.otf in Resources */,
 				368212472785E643005D7236 /* DINEngschriftStd.otf in Resources */,
 				3682123E2785E643005D7236 /* DINNeuzeitGroteskStd-Light.otf in Resources */,
@@ -443,15 +456,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				36EFE3212785CC3B00466818 /* Date++.swift in Sources */,
-				3682125727898BFA005D7236 /* HomeEventTVC.swift in Sources */,
 				36EFE31F2785CC3B00466818 /* UIFont++.swift in Sources */,
 				36EFE31E2785CC3B00466818 /* UIView++.swift in Sources */,
-				3682125C27898C62005D7236 /* dummy4.swift in Sources */,
 				36EFE31B2785CC3B00466818 /* UIScreen++.swift in Sources */,
 				36EFE3112785C8D600466818 /* HomeVC.swift in Sources */,
 				36EFE2ED2785682200466818 /* AppDelegate.swift in Sources */,
 				36EFE31D2785CC3B00466818 /* UIColor++.swift in Sources */,
 				368212522789779C005D7236 /* dummy3.swift in Sources */,
+				360E6F4627898D4400DACFD8 /* HomeEventCVC.swift in Sources */,
 				36EFE31A2785CC3B00466818 /* UIViewController++.swift in Sources */,
 				36EFE31C2785CC3B00466818 /* UICollectionView++.swift in Sources */,
 				36EFE2EF2785682200466818 /* SceneDelegate.swift in Sources */,

@@ -12,6 +12,7 @@ class HomeVC: UIViewController {
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 10
         $0.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        $0.getShadowView(color: UIColor.black.cgColor, masksToBounds: false, shadowOffset: CGSize(width: 0, height: 4), shadowRadius: 3, shadowOpacity: 0.25)
     }
     private let menuButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "btn_menu"), for: .normal)
@@ -45,6 +46,7 @@ class HomeVC: UIViewController {
         collectionView.setCollectionViewLayout(layout, animated: false)
         collectionView.backgroundColor = .none
         collectionView.bounces = true
+        collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
 
@@ -70,7 +72,7 @@ class HomeVC: UIViewController {
             $0.top.bottom.leading.trailing.equalToSuperview().offset(0)
         }
         topView.snp.makeConstraints{
-            let topViewRatio: CGFloat = 0.5
+            let topViewRatio: CGFloat = 0.6
             $0.top.leading.trailing.equalToSuperview().offset(0)
             $0.height.equalTo(userHeight * topViewRatio)
         }
@@ -114,11 +116,12 @@ class HomeVC: UIViewController {
         eventsCollectionView.delegate = self
         eventsCollectionView.dataSource = self
         
+        eventsCollectionView.registerCustomXib(xibName: "HomeEventCVC")
+        
         eventsCollectionView.snp.makeConstraints{
-            let collectionViewRatio: CGFloat = 0.27
+            let collectionViewRatio: CGFloat = 0.32
             $0.top.equalTo(collectionViewHeadLabel.snp.bottom).offset(0)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(0)
+            $0.leading.trailing.equalToSuperview().offset(0)
             $0.height.equalTo(userHeight * collectionViewRatio)
         }
         
@@ -132,27 +135,42 @@ class HomeVC: UIViewController {
         dDayText.addAttribute(.foregroundColor, value: UIColor.white, range: (text as NSString).range(of: "\(lastEventCont)일"))
         dDayLabel.attributedText = dDayText
     }
-    
 //MARK: Server
-    
 }
 
-
 //MARK: Extension
-
 extension HomeVC: UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellHeight = userHeight * 0.3
+        let cellWidth = userWidth * 0.4
+        
+        
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
     
 }
 extension HomeVC: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: HomeEventCVC.identifier, for: indexPath) as! HomeEventCVC
+        cell.setData(dDay: "D-15", image: "Ellipse_dummy", eventName: "대방어 데이", eventData: "1월 15일")
+        return cell
     }
     
 }
 extension HomeVC: UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+    }
 }
