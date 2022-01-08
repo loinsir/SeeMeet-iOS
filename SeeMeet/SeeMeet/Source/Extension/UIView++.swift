@@ -33,5 +33,17 @@ extension UIView {
     @objc func dismissKeyboard() {
         self.endEditing(true)
     }
+    
+    func getShadowView(color : CGColor, masksToBounds : Bool, shadowOffset : CGSize, shadowRadius : Int, shadowOpacity : Float){
+        layer.shadowColor = color
+        layer.masksToBounds = masksToBounds
+        layer.shadowOffset = shadowOffset
+        layer.shadowRadius = CGFloat(shadowRadius)
+        layer.shadowOpacity = shadowOpacity
+    }
+    func removeShadowView(){
+        layer.shadowOpacity = 0
+    }
+    
 }
 
