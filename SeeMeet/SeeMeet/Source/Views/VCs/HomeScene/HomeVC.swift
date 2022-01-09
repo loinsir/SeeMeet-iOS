@@ -20,7 +20,7 @@ class HomeVC: UIViewController {
     private let friendsButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "btn_friends"), for: .normal)
     }
-    private let profileButton = UIButton().then{
+    private let notificationButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "profile_Dummy"), for: .normal)
     }
     private let dDayLabel = UILabel().then{
@@ -53,7 +53,7 @@ class HomeVC: UIViewController {
 //MARK: Var
     var lastEventCont: Int = 0
     var userWidth: CGFloat = UIScreen.getDeviceWidth()
-    var userHeight: CGFloat = UIScreen.getDeviceHeight()
+    var userHeight: CGFloat = UIScreen.getDeviceHeight() - 88
     
 //MARK: ViewDidLoad
     override func viewDidLoad() {
@@ -64,9 +64,13 @@ class HomeVC: UIViewController {
     }
 //MARK: Layout
     func setHomeLayout() {
+        
+        let viewRatio = userHeight / 724
+        print(viewRatio)
+        
         view.addSubview(homeBackgroundView)
         homeBackgroundView.addSubviews([topView, collectionViewHeadLabel])
-        topView.addSubviews([menuButton, friendsButton, profileButton, dDayLabel, characterImageView])
+        topView.addSubviews([menuButton, friendsButton, notificationButton, dDayLabel, characterImageView])
         
         homeBackgroundView.snp.makeConstraints{
             $0.top.bottom.leading.trailing.equalToSuperview().offset(0)
@@ -81,27 +85,27 @@ class HomeVC: UIViewController {
             $0.leading.equalToSuperview().offset(7)
             $0.height.width.equalTo(48)
         }
-        profileButton.snp.makeConstraints{
+        notificationButton.snp.makeConstraints{
             $0.centerY.equalTo(menuButton)
             $0.trailing.equalToSuperview().offset(-20)
             $0.width.height.equalTo(48)
         }
         friendsButton.snp.makeConstraints{
             $0.centerY.equalTo(menuButton)
-            $0.trailing.equalTo(profileButton.snp.leading).offset(0)
+            $0.trailing.equalTo(notificationButton.snp.leading).offset(0)
             $0.width.height.equalTo(48)
         }
         dDayLabel.snp.makeConstraints{
-            $0.top.equalTo(menuButton.snp.bottom).offset(35)
+            $0.top.equalTo(menuButton.snp.bottom).offset(35 * viewRatio)
             $0.leading.equalToSuperview().offset(20)
             $0.width.equalTo(250)
             $0.height.equalTo(63)
         }
         characterImageView.snp.makeConstraints{
-            $0.top.equalTo(dDayLabel.snp.bottom).offset(33)
-            $0.trailing.equalToSuperview().offset(-10)
-            $0.width.equalTo(229)
-            $0.height.equalTo(152)
+            $0.bottom.equalTo(topView.snp.bottom).offset(-11 * viewRatio)
+            $0.trailing.equalToSuperview().offset(-24 * viewRatio)
+            $0.width.equalTo(317 * viewRatio)
+            $0.height.equalTo(210 * viewRatio)
         }
         collectionViewHeadLabel.snp.makeConstraints{
             $0.top.equalTo(topView.snp.bottom).offset(14)
@@ -143,8 +147,6 @@ extension HomeVC: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellHeight = userHeight * 0.3
         let cellWidth = userWidth * 0.4
-        
-        
         return CGSize(width: cellWidth, height: cellHeight)
     }
     

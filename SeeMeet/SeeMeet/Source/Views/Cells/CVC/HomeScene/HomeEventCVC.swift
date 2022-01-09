@@ -12,6 +12,7 @@ import Then
 class HomeEventCVC: UICollectionViewCell {
     
     static let identifier: String = "HomeEventCVC"
+    var userHeight: CGFloat = UIScreen.getDeviceHeight() - 88
     
 //MARK: Componnents
     private let dDayView = UIView().then{
@@ -20,7 +21,6 @@ class HomeEventCVC: UICollectionViewCell {
         $0.layer.cornerRadius = 14
     }
     private let dDayLabel = UILabel().then{
-        $0.font = UIFont.dinProBoldFont(ofSize: 14)
         $0.textColor = UIColor.white
         $0.textAlignment = .center
     }
@@ -47,34 +47,37 @@ class HomeEventCVC: UICollectionViewCell {
     func setLayout() {
         addSubviews([dDayView, eventImageView, eventNameLabel, eventDateLabel])
         dDayView.addSubview(dDayLabel)
+        let cellRatio = userHeight / 724
         
         dDayView.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(11)
-            $0.width.equalTo(53)
-            $0.height.equalTo(29)
+            $0.top.equalToSuperview().offset(11 * cellRatio)
+            $0.width.equalTo(53 * cellRatio)
+            $0.height.equalTo(29 * cellRatio)
             $0.centerX.equalToSuperview()
-            
+            dDayView.layer.cornerRadius = 14 * cellRatio
         }
         dDayLabel.snp.makeConstraints{
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
+            dDayLabel.font = UIFont.dinProBoldFont(ofSize: 14 * cellRatio)
         }
         eventImageView.snp.makeConstraints{
-            $0.top.equalTo(dDayView.snp.bottom).offset(9)
-            $0.width.height.equalTo(82)
+            $0.top.equalTo(dDayView.snp.bottom).offset(9 * cellRatio)
+            $0.width.height.equalTo(82 * cellRatio)
             $0.centerX.equalToSuperview()
         }
+        
         eventNameLabel.snp.makeConstraints{
-            $0.top.equalTo(eventImageView.snp.bottom).offset(16)
-            $0.leading.equalToSuperview().offset(19)
-            $0.trailing.equalToSuperview().offset(-19)
-            $0.height.equalTo(18)
+            $0.top.equalTo(eventImageView.snp.bottom).offset(16 * cellRatio)
+            $0.leading.equalToSuperview().offset(19 * cellRatio)
+            $0.trailing.equalToSuperview().offset(-19 * cellRatio)
+            $0.height.equalTo(18 * cellRatio)
         }
         eventDateLabel.snp.makeConstraints{
-            $0.top.equalTo(eventNameLabel.snp.bottom).offset(8)
-            $0.leading.equalToSuperview().offset(10)
-            $0.trailing.equalToSuperview().offset(-10)
-            $0.height.equalTo(18)
+            $0.top.equalTo(eventNameLabel.snp.bottom).offset(8 * cellRatio)
+            $0.leading.equalToSuperview().offset(10 * cellRatio)
+            $0.trailing.equalToSuperview().offset(-10 * cellRatio)
+            $0.height.equalTo(18 * cellRatio)
         }
         
     }
