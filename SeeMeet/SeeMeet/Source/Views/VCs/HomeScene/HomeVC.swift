@@ -49,6 +49,15 @@ class HomeVC: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
+    private let noEventImageView = UIImageView().then{
+        $0.image = UIImage(named: "profile_Dummy")
+    }
+    private let noEventLabel = UILabel().then{
+        $0.text = "일정이 없어요!"
+        $0.font = UIFont.hanSansRegularFont(ofSize: 16)
+        $0.textColor = UIColor.grey04
+        $0.textAlignment = .center
+    }
 
 //MARK: Var
     var lastEventCont: Int = 0
@@ -114,7 +123,7 @@ class HomeVC: UIViewController {
             $0.height.equalTo(32)
         }
     }
-    func setCollectionViewLayout(){
+    func setCollectionViewLayout() {
         homeBackgroundView.addSubview(eventsCollectionView)
         
         eventsCollectionView.delegate = self
@@ -130,6 +139,21 @@ class HomeVC: UIViewController {
         }
         
     }
+    //일정 없을때 엠티 뷰 보여주는건데..우선은 테스트만 해보고 호출은 안해둘게요~ / 테스트 완료
+    func isNoEventLayout() {
+        homeBackgroundView.addSubviews([noEventImageView, noEventLabel])
+        noEventImageView.snp.makeConstraints{
+            $0.top.equalTo(collectionViewHeadLabel.snp.bottom).offset(10)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(249)
+            $0.height.equalTo(128)
+        }
+        noEventLabel.snp.makeConstraints{
+            $0.top.equalTo(noEventImageView.snp.bottom).offset(12)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(110)
+        }
+    }
 //MARK: Function
     func changeDdayLabel() {
         dDayLabel.text = "약속을 잡은지\n벌써 \(lastEventCont)일이 지났어요!"
@@ -139,6 +163,7 @@ class HomeVC: UIViewController {
         dDayText.addAttribute(.foregroundColor, value: UIColor.white, range: (text as NSString).range(of: "\(lastEventCont)일"))
         dDayLabel.attributedText = dDayText
     }
+    
 //MARK: Server
 }
 
@@ -153,7 +178,7 @@ extension HomeVC: UICollectionViewDelegate{
 }
 extension HomeVC: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return 4
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
