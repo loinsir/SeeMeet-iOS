@@ -14,7 +14,7 @@ class CalendarVC: UIViewController {
         $0.font = UIFont(name: "DINPro-Bold", size: 22)
     }
     
-    fileprivate weak var calendar: FSCalendar! = FSCalendar().then {
+    let calendar: FSCalendar = FSCalendar().then {
         $0.select($0.today)
         $0.scope = .month
         $0.locale = Locale(identifier: "ko_KR")
@@ -76,8 +76,6 @@ class CalendarVC: UIViewController {
     private func setLayouts() {
         navigationController?.navigationBar.isHidden = true
         
-        layoutCalendarWeekdaySeparator()
-
         addSubviewAndConstraints(add: calendarHeaderLabel, to: view) {
             $0.leading.equalToSuperview().offset(20)
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(25)
