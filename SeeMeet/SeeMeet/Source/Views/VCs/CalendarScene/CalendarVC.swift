@@ -14,7 +14,7 @@ class CalendarVC: UIViewController {
         $0.font = UIFont(name: "DINPro-Bold", size: 22)
     }
     
-    let calendar: FSCalendar = FSCalendar().then {
+    fileprivate weak var calendar: FSCalendar! = FSCalendar().then {
         $0.select($0.today)
         $0.scope = .month
         $0.locale = Locale(identifier: "ko_KR")
