@@ -12,6 +12,8 @@
 		360E6F4727898D4400DACFD8 /* HomeEventCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 360E6F4527898D4400DACFD8 /* HomeEventCVC.xib */; };
 		1912FCAE278AB7A000F33952 /* CalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1912FCAD278AB7A000F33952 /* CalendarVC.swift */; };
 		1912FCB0278AB7BB00F33952 /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1912FCAF278AB7BB00F33952 /* Calendar.storyboard */; };
+		1919F5D4278B5E18009F33AE /* CalendarPlansCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1919F5D2278B5E18009F33AE /* CalendarPlansCVC.swift */; };
+		1919F5D5278B5E18009F33AE /* CalendarPlansCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1919F5D3278B5E18009F33AE /* CalendarPlansCVC.xib */; };
 		3682123E2785E643005D7236 /* DINNeuzeitGroteskStd-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3682122F2785E642005D7236 /* DINNeuzeitGroteskStd-Light.otf */; };
 		3682123F2785E643005D7236 /* SpoqaHanSansNeo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 368212302785E642005D7236 /* SpoqaHanSansNeo-Light.ttf */; };
 		368212402785E643005D7236 /* DINMittelschriftStd.otf in Resources */ = {isa = PBXBuildFile; fileRef = 368212312785E642005D7236 /* DINMittelschriftStd.otf */; };
@@ -29,7 +31,6 @@
 		3682124C2785E643005D7236 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3682123D2785E642005D7236 /* LICENSE */; };
 		368212522789779C005D7236 /* dummy3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368212512789779C005D7236 /* dummy3.swift */; };
 		3682125427897806005D7236 /* dummy1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3682125327897806005D7236 /* dummy1.swift */; };
-		3682125C27898C62005D7236 /* dummy4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3682125B27898C62005D7236 /* dummy4.swift */; };
 		36D9E8AF2789A7BF00D5244D /* Tabbar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36D9E8AE2789A7BF00D5244D /* Tabbar.storyboard */; };
 		36D9E8B12789A81A00D5244D /* TabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D9E8B02789A81A00D5244D /* TabbarVC.swift */; };
 		36EFE2ED2785682200466818 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EFE2EC2785682200466818 /* AppDelegate.swift */; };
@@ -53,6 +54,8 @@
 		360E6F4527898D4400DACFD8 /* HomeEventCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeEventCVC.xib; sourceTree = "<group>"; };
 		1912FCAD278AB7A000F33952 /* CalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVC.swift; sourceTree = "<group>"; };
 		1912FCAF278AB7BB00F33952 /* Calendar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
+		1919F5D2278B5E18009F33AE /* CalendarPlansCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPlansCVC.swift; sourceTree = "<group>"; };
+		1919F5D3278B5E18009F33AE /* CalendarPlansCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarPlansCVC.xib; sourceTree = "<group>"; };
 		3682122F2785E642005D7236 /* DINNeuzeitGroteskStd-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DINNeuzeitGroteskStd-Light.otf"; sourceTree = "<group>"; };
 		368212302785E642005D7236 /* SpoqaHanSansNeo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Light.ttf"; sourceTree = "<group>"; };
 		368212312785E642005D7236 /* DINMittelschriftStd.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DINMittelschriftStd.otf; sourceTree = "<group>"; };
@@ -70,7 +73,6 @@
 		3682123D2785E642005D7236 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		368212512789779C005D7236 /* dummy3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy3.swift; sourceTree = "<group>"; };
 		3682125327897806005D7236 /* dummy1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy1.swift; sourceTree = "<group>"; };
-		3682125B27898C62005D7236 /* dummy4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy4.swift; sourceTree = "<group>"; };
 		36D9E8AE2789A7BF00D5244D /* Tabbar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tabbar.storyboard; sourceTree = "<group>"; };
 		36D9E8B02789A81A00D5244D /* TabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarVC.swift; sourceTree = "<group>"; };
 		36EFE2E92785682200466818 /* SeeMeet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeeMeet.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -180,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				360E6F48278998CB00DACFD8 /* HomeScene */,
+				1919F5D2278B5E18009F33AE /* CalendarPlansCVC.swift */,
 			);
 			path = CVC;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				360E6F49278998DA00DACFD8 /* HomeScene */,
+				1919F5D3278B5E18009F33AE /* CalendarPlansCVC.xib */,
 			);
 			path = CVC;
 			sourceTree = "<group>";
@@ -450,6 +454,7 @@
 				368212472785E643005D7236 /* DINEngschriftStd.otf in Resources */,
 				3682123E2785E643005D7236 /* DINNeuzeitGroteskStd-Light.otf in Resources */,
 				368212422785E643005D7236 /* SpoqaHanSansNeo-Thin.ttf in Resources */,
+				1919F5D5278B5E18009F33AE /* CalendarPlansCVC.xib in Resources */,
 				368212412785E643005D7236 /* DINPro-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -507,6 +512,7 @@
 				36EFE31F2785CC3B00466818 /* UIFont++.swift in Sources */,
 				1912FCAE278AB7A000F33952 /* CalendarVC.swift in Sources */,
 				36EFE31E2785CC3B00466818 /* UIView++.swift in Sources */,
+				1919F5D4278B5E18009F33AE /* CalendarPlansCVC.swift in Sources */,
 				36EFE31B2785CC3B00466818 /* UIScreen++.swift in Sources */,
 				36EFE3112785C8D600466818 /* HomeVC.swift in Sources */,
 				36EFE2ED2785682200466818 /* AppDelegate.swift in Sources */,
@@ -519,7 +525,6 @@
 				36EFE3202785CC3B00466818 /* UITabelView++.swift in Sources */,
 				3682125427897806005D7236 /* dummy1.swift in Sources */,
 				36D9E8B12789A81A00D5244D /* TabbarVC.swift in Sources */,
-				368212502789778C005D7236 /* dummy2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

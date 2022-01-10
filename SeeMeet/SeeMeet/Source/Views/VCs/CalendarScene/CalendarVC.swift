@@ -9,12 +9,12 @@ class CalendarVC: UIViewController {
     
     static let identifier: String = "CalendarVC"
     
-    let calendarHeaderLabel: UILabel = UILabel().then {
+    private let calendarHeaderLabel: UILabel = UILabel().then {
         $0.textColor = UIColor.pink01
         $0.font = UIFont(name: "DINPro-Bold", size: 22)
     }
     
-    let calendar: FSCalendar = FSCalendar().then {
+    fileprivate weak var calendar: FSCalendar! = FSCalendar().then {
         $0.select($0.today)
         $0.scope = .month
         $0.locale = Locale(identifier: "ko_KR")
@@ -32,11 +32,11 @@ class CalendarVC: UIViewController {
         $0.appearance.selectionColor = UIColor.grey05 // grey06으로 추후 변경
     }
     
-    let bottomCollectionContainerView: UIView = UIView().then {
+    private let bottomCollectionContainerView: UIView = UIView().then {
         $0.backgroundColor = UIColor.grey01
     }
     
-    let dateAndDayLabel: UILabel = UILabel().then {
+    private let dateAndDayLabel: UILabel = UILabel().then {
         $0.font = UIFont(name: "SpoqaHanSansNeo-Bold", size: 18)
         $0.textColor = UIColor.grey05 // grey06 추후 변경
         
@@ -46,7 +46,24 @@ class CalendarVC: UIViewController {
         $0.text = "\(currentMonth)월 \(currentDate)일 \(Date.getCurrentKoreanWeekDay())요일"
     }
     
-    // MARK: - Life Cycle
+    private var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewLayout())
+        let flowlayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout().then {
+            $0.scrollDirection = .horizontal
+            $0.minimumInteritemSpacing = CGFloat(16)
+            $0.sectionInset = UIEdgeInsets(top: 0, left: 20.0, bottom: 11, right: 20)
+            $0.itemSize = CGSize(width: 223.0, height: 146.0)
+        }
+        
+        collectionView.setCollectionViewLayout(flowlayout, animated: false)
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.bounces = true
+        collectionView.backgroundColor = .none
+        collectionView.register(CalendarPlansCVC.self, forCellWithReuseIdentifier: CalendarPlansCVC.identifier)
+
+        return collectionView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,6 +104,14 @@ class CalendarVC: UIViewController {
             $0.leading.equalToSuperview().offset(20)
             $0.top.equalToSuperview().offset(16)
         }
+        
+        collectionView.dataSource = self
+        addSubviewAndConstraints(add: collectionView, to: bottomCollectionContainerView) {
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(157)
+            $0.top.equalTo(dateAndDayLabel.snp.bottom).offset(16)
+        }
+        
     }
     
     private func addSubviewAndConstraints(add subView: UIView, to superView: UIView, snapkitClosure closure: (ConstraintMaker) -> Void) {
@@ -113,4 +138,25 @@ extension CalendarVC: FSCalendarDelegate {
 
         dateAndDayLabel.text = "\(selectedMonth)월 \(selectedDate)일 \(Date.getKoreanWeekDay(from: date))요일"
     }
+}
+
+extension CalendarVC: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        3 // 임시
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CalendarPlansCVC", for: indexPath) as? CalendarPlansCVC else { return UICollectionViewCell() }
+        
+        // 약속 데이터 받아와 넣기
+        cell.headerTitle.text = "HIHI"
+        cell.isSchedule = false
+        
+        return cell
+    }
+
 }
