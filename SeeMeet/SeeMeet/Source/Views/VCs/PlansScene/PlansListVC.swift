@@ -64,8 +64,6 @@ class PlansListVC: UIViewController {
         $0.showsHorizontalScrollIndicator = false
         $0.showsVerticalScrollIndicator = false
     }
-    
-    
     //progressCollectionView
     private var progressCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
@@ -74,7 +72,7 @@ class PlansListVC: UIViewController {
         layout.minimumInteritemSpacing = 0
         layout.scrollDirection = .vertical
         collectionView.setCollectionViewLayout(layout, animated: false)
-        collectionView.backgroundColor = .none
+        collectionView.backgroundColor = .blue
         collectionView.bounces = true
         collectionView.showsVerticalScrollIndicator = false
         return collectionView
@@ -87,7 +85,7 @@ class PlansListVC: UIViewController {
         layout.minimumInteritemSpacing = 0
         layout.scrollDirection = .vertical
         collectionView.setCollectionViewLayout(layout, animated: false)
-        collectionView.backgroundColor = .none
+        collectionView.backgroundColor = .red
         collectionView.bounces = true
         collectionView.showsVerticalScrollIndicator = false
         return collectionView
@@ -102,6 +100,7 @@ class PlansListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setHeaderLayout()
+        setScrollViewLayout()
     }
 //MARK: Layout
     func setHeaderLayout() {
@@ -111,7 +110,13 @@ class PlansListVC: UIViewController {
         progressView.addSubview(progressLabel)
         completeView.addSubview(completeLabel)
         
-        
+        let progressTapGesture = UITapGestureRecognizer(target: self, action: #selector(tabbarClicked(_:)))
+        let completeTapGesture = UITapGestureRecognizer(target: self, action: #selector(tabbarClicked(_:)))
+        progressView.isUserInteractionEnabled = true
+        progressView.addGestureRecognizer(progressTapGesture)
+        completeView.isUserInteractionEnabled = true
+        completeView.addGestureRecognizer(completeTapGesture)
+
         plansListBackgroundView.snp.makeConstraints{
             $0.top.bottom.leading.trailing.equalToSuperview().offset(0)
         }
@@ -157,13 +162,91 @@ class PlansListVC: UIViewController {
         }
         
     }
-    func setFontCollectionHeader() {
+    func setScrollViewLayout() {
+        plansListBackgroundView.addSubview(collectionScrollView)
+        collectionScrollView.addSubviews([progressCollectionView, completeCollectionView])
+        
+        collectionScrollView.delegate = self
+        progressCollectionView.delegate = self
+        progressCollectionView.dataSource = self
+        completeCollectionView.delegate = self
+        completeCollectionView.dataSource = self
+        
+        collectionScrollView.backgroundColor = .black
+        
+        collectionScrollView.contentSize = CGSize(width: userWidth * 2, height: userHeight - 152)
+
+        
+        collectionScrollView.snp.makeConstraints{
+            $0.top.equalTo(headerView.snp.bottom).offset(0)
+            $0.leading.trailing.bottom.equalToSuperview().offset(0)
+        }
+        
+        progressCollectionView.snp.makeConstraints{
+            $0.top.bottom.leading.equalToSuperview().offset(0)
+            $0.trailing.equalTo(completeCollectionView.snp.leading).offset(0)
+            $0.width.equalTo(userWidth)
+            $0.height.equalTo(userHeight-152)
+        }
+        completeCollectionView.snp.makeConstraints{
+            $0.top.bottom.trailing.equalToSuperview().offset(0)
+            $0.leading.equalTo(progressCollectionView.snp.trailing).offset(0)
+            $0.width.equalTo(userWidth)
+            $0.height.equalTo(userHeight-152)
+        }
         
     }
 //MARK: Function
-    
+    @objc private func tabbarClicked(_ sender: UIView){
+        var contentOffsetX = collectionScrollView.contentOffset.x
+        if contentOffsetX >= userWidth{
+            collectionScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        }
+        else{
+            collectionScrollView.setContentOffset(CGPoint(x: userWidth, y: 0), animated: true)
+        }
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        moveBottomView(offsetX: collectionScrollView.contentOffset.x / 2)
+        setTabbarTitle(offsetX: collectionScrollView.contentOffset.x)
+        
+    }
+    func moveBottomView(offsetX: CGFloat){
+        bottomView.snp.remakeConstraints{
+            $0.leading.equalToSuperview().offset(offsetX)
+            $0.height.equalTo(3)
+            $0.width.equalTo(userWidth/2)
+            $0.bottom.equalToSuperview().offset(0)
+        }
+    }
+    private func setTabbarTitle(offsetX: CGFloat){
+        if offsetX > userWidth/2 {
+            progressLabel.font = UIFont.hanSansMediumFont(ofSize: 16)
+            completeLabel.font = UIFont.hanSansBoldFont(ofSize: 16)
+        }
+        else{
+            progressLabel.font = UIFont.hanSansBoldFont(ofSize: 16)
+            completeLabel.font = UIFont.hanSansMediumFont(ofSize: 16)
+        }
+    }
 //MARK: Server
 }
 
 //MARK: Extension
-
+extension PlansListVC: UICollectionViewDelegate{
+    
+}
+extension PlansListVC: UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
+    }
+    
+    
+}
+extension PlansListVC: UICollectionViewDelegateFlowLayout{
+    
+}
