@@ -25,6 +25,12 @@ class RequestPlansContentsVC: UIViewController {
     private let friendSelectionLabel = UILabel().then{
         $0.text = "약속 신청할 친구를 선택하세요"
         $0.font = UIFont.hanSansRegularFont(ofSize: 18)
+        let attributedString = NSMutableAttributedString(string: "약속 신청할 친구를 선택하세요")
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.pink01, range: ($0.text! as NSString).range(of:"친구"))
+        attributedString.addAttribute(.font, value: UIFont.hanSansBoldFont(ofSize: 18), range: ($0.text! as NSString).range(of: "친구"))
+        $0.attributedText = attributedString
+        
+
     }
     
     private let searchTextField = UITextField().then{
@@ -44,6 +50,10 @@ class RequestPlansContentsVC: UIViewController {
     private let contentsWritingLabel = UILabel().then{
         $0.text = "약속의 내용을 작성하세요"
         $0.font = UIFont.hanSansRegularFont(ofSize: 18)
+        let attributedString = NSMutableAttributedString(string: "약속의 내용을 작성하세요")
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.pink01, range: ($0.text! as NSString).range(of:"내용"))
+        attributedString.addAttribute(.font, value: UIFont.hanSansBoldFont(ofSize: 18), range: ($0.text! as NSString).range(of: "내용"))
+        $0.attributedText = attributedString
     }
     
     private let plansContentsView = UIView().then{
@@ -64,6 +74,7 @@ class RequestPlansContentsVC: UIViewController {
         $0.font = UIFont.hanSansRegularFont(ofSize: 14)
         $0.backgroundColor = UIColor.grey01
         $0.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        $0.textContainer.lineFragmentPadding = 0
         $0.scrollIndicatorInsets = $0.textContainerInset
     }
     
@@ -86,6 +97,7 @@ class RequestPlansContentsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
+        setPlaceholder()
     }
     
 //MARK: Layout
@@ -168,6 +180,29 @@ class RequestPlansContentsVC: UIViewController {
         }
         
     }
-
    
+}
+
+//MARK: Extension
+extension RequestPlansContentsVC: UITextViewDelegate{
+    func setPlaceholder() {
+        plansContentsTextView.delegate = self
+        plansContentsTextView.text = "약속 상세 내용"
+        plansContentsTextView.textColor = UIColor.grey04
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.grey04{
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "약속 상세 내용"
+            textView.textColor = UIColor.grey04
+        }
+    }
+
 }
