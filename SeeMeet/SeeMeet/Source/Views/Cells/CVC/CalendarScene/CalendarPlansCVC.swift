@@ -18,7 +18,7 @@ class CalendarPlansCVC: UICollectionViewCell {
     private let headerView: UIView = UIView().then {
         $0.layer.cornerRadius = CGFloat(10.0)
         $0.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        $0.backgroundColor = UIColor.black // grey06으로 수정 필요
+        $0.backgroundColor = UIColor.grey06
     }
     
     let headerTitle: UILabel = UILabel().then {
@@ -27,7 +27,7 @@ class CalendarPlansCVC: UICollectionViewCell {
     }
     
     let hourLabel: UILabel = UILabel().then {
-        $0.textColor = .grey05 // grey06으로 수정 필요
+        $0.textColor = .grey06
         $0.font = UIFont(name: "DINPro-Regular", size: 14.0)
         $0.text = "오전 11:00"
     }
@@ -47,19 +47,21 @@ class CalendarPlansCVC: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        getShadowView(color: UIColor.black.cgColor, masksToBounds: false, shadowOffset: CGSize(width: 0, height: 4), shadowRadius: 3, shadowOpacity: 0.25)
         setBaseViewLayouts()
         setContentViewLayouts()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        getShadowView(color: UIColor.black.cgColor, masksToBounds: false, shadowOffset: CGSize(width: 0, height: 4), shadowRadius: 3, shadowOpacity: 0.25)
         setBaseViewLayouts()
         setContentViewLayouts()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        getShadowView(color: UIColor.black.cgColor, masksToBounds: false, shadowOffset: CGSize(width: 0, height: 4), shadowRadius: 3, shadowOpacity: 0.25)
         setBaseViewLayouts()
         setContentViewLayouts()
     }
