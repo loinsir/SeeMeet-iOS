@@ -76,6 +76,8 @@ class CalendarVC: UIViewController {
     private func setLayouts() {
         navigationController?.navigationBar.isHidden = true
         
+        layoutCalendarWeekdaySeparator()
+
         addSubviewAndConstraints(add: calendarHeaderLabel, to: view) {
             $0.leading.equalToSuperview().offset(20)
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(25)
