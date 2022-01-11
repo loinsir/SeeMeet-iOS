@@ -22,6 +22,7 @@ class HomeVC: UIViewController {
     }
     private let notificationButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "profile_Dummy"), for: .normal)
+        $0.addTarget(self, action: #selector(notiButtonClicked(_:)), for: .touchUpInside)
     }
     private let dDayLabel = UILabel().then{
         $0.font = UIFont.hanSansRegularFont(ofSize: 22)
@@ -73,7 +74,7 @@ class HomeVC: UIViewController {
     }
 //MARK: Layout
     func setHomeLayout() {
-        
+        self.navigationController?.isNavigationBarHidden = true
         let viewRatio = userHeight / 724
         print(viewRatio)
         
@@ -163,6 +164,11 @@ class HomeVC: UIViewController {
         dDayText.addAttribute(.foregroundColor, value: UIColor.white, range: (text as NSString).range(of: "\(lastEventCont)일"))
         dDayLabel.attributedText = dDayText
     }
+    
+    @objc private func notiButtonClicked(_ sender: UIButton){
+        guard let plansVC = UIStoryboard(name: "PlansList", bundle: nil).instantiateViewController(withIdentifier: PlansListVC.identifier) as? PlansListVC else {return}
+        self.navigationController?.pushViewController(plansVC, animated: true)
+     }
     
 //MARK: Server
 }
