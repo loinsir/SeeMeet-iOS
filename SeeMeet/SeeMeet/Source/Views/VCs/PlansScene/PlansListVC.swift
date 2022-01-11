@@ -93,20 +93,24 @@ class PlansListVC: UIViewController {
         return collectionView
     }()
 //MARK: Var
+    static let identifier: String = "PlansListVC"
+    
     var progressPlansCount: Int = 0
     var userWidth: CGFloat = UIScreen.getDeviceWidth()
     var userHeight: CGFloat = UIScreen.getDeviceHeight() - 88
 //MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        setHeaderLayout()
     }
 //MARK: Layout
     func setHeaderLayout() {
         view.addSubview(plansListBackgroundView)
         plansListBackgroundView.addSubview(headerView)
-        headerView.addSubviews([backButton, headerLabel, progressView, completeView])
+        headerView.addSubviews([backButton, headerLabel, progressView, completeView, bottomView])
         progressView.addSubview(progressLabel)
         completeView.addSubview(completeLabel)
+        
         
         plansListBackgroundView.snp.makeConstraints{
             $0.top.bottom.leading.trailing.equalToSuperview().offset(0)
@@ -116,14 +120,14 @@ class PlansListVC: UIViewController {
             $0.height.equalTo(152)
         }
         backButton.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(49)
+            $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(5)
             $0.leading.equalToSuperview().offset(2)
             $0.width.height.equalTo(48)
         }
         headerLabel.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(59)
+            $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(15)
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(70)
+            $0.width.equalTo(80)
         }
         progressView.snp.makeConstraints{
             $0.bottom.equalToSuperview().offset(0)
