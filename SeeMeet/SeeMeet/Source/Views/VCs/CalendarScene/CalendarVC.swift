@@ -26,10 +26,10 @@ class CalendarVC: UIViewController {
         $0.headerHeight = CGFloat.zero
         $0.appearance.titleFont =  UIFont(name: "DINPro-Regular", size: 16.0)
         $0.appearance.weekdayTextColor = UIColor.grey05
-        $0.appearance.titleDefaultColor = UIColor.grey05 // grey06으로 추후 변경
+        $0.appearance.titleDefaultColor = UIColor.grey06
         $0.appearance.todayColor = UIColor.pink01
         $0.appearance.eventDefaultColor = UIColor.pink01
-        $0.appearance.selectionColor = UIColor.grey05 // grey06으로 추후 변경
+        $0.appearance.selectionColor = UIColor.grey06
     }
     
     private let bottomCollectionContainerView: UIView = UIView().then {
@@ -38,7 +38,7 @@ class CalendarVC: UIViewController {
     
     private let dateAndDayLabel: UILabel = UILabel().then {
         $0.font = UIFont(name: "SpoqaHanSansNeo-Bold", size: 18)
-        $0.textColor = UIColor.grey05 // grey06 추후 변경
+        $0.textColor = UIColor.grey06
         
         let nowDate = Date()
         let currentMonth = Calendar.current.component(.month, from: nowDate)
@@ -76,6 +76,8 @@ class CalendarVC: UIViewController {
     private func setLayouts() {
         navigationController?.navigationBar.isHidden = true
         
+        layoutCalendarWeekdaySeparator()
+
         addSubviewAndConstraints(add: calendarHeaderLabel, to: view) {
             $0.leading.equalToSuperview().offset(20)
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(25)
@@ -94,7 +96,7 @@ class CalendarVC: UIViewController {
             $0.top.equalTo(calendar.snp.bottom)
             $0.leading.trailing.equalToSuperview()
             if UIScreen.hasNotch {
-                $0.bottom.equalTo(view.snp.bottom).offset(87)
+                $0.bottom.equalTo(view.snp.bottom).offset(88)
             } else {
                 $0.bottom.equalTo(view.snp.bottom).offset(77)
             }
@@ -112,6 +114,18 @@ class CalendarVC: UIViewController {
             $0.top.equalTo(dateAndDayLabel.snp.bottom).offset(16)
         }
         
+    }
+    
+    private func layoutCalendarWeekdaySeparator() {
+        let separator: UIView = UIView()
+        separator.backgroundColor = UIColor.grey01
+        calendar.addSubview(separator)
+        separator.snp.makeConstraints {
+            $0.top.equalTo(calendar.calendarWeekdayView.snp.bottom)
+            $0.leading.equalTo(20)
+            $0.trailing.equalTo(-20)
+            $0.height.equalTo(1)
+        }
     }
     
     private func addSubviewAndConstraints(add subView: UIView, to superView: UIView, snapkitClosure closure: (ConstraintMaker) -> Void) {
