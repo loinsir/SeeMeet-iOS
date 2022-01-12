@@ -182,9 +182,11 @@ class RequestPlansContentsVC: UIViewController {
         
     }
     
-//MARK: Fuction
+//MARK: Delegate
     func setDelegate(){
         searchTextField.delegate = self
+        plansTitleTextField.delegate = self
+        plansContentsTextView.delegate = self
     }
    
 }
@@ -192,7 +194,6 @@ class RequestPlansContentsVC: UIViewController {
 //MARK: Extension
 extension RequestPlansContentsVC: UITextViewDelegate{
     func setPlaceholder() {
-        plansContentsTextView.delegate = self
         plansContentsTextView.text = "약속 상세 내용"
         plansContentsTextView.textColor = UIColor.grey04
     }
@@ -202,6 +203,8 @@ extension RequestPlansContentsVC: UITextViewDelegate{
             textView.text = nil
             textView.textColor = UIColor.black
         }
+        plansContentsView.layer.borderColor = UIColor.pink01.cgColor
+        plansContentsView.layer.borderWidth = 1.0
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -209,16 +212,33 @@ extension RequestPlansContentsVC: UITextViewDelegate{
             textView.text = "약속 상세 내용"
             textView.textColor = UIColor.grey04
         }
+        plansContentsView.layer.borderWidth = 0
     }
 }
 
 extension RequestPlansContentsVC: UITextFieldDelegate{
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.layer.borderColor = UIColor.pink01.cgColor
-        textField.layer.borderWidth = 1.0
+        switch textField{
+        case searchTextField:
+            textField.layer.borderColor = UIColor.pink01.cgColor
+            textField.layer.borderWidth = 1.0
+        case plansTitleTextField:
+            plansContentsView.layer.borderColor = UIColor.pink01.cgColor
+            plansContentsView.layer.borderWidth = 1.0
+        default:
+            textField.layer.borderWidth = 0
+        }
+        
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.layer.borderWidth = 0
+        switch textField{
+        case searchTextField:
+            textField.layer.borderWidth = 0
+        case plansTitleTextField:
+            plansContentsView.layer.borderWidth = 0
+        default:
+            textField.layer.borderWidth = 0
+        }
     }
 }
