@@ -11,7 +11,8 @@
 <br>
 
 ##  SeeMeet iOS Contributors
- <img src="https://user-images.githubusercontent.com/46644241/124632766-97b0d380-debf-11eb-9ec7-734b282cbc5d.png" width="500"> | <img src="https://user-images.githubusercontent.com/73978827/149061946-7c63b407-19f7-439a-a1fe-03a7fd883a88.jpeg" width="500"> | <img src="https://user-images.githubusercontent.com/73978827/149061994-d141a321-93be-409e-b14b-5cd7237a399f.jpeg" width="500"> | 
+ <img src="https://user-images.githubusercontent.com/46644241/124632766-97b0d380-debf-11eb-9ec7-734b282cbc5d.png" width="500"> |![KakaoTalk_Photo_2022-01-12-23-18-51](https://user-images.githubusercontent.com/51031771/149157587-6ab3e126-003f-420f-948c-d86a41dcc9a8.jpeg)
+ | <img src="https://user-images.githubusercontent.com/73978827/149061994-d141a321-93be-409e-b14b-5cd7237a399f.jpeg" width="500"> | 
  :---------:|:----------:|:---------:
  🍎 박익범 | 🍎 김인환 | 🍎 이유진 
  [swikkft](https://github.com/parkikbum) | [loinsir](https://github.com/loinsir) | [yujinnee](https://github.com/yujinnee)
