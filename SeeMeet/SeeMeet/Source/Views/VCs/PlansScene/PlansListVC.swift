@@ -50,9 +50,9 @@ class PlansListVC: UIViewController {
     }
     //collectionViewHeader
     private let progressHeadLabel = UILabel().then{
-//        $0.font = UIFont.hanSansMediumFont(ofSize: 24)
-//        let text = $0.setTextAttribute(defaultText: "진행 중이에요", containText: "진행 중", changingFont: UIFont.hanSansBoldFont(ofSize: 24), color: UIColor.grey06)
-//        $0.attributedText = text
+        $0.font = UIFont.hanSansMediumFont(ofSize: 24)
+        let text = $0.setTextFontAttribute(defaultText: "진행 중이에요", containText: "진행 중", changingFont: UIFont.hanSansBoldFont(ofSize: 24), color: UIColor.grey06)
+        $0.attributedText = text
     }
     private let completeHeadLabel = UILabel().then{
         $0.text = "완료되었어요."
@@ -76,7 +76,7 @@ class PlansListVC: UIViewController {
         layout.minimumInteritemSpacing = 0
         layout.scrollDirection = .vertical
         collectionView.setCollectionViewLayout(layout, animated: false)
-        collectionView.backgroundColor = .blue
+        collectionView.backgroundColor = .none
         collectionView.bounces = true
         collectionView.showsVerticalScrollIndicator = false
         return collectionView
@@ -89,7 +89,7 @@ class PlansListVC: UIViewController {
         layout.minimumInteritemSpacing = 0
         layout.scrollDirection = .vertical
         collectionView.setCollectionViewLayout(layout, animated: false)
-        collectionView.backgroundColor = .red
+        collectionView.backgroundColor = .none
         collectionView.bounces = true
         collectionView.showsVerticalScrollIndicator = false
         return collectionView
@@ -177,6 +177,9 @@ class PlansListVC: UIViewController {
         progressCollectionView.dataSource = self
         completeCollectionView.delegate = self
         completeCollectionView.dataSource = self
+        
+        progressCollectionView.registerCustomXib(xibName: "ProgressSendCVC")
+        completeCollectionView.registerCustomXib(xibName: "ProgressSendCVC")
                 
         collectionScrollView.contentSize = CGSize(width: userWidth * 2, height: userHeight - 152)
 
@@ -275,19 +278,32 @@ class PlansListVC: UIViewController {
 
 //MARK: Extension
 extension PlansListVC: UICollectionViewDelegate{
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: userWidth - 40, height: 144.0)
+    }
 }
 extension PlansListVC: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: ProgressSendCVC.identifier, for: indexPath) as! ProgressSendCVC
+        return cell
     }
     
     
 }
 extension PlansListVC: UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 20
+    }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+    }
 }
