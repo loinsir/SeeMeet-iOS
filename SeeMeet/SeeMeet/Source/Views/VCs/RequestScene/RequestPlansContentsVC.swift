@@ -98,6 +98,7 @@ class RequestPlansContentsVC: UIViewController {
         super.viewDidLoad()
         setLayout()
         setPlaceholder()
+        setDelegate()
     }
     
 //MARK: Layout
@@ -180,6 +181,11 @@ class RequestPlansContentsVC: UIViewController {
         }
         
     }
+    
+//MARK: Fuction
+    func setDelegate(){
+        searchTextField.delegate = self
+    }
    
 }
 
@@ -204,5 +210,15 @@ extension RequestPlansContentsVC: UITextViewDelegate{
             textView.textColor = UIColor.grey04
         }
     }
+}
 
+extension RequestPlansContentsVC: UITextFieldDelegate{
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderColor = UIColor.pink01.cgColor
+        textField.layer.borderWidth = 1.0
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.layer.borderWidth = 0
+    }
 }
