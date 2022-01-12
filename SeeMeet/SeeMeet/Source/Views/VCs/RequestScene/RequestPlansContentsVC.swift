@@ -70,12 +70,15 @@ class RequestPlansContentsVC: UIViewController {
         $0.backgroundColor = UIColor.grey02
     }
     
+    
+    
     private let plansContentsTextView = UITextView().then{
         $0.font = UIFont.hanSansRegularFont(ofSize: 14)
         $0.backgroundColor = UIColor.grey01
         $0.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         $0.textContainer.lineFragmentPadding = 0
         $0.scrollIndicatorInsets = $0.textContainerInset
+    
     }
     
     private let navigationLineView = UIView().then{
@@ -214,6 +217,17 @@ extension RequestPlansContentsVC: UITextViewDelegate{
         }
         plansContentsView.layer.borderWidth = 0
     }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        let attrString = NSMutableAttributedString(string: textView.text,attributes: [.font: UIFont.hanSansRegularFont(ofSize: 14),.kern: -0.6])
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 10
+        attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: NSMakeRange(0, attrString.length))
+        textView.attributedText = attrString
+        print(attrString)
+            }
+ 
+
 }
 
 extension RequestPlansContentsVC: UITextFieldDelegate{
@@ -242,3 +256,4 @@ extension RequestPlansContentsVC: UITextFieldDelegate{
         }
     }
 }
+
