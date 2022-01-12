@@ -12,7 +12,6 @@ import Then
 class ProgressSendCVC: UICollectionViewCell {
         
     //Property
-    private var nameTagButtonList: [UIButton]!
     private let cellHeadLabel = UILabel().then{
         $0.font = UIFont.hanSansBoldFont(ofSize: 18)
         $0.textColor = UIColor.black
