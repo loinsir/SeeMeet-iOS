@@ -1,5 +1,10 @@
 import UIKit
 
+fileprivate let userHeight = UIScreen.getDeviceHeight() - 0.0
+fileprivate let userWidth = UIScreen.getDeviceWidth() - 0.0
+fileprivate let heightRatio = userHeight / 821
+fileprivate let widthRatio = userWidth / 375
+
 class CalendarDetailVC: UIViewController {
     
     // MARK: - properties
@@ -15,7 +20,7 @@ class CalendarDetailVC: UIViewController {
         $0.addTarget(self, action: #selector(touchBackButton(_:)), for: .touchUpInside)
     }
     
-    let navigationTitle: UILabel = UILabel().then {
+    let navigationTitleLabel: UILabel = UILabel().then {
         $0.font = UIFont(name: "SpoqaHanSansNeo-Medium", size: 18.0)
         $0.textAlignment = .center
         $0.text = "2022년 1월 15일 금요일"
@@ -37,21 +42,22 @@ class CalendarDetailVC: UIViewController {
         $0.text = "오전 11:00 - 오후 2:00"
     }
     
-    let nameTagStackView: UIStackView = UIStackView().then {
+    private let nameTagStackView: UIStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.alignment = .fill
+        $0.distribution = .fillProportionally
         $0.spacing = 10
-        $0.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        $0.layoutMargins = UIEdgeInsets(top: 10 * heightRatio, left: 10 * widthRatio, bottom: 10 * heightRatio, right: 10 * widthRatio)
         $0.isLayoutMarginsRelativeArrangement = true
     }
     
-    let nameList: [String] = ["유명한사"]
+    let nameList: [String] = ["김인환", "김인환"]
     
     private let separator: UIView = UIView().then {
         $0.backgroundColor = UIColor.grey02
     }
     
-    let letterView: UIView = UIView().then {
+    private let letterView: UIView = UIView().then {
         $0.backgroundColor = UIColor.grey01
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 10
@@ -64,7 +70,7 @@ class CalendarDetailVC: UIViewController {
         $0.lineBreakMode = .byTruncatingTail
     }
     
-    let letterSeparator: UIView = UIView().then {
+    private let letterSeparator: UIView = UIView().then {
         $0.backgroundColor = UIColor.grey02
     }
     
@@ -74,10 +80,37 @@ class CalendarDetailVC: UIViewController {
         $0.textColor = UIColor.grey06
         $0.font = UIFont(name: "SpoqaHanSansNeo-Regular", size: 14)
         $0.text = "야그들아 대방어먹게 시간 비워놔라야그들아 대방어먹게 시간 비워놔라 야그들아 대방어먹게 시간 비워놔라야그들아 대방어먹게 시간 비워놔라 야그들아 대방어먹게 시간 비워놔라야그들아 대방어먹게 시간 비워놔라 야그들아 대방어먹게 시간 비워놔라야그들아 대방어먹게 시간 비워놔라 야그들아 대방어먹게 시간 비워놔라야그들아 대방어먹게 시간 비워놔라 야그들 "
+        
+        $0.textContainerInset = UIEdgeInsets(top: 10 * heightRatio, left: 10 * widthRatio, bottom: 10 * heightRatio, right: 10 * widthRatio)
     }
     
-    var userHeight = UIScreen.getDeviceHeight() - 0.0
-    var userWidth = UIScreen.getDeviceWidth() - 0.0
+    private let organizerLabel: UILabel = UILabel().then {
+        $0.text = "약속 주최자"
+        $0.font = UIFont(name: "SpoqaHanSansNeo-Bold", size: 14)
+        $0.textColor = UIColor.grey04
+    }
+    
+    private let divider: UIView = UIView().then {
+        $0.backgroundColor = UIColor.grey04
+    }
+    
+    let organizerNameLabel: UILabel = UILabel().then {
+        $0.text = "김준희"
+        $0.font = UIFont(name: "SpoqaHanSansNeo-Bold", size: 15)
+    }
+    
+    private let bottomSeparator: UIView = UIView().then {
+        $0.backgroundColor = UIColor.grey02
+    }
+    
+    private let deleteButton: UIButton = UIButton().then {
+        $0.backgroundColor = UIColor.grey04
+        $0.setTitle("약속 삭제", for: .normal)
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 10
+        
+        $0.addTarget(self, action: #selector(touchDeleteButton(_:)), for: .touchUpInside)
+    }
     
     // MARK: - Life Cycle
 
@@ -87,13 +120,15 @@ class CalendarDetailVC: UIViewController {
     }
     
     private func setLayouts() {
-        let heightRatio = userHeight / 821
-        let widthRatio = userWidth / 375
 
         view.addSubview(topView)
         topView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalTo(102 * heightRatio)
+            if UIScreen.hasNotch {
+                $0.height.equalTo(102 * heightRatio)
+            } else {
+                $0.height.equalTo(CGFloat(58 + UIScreen.getIndecatorHeight()) * heightRatio)
+            }
         }
         
         topView.addSubview(backButton)
@@ -103,8 +138,8 @@ class CalendarDetailVC: UIViewController {
             $0.bottom.equalToSuperview().offset(-5 * heightRatio)
         }
         
-        topView.addSubview(navigationTitle)
-        navigationTitle.snp.makeConstraints {
+        topView.addSubview(navigationTitleLabel)
+        navigationTitleLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.height.equalTo(32 * heightRatio)
             $0.bottom.equalToSuperview().offset(-11 * heightRatio)
@@ -133,17 +168,16 @@ class CalendarDetailVC: UIViewController {
         nameList.forEach {
             let label = UILabel()
             label.text = $0
-            label.sizeToFit()
             label.textColor = UIColor.white
             label.textAlignment = .center
             label.backgroundColor = UIColor.pink01
             label.clipsToBounds = true
-            label.layer.cornerRadius = 12
+            label.layer.cornerRadius = 10
             
             let numberOfCharacters = $0.count
             label.snp.makeConstraints {
                 $0.height.equalTo(26 * heightRatio)
-                $0.width.equalTo(63 * Int(widthRatio) * (numberOfCharacters / 3))
+                $0.width.equalTo(63 * Int(widthRatio) * numberOfCharacters / 3)
             }
             nameTagStackView.addArrangedSubview(label)
         }
@@ -178,8 +212,7 @@ class CalendarDetailVC: UIViewController {
             $0.height.equalTo(1)
             $0.top.equalTo(letterTitleLabel.snp.bottom).offset(9 * heightRatio)
         }
-        
-//        letterContentView.get
+  
         letterView.addSubview(letterContentView)
         letterContentView.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(9 * widthRatio)
@@ -187,10 +220,50 @@ class CalendarDetailVC: UIViewController {
             $0.trailing.equalToSuperview().offset(-5 * widthRatio)
             $0.bottom.equalToSuperview().offset(-8 * heightRatio)
         }
-
+        
+        view.addSubview(organizerLabel)
+        organizerLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(25 * widthRatio)
+            $0.top.equalTo(letterView.snp.bottom).offset(10 * heightRatio)
+        }
+        
+        view.addSubview(divider)
+        divider.snp.makeConstraints {
+            $0.leading.equalTo(organizerLabel.snp.trailing).offset(10 * widthRatio)
+            $0.top.equalTo(letterView.snp.bottom).offset(10 * heightRatio)
+            $0.width.equalTo(1)
+            $0.height.equalTo(16 * heightRatio)
+        }
+        
+        view.addSubview(organizerNameLabel)
+        organizerNameLabel.snp.makeConstraints {
+            $0.top.equalTo(letterView.snp.bottom).offset(8 * heightRatio)
+            $0.leading.equalTo(divider.snp.trailing).offset(15.5 * widthRatio)
+        }
+        
+        tabBarController?.tabBar.isHidden = true
+        view.addSubview(bottomSeparator)
+        bottomSeparator.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(1)
+            $0.bottom.equalTo(-112 * heightRatio)
+        }
+        
+        view.addSubview(deleteButton)
+        deleteButton.snp.makeConstraints {
+            $0.top.equalTo(bottomSeparator.snp.bottom).offset(16 * heightRatio)
+            $0.leading.equalTo(20 * widthRatio)
+            $0.trailing.equalTo(-20 * widthRatio)
+            $0.height.equalTo(54 * heightRatio)
+        }
+        
     }
     
     @objc private func touchBackButton(_ sender: UIButton) {
+        
+    }
+    
+    @objc private func touchDeleteButton(_ sender: UIButton) {
         
     }
 
