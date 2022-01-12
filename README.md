@@ -3,7 +3,7 @@
 #  씨밋 - SeeMeet
 > **약속부터 만남까지, 더 가까운 우리 사이 SeeMeet** <br>
 >
-> SOPT 28th APP JAM <br>
+> SOPT 29th APP JAM <br>
 > 프로젝트 기간 : 2021.1.3 ~ 
 
 <br>
