@@ -256,7 +256,6 @@ class CalendarDetailVC: UIViewController {
             $0.trailing.equalTo(-20 * widthRatio)
             $0.height.equalTo(54 * heightRatio)
         }
-        
     }
     
     @objc private func touchBackButton(_ sender: UIButton) {
