@@ -27,6 +27,12 @@ class PlansListVC: UIViewController {
     private let completeView = UIView().then {
         $0.backgroundColor = .none
     }
+    private let progressHeadView = UIView().then{
+        $0.backgroundColor = .none
+    }
+    private let completeHeadView = UIView().then{
+        $0.backgroundColor = .none
+    }
     private let progressLabel = UILabel().then {
         $0.text = "진행중"
         $0.font = UIFont.hanSansBoldFont(ofSize: 16)
@@ -44,8 +50,9 @@ class PlansListVC: UIViewController {
     }
     //collectionViewHeader
     private let progressHeadLabel = UILabel().then{
-        $0.text = "진행중이에요."
-        $0.textColor = UIColor.grey06
+//        $0.font = UIFont.hanSansMediumFont(ofSize: 24)
+//        let text = $0.setTextAttribute(defaultText: "진행 중이에요", containText: "진행 중", changingFont: UIFont.hanSansBoldFont(ofSize: 24), color: UIColor.grey06)
+//        $0.attributedText = text
     }
     private let completeHeadLabel = UILabel().then{
         $0.text = "완료되었어요."
@@ -55,11 +62,8 @@ class PlansListVC: UIViewController {
     private let completeHeadCountLabel = UILabel()
     //collectionScrollView
     private let collectionScrollView = UIScrollView().then{
-        //$0.tag = 1
         $0.isPagingEnabled = true
         $0.bounces = false
-        //$0.contentSize.width = UIScreen.main.bounds.width
-        //$0.contentSize = CGSize(width: UIScreen.main.bounds.width*2, height:   - (userHeigth * 0.27 + 151))
         $0.backgroundColor = .none
         $0.showsHorizontalScrollIndicator = false
         $0.showsVerticalScrollIndicator = false
@@ -164,16 +168,16 @@ class PlansListVC: UIViewController {
     }
     func setScrollViewLayout() {
         plansListBackgroundView.addSubview(collectionScrollView)
-        collectionScrollView.addSubviews([progressCollectionView, completeCollectionView])
+        collectionScrollView.addSubviews([progressHeadView, completeHeadView, progressCollectionView, completeCollectionView])
+        progressHeadView.addSubviews([progressHeadLabel, progressHeadCountLabel])
+        completeHeadView.addSubviews([completeHeadLabel, completeHeadCountLabel])
         
         collectionScrollView.delegate = self
         progressCollectionView.delegate = self
         progressCollectionView.dataSource = self
         completeCollectionView.delegate = self
         completeCollectionView.dataSource = self
-        
-        collectionScrollView.backgroundColor = .black
-        
+                
         collectionScrollView.contentSize = CGSize(width: userWidth * 2, height: userHeight - 152)
 
         
@@ -181,18 +185,55 @@ class PlansListVC: UIViewController {
             $0.top.equalTo(headerView.snp.bottom).offset(0)
             $0.leading.trailing.bottom.equalToSuperview().offset(0)
         }
-        
+        progressHeadView.snp.makeConstraints{
+            $0.top.equalTo(headerView.snp.bottom).offset(0)
+            $0.leading.equalToSuperview().offset(0)
+            $0.trailing.equalTo(completeHeadView.snp.leading).offset(0)
+            $0.bottom.equalTo(progressCollectionView.snp.top).offset(0)
+            $0.height.equalTo(90)
+            $0.width.equalTo(userWidth)
+        }
+        progressHeadLabel.snp.makeConstraints{
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview().offset(20)
+            $0.width.equalTo(145)
+        }
+        progressHeadCountLabel.snp.makeConstraints{
+            $0.centerY.equalTo(progressHeadLabel)
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.width.equalTo(35)
+        }
+        completeHeadView.snp.makeConstraints{
+            $0.top.equalTo(headerView.snp.bottom).offset(0)
+            $0.leading.equalTo(progressHeadView.snp.trailing).offset(0)
+            $0.trailing.equalToSuperview().offset(0)
+            $0.bottom.equalTo(completeCollectionView.snp.top)
+            $0.height.equalTo(90)
+            $0.width.equalTo(userWidth)
+        }
+        completeHeadLabel.snp.makeConstraints{
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview().offset(20)
+            $0.width.equalTo(145)
+        }
+        completeHeadCountLabel.snp.makeConstraints{
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.width.equalTo(35)
+        }
         progressCollectionView.snp.makeConstraints{
-            $0.top.bottom.leading.equalToSuperview().offset(0)
+            $0.top.equalTo(progressHeadView.snp.bottom).offset(0)
+            $0.bottom.leading.equalToSuperview().offset(0)
             $0.trailing.equalTo(completeCollectionView.snp.leading).offset(0)
             $0.width.equalTo(userWidth)
-            $0.height.equalTo(userHeight-152)
+            $0.height.equalTo(userHeight-242)
         }
         completeCollectionView.snp.makeConstraints{
-            $0.top.bottom.trailing.equalToSuperview().offset(0)
+            $0.top.equalTo(completeHeadView.snp.bottom).offset(0)
+            $0.bottom.trailing.equalToSuperview().offset(0)
             $0.leading.equalTo(progressCollectionView.snp.trailing).offset(0)
             $0.width.equalTo(userWidth)
-            $0.height.equalTo(userHeight-152)
+            $0.height.equalTo(userHeight-242)
         }
         
     }
