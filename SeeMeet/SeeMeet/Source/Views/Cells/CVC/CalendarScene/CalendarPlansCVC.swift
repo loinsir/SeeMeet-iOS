@@ -1,5 +1,10 @@
 import UIKit
 
+fileprivate let userHeight = UIScreen.getDeviceHeight() - 0.0
+fileprivate let userWidth = UIScreen.getDeviceWidth() - 0.0
+fileprivate let heightRatio = userHeight / 821
+fileprivate let widthRatio = userWidth / 375
+
 class CalendarPlansCVC: UICollectionViewCell {
     
     // MARK: - properties
@@ -36,8 +41,8 @@ class CalendarPlansCVC: UICollectionViewCell {
         $0.axis = .horizontal
         $0.alignment = .fill
         $0.distribution = .fillEqually
-        $0.spacing = 6
-        $0.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        $0.spacing = 6 * widthRatio
+        $0.layoutMargins = UIEdgeInsets(top: 10 * heightRatio, left: 10 * widthRatio, bottom: 10 * heightRatio, right: 10 * widthRatio)
         $0.isLayoutMarginsRelativeArrangement = true
     }
     
@@ -76,13 +81,13 @@ class CalendarPlansCVC: UICollectionViewCell {
         addSubview(headerView)
         headerView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalTo(52)
+            $0.height.equalTo(52 * heightRatio)
         }
         
         headerView.addSubview(headerTitle)
         headerTitle.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(22)
-            $0.top.equalToSuperview().offset(17)
+            $0.leading.equalToSuperview().offset(22 * widthRatio)
+            $0.top.equalToSuperview().offset(17 * heightRatio)
         }
     }
     
@@ -91,11 +96,11 @@ class CalendarPlansCVC: UICollectionViewCell {
         addSubview(hourLabel)
         hourLabel.snp.makeConstraints {
             if isSchedule {
-                $0.leading.equalToSuperview().offset(37)
-                $0.top.equalTo(headerView.snp.bottom).offset(31)
+                $0.leading.equalToSuperview().offset(37 * widthRatio)
+                $0.top.equalTo(headerView.snp.bottom).offset(31 * heightRatio)
             } else {
-                $0.leading.equalToSuperview().offset(22)
-                $0.top.equalTo(headerView.snp.bottom).offset(17)
+                $0.leading.equalToSuperview().offset(22 * widthRatio)
+                $0.top.equalTo(headerView.snp.bottom).offset(17 * heightRatio)
             }
         }
         
@@ -107,10 +112,10 @@ class CalendarPlansCVC: UICollectionViewCell {
 
             addSubview(nameLabelStackView)
             nameLabelStackView.snp.makeConstraints {
-                $0.leading.equalToSuperview().offset(12)
-                $0.top.equalTo(hourLabel.snp.bottom).offset(4)
-                $0.width.equalTo(200)
-                $0.height.equalTo(45)
+                $0.leading.equalToSuperview().offset(12 * widthRatio)
+                $0.top.equalTo(hourLabel.snp.bottom).offset(4 * heightRatio)
+                $0.width.equalTo(200 * widthRatio)
+                $0.height.equalTo(45 * heightRatio)
             }
             
             namesToShow.forEach {
