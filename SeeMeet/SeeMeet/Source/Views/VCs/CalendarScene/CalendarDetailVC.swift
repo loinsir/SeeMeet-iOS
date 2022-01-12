@@ -263,7 +263,9 @@ class CalendarDetailVC: UIViewController {
     }
     
     @objc private func touchDeleteButton(_ sender: UIButton) {
-        
+        let nextVC = DeletePopUpVC()
+        nextVC.modalPresentationStyle = .overCurrentContext
+        present(nextVC, animated: false, completion: nil)
     }
 
 }
