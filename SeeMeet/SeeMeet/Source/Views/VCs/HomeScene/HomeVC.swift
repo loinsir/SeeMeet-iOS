@@ -77,7 +77,7 @@ class HomeVC: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         let viewRatio = userHeight / 724
         print(viewRatio)
-        
+                        
         view.addSubview(homeBackgroundView)
         homeBackgroundView.addSubviews([topView, collectionViewHeadLabel])
         topView.addSubviews([menuButton, friendsButton, notificationButton, dDayLabel, characterImageView])
@@ -167,6 +167,7 @@ class HomeVC: UIViewController {
     
     @objc private func notiButtonClicked(_ sender: UIButton){
         guard let plansVC = UIStoryboard(name: "PlansList", bundle: nil).instantiateViewController(withIdentifier: PlansListVC.identifier) as? PlansListVC else {return}
+        self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.pushViewController(plansVC, animated: true)
      }
     

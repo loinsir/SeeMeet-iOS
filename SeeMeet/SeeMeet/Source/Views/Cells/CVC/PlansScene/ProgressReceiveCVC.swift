@@ -75,6 +75,7 @@ class ProgressReceiveCVC: UICollectionViewCell {
     func getStackButton(){
         nameDummy.forEach {
             let nameButton: UIButton = UIButton()
+            nameButton.titleLabel?.font = UIFont.hanSansMediumFont(ofSize: 14)
             nameButton.setTitle($0, for: .normal)
             if isAccept == true{
                 nameButton.setTitleColor(UIColor.white, for: .normal)

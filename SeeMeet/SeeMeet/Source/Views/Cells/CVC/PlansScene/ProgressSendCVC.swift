@@ -77,7 +77,7 @@ class ProgressSendCVC: UICollectionViewCell {
     func setButtonTitle(){
         nameButton.setTitle("하이요", for: .normal)
     }
-   
+       
     override func awakeFromNib() {
         super.awakeFromNib()
         setLayout()

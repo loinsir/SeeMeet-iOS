@@ -13,6 +13,7 @@ class PlansListVC: UIViewController {
     }
     private let backButton = UIButton().then {
         $0.setBackgroundImage(UIImage(named: "btn_back"), for: .normal)
+        $0.addTarget(self, action: #selector(backButtonClicked(_:)), for: .touchUpInside)
     }
     private let headerLabel = UILabel().then {
         $0.text = "약속 내역"
@@ -55,11 +56,19 @@ class PlansListVC: UIViewController {
         $0.attributedText = text
     }
     private let completeHeadLabel = UILabel().then{
-        $0.text = "완료되었어요."
+        $0.font = UIFont.hanSansMediumFont(ofSize: 24)
+        let text = $0.setTextFontAttribute(defaultText: "완료되었어요", containText: "완료", changingFont: UIFont.hanSansBoldFont(ofSize: 24), color: UIColor.grey06)
+        $0.attributedText = text
         $0.textColor = UIColor.grey06
     }
-    private let progressHeadCountLabel = UILabel()
-    private let completeHeadCountLabel = UILabel()
+    private let progressHeadCountLabel = UILabel().then{
+        $0.font = UIFont.dinProRegularFont(ofSize: 24)
+        $0.textColor = UIColor.grey06
+    }
+    private let completeHeadCountLabel = UILabel().then{
+        $0.font = UIFont.dinProRegularFont(ofSize: 24)
+        $0.textColor = UIColor.grey06
+    }
     //collectionScrollView
     private let collectionScrollView = UIScrollView().then{
         $0.isPagingEnabled = true
@@ -71,6 +80,7 @@ class PlansListVC: UIViewController {
     //progressCollectionView
     private var progressCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
+        collectionView.tag = 1
         let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
@@ -84,6 +94,7 @@ class PlansListVC: UIViewController {
     //completeCollectionView
     private var completeCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
+        collectionView.tag = 2
         let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
@@ -98,8 +109,9 @@ class PlansListVC: UIViewController {
     static let identifier: String = "PlansListVC"
     
     var progressPlansCount: Int = 0
+    var completePlansCount: Int = 0
     var userWidth: CGFloat = UIScreen.getDeviceWidth()
-    var userHeight: CGFloat = UIScreen.getDeviceHeight() - 88
+    var userHeight: CGFloat = UIScreen.getDeviceHeight()
 //MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -178,7 +190,8 @@ class PlansListVC: UIViewController {
         completeCollectionView.delegate = self
         completeCollectionView.dataSource = self
         
-        progressCollectionView.registerCustomXib(xibName: "CompletePlansCVC")
+        progressCollectionView.registerCustomXib(xibName: "ProgressSendCVC")
+        progressCollectionView.registerCustomXib(xibName: "ProgressReceiveCVC")
         completeCollectionView.registerCustomXib(xibName: "CompletePlansCVC")
                 
         collectionScrollView.contentSize = CGSize(width: userWidth * 2, height: userHeight - 152)
@@ -193,7 +206,7 @@ class PlansListVC: UIViewController {
             $0.leading.equalToSuperview().offset(0)
             $0.trailing.equalTo(completeHeadView.snp.leading).offset(0)
             $0.bottom.equalTo(progressCollectionView.snp.top).offset(0)
-            $0.height.equalTo(90)
+            $0.height.equalTo(74)
             $0.width.equalTo(userWidth)
         }
         progressHeadLabel.snp.makeConstraints{
@@ -211,7 +224,7 @@ class PlansListVC: UIViewController {
             $0.leading.equalTo(progressHeadView.snp.trailing).offset(0)
             $0.trailing.equalToSuperview().offset(0)
             $0.bottom.equalTo(completeCollectionView.snp.top)
-            $0.height.equalTo(90)
+            $0.height.equalTo(74)
             $0.width.equalTo(userWidth)
         }
         completeHeadLabel.snp.makeConstraints{
@@ -238,6 +251,8 @@ class PlansListVC: UIViewController {
             $0.width.equalTo(userWidth)
             $0.height.equalTo(userHeight-242)
         }
+        
+        setCountLabel()
         
     }
 //MARK: Function
@@ -273,30 +288,52 @@ class PlansListVC: UIViewController {
             completeLabel.font = UIFont.hanSansMediumFont(ofSize: 16)
         }
     }
-//MARK: Server
+    private func setCountLabel(){
+        progressHeadCountLabel.attributedText = progressHeadCountLabel.setTextFontAttribute(defaultText: "\(progressPlansCount)건", containText: String(progressPlansCount), changingFont: UIFont.dinProBoldFont(ofSize: 24), color: UIColor.pink01)
+        completeHeadCountLabel.attributedText = progressHeadCountLabel.setTextFontAttribute(defaultText: "\(completePlansCount)건", containText: String(completePlansCount), changingFont: UIFont.dinProBoldFont(ofSize: 24), color: UIColor.pink01)
+    }
+    @objc private func backButtonClicked(_ sender: UIButton){
+        self.navigationController?.popViewController(animated: true)
+        self.tabBarController?.tabBar.isHidden = false
+     }
+    //MARK: Server
 }
 
 //MARK: Extension
 extension PlansListVC: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: userWidth - 40, height: 144.0)
+        if collectionView.tag == 1{
+            return CGSize(width: userWidth-40, height: 144.0)
+        }
+        else{
+            return CGSize(width: userWidth, height: 146.0)
+        }
     }
 }
 extension PlansListVC: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: CompletePlansCVC.identifier, for: indexPath) as! CompletePlansCVC
-        return cell
+        switch collectionView.tag {
+        case 1:
+            let progressSendCell = collectionView.dequeueReusableCell(withReuseIdentifier: ProgressSendCVC.identifier, for: indexPath) as! ProgressSendCVC
+            let progressRecieveCell = collectionView.dequeueReusableCell(withReuseIdentifier: ProgressReceiveCVC.identifier, for: indexPath) as! ProgressReceiveCVC
+            return progressRecieveCell
+        case 2:
+            let completeCell =  collectionView.dequeueReusableCell(withReuseIdentifier: CompletePlansCVC.identifier, for: indexPath) as! CompletePlansCVC
+            return completeCell
+        default:
+            return UICollectionViewCell()
+        }
     }
     
     
 }
 extension PlansListVC: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -304,6 +341,11 @@ extension PlansListVC: UICollectionViewDelegateFlowLayout{
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        switch collectionView.tag {
+        case 1:
+            return UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        default:
+            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        }
     }
 }
