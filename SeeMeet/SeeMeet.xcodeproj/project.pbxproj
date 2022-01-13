@@ -13,6 +13,11 @@
 		1919F5D4278B5E18009F33AE /* CalendarPlansCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1919F5D2278B5E18009F33AE /* CalendarPlansCVC.swift */; };
 		1919F5D5278B5E18009F33AE /* CalendarPlansCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1919F5D3278B5E18009F33AE /* CalendarPlansCVC.xib */; };
 		191E8C1C278F38DC0042B8F1 /* String++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191E8C1B278F38DC0042B8F1 /* String++.swift */; };
+		191E8C1F278F477B0042B8F1 /* FriendsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191E8C1E278F477B0042B8F1 /* FriendsListVC.swift */; };
+		191E8C22278F47990042B8F1 /* FriendsList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 191E8C21278F47990042B8F1 /* FriendsList.storyboard */; };
+		191E8C26278F490A0042B8F1 /* FriendsListTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191E8C24278F490A0042B8F1 /* FriendsListTVC.swift */; };
+		191E8C27278F490A0042B8F1 /* FriendsListTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 191E8C25278F490A0042B8F1 /* FriendsListTVC.xib */; };
+		191E8C2A278FFB870042B8F1 /* SMSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191E8C29278FFB870042B8F1 /* SMSearchBar.swift */; };
 		360E6F4627898D4400DACFD8 /* HomeEventCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360E6F4427898D4400DACFD8 /* HomeEventCVC.swift */; };
 		360E6F4727898D4400DACFD8 /* HomeEventCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 360E6F4527898D4400DACFD8 /* HomeEventCVC.xib */; };
 		36545312278EA30400A0770F /* UILabel++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36545311278EA30400A0770F /* UILabel++.swift */; };
@@ -31,8 +36,6 @@
 		3682124A2785E643005D7236 /* DINPro-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3682123B2785E642005D7236 /* DINPro-Light.otf */; };
 		3682124B2785E643005D7236 /* SpoqaHanSansNeo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3682123C2785E642005D7236 /* SpoqaHanSansNeo-Bold.ttf */; };
 		3682124C2785E643005D7236 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3682123D2785E642005D7236 /* LICENSE */; };
-		368212522789779C005D7236 /* dummy3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368212512789779C005D7236 /* dummy3.swift */; };
-		3682125427897806005D7236 /* dummy1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3682125327897806005D7236 /* dummy1.swift */; };
 		36D9E8AF2789A7BF00D5244D /* Tabbar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36D9E8AE2789A7BF00D5244D /* Tabbar.storyboard */; };
 		36D9E8B12789A81A00D5244D /* TabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D9E8B02789A81A00D5244D /* TabbarVC.swift */; };
 		36EFE2ED2785682200466818 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EFE2EC2785682200466818 /* AppDelegate.swift */; };
@@ -58,6 +61,11 @@
 		1919F5D2278B5E18009F33AE /* CalendarPlansCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPlansCVC.swift; sourceTree = "<group>"; };
 		1919F5D3278B5E18009F33AE /* CalendarPlansCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarPlansCVC.xib; sourceTree = "<group>"; };
 		191E8C1B278F38DC0042B8F1 /* String++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String++.swift"; sourceTree = "<group>"; };
+		191E8C1E278F477B0042B8F1 /* FriendsListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListVC.swift; sourceTree = "<group>"; };
+		191E8C21278F47990042B8F1 /* FriendsList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FriendsList.storyboard; sourceTree = "<group>"; };
+		191E8C24278F490A0042B8F1 /* FriendsListTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListTVC.swift; sourceTree = "<group>"; };
+		191E8C25278F490A0042B8F1 /* FriendsListTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsListTVC.xib; sourceTree = "<group>"; };
+		191E8C29278FFB870042B8F1 /* SMSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSearchBar.swift; sourceTree = "<group>"; };
 		360E6F4427898D4400DACFD8 /* HomeEventCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEventCVC.swift; sourceTree = "<group>"; };
 		360E6F4527898D4400DACFD8 /* HomeEventCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeEventCVC.xib; sourceTree = "<group>"; };
 		36545311278EA30400A0770F /* UILabel++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel++.swift"; sourceTree = "<group>"; };
@@ -76,8 +84,6 @@
 		3682123B2785E642005D7236 /* DINPro-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DINPro-Light.otf"; sourceTree = "<group>"; };
 		3682123C2785E642005D7236 /* SpoqaHanSansNeo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Bold.ttf"; sourceTree = "<group>"; };
 		3682123D2785E642005D7236 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		368212512789779C005D7236 /* dummy3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy3.swift; sourceTree = "<group>"; };
-		3682125327897806005D7236 /* dummy1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy1.swift; sourceTree = "<group>"; };
 		36D9E8AE2789A7BF00D5244D /* Tabbar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tabbar.storyboard; sourceTree = "<group>"; };
 		36D9E8B02789A81A00D5244D /* TabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarVC.swift; sourceTree = "<group>"; };
 		36EFE2E92785682200466818 /* SeeMeet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeeMeet.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +134,39 @@
 				1912FCAD278AB7A000F33952 /* CalendarVC.swift */,
 			);
 			path = CalendarScene;
+			sourceTree = "<group>";
+		};
+		191E8C1D278F471E0042B8F1 /* FriendsScene */ = {
+			isa = PBXGroup;
+			children = (
+				191E8C1E278F477B0042B8F1 /* FriendsListVC.swift */,
+				191E8C29278FFB870042B8F1 /* SMSearchBar.swift */,
+			);
+			path = FriendsScene;
+			sourceTree = "<group>";
+		};
+		191E8C20278F47890042B8F1 /* FriendsScene */ = {
+			isa = PBXGroup;
+			children = (
+				191E8C21278F47990042B8F1 /* FriendsList.storyboard */,
+			);
+			path = FriendsScene;
+			sourceTree = "<group>";
+		};
+		191E8C23278F488E0042B8F1 /* FriendsScene */ = {
+			isa = PBXGroup;
+			children = (
+				191E8C24278F490A0042B8F1 /* FriendsListTVC.swift */,
+			);
+			path = FriendsScene;
+			sourceTree = "<group>";
+		};
+		191E8C28278F49250042B8F1 /* FriendsScene */ = {
+			isa = PBXGroup;
+			children = (
+				191E8C25278F490A0042B8F1 /* FriendsListTVC.xib */,
+			);
+			path = FriendsScene;
 			sourceTree = "<group>";
 		};
 		19E633DC278D73CF00776D0C /* CalendarScene */ = {
@@ -187,7 +226,7 @@
 		3682125927898C49005D7236 /* TVC */ = {
 			isa = PBXGroup;
 			children = (
-				368212512789779C005D7236 /* dummy3.swift */,
+				191E8C23278F488E0042B8F1 /* FriendsScene */,
 			);
 			path = TVC;
 			sourceTree = "<group>";
@@ -305,6 +344,7 @@
 		36EFE3062785C7F500466818 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				191E8C1D278F471E0042B8F1 /* FriendsScene */,
 				1912FCAC278AB77900F33952 /* CalendarScene */,
 				360E6F4A2789A74200DACFD8 /* Tabbar */,
 				36EFE3042785C7BE00466818 /* HomeScene */,
@@ -333,7 +373,7 @@
 		36EFE3092785C81F00466818 /* TVC */ = {
 			isa = PBXGroup;
 			children = (
-				3682125327897806005D7236 /* dummy1.swift */,
+				191E8C28278F49250042B8F1 /* FriendsScene */,
 			);
 			path = TVC;
 			sourceTree = "<group>";
@@ -341,6 +381,7 @@
 		36EFE30A2785C84C00466818 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				191E8C20278F47890042B8F1 /* FriendsScene */,
 				36D9E8AD2789A7B500D5244D /* Tabbar */,
 				36EFE30D2785C8BF00466818 /* HomeScene */,
 				1912FCAB278AB72600F33952 /* CalendarScene */,
@@ -458,6 +499,7 @@
 				368212492785E643005D7236 /* SpoqaHanSansNeo-Medium.ttf in Resources */,
 				36EFE2F62785682400466818 /* Assets.xcassets in Resources */,
 				3682124C2785E643005D7236 /* LICENSE in Resources */,
+				191E8C27278F490A0042B8F1 /* FriendsListTVC.xib in Resources */,
 				368212482785E643005D7236 /* DINPro-Bold.otf in Resources */,
 				1912FCB0278AB7BB00F33952 /* Calendar.storyboard in Resources */,
 				36D9E8AF2789A7BF00D5244D /* Tabbar.storyboard in Resources */,
@@ -468,6 +510,7 @@
 				368212462785E643005D7236 /* DINNeuzeitGroteskStd-BdCond.otf in Resources */,
 				368212402785E643005D7236 /* DINMittelschriftStd.otf in Resources */,
 				368212432785E643005D7236 /* DINPro-Black.otf in Resources */,
+				191E8C22278F47990042B8F1 /* FriendsList.storyboard in Resources */,
 				368212472785E643005D7236 /* DINEngschriftStd.otf in Resources */,
 				3682123E2785E643005D7236 /* DINNeuzeitGroteskStd-Light.otf in Resources */,
 				368212422785E643005D7236 /* SpoqaHanSansNeo-Thin.ttf in Resources */,
@@ -526,23 +569,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				36EFE3212785CC3B00466818 /* Date++.swift in Sources */,
+				191E8C2A278FFB870042B8F1 /* SMSearchBar.swift in Sources */,
 				36EFE31F2785CC3B00466818 /* UIFont++.swift in Sources */,
 				1912FCAE278AB7A000F33952 /* CalendarVC.swift in Sources */,
 				36EFE31E2785CC3B00466818 /* UIView++.swift in Sources */,
 				1919F5D4278B5E18009F33AE /* CalendarPlansCVC.swift in Sources */,
 				36EFE31B2785CC3B00466818 /* UIScreen++.swift in Sources */,
+				191E8C26278F490A0042B8F1 /* FriendsListTVC.swift in Sources */,
 				36EFE3112785C8D600466818 /* HomeVC.swift in Sources */,
 				36EFE2ED2785682200466818 /* AppDelegate.swift in Sources */,
 				36EFE31D2785CC3B00466818 /* UIColor++.swift in Sources */,
-				368212522789779C005D7236 /* dummy3.swift in Sources */,
 				191E8C1C278F38DC0042B8F1 /* String++.swift in Sources */,
 				360E6F4627898D4400DACFD8 /* HomeEventCVC.swift in Sources */,
 				36EFE31A2785CC3B00466818 /* UIViewController++.swift in Sources */,
 				36EFE31C2785CC3B00466818 /* UICollectionView++.swift in Sources */,
 				6AAD47C6278DF01300D8C800 /* UITextField++.swift in Sources */,
+				191E8C1F278F477B0042B8F1 /* FriendsListVC.swift in Sources */,
 				36EFE2EF2785682200466818 /* SceneDelegate.swift in Sources */,
 				36EFE3202785CC3B00466818 /* UITabelView++.swift in Sources */,
-				3682125427897806005D7236 /* dummy1.swift in Sources */,
 				36545312278EA30400A0770F /* UILabel++.swift in Sources */,
 				36D9E8B12789A81A00D5244D /* TabbarVC.swift in Sources */,
 			);
