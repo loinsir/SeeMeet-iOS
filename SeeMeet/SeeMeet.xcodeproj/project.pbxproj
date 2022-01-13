@@ -12,8 +12,8 @@
 		1912FCB0278AB7BB00F33952 /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1912FCAF278AB7BB00F33952 /* Calendar.storyboard */; };
 		1919F5D4278B5E18009F33AE /* CalendarPlansCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1919F5D2278B5E18009F33AE /* CalendarPlansCVC.swift */; };
 		1919F5D5278B5E18009F33AE /* CalendarPlansCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1919F5D3278B5E18009F33AE /* CalendarPlansCVC.xib */; };
-		191E8C18278F01C60042B8F1 /* DeletePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191E8C17278F01C60042B8F1 /* DeletePopUpVC.swift */; };
-		191E8C1A278F01DD0042B8F1 /* DeletePopUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 191E8C19278F01DD0042B8F1 /* DeletePopUp.storyboard */; };
+		191E8C18278F01C60042B8F1 /* SMPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191E8C17278F01C60042B8F1 /* SMPopUpVC.swift */; };
+		191E8C1A278F01DD0042B8F1 /* SMPopUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 191E8C19278F01DD0042B8F1 /* SMPopUp.storyboard */; };
 		19E633DE278D84F200776D0C /* CalendarDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E633DD278D84F200776D0C /* CalendarDetailVC.swift */; };
 		19E633E1278D853500776D0C /* CalendarDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19E633E0278D853500776D0C /* CalendarDetail.storyboard */; };
 		360E6F4627898D4400DACFD8 /* HomeEventCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360E6F4427898D4400DACFD8 /* HomeEventCVC.swift */; };
@@ -60,8 +60,8 @@
 		1912FCAF278AB7BB00F33952 /* Calendar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
 		1919F5D2278B5E18009F33AE /* CalendarPlansCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPlansCVC.swift; sourceTree = "<group>"; };
 		1919F5D3278B5E18009F33AE /* CalendarPlansCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarPlansCVC.xib; sourceTree = "<group>"; };
-		191E8C17278F01C60042B8F1 /* DeletePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePopUpVC.swift; sourceTree = "<group>"; };
-		191E8C19278F01DD0042B8F1 /* DeletePopUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DeletePopUp.storyboard; sourceTree = "<group>"; };
+		191E8C17278F01C60042B8F1 /* SMPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMPopUpVC.swift; sourceTree = "<group>"; };
+		191E8C19278F01DD0042B8F1 /* SMPopUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SMPopUp.storyboard; sourceTree = "<group>"; };
 		19E633DD278D84F200776D0C /* CalendarDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailVC.swift; sourceTree = "<group>"; };
 		19E633E0278D853500776D0C /* CalendarDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CalendarDetail.storyboard; sourceTree = "<group>"; };
 		360E6F4427898D4400DACFD8 /* HomeEventCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEventCVC.swift; sourceTree = "<group>"; };
@@ -134,7 +134,6 @@
 			children = (
 				1912FCAD278AB7A000F33952 /* CalendarVC.swift */,
 				19E633DD278D84F200776D0C /* CalendarDetailVC.swift */,
-				191E8C17278F01C60042B8F1 /* DeletePopUpVC.swift */,
 			);
 			path = CalendarScene;
 			sourceTree = "<group>";
@@ -321,6 +320,7 @@
 		36EFE3062785C7F500466818 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				191E8C17278F01C60042B8F1 /* SMPopUpVC.swift */,
 				1912FCAC278AB77900F33952 /* CalendarScene */,
 				360E6F4A2789A74200DACFD8 /* Tabbar */,
 				36EFE3042785C7BE00466818 /* HomeScene */,
@@ -357,6 +357,7 @@
 		36EFE30A2785C84C00466818 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				191E8C19278F01DD0042B8F1 /* SMPopUp.storyboard */,
 				36D9E8AD2789A7B500D5244D /* Tabbar */,
 				36EFE30D2785C8BF00466818 /* HomeScene */,
 				1912FCAB278AB72600F33952 /* CalendarScene */,
@@ -386,7 +387,6 @@
 			isa = PBXGroup;
 			children = (
 				36EFE30E2785C8CA00466818 /* Home.storyboard */,
-				191E8C19278F01DD0042B8F1 /* DeletePopUp.storyboard */,
 			);
 			path = HomeScene;
 			sourceTree = "<group>";
@@ -472,7 +472,7 @@
 				36EFE30F2785C8CA00466818 /* Home.storyboard in Resources */,
 				36EFE2F92785682400466818 /* LaunchScreen.storyboard in Resources */,
 				3682124B2785E643005D7236 /* SpoqaHanSansNeo-Bold.ttf in Resources */,
-				191E8C1A278F01DD0042B8F1 /* DeletePopUp.storyboard in Resources */,
+				191E8C1A278F01DD0042B8F1 /* SMPopUp.storyboard in Resources */,
 				19E633E1278D853500776D0C /* CalendarDetail.storyboard in Resources */,
 				368212492785E643005D7236 /* SpoqaHanSansNeo-Medium.ttf in Resources */,
 				36EFE2F62785682400466818 /* Assets.xcassets in Resources */,
@@ -552,7 +552,7 @@
 				36EFE31B2785CC3B00466818 /* UIScreen++.swift in Sources */,
 				36EFE3112785C8D600466818 /* HomeVC.swift in Sources */,
 				36EFE2ED2785682200466818 /* AppDelegate.swift in Sources */,
-				191E8C18278F01C60042B8F1 /* DeletePopUpVC.swift in Sources */,
+				191E8C18278F01C60042B8F1 /* SMPopUpVC.swift in Sources */,
 				36EFE31D2785CC3B00466818 /* UIColor++.swift in Sources */,
 				368212522789779C005D7236 /* dummy3.swift in Sources */,
 				360E6F4627898D4400DACFD8 /* HomeEventCVC.swift in Sources */,

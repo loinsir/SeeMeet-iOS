@@ -30,7 +30,7 @@ class CalendarDetailVC: UIViewController {
     let eventTitleLabel: UILabel = UILabel().then {
         $0.font = UIFont(name: "SpoqaHanSansNeo-Bold", size: 22.0)
         $0.textColor = UIColor.grey06
-        $0.text = "대방어 데이를가지려는데 너희는 어떤지 점 궁금하다"
+        $0.text = "대방어 데이"
         $0.textAlignment = .left
         $0.numberOfLines = 0
         $0.lineBreakMode = .byCharWrapping
@@ -263,7 +263,7 @@ class CalendarDetailVC: UIViewController {
     }
     
     @objc private func touchDeleteButton(_ sender: UIButton) {
-        let nextVC = DeletePopUpVC()
+        let nextVC = SMPopUpVC(withType: .deletePlans)
         nextVC.modalPresentationStyle = .overCurrentContext
         present(nextVC, animated: false, completion: nil)
     }
