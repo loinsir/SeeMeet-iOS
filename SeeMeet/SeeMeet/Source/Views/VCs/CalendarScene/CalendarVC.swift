@@ -3,6 +3,11 @@ import Then
 import SnapKit
 import FSCalendar
 
+fileprivate let userHeight = UIScreen.getDeviceHeight() - 0.0
+fileprivate let userWidth = UIScreen.getDeviceWidth() - 0.0
+fileprivate let heightRatio = userHeight / 821
+fileprivate let widthRatio = userWidth / 375
+
 class CalendarVC: UIViewController {
     
     // MARK: - properties
@@ -21,7 +26,7 @@ class CalendarVC: UIViewController {
         $0.scrollDirection = .horizontal
         $0.allowsMultipleSelection = false
         $0.calendarHeaderView.isHidden = true
-        $0.weekdayHeight = CGFloat(55.0)
+        $0.weekdayHeight = CGFloat(55.0 * heightRatio)
         
         $0.headerHeight = CGFloat.zero
         $0.appearance.titleFont =  UIFont(name: "DINPro-Regular", size: 16.0)
@@ -51,8 +56,8 @@ class CalendarVC: UIViewController {
         let flowlayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout().then {
             $0.scrollDirection = .horizontal
             $0.minimumInteritemSpacing = CGFloat(16)
-            $0.sectionInset = UIEdgeInsets(top: 0, left: 20.0, bottom: 11, right: 20)
-            $0.itemSize = CGSize(width: 223.0, height: 146.0)
+            $0.sectionInset = UIEdgeInsets(top: 0, left: 20.0 * widthRatio, bottom: 11 * heightRatio, right: 20 * widthRatio)
+            $0.itemSize = CGSize(width: 223.0 * widthRatio, height: 146.0 * heightRatio)
         }
         
         collectionView.setCollectionViewLayout(flowlayout, animated: false)
@@ -79,39 +84,39 @@ class CalendarVC: UIViewController {
         layoutCalendarWeekdaySeparator()
 
         addSubviewAndConstraints(add: calendarHeaderLabel, to: view) {
-            $0.leading.equalToSuperview().offset(20)
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(25)
+            $0.leading.equalToSuperview().offset(20 * widthRatio)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(25 * heightRatio)
         }
         
         // 화면 작은 애들은 추후 수정 필요...?
         calendar.delegate = self
         addSubviewAndConstraints(add: calendar, to: view) {
-            $0.top.equalTo(calendarHeaderLabel.snp.bottom).offset(9)
+            $0.top.equalTo(calendarHeaderLabel.snp.bottom).offset(9 * heightRatio)
             $0.centerX.equalTo(view.snp.centerX)
-            $0.width.equalTo(378)
-            $0.height.equalTo(418)
+            $0.width.equalTo(378 * widthRatio)
+            $0.height.equalTo(418 * heightRatio)
         }
         
         addSubviewAndConstraints(add: bottomCollectionContainerView, to: view) {
             $0.top.equalTo(calendar.snp.bottom)
             $0.leading.trailing.equalToSuperview()
             if UIScreen.hasNotch {
-                $0.bottom.equalTo(view.snp.bottom).offset(88)
+                $0.bottom.equalTo(view.snp.bottom).offset(88 * widthRatio)
             } else {
-                $0.bottom.equalTo(view.snp.bottom).offset(77)
+                $0.bottom.equalTo(view.snp.bottom).offset(77 * widthRatio)
             }
         }
         
         addSubviewAndConstraints(add: dateAndDayLabel, to: bottomCollectionContainerView) {
-            $0.leading.equalToSuperview().offset(20)
-            $0.top.equalToSuperview().offset(16)
+            $0.leading.equalToSuperview().offset(20 * widthRatio)
+            $0.top.equalToSuperview().offset(16 * heightRatio)
         }
         
         collectionView.dataSource = self
         addSubviewAndConstraints(add: collectionView, to: bottomCollectionContainerView) {
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(157)
-            $0.top.equalTo(dateAndDayLabel.snp.bottom).offset(16)
+            $0.height.equalTo(157 * heightRatio)
+            $0.top.equalTo(dateAndDayLabel.snp.bottom).offset(16 * heightRatio)
         }
         
     }
@@ -122,9 +127,9 @@ class CalendarVC: UIViewController {
         calendar.addSubview(separator)
         separator.snp.makeConstraints {
             $0.top.equalTo(calendar.calendarWeekdayView.snp.bottom)
-            $0.leading.equalTo(20)
-            $0.trailing.equalTo(-20)
-            $0.height.equalTo(1)
+            $0.leading.equalTo(20 * widthRatio)
+            $0.trailing.equalTo(-20 * widthRatio)
+            $0.height.equalTo(1 * heightRatio)
         }
     }
     

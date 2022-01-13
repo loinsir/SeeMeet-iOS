@@ -16,6 +16,7 @@
 		191E8C1A278F01DD0042B8F1 /* SMPopUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 191E8C19278F01DD0042B8F1 /* SMPopUp.storyboard */; };
 		19E633DE278D84F200776D0C /* CalendarDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E633DD278D84F200776D0C /* CalendarDetailVC.swift */; };
 		19E633E1278D853500776D0C /* CalendarDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19E633E0278D853500776D0C /* CalendarDetail.storyboard */; };
+		191E8C1C278F38DC0042B8F1 /* String++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191E8C1B278F38DC0042B8F1 /* String++.swift */; };
 		360E6F4627898D4400DACFD8 /* HomeEventCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360E6F4427898D4400DACFD8 /* HomeEventCVC.swift */; };
 		360E6F4727898D4400DACFD8 /* HomeEventCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 360E6F4527898D4400DACFD8 /* HomeEventCVC.xib */; };
 		36545312278EA30400A0770F /* UILabel++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36545311278EA30400A0770F /* UILabel++.swift */; };
@@ -64,6 +65,7 @@
 		191E8C19278F01DD0042B8F1 /* SMPopUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SMPopUp.storyboard; sourceTree = "<group>"; };
 		19E633DD278D84F200776D0C /* CalendarDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailVC.swift; sourceTree = "<group>"; };
 		19E633E0278D853500776D0C /* CalendarDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CalendarDetail.storyboard; sourceTree = "<group>"; };
+		191E8C1B278F38DC0042B8F1 /* String++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String++.swift"; sourceTree = "<group>"; };
 		360E6F4427898D4400DACFD8 /* HomeEventCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEventCVC.swift; sourceTree = "<group>"; };
 		360E6F4527898D4400DACFD8 /* HomeEventCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeEventCVC.xib; sourceTree = "<group>"; };
 		36545311278EA30400A0770F /* UILabel++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel++.swift"; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 				36EFE3122785CC3B00466818 /* UIViewController++.swift */,
 				6AAD47C5278DF01300D8C800 /* UITextField++.swift */,
 				36545311278EA30400A0770F /* UILabel++.swift */,
+				191E8C1B278F38DC0042B8F1 /* String++.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 			children = (
 				19E633DF278D851900776D0C /* CalendarScene */,
 				360E6F49278998DA00DACFD8 /* HomeScene */,
+				1919F5D3278B5E18009F33AE /* CalendarPlansCVC.xib */,
 			);
 			path = CVC;
 			sourceTree = "<group>";
@@ -555,6 +559,7 @@
 				191E8C18278F01C60042B8F1 /* SMPopUpVC.swift in Sources */,
 				36EFE31D2785CC3B00466818 /* UIColor++.swift in Sources */,
 				368212522789779C005D7236 /* dummy3.swift in Sources */,
+				191E8C1C278F38DC0042B8F1 /* String++.swift in Sources */,
 				360E6F4627898D4400DACFD8 /* HomeEventCVC.swift in Sources */,
 				36EFE31A2785CC3B00466818 /* UIViewController++.swift in Sources */,
 				36EFE31C2785CC3B00466818 /* UICollectionView++.swift in Sources */,
