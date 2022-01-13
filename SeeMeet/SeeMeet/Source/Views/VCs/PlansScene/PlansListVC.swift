@@ -178,8 +178,8 @@ class PlansListVC: UIViewController {
         completeCollectionView.delegate = self
         completeCollectionView.dataSource = self
         
-        progressCollectionView.registerCustomXib(xibName: "ProgressReceiveCVC")
-        completeCollectionView.registerCustomXib(xibName: "ProgressReceiveCVC")
+        progressCollectionView.registerCustomXib(xibName: "CompletePlansCVC")
+        completeCollectionView.registerCustomXib(xibName: "CompletePlansCVC")
                 
         collectionScrollView.contentSize = CGSize(width: userWidth * 2, height: userHeight - 152)
 
@@ -288,7 +288,7 @@ extension PlansListVC: UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: ProgressReceiveCVC.identifier, for: indexPath) as! ProgressReceiveCVC
+        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: CompletePlansCVC.identifier, for: indexPath) as! CompletePlansCVC
         return cell
     }
     

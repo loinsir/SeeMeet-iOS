@@ -18,6 +18,8 @@
 		3623EA84278F65AB00853F87 /* ProgressSendCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA82278F65AB00853F87 /* ProgressSendCVC.xib */; };
 		3623EA87278F686A00853F87 /* ProgressReceiveCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA85278F686A00853F87 /* ProgressReceiveCVC.swift */; };
 		3623EA88278F686A00853F87 /* ProgressReceiveCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA86278F686A00853F87 /* ProgressReceiveCVC.xib */; };
+		3623EA8F278FDE0C00853F87 /* CompletePlansCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA8D278FDE0C00853F87 /* CompletePlansCVC.swift */; };
+		3623EA90278FDE0C00853F87 /* CompletePlansCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA8E278FDE0C00853F87 /* CompletePlansCVC.xib */; };
 		36545312278EA30400A0770F /* UILabel++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36545311278EA30400A0770F /* UILabel++.swift */; };
 		3682123E2785E643005D7236 /* DINNeuzeitGroteskStd-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3682122F2785E642005D7236 /* DINNeuzeitGroteskStd-Light.otf */; };
 		3682123F2785E643005D7236 /* SpoqaHanSansNeo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 368212302785E642005D7236 /* SpoqaHanSansNeo-Light.ttf */; };
@@ -68,6 +70,8 @@
 		3623EA82278F65AB00853F87 /* ProgressSendCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProgressSendCVC.xib; sourceTree = "<group>"; };
 		3623EA85278F686A00853F87 /* ProgressReceiveCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressReceiveCVC.swift; sourceTree = "<group>"; };
 		3623EA86278F686A00853F87 /* ProgressReceiveCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProgressReceiveCVC.xib; sourceTree = "<group>"; };
+		3623EA8D278FDE0C00853F87 /* CompletePlansCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletePlansCVC.swift; sourceTree = "<group>"; };
+		3623EA8E278FDE0C00853F87 /* CompletePlansCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompletePlansCVC.xib; sourceTree = "<group>"; };
 		36545311278EA30400A0770F /* UILabel++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel++.swift"; sourceTree = "<group>"; };
 		3682122F2785E642005D7236 /* DINNeuzeitGroteskStd-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DINNeuzeitGroteskStd-Light.otf"; sourceTree = "<group>"; };
 		368212302785E642005D7236 /* SpoqaHanSansNeo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Light.ttf"; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 			children = (
 				3623EA81278F65AB00853F87 /* ProgressSendCVC.swift */,
 				3623EA85278F686A00853F87 /* ProgressReceiveCVC.swift */,
+				3623EA8D278FDE0C00853F87 /* CompletePlansCVC.swift */,
 			);
 			path = PlansScene;
 			sourceTree = "<group>";
@@ -185,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				3623EA82278F65AB00853F87 /* ProgressSendCVC.xib */,
+				3623EA8E278FDE0C00853F87 /* CompletePlansCVC.xib */,
 				3623EA86278F686A00853F87 /* ProgressReceiveCVC.xib */,
 			);
 			path = PlansScene;
@@ -498,6 +504,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3623EA90278FDE0C00853F87 /* CompletePlansCVC.xib in Resources */,
 				3682123F2785E643005D7236 /* SpoqaHanSansNeo-Light.ttf in Resources */,
 				36EFE30F2785C8CA00466818 /* Home.storyboard in Resources */,
 				36EFE2F92785682400466818 /* LaunchScreen.storyboard in Resources */,
@@ -576,6 +583,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				36EFE3212785CC3B00466818 /* Date++.swift in Sources */,
+				3623EA8F278FDE0C00853F87 /* CompletePlansCVC.swift in Sources */,
 				36EFE31F2785CC3B00466818 /* UIFont++.swift in Sources */,
 				1912FCAE278AB7A000F33952 /* CalendarVC.swift in Sources */,
 				36EFE31E2785CC3B00466818 /* UIView++.swift in Sources */,
