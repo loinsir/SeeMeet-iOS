@@ -30,6 +30,13 @@ class SMSearchBar: UISearchBar {
         searchBarStyle = .minimal
         isTranslucent = false
         layer.cornerRadius = 10
+        
+        if let textfield = value(forKey: "searchField") as? UITextField {
+            textfield.attributedPlaceholder = NSAttributedString(string: textfield.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor: UIColor.grey04, NSAttributedString.Key.font: UIFont.hanSansRegularFont(ofSize: 14)])
+            textfield.textColor = UIColor.grey06
+            textfield.font = UIFont.hanSansRegularFont(ofSize: 14)
+        }
+    
     }
     
     private func setLayout() {

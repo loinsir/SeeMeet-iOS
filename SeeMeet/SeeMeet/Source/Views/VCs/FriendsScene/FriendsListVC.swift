@@ -1,4 +1,5 @@
 import UIKit
+import SwiftUI
 
 fileprivate let userHeight = UIScreen.getDeviceHeight() - 0.0
 fileprivate let userWidth = UIScreen.getDeviceWidth() - 0.0
@@ -35,9 +36,33 @@ class FriendsListVC: UIViewController {
         $0.placeholder = "친구 검색"
     }
     
-    private let resultTableView: UITableView = UITableView().then {
+    private let separator: UIView = UIView().then {
+        $0.backgroundColor = UIColor.clear
+    }
+    
+    private let tableView: UITableView = UITableView().then {
         $0.register(FriendsListTVC.self, forCellReuseIdentifier: FriendsListTVC.identifier)
     }
+    
+    private lazy var emptyImage: UIView = UIView().then {
+        $0.backgroundColor = UIColor.grey03
+    }
+    
+    private lazy var emptyMessageLabel1: UILabel = UILabel().then {
+        $0.font = UIFont.hanSansRegularFont(ofSize: 16)
+        $0.textColor = UIColor.grey05
+        $0.text = "등록된 친구가 없어요!"
+    }
+    
+    private lazy var emptyMessageLabel2: UILabel = UILabel().then {
+        $0.font = UIFont.hanSansRegularFont(ofSize: 16)
+        $0.textColor = UIColor.grey05
+        $0.text = "친구를 추가해 주세요"
+    }
+    
+    // 임시
+    var data: [String] = ["김준희", "김준희", "김인환", "박익범", "이유진"]
+    var filteredData: [String] = []
     
     // MARK: - Life Cycle
     
@@ -48,7 +73,7 @@ class FriendsListVC: UIViewController {
     
     private func setLayouts() {
         view.dismissKeyboardWhenTappedAround()
-        view.addSubviews([topView, searchBar, resultTableView])
+        view.addSubviews([topView, searchBar, separator,tableView])
         topView.addSubviews([navigationTitleLabel, backButton, addFriendsButton])
         
         topView.snp.makeConstraints {
@@ -81,7 +106,45 @@ class FriendsListVC: UIViewController {
             $0.centerX.equalToSuperview()
         }
         
+        separator.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(searchBar.snp.bottom).offset(14 * heightRatio)
+            $0.height.equalTo(1)
+        }
         
+        // 데이터유무에 따라 분기 처리 필요
+        if data.isEmpty {
+            setLayoutsIfEmptyTable()
+        } else {
+            tableView.dataSource = self
+            tableView.delegate = self
+            tableView.separatorStyle = .none
+            tableView.snp.makeConstraints {
+                $0.leading.equalToSuperview().offset(20 * widthRatio)
+                $0.trailing.equalToSuperview().offset(-11 * widthRatio)
+                $0.bottom.equalToSuperview()
+                $0.top.equalTo(separator.snp.bottom)
+            }
+        }
+    }
+    
+    private func setLayoutsIfEmptyTable() {
+        view.addSubviews([emptyImage, emptyMessageLabel1, emptyMessageLabel2])
+        emptyImage.snp.makeConstraints {
+            $0.width.height.equalTo(164 * heightRatio)
+            $0.top.equalTo(searchBar.snp.bottom).offset(135 * heightRatio)
+            $0.leading.equalToSuperview().offset(106 * heightRatio)
+        }
+        
+        emptyMessageLabel1.snp.makeConstraints {
+            $0.top.equalTo(emptyImage.snp.bottom).offset(17 * heightRatio)
+            $0.centerX.equalToSuperview()
+        }
+        
+        emptyMessageLabel2.snp.makeConstraints {
+            $0.top.equalTo(emptyMessageLabel1.snp.bottom).offset(4 * heightRatio)
+            $0.centerX.equalToSuperview()
+        }
     }
     
     // MARK: - objc func
@@ -108,22 +171,50 @@ extension FriendsListVC: UISearchBarDelegate {
         searchBar.layer.borderColor = nil
         searchBar.layer.borderWidth = 0
     }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if !searchText.isEmpty {
+            filteredData = data.filter { $0.lowercased().prefix(searchText.count) == searchText.lowercased() }
+        }
+        tableView.reloadData() // 일단은 음절단위로 갑시다!
+    }
 }
 
 extension FriendsListVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if filteredData.isEmpty {
+            return data.count
+        } else {
+            return filteredData.count
+        }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendsListTVC.identifier, for: indexPath) as? FriendsListTVC else { return UITableViewCell() }
+        if filteredData.isEmpty {
+            cell.nameLabel.text = data[indexPath.row]
+        } else {
+            cell.nameLabel.text = filteredData[indexPath.row]
+        }
         
         return cell
     }
     
-
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        68 * heightRatio
+    }
 }
 
 extension FriendsListVC: UITableViewDelegate {
-    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if !scrollView.contentOffset.y.isZero {
+            separator.backgroundColor = UIColor.grey02
+        } else {
+            separator.backgroundColor = UIColor.clear
+        }
+    }
 }
