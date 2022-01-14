@@ -1,5 +1,4 @@
 import UIKit
-import SwiftUI
 
 fileprivate let userHeight = UIScreen.getDeviceHeight() - 0.0
 fileprivate let userWidth = UIScreen.getDeviceWidth() - 0.0
