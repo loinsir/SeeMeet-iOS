@@ -5,6 +5,7 @@ fileprivate let userHeight = UIScreen.getDeviceHeight() - 0.0
 fileprivate let userWidth = UIScreen.getDeviceWidth() - 0.0
 fileprivate let heightRatio = userHeight / 812 - 0.0
 fileprivate let widthRatio = userWidth / 375 - 0.0
+fileprivate let cellHeight = 68 * heightRatio
 
 class FriendsListVC: UIViewController {
     
@@ -156,7 +157,15 @@ class FriendsListVC: UIViewController {
     @objc private func touchUpAddFriendsButton(_ sender: UIButton) {
         
     }
-
+    
+    // MARK: - tableview Delegate
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if !scrollView.contentOffset.y.isZero {
+            separator.backgroundColor = UIColor.grey02
+        } else {
+            separator.backgroundColor = UIColor.clear
+        }
+    }
 }
 
 // MARK: - Extensions
@@ -180,7 +189,7 @@ extension FriendsListVC: UISearchBarDelegate {
     }
 }
 
-extension FriendsListVC: UITableViewDataSource {
+extension FriendsListVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if filteredData.isEmpty {
             return data.count
@@ -190,7 +199,7 @@ extension FriendsListVC: UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        1
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -205,16 +214,6 @@ extension FriendsListVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        68 * heightRatio
-    }
-}
-
-extension FriendsListVC: UITableViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if !scrollView.contentOffset.y.isZero {
-            separator.backgroundColor = UIColor.grey02
-        } else {
-            separator.backgroundColor = UIColor.clear
-        }
+        return cellHeight
     }
 }
