@@ -44,12 +44,6 @@ class FriendsListTVC: UITableViewCell {
         setLayouts()
     }
     
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//
-//        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 13 * heightRatio, left: 0, bottom: 13 * heightRatio, right: 0))
-//    }
-    
     private func setLayouts() {
         selectionStyle = .none
         addSubviews([profileIcon, nameLabel, addMessageButton])
