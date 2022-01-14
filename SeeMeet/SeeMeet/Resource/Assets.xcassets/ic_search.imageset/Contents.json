@@ -1,19 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "btn_back.png",
+      "scale" : "1x",
       "idiom" : "universal",
-      "scale" : "1x"
+      "filename" : "icSearch.png"
     },
     {
-      "filename" : "btn_back@2x.png",
+      "scale" : "2x",
       "idiom" : "universal",
-      "scale" : "2x"
+      "filename" : "icSearch@2x.png"
     },
     {
-      "filename" : "btn_back@3x.png",
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "icSearch@3x.png"
     }
   ],
   "info" : {
