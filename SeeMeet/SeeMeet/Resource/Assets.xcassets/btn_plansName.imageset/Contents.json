@@ -1,23 +1,23 @@
 {
   "images" : [
     {
-      "filename" : "btn_back.png",
+      "filename" : "Frame 216.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "btn_back@2x.png",
+      "filename" : "Frame 216@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "btn_back@3x.png",
+      "filename" : "Frame 216@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }
