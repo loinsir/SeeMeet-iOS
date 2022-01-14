@@ -30,7 +30,6 @@ class RequestPlansContentsVC: UIViewController {
         attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.pink01, range: ($0.text! as NSString).range(of:"친구"))
         attributedString.addAttribute(.font, value: UIFont.hanSansBoldFont(ofSize: 18), range: ($0.text! as NSString).range(of: "친구"))
         $0.attributedText = attributedString
-        
 
     }
     /*
@@ -43,9 +42,14 @@ class RequestPlansContentsVC: UIViewController {
         
     }
      */
+    private let searchTableView: UITableView = {
+        let searchTableView = UITableView()
+        searchTableView.register(SearchTVC.self, forCellReuseIdentifier: SearchTVC.identifier)
+        return searchTableView
+    }()
+    
     
     private let searchBar = UISearchBar().then{
-
         $0.placeholder = "받는 사람:"
         $0.setImage(UIImage(named: "ic_search"), for: UISearchBar.Icon.search, state: .normal)
         $0.backgroundColor = UIColor.grey01
@@ -62,7 +66,6 @@ class RequestPlansContentsVC: UIViewController {
             textfield.textColor = UIColor.grey06
             textfield.layer.cornerRadius = 10
             textfield.font = UIFont.hanSansRegularFont(ofSize: 14)
- 
         }
         
     }
@@ -125,6 +128,8 @@ class RequestPlansContentsVC: UIViewController {
 //MARK: Var
     var userWidth: CGFloat = UIScreen.getDeviceWidth()
     var userHeight: CGFloat = UIScreen.getDeviceHeight()
+    var nameList: [String] = ["이유진","김인환","박익범","정재용","오수린","유가영","서강덕","이종현","이선빈","김준희","엄희수","남지윤","구건모","손시형","최유림","이동기","이유정","김현아"]
+    var filterNameList = [String]()
     
 //MARK: ViewDidLoad
     override func viewDidLoad() {
@@ -132,12 +137,13 @@ class RequestPlansContentsVC: UIViewController {
         setLayout()
         setPlaceholder()
         setDelegate()
+      
     }
     
 //MARK: Layout
     func setLayout() {
         self.navigationController?.isNavigationBarHidden = true
-        view.addSubviews([titleView,friendSelectionLabel,searchBar,contentsWritingLabel,plansContentsView,navigationLineView,nextButton])
+        view.addSubviews([titleView,friendSelectionLabel,searchBar,contentsWritingLabel,plansContentsView,navigationLineView,nextButton,searchTableView])
         titleView.addSubviews([titleLabel,closeButton])
 
         plansContentsView.addSubviews([plansTitleTextField,seperateLineView,plansContentsTextView])
@@ -160,6 +166,8 @@ class RequestPlansContentsVC: UIViewController {
             $0.leading.equalToSuperview().offset(20)
             $0.height.equalTo(32)
         }
+        
+        
         searchBar.snp.makeConstraints{
             $0.top.equalTo(friendSelectionLabel.snp.bottom).offset(7)
             $0.leading.equalTo(friendSelectionLabel)
@@ -171,6 +179,12 @@ class RequestPlansContentsVC: UIViewController {
             $0.top.leading.bottom.trailing.equalToSuperview()
         }
         
+        searchTableView.snp.makeConstraints{
+            $0.top.equalTo(searchBar.snp.bottom).offset(0)
+            $0.leading.equalTo(searchBar.snp.leading).offset(0)
+            $0.trailing.equalTo(searchBar.snp.trailing).offset(0)
+            $0.height.equalTo(20)
+        }
         /*
         searchImageView.snp.makeConstraints{
             $0.centerY.equalToSuperview()
@@ -220,13 +234,16 @@ class RequestPlansContentsVC: UIViewController {
             $0.height.equalTo(54)
         }
         
-    }
+        searchTableView.isHidden = true
+        }
     
 //MARK: Delegate
     func setDelegate(){
         searchBar.delegate = self
         plansTitleTextField.delegate = self
         plansContentsTextView.delegate = self
+        searchTableView.dataSource = self
+        searchTableView.delegate = self
     }
    
 }
@@ -265,7 +282,6 @@ extension RequestPlansContentsVC: UITextViewDelegate{
         style.lineSpacing = 10
         attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: NSMakeRange(0, attrString.length))
         textView.attributedText = attrString
-        print(attrString)
             }
  
 
@@ -281,6 +297,7 @@ extension RequestPlansContentsVC: UITextFieldDelegate{
         case plansTitleTextField:
             plansContentsView.layer.borderColor = UIColor.pink01.cgColor
             plansContentsView.layer.borderWidth = 1.0
+           
         default:
             textField.layer.borderWidth = 0
         }
@@ -305,10 +322,46 @@ extension RequestPlansContentsVC: UISearchBarDelegate{
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.layer.borderColor = UIColor.pink01.cgColor
         searchBar.layer.borderWidth = 1.0
-       
     }
 
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.layer.borderWidth = 0
+        searchTableView.isHidden = true
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.searchTextField.text == ""{
+            searchTableView.isHidden = true
+            
+        }else {
+            searchTableView.isHidden = false
+            filterNameList = nameList.filter { $0.lowercased().prefix(searchText.count) == searchText.lowercased() }
+            searchTableView.snp.updateConstraints{ make in
+                make.height.equalTo(50*filterNameList.count)
+            }//테이블 높이 동적 변경인데 뒤에 흰뷰 박아버리면 필요 없을 듯요 ..
+           
+            searchTableView.reloadData()
+        }
+
+    }
+}
+
+extension RequestPlansContentsVC: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        filterNameList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchTVC.identifier,for: indexPath) as? SearchTVC else {return UITableViewCell()}
+        cell.setData(name: filterNameList[indexPath.row])
+        
+        return cell
+    }
+    
+    
+}
+
+extension RequestPlansContentsVC: UITableViewDelegate{
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
     }
 }

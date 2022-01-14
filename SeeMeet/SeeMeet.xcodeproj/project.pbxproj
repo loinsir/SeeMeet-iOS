@@ -31,7 +31,6 @@
 		3682124A2785E643005D7236 /* DINPro-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3682123B2785E642005D7236 /* DINPro-Light.otf */; };
 		3682124B2785E643005D7236 /* SpoqaHanSansNeo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3682123C2785E642005D7236 /* SpoqaHanSansNeo-Bold.ttf */; };
 		3682124C2785E643005D7236 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3682123D2785E642005D7236 /* LICENSE */; };
-		368212522789779C005D7236 /* dummy3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368212512789779C005D7236 /* dummy3.swift */; };
 		3682125427897806005D7236 /* dummy1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3682125327897806005D7236 /* dummy1.swift */; };
 		36D9E8AF2789A7BF00D5244D /* Tabbar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36D9E8AE2789A7BF00D5244D /* Tabbar.storyboard */; };
 		36D9E8B12789A81A00D5244D /* TabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D9E8B02789A81A00D5244D /* TabbarVC.swift */; };
@@ -49,9 +48,10 @@
 		36EFE31F2785CC3B00466818 /* UIFont++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EFE3172785CC3B00466818 /* UIFont++.swift */; };
 		36EFE3202785CC3B00466818 /* UITabelView++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EFE3182785CC3B00466818 /* UITabelView++.swift */; };
 		36EFE3212785CC3B00466818 /* Date++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EFE3192785CC3B00466818 /* Date++.swift */; };
-		6AAD47C6278DF01300D8C800 /* UITextField++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAD47C5278DF01300D8C800 /* UITextField++.swift */; };
 		6A4A20ED278B5F7000DD4DCD /* RequestPlansContentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A20EC278B5F7000DD4DCD /* RequestPlansContentsVC.swift */; };
 		6A4A20F0278B5FE300DD4DCD /* RequestPlansContents.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A4A20EF278B5FE300DD4DCD /* RequestPlansContents.storyboard */; };
+		6AAD47C6278DF01300D8C800 /* UITextField++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAD47C5278DF01300D8C800 /* UITextField++.swift */; };
+		6AF609222790BA6000F49DF4 /* SearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF609212790BA6000F49DF4 /* SearchTVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,7 +78,6 @@
 		3682123B2785E642005D7236 /* DINPro-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DINPro-Light.otf"; sourceTree = "<group>"; };
 		3682123C2785E642005D7236 /* SpoqaHanSansNeo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Bold.ttf"; sourceTree = "<group>"; };
 		3682123D2785E642005D7236 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		368212512789779C005D7236 /* dummy3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy3.swift; sourceTree = "<group>"; };
 		3682125327897806005D7236 /* dummy1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy1.swift; sourceTree = "<group>"; };
 		36D9E8AE2789A7BF00D5244D /* Tabbar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tabbar.storyboard; sourceTree = "<group>"; };
 		36D9E8B02789A81A00D5244D /* TabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarVC.swift; sourceTree = "<group>"; };
@@ -101,6 +100,7 @@
 		6A4A20EC278B5F7000DD4DCD /* RequestPlansContentsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPlansContentsVC.swift; sourceTree = "<group>"; };
 		6A4A20EF278B5FE300DD4DCD /* RequestPlansContents.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RequestPlansContents.storyboard; sourceTree = "<group>"; };
 		6AAD47C5278DF01300D8C800 /* UITextField++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField++.swift"; sourceTree = "<group>"; };
+		6AF609212790BA6000F49DF4 /* SearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTVC.swift; sourceTree = "<group>"; };
 		7E4152A410430753EE447189 /* Pods_SeeMeet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SeeMeet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3594175EA1BA01667464A70 /* Pods-SeeMeet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeeMeet.debug.xcconfig"; path = "Target Support Files/Pods-SeeMeet/Pods-SeeMeet.debug.xcconfig"; sourceTree = "<group>"; };
 		DF75C365F4903A6B444D31C6 /* Pods-SeeMeet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeeMeet.release.xcconfig"; path = "Target Support Files/Pods-SeeMeet/Pods-SeeMeet.release.xcconfig"; sourceTree = "<group>"; };
@@ -191,7 +191,7 @@
 		3682125927898C49005D7236 /* TVC */ = {
 			isa = PBXGroup;
 			children = (
-				368212512789779C005D7236 /* dummy3.swift */,
+				6AF609232790BA7B00F49DF4 /* RequestScene */,
 			);
 			path = TVC;
 			sourceTree = "<group>";
@@ -396,6 +396,14 @@
 			path = RequestScene;
 			sourceTree = "<group>";
 		};
+		6AF609232790BA7B00F49DF4 /* RequestScene */ = {
+			isa = PBXGroup;
+			children = (
+				6AF609212790BA6000F49DF4 /* SearchTVC.swift */,
+			);
+			path = RequestScene;
+			sourceTree = "<group>";
+		};
 		6B37187F1B9AA6194E839C69 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -552,14 +560,13 @@
 				36EFE31F2785CC3B00466818 /* UIFont++.swift in Sources */,
 				1912FCAE278AB7A000F33952 /* CalendarVC.swift in Sources */,
 				36EFE31E2785CC3B00466818 /* UIView++.swift in Sources */,
-				6AAD47C2278DE10E00D8C800 /* UITextField++.swift in Sources */,
 				1919F5D4278B5E18009F33AE /* CalendarPlansCVC.swift in Sources */,
+				6AF609222790BA6000F49DF4 /* SearchTVC.swift in Sources */,
 				36EFE31B2785CC3B00466818 /* UIScreen++.swift in Sources */,
 				36EFE3112785C8D600466818 /* HomeVC.swift in Sources */,
 				6A4A20ED278B5F7000DD4DCD /* RequestPlansContentsVC.swift in Sources */,
 				36EFE2ED2785682200466818 /* AppDelegate.swift in Sources */,
 				36EFE31D2785CC3B00466818 /* UIColor++.swift in Sources */,
-				368212522789779C005D7236 /* dummy3.swift in Sources */,
 				191E8C1C278F38DC0042B8F1 /* String++.swift in Sources */,
 				360E6F4627898D4400DACFD8 /* HomeEventCVC.swift in Sources */,
 				36EFE31A2785CC3B00466818 /* UIViewController++.swift in Sources */,
