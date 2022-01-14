@@ -78,33 +78,27 @@ class PlansListVC: UIViewController {
         $0.showsVerticalScrollIndicator = false
     }
     //progressCollectionView
-    private var progressCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
-        collectionView.tag = 1
-        let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
+    private var progressCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then{
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        collectionView.setCollectionViewLayout(layout, animated: false)
-        collectionView.backgroundColor = .none
-        collectionView.bounces = true
-        collectionView.showsVerticalScrollIndicator = false
-        return collectionView
-    }()
+        $0.tag = 1
+        $0.setCollectionViewLayout(layout, animated: false)
+        $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        $0.backgroundColor = .none
+        $0.bounces = true
+        $0.showsVerticalScrollIndicator = false
+    }
     //completeCollectionView
-    private var completeCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout.init())
-        collectionView.tag = 2
-        let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
+    private var completeCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then{
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        collectionView.setCollectionViewLayout(layout, animated: false)
-        collectionView.backgroundColor = .none
-        collectionView.bounces = true
-        collectionView.showsVerticalScrollIndicator = false
-        return collectionView
-    }()
+        $0.tag = 2
+        $0.setCollectionViewLayout(layout, animated: false)
+        $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        $0.backgroundColor = .none
+        $0.bounces = true
+        $0.showsVerticalScrollIndicator = false
+    }
 //MARK: Var
     static let identifier: String = "PlansListVC"
     
@@ -333,7 +327,12 @@ extension PlansListVC: UICollectionViewDataSource{
 }
 extension PlansListVC: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        switch collectionView.tag{
+        case 1:
+            return 20
+        default:
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
