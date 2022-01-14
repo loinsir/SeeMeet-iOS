@@ -23,6 +23,8 @@
 		3623EA90278FDE0C00853F87 /* CompletePlansCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA8E278FDE0C00853F87 /* CompletePlansCVC.xib */; };
 		3623EA922791282700853F87 /* PlansReceiveVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA912791282700853F87 /* PlansReceiveVC.swift */; };
 		3623EA942791283600853F87 /* PlansReceiveList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA932791283600853F87 /* PlansReceiveList.storyboard */; };
+		3623EA972791D1D300853F87 /* PlansRecieveCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA952791D1D300853F87 /* PlansRecieveCVC.swift */; };
+		3623EA982791D1D300853F87 /* PlansRecieveCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA962791D1D300853F87 /* PlansRecieveCVC.xib */; };
 		36545312278EA30400A0770F /* UILabel++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36545311278EA30400A0770F /* UILabel++.swift */; };
 		3682123E2785E643005D7236 /* DINNeuzeitGroteskStd-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3682122F2785E642005D7236 /* DINNeuzeitGroteskStd-Light.otf */; };
 		3682123F2785E643005D7236 /* SpoqaHanSansNeo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 368212302785E642005D7236 /* SpoqaHanSansNeo-Light.ttf */; };
@@ -78,6 +80,8 @@
 		3623EA8E278FDE0C00853F87 /* CompletePlansCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompletePlansCVC.xib; sourceTree = "<group>"; };
 		3623EA912791282700853F87 /* PlansReceiveVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansReceiveVC.swift; sourceTree = "<group>"; };
 		3623EA932791283600853F87 /* PlansReceiveList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlansReceiveList.storyboard; sourceTree = "<group>"; };
+		3623EA952791D1D300853F87 /* PlansRecieveCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansRecieveCVC.swift; sourceTree = "<group>"; };
+		3623EA962791D1D300853F87 /* PlansRecieveCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlansRecieveCVC.xib; sourceTree = "<group>"; };
 		36545311278EA30400A0770F /* UILabel++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel++.swift"; sourceTree = "<group>"; };
 		3682122F2785E642005D7236 /* DINNeuzeitGroteskStd-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DINNeuzeitGroteskStd-Light.otf"; sourceTree = "<group>"; };
 		368212302785E642005D7236 /* SpoqaHanSansNeo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Light.ttf"; sourceTree = "<group>"; };
@@ -188,6 +192,7 @@
 				3623EA81278F65AB00853F87 /* ProgressSendCVC.swift */,
 				3623EA85278F686A00853F87 /* ProgressReceiveCVC.swift */,
 				3623EA8D278FDE0C00853F87 /* CompletePlansCVC.swift */,
+				3623EA952791D1D300853F87 /* PlansRecieveCVC.swift */,
 			);
 			path = PlansScene;
 			sourceTree = "<group>";
@@ -198,6 +203,7 @@
 				3623EA82278F65AB00853F87 /* ProgressSendCVC.xib */,
 				3623EA8E278FDE0C00853F87 /* CompletePlansCVC.xib */,
 				3623EA86278F686A00853F87 /* ProgressReceiveCVC.xib */,
+				3623EA962791D1D300853F87 /* PlansRecieveCVC.xib */,
 			);
 			path = PlansScene;
 			sourceTree = "<group>";
@@ -526,6 +532,7 @@
 				1912FCB0278AB7BB00F33952 /* Calendar.storyboard in Resources */,
 				36D9E8AF2789A7BF00D5244D /* Tabbar.storyboard in Resources */,
 				368212442785E643005D7236 /* SpoqaHanSansNeo-Regular.ttf in Resources */,
+				3623EA982791D1D300853F87 /* PlansRecieveCVC.xib in Resources */,
 				368212452785E643005D7236 /* DINPro-Regular.otf in Resources */,
 				36D9E8BB278BDCE800D5244D /* PlansList.storyboard in Resources */,
 				3682124A2785E643005D7236 /* DINPro-Light.otf in Resources */,
@@ -613,6 +620,7 @@
 				6AAD47C6278DF01300D8C800 /* UITextField++.swift in Sources */,
 				36EFE2EF2785682200466818 /* SceneDelegate.swift in Sources */,
 				36EFE3202785CC3B00466818 /* UITabelView++.swift in Sources */,
+				3623EA972791D1D300853F87 /* PlansRecieveCVC.swift in Sources */,
 				3682125427897806005D7236 /* dummy1.swift in Sources */,
 				36545312278EA30400A0770F /* UILabel++.swift in Sources */,
 				36D9E8B12789A81A00D5244D /* TabbarVC.swift in Sources */,

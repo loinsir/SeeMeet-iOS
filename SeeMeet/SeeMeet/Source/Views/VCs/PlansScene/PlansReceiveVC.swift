@@ -28,6 +28,7 @@ class PlansReceiveVC: UIViewController {
         $0.isPagingEnabled = false
         $0.bounces = true
         $0.showsVerticalScrollIndicator = true
+        $0.contentInsetAdjustmentBehavior = .never
     }
     private let headerBackgroundView = UIView().then{
         $0.backgroundColor = .none
@@ -116,8 +117,9 @@ class PlansReceiveVC: UIViewController {
         $0.setCollectionViewLayout(layout, animated: false)
         $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         $0.backgroundColor = .none
+        $0.isPagingEnabled = false
         $0.bounces = true
-        $0.showsVerticalScrollIndicator = false
+        $0.showsHorizontalScrollIndicator = false
     }
     //bottomButtonView
     private let bottomButtonBackgroundView = UIView().then{
@@ -163,7 +165,7 @@ class PlansReceiveVC: UIViewController {
         backGroundScrollView.contentSize = CGSize(width: userWidth, height: 0)
         backGroundScrollView.snp.makeConstraints{
             $0.top.equalTo(headerBackgroundView.snp.bottom).offset(0)
-            $0.bottom.leading.trailing.equalToSuperview().offset(0)
+            $0.leading.bottom.trailing.equalToSuperview().offset(0)
         }
     }
     func setTextViewLayout() {
@@ -249,6 +251,10 @@ class PlansReceiveVC: UIViewController {
         }
     }
     func setDetailData(){
+        detailSelectDateCollectionView.delegate = self
+        detailSelectDateCollectionView.dataSource = self
+        detailSelectDateCollectionView.registerCustomXib(xibName: "PlansRecieveCVC")
+        
         detailBackgroundView.snp.makeConstraints{
             $0.top.equalTo(selectDateBackgroundView.snp.bottom).offset(0)
             $0.leading.equalToSuperview().offset(0)
@@ -266,7 +272,7 @@ class PlansReceiveVC: UIViewController {
             $0.top.equalTo(detailCollectionHeadLabel.snp.bottom).offset(24)
             $0.leading.equalToSuperview().offset(0)
             $0.trailing.equalTo(view.snp.trailing)
-            $0.bottom.equalTo(bottomButtonBackgroundView.snp.top).offset(0)
+            $0.height.equalTo(135)
         }
         if isFinished == false{
             setBottomButtonViewLayout()
@@ -278,10 +284,10 @@ class PlansReceiveVC: UIViewController {
             $0.leading.bottom.equalToSuperview().offset(0)
             $0.trailing.equalTo(view.snp.trailing)
             $0.height.equalTo(112)
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(34)
         }
         bottomDenineButton.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(16)
+            $0.top.equalToSuperview().offset(15)
             $0.leading.equalTo(20)
             $0.height.equalTo(54)
             $0.width.equalTo(160)
@@ -389,7 +395,7 @@ class PlansReceiveVC: UIViewController {
     let nameDummy: [String] = ["하이루", "바이루"]
     let dateCount: Int = 4
     var cellIndex: Int = 0
-    var isFinished: Bool = true
+    var isFinished: Bool = false
     var isChecked: [Bool] = [false, true, true, false]
     
     //Function
@@ -430,7 +436,6 @@ class PlansReceiveVC: UIViewController {
             print("\(index+1)", isChecked[index])
         }
      }
-   
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -443,3 +448,34 @@ class PlansReceiveVC: UIViewController {
     }
 }
 
+
+extension PlansReceiveVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 224.0, height: 129.0)
+    }
+}
+extension PlansReceiveVC: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: PlansRecieveCVC.identifier, for: indexPath) as! PlansRecieveCVC
+        return cell
+    }
+    
+    
+}
+extension PlansReceiveVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 20
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+    }
+}
