@@ -32,23 +32,39 @@ class RequestPlansContentsVC: UIViewController {
         $0.attributedText = attributedString
 
     }
-    /*
+
     private let searchTextField = UITextField().then{
         $0.backgroundColor = UIColor.grey01
         $0.layer.cornerRadius = 10
         $0.font = UIFont.hanSansRegularFont(ofSize: 14)
         $0.attributedPlaceholder = NSAttributedString(string: "받는 사람:", attributes: [.foregroundColor: UIColor.grey04])
         $0.addLeftPadding(width: 46)
-        
     }
-     */
+    
+    private let chipView1 = ChipView()
+    private let chipView2 = ChipView()
+    private let chipView3 = ChipView()
+        
+   /*
+    private let searchedLabel = UILabel().then{
+        $0.font = UIFont.hanSansMediumFont(ofSize: 14)
+        $0.textColor = UIColor.white
+    }
+    
+    private let removeButton = UIButton().then{
+        $0.setImage(UIImage(named: "property1White"), for: .normal)
+    }
+*/
     private let searchTableView: UITableView = {
         let searchTableView = UITableView()
         searchTableView.register(SearchTVC.self, forCellReuseIdentifier: SearchTVC.identifier)
         return searchTableView
     }()
     
-    
+    private let whiteView = UIView().then{
+        $0.backgroundColor = UIColor.white
+    }
+   /*
     private let searchBar = UISearchBar().then{
         $0.placeholder = "받는 사람:"
         $0.setImage(UIImage(named: "ic_search"), for: UISearchBar.Icon.search, state: .normal)
@@ -69,13 +85,14 @@ class RequestPlansContentsVC: UIViewController {
         }
         
     }
+    */
     
-   /*
+  
     private let searchImageView = UIImageView().then{
         $0.image = UIImage(named: "ic_search")
         
     }
-    */
+
     
     private let contentsWritingLabel = UILabel().then{
         $0.text = "약속의 내용을 작성하세요"
@@ -130,6 +147,7 @@ class RequestPlansContentsVC: UIViewController {
     var userHeight: CGFloat = UIScreen.getDeviceHeight()
     var nameList: [String] = ["이유진","김인환","박익범","정재용","오수린","유가영","서강덕","이종현","이선빈","김준희","엄희수","남지윤","구건모","손시형","최유림","이동기","이유정","김현아"]
     var filterNameList = [String]()
+    var searchedNameList = [String]()
     
 //MARK: ViewDidLoad
     override func viewDidLoad() {
@@ -137,15 +155,69 @@ class RequestPlansContentsVC: UIViewController {
         setLayout()
         setPlaceholder()
         setDelegate()
+      //  setSearchToken()
+        self.searchTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
       
+    }
+    
+    /*
+//MARK: Function
+    func setSearchToken() {
+        let searchToken = UISearchToken(icon: UIImage(systemName: "pencil"), text: "안녕 펜슬")
+        searchToken.representedObject = SearchTokenView.self
+                searchBar.searchTextField.allowsDeletingTokens = false
+    }
+    
+     */
+    func setChipView(){
+        searchTextField.placeholder = nil//셀추가시 플레이스 홀더 업애기
+       
+        
+        switch searchedNameList.count{
+        case 0:
+            chipView1.isHidden = true
+            chipView2.isHidden = true
+            chipView3.isHidden = true
+            
+        case 1:
+            chipView1.isHidden = false
+            chipView2.isHidden = true
+            chipView3.isHidden = true
+            chipView1.setName(name: searchedNameList[0])
+            
+            searchTextField.addLeftPadding(width: 46+2+93-5)
+        case 2:
+            chipView1.isHidden = false
+            chipView2.isHidden = false
+            chipView3.isHidden = true
+            chipView1.setName(name: searchedNameList[0])
+            chipView2.setName(name: searchedNameList[1])
+            
+            searchTextField.addLeftPadding(width: 46+2+93+93-5)
+        case 3:
+            chipView1.isHidden = false
+            chipView2.isHidden = false
+            chipView3.isHidden = false
+            chipView1.setName(name: searchedNameList[0])
+            chipView2.setName(name: searchedNameList[1])
+            chipView3.setName(name: searchedNameList[2])
+            searchTextField.addLeftPadding(width: 46+2+93+93+93+100-5)
+        default:
+            chipView1.isHidden = true
+            chipView2.isHidden = true
+            chipView3.isHidden = true
+        }
     }
     
 //MARK: Layout
     func setLayout() {
         self.navigationController?.isNavigationBarHidden = true
-        view.addSubviews([titleView,friendSelectionLabel,searchBar,contentsWritingLabel,plansContentsView,navigationLineView,nextButton,searchTableView])
+        view.addSubviews([titleView,friendSelectionLabel,searchTextField,contentsWritingLabel,plansContentsView,navigationLineView,nextButton,whiteView,searchTableView])
         titleView.addSubviews([titleLabel,closeButton])
-
+        searchTextField.addSubviews([searchImageView,chipView1,chipView2,chipView3])
+        
+        
+                                    
         plansContentsView.addSubviews([plansTitleTextField,seperateLineView,plansContentsTextView])
         
         titleView.snp.makeConstraints{
@@ -167,7 +239,7 @@ class RequestPlansContentsVC: UIViewController {
             $0.height.equalTo(32)
         }
         
-        
+        /*
         searchBar.snp.makeConstraints{
             $0.top.equalTo(friendSelectionLabel.snp.bottom).offset(7)
             $0.leading.equalTo(friendSelectionLabel)
@@ -178,22 +250,58 @@ class RequestPlansContentsVC: UIViewController {
         searchBar.searchTextField.snp.makeConstraints{
             $0.top.leading.bottom.trailing.equalToSuperview()
         }
+        */
         
-        searchTableView.snp.makeConstraints{
-            $0.top.equalTo(searchBar.snp.bottom).offset(0)
-            $0.leading.equalTo(searchBar.snp.leading).offset(0)
-            $0.trailing.equalTo(searchBar.snp.trailing).offset(0)
-            $0.height.equalTo(20)
+        searchTextField.snp.makeConstraints{
+            $0.top.equalTo(friendSelectionLabel.snp.bottom).offset(7)
+            $0.leading.equalTo(friendSelectionLabel)
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.height.equalTo(50)
+        }
+        
+        chipView1.snp.makeConstraints{
+            $0.leading.equalTo(searchImageView.snp.trailing).offset(2)
+            $0.centerY.equalTo(searchImageView.snp.centerY)
+        }
+        
+        chipView2.snp.makeConstraints{
+            $0.leading.equalTo(chipView1.snp.trailing).offset(11)
+            $0.centerY.equalTo(searchImageView.snp.centerY)
+        }
+        chipView3.snp.makeConstraints{
+            $0.leading.equalTo(chipView2.snp.trailing).offset(11)
+            $0.centerY.equalTo(searchImageView.snp.centerY)
         }
         /*
+        removeButton.snp.makeConstraints{
+            $0.trailing.equalToSuperview().offset(11)
+            $0.centerY.equalToSuperview()
+        }
+        
+        searchedLabel.snp.makeConstraints{
+            $0.leading.equalToSuperview().offset(13)
+            $0.centerY.equalToSuperview()
+        }
+         */
+        whiteView.snp.makeConstraints{
+            $0.top.equalTo(searchTextField.snp.bottom).offset(0)
+            $0.leading.bottom.trailing.equalToSuperview()
+        }
+        searchTableView.snp.makeConstraints{
+            $0.top.equalTo(searchTextField.snp.bottom).offset(10)
+            $0.leading.equalTo(searchTextField.snp.leading).offset(23)
+            $0.trailing.equalTo(searchTextField.snp.trailing).offset(-22)
+            $0.height.equalTo(240)
+        }
+        
         searchImageView.snp.makeConstraints{
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().offset(8)
             $0.width.height.equalTo(34)
         }
-         */
+         
         contentsWritingLabel.snp.makeConstraints{
-            $0.top.equalTo(searchBar.snp.bottom).offset(38)
+            $0.top.equalTo(searchTextField.snp.bottom).offset(38)
             $0.leading.equalToSuperview().offset(20)
             $0.height.equalTo(32)
         }
@@ -234,12 +342,18 @@ class RequestPlansContentsVC: UIViewController {
             $0.height.equalTo(54)
         }
         
+        whiteView.isHidden = true
         searchTableView.isHidden = true
+        searchTableView.separatorStyle = .none
+        chipView1.isHidden = true
+        chipView2.isHidden = true
+        chipView3.isHidden = true
+       
         }
     
 //MARK: Delegate
     func setDelegate(){
-        searchBar.delegate = self
+        searchTextField.delegate = self
         plansTitleTextField.delegate = self
         plansContentsTextView.delegate = self
         searchTableView.dataSource = self
@@ -289,11 +403,14 @@ extension RequestPlansContentsVC: UITextViewDelegate{
 
 extension RequestPlansContentsVC: UITextFieldDelegate{
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        switch textField{/*
+        switch textField{
         case searchTextField:
             textField.layer.borderColor = UIColor.pink01.cgColor
             textField.layer.borderWidth = 1.0
-                          */
+            whiteView.isHidden = false
+            searchTableView.isHidden = false
+            filterNameList = nameList
+            searchTableView.reloadData()
         case plansTitleTextField:
             plansContentsView.layer.borderColor = UIColor.pink01.cgColor
             plansContentsView.layer.borderWidth = 1.0
@@ -306,18 +423,35 @@ extension RequestPlansContentsVC: UITextFieldDelegate{
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField{
-            /*
         case searchTextField:
             textField.layer.borderWidth = 0
-             */
+            whiteView.isHidden = true
         case plansTitleTextField:
             plansContentsView.layer.borderWidth = 0
         default:
             textField.layer.borderWidth = 0
         }
     }
+    
+    @objc func textFieldDidChange(_ sender: Any?) {
+        if searchTextField.text == ""{
+            filterNameList = nameList
+            searchTableView.reloadData()
+            
+        }else {
+            whiteView.isHidden = false
+            searchTableView.isHidden = false
+            filterNameList = nameList.filter { $0.lowercased().prefix(searchTextField.text!.count) == searchTextField.text!.lowercased() }
+           
+            searchTableView.reloadData()
+        }
+
+    }
+    
+    
 }
 
+/*
 extension RequestPlansContentsVC: UISearchBarDelegate{
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.layer.borderColor = UIColor.pink01.cgColor
@@ -344,6 +478,7 @@ extension RequestPlansContentsVC: UISearchBarDelegate{
 
     }
 }
+ */
 
 extension RequestPlansContentsVC: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -362,6 +497,16 @@ extension RequestPlansContentsVC: UITableViewDataSource{
 
 extension RequestPlansContentsVC: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 60
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+       // searchBar.searchTextField.tokens.append(UISearchToken(icon: UIImage(), text: "hello"))
+        searchTextField.text = ""
+        searchedNameList.append(filterNameList[indexPath.row])
+        setChipView()
+        
     }
 }
+
+

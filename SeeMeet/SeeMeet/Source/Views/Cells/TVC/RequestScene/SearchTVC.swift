@@ -14,6 +14,9 @@ class SearchTVC: UITableViewCell {
     var name: String = ""
     
     
+    private let profileImageView: UIImageView = UIImageView().then{
+        $0.image = UIImage(named: "Ellipse_dummy")
+    }
     private let nameLabel: UILabel = UILabel().then{
         $0.font = UIFont.hanSansMediumFont(ofSize: 14)
     }
@@ -35,12 +38,19 @@ class SearchTVC: UITableViewCell {
         // Configure the view for the selected state
     }
     private func addContentView(){
-        contentView.addSubview(nameLabel)
+        addSubviews([profileImageView,nameLabel])
     }
     
     func setLayout(){
+        profileImageView.snp.makeConstraints{
+            $0.leading.equalToSuperview()
+            $0.centerY.equalToSuperview()
+            $0.width.height.equalTo(40)
+            
+        }
         nameLabel.snp.makeConstraints {
-            $0.centerX.centerY.equalToSuperview()
+            $0.leading.equalTo(profileImageView.snp.trailing).offset(18)
+            $0.centerY.equalToSuperview()
         }
 
     }
