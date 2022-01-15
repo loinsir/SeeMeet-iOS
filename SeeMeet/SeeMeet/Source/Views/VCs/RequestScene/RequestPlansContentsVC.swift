@@ -398,7 +398,10 @@ extension RequestPlansContentsVC: UITextViewDelegate{
         style.lineSpacing = 10
         attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: NSMakeRange(0, attrString.length))
         textView.attributedText = attrString
-            }
+    }
+    
+
+    
  
 
 }
@@ -451,8 +454,16 @@ extension RequestPlansContentsVC: UITextFieldDelegate{
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        searchTextField.resignFirstResponder()
-        searchTableView.isHidden = true
+        switch textField{
+        case searchTextField:
+            textField.resignFirstResponder()
+            searchTableView.isHidden = true
+        case plansTitleTextField:
+            textField.resignFirstResponder()
+        default :
+            return true
+            
+        }
         return true
     }
     
