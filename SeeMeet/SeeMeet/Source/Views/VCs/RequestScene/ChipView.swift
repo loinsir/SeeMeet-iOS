@@ -9,9 +9,14 @@ import UIKit
 import Then
 import SnapKit
 
+protocol TapRemoveButtonDelegate{
+    func tapRemoveButton(chipView: ChipView)
+}
+
 class ChipView: UIView {
     
     var name: String = ""
+    var tapRemoveButtonDelegate: TapRemoveButtonDelegate?
     
     private let searchedLabel = UILabel().then{
         $0.font = UIFont.hanSansMediumFont(ofSize: 14)
@@ -26,12 +31,14 @@ class ChipView: UIView {
             super.init(frame: frame)
             configUI()
             setLayout()
+            setGestureRecognizer()
         }
         
         required init?(coder: NSCoder) {
             super.init(coder: coder)
             configUI()
             setLayout()
+            setGestureRecognizer()
         }
         
         private func configUI() {
@@ -62,7 +69,20 @@ class ChipView: UIView {
            
         }
     func setName(name: String){
+        self.name = name
         searchedLabel.text = name
+    }
+    
+    func setGestureRecognizer(){
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapButton(gestureRecognizer:)))
+        removeButton.addGestureRecognizer(tapRecognizer)
+        removeButton.isUserInteractionEnabled = true
+        isUserInteractionEnabled = true
+        
+    }
+    
+    @objc func tapButton(gestureRecognizer: UIGestureRecognizer){
+        tapRemoveButtonDelegate?.tapRemoveButton(chipView: self)
     }
 
 }

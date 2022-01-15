@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class RequestPlansContentsVC: UIViewController {
+class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
 //MARK: Components
     private let titleView = UIView()
     
@@ -44,6 +44,7 @@ class RequestPlansContentsVC: UIViewController {
     private let chipView1 = ChipView()
     private let chipView2 = ChipView()
     private let chipView3 = ChipView()
+    
         
    /*
     private let searchedLabel = UILabel().then{
@@ -138,7 +139,6 @@ class RequestPlansContentsVC: UIViewController {
     private let nextButton = UIButton().then{
         $0.backgroundColor = UIColor.grey02
         $0.setTitle("다음", for: .normal)
-        $0.titleLabel?.text = "메롱"
         $0.titleLabel?.font = UIFont.hanSansMediumFont(ofSize: 16)
         $0.layer.cornerRadius = 10
     }
@@ -157,7 +157,6 @@ class RequestPlansContentsVC: UIViewController {
         setDelegate()
       //  setSearchToken()
         self.searchTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
-      
     }
     
     /*
@@ -171,41 +170,70 @@ class RequestPlansContentsVC: UIViewController {
      */
     func setChipView(){
         searchTextField.placeholder = nil//셀추가시 플레이스 홀더 업애기
-       
+               
+//        chipView2.snp.makeConstraints{
+//            $0.leading.equalTo(chipView1.snp.trailing).offset(11)
+//            $0.centerY.equalToSuperview()
+//        }
+//        chipView3.snp.makeConstraints{
+//            $0.leading.equalTo(chipView2.snp.trailing).offset(11)
+//            $0.centerY.equalToSuperview()
+//        }
+        searchTextField.leftView?.addSubview(chipView1)
+        searchTextField.leftView?.addSubview(chipView2)
+        searchTextField.leftView?.addSubview(chipView3)
+        
+        
+        chipView1.snp.makeConstraints{
+            $0.leading.equalToSuperview().offset(44)
+            $0.top.equalToSuperview().offset(11)
+//            $0.centerY.equalToSuperview() 왜 안먹니 ..
+          
+        }
+        chipView2.snp.makeConstraints{
+            $0.leading.equalTo(chipView1.snp.trailing).offset(11)
+            $0.top.equalToSuperview().offset(11)
+        }
+        chipView3.snp.makeConstraints{
+            $0.leading.equalTo(chipView2.snp.trailing).offset(11)
+            $0.top.equalToSuperview().offset(11)
+        }
         
         switch searchedNameList.count{
         case 0:
             chipView1.isHidden = true
             chipView2.isHidden = true
             chipView3.isHidden = true
-            
+            searchTextField.setLeftPadding(width: 46+2-5)
         case 1:
             chipView1.isHidden = false
             chipView2.isHidden = true
             chipView3.isHidden = true
             chipView1.setName(name: searchedNameList[0])
+            searchTextField.setLeftPadding(width: 46+2+93-5)
             
-            searchTextField.addLeftPadding(width: 46+2+93-5)
         case 2:
+          
             chipView1.isHidden = false
             chipView2.isHidden = false
             chipView3.isHidden = true
             chipView1.setName(name: searchedNameList[0])
             chipView2.setName(name: searchedNameList[1])
-            
-            searchTextField.addLeftPadding(width: 46+2+93+93-5)
+            searchTextField.setLeftPadding(width: 46+2+93+93-5)
+           
         case 3:
+            
             chipView1.isHidden = false
             chipView2.isHidden = false
             chipView3.isHidden = false
             chipView1.setName(name: searchedNameList[0])
             chipView2.setName(name: searchedNameList[1])
             chipView3.setName(name: searchedNameList[2])
-            searchTextField.addLeftPadding(width: 46+2+93+93+93+100-5)
+            searchTextField.setLeftPadding(width: 46+2+93+93+93+100-5)
         default:
-            chipView1.isHidden = true
-            chipView2.isHidden = true
-            chipView3.isHidden = true
+            chipView1.isHidden = false
+            chipView2.isHidden = false
+            chipView3.isHidden = false
         }
     }
     
@@ -214,8 +242,10 @@ class RequestPlansContentsVC: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         view.addSubviews([titleView,friendSelectionLabel,searchTextField,contentsWritingLabel,plansContentsView,navigationLineView,nextButton,whiteView,searchTableView])
         titleView.addSubviews([titleLabel,closeButton])
-        searchTextField.addSubviews([searchImageView,chipView1,chipView2,chipView3])
+        searchTextField.addSubview(searchImageView)
         
+       
+      
         
                                     
         plansContentsView.addSubviews([plansTitleTextField,seperateLineView,plansContentsTextView])
@@ -238,19 +268,7 @@ class RequestPlansContentsVC: UIViewController {
             $0.leading.equalToSuperview().offset(20)
             $0.height.equalTo(32)
         }
-        
-        /*
-        searchBar.snp.makeConstraints{
-            $0.top.equalTo(friendSelectionLabel.snp.bottom).offset(7)
-            $0.leading.equalTo(friendSelectionLabel)
-            $0.trailing.equalToSuperview().offset(-20)
-            $0.height.equalTo(50)
-        }
-    
-        searchBar.searchTextField.snp.makeConstraints{
-            $0.top.leading.bottom.trailing.equalToSuperview()
-        }
-        */
+
         
         searchTextField.snp.makeConstraints{
             $0.top.equalTo(friendSelectionLabel.snp.bottom).offset(7)
@@ -259,30 +277,8 @@ class RequestPlansContentsVC: UIViewController {
             $0.height.equalTo(50)
         }
         
-        chipView1.snp.makeConstraints{
-            $0.leading.equalTo(searchImageView.snp.trailing).offset(2)
-            $0.centerY.equalTo(searchImageView.snp.centerY)
-        }
-        
-        chipView2.snp.makeConstraints{
-            $0.leading.equalTo(chipView1.snp.trailing).offset(11)
-            $0.centerY.equalTo(searchImageView.snp.centerY)
-        }
-        chipView3.snp.makeConstraints{
-            $0.leading.equalTo(chipView2.snp.trailing).offset(11)
-            $0.centerY.equalTo(searchImageView.snp.centerY)
-        }
-        /*
-        removeButton.snp.makeConstraints{
-            $0.trailing.equalToSuperview().offset(11)
-            $0.centerY.equalToSuperview()
-        }
-        
-        searchedLabel.snp.makeConstraints{
-            $0.leading.equalToSuperview().offset(13)
-            $0.centerY.equalToSuperview()
-        }
-         */
+       
+
         whiteView.snp.makeConstraints{
             $0.top.equalTo(searchTextField.snp.bottom).offset(0)
             $0.leading.bottom.trailing.equalToSuperview()
@@ -348,7 +344,8 @@ class RequestPlansContentsVC: UIViewController {
         chipView1.isHidden = true
         chipView2.isHidden = true
         chipView3.isHidden = true
-       
+        searchTextField.isUserInteractionEnabled = true
+//        searchTextField.leftView?.isUserInteractionEnabled = true
         }
     
 //MARK: Delegate
@@ -358,6 +355,11 @@ class RequestPlansContentsVC: UIViewController {
         plansContentsTextView.delegate = self
         searchTableView.dataSource = self
         searchTableView.delegate = self
+        chipView1.tapRemoveButtonDelegate = self
+        chipView2.tapRemoveButtonDelegate = self
+        chipView3.tapRemoveButtonDelegate = self
+        
+        
     }
    
 }
@@ -502,11 +504,30 @@ extension RequestPlansContentsVC: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        // searchBar.searchTextField.tokens.append(UISearchToken(icon: UIImage(), text: "hello"))
-        searchTextField.text = ""
-        searchedNameList.append(filterNameList[indexPath.row])
-        setChipView()
+       
+        searchTextField.text = ""//이름 선택하면 텍스트 필드 비우기
+        if(searchedNameList.count<3){ //이름 세개까지만 추가
+            searchedNameList.append(filterNameList[indexPath.row])
+            setChipView()
+            print(searchedNameList)
+        }
         
     }
+}
+
+extension RequestPlansContentsVC: TapRemoveButtonDelegate{
+    
+    func tapRemoveButton(chipView: ChipView) {
+        print("tapped")
+//        let name: String
+//        name = chipView.name
+//        if let idx = searchedNameList.firstIndex(of: name){
+//            searchedNameList.remove(at: idx)
+//        }
+//        print(searchedNameList)
+//        setChipView()
+    }
+    
 }
 
 
