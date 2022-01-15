@@ -51,8 +51,8 @@ class TabbarVC: UITabBarController {
         let homeTab = UINavigationController(rootViewController: homeVC)
         homeTab.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "home_ic"), selectedImage: UIImage(named: "home_ic_clicked"))
 
-        let sendEventStoryboard = UIStoryboard(name: "Home", bundle: nil)
-        let sendEventVC = sendEventStoryboard.instantiateViewController(identifier: "HomeVC")
+        let sendEventStoryboard = UIStoryboard(name: "RequestPlansContents", bundle: nil)
+        let sendEventVC = sendEventStoryboard.instantiateViewController(identifier: "RequestPlansContentsVC")
         let sendEventTab = UINavigationController(rootViewController: sendEventVC)
         sendEventTab.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "btn_send-message"), selectedImage: UIImage(named: "btn_send-message"))
         
