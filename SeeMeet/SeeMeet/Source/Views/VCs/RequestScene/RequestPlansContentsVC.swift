@@ -450,6 +450,12 @@ extension RequestPlansContentsVC: UITextFieldDelegate{
 
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchTextField.resignFirstResponder()
+        searchTableView.isHidden = true
+        return true
+    }
+    
     
 }
 
@@ -519,13 +525,13 @@ extension RequestPlansContentsVC: TapRemoveButtonDelegate{
     
     func tapRemoveButton(chipView: ChipView) {
         print("tapped")
-//        let name: String
-//        name = chipView.name
-//        if let idx = searchedNameList.firstIndex(of: name){
-//            searchedNameList.remove(at: idx)
-//        }
-//        print(searchedNameList)
-//        setChipView()
+        let name: String
+        name = chipView.name
+        if let idx = searchedNameList.firstIndex(of: name){
+            searchedNameList.remove(at: idx)
+        }
+        print(searchedNameList)
+        setChipView()
     }
     
 }
