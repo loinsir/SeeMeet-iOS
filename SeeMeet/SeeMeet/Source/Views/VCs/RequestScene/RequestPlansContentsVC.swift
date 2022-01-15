@@ -137,7 +137,7 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
     }
     
     private let nextButton = UIButton().then{
-        $0.backgroundColor = UIColor.grey02
+        $0.backgroundColor = UIColor.pink01
         $0.setTitle("다음", for: .normal)
         $0.titleLabel?.font = UIFont.hanSansMediumFont(ofSize: 16)
         $0.layer.cornerRadius = 10
