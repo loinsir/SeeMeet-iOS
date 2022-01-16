@@ -141,6 +141,7 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
         $0.setTitle("다음", for: .normal)
         $0.titleLabel?.font = UIFont.hanSansMediumFont(ofSize: 16)
         $0.layer.cornerRadius = 10
+        $0.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
 //MARK: Var
     var userWidth: CGFloat = UIScreen.getDeviceWidth()
@@ -168,6 +169,12 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
     }
     
      */
+    @objc func nextButtonTapped() {
+        let nextStoryboard = UIStoryboard(name: "RequestPlansDate", bundle: nil)
+        let nextVC = nextStoryboard.instantiateViewController(identifier: "RequestPlansDateVC")
+        self.navigationController?.pushViewController(nextVC, animated: true)
+      
+    }
     func setChipView(){
         searchTextField.placeholder = nil//셀추가시 플레이스 홀더 업애기
                
