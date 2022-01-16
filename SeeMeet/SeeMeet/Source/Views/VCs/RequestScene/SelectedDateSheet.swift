@@ -30,7 +30,7 @@ class SelectedDateSheet: UIView {
     
     private let dateTicketsStackView: UIStackView = UIStackView().then {
         $0.axis = .vertical
-        $0.distribution = .fillEqually
+        $0.alignment = .top
     }
     
     private let separator: UIView = UIView().then {
@@ -90,7 +90,14 @@ class SelectedDateSheet: UIView {
         dateTicketsStackView.addArrangedSubview(DateTicketView())
         dateTicketsStackView.addArrangedSubview(DateTicketView())
         dateTicketsStackView.addArrangedSubview(DateTicketView())
-        dateTicketsStackView.addArrangedSubview(DateTicketView())
+        updateStackViewHeight()
+    }
+    
+    // 스택뷰 갯수 바뀌고 마지막에 반드시 호출할 함수
+    private func updateStackViewHeight() {
+        dateTicketsStackView.snp.updateConstraints {
+            $0.height.equalTo(73 * CGFloat(dateTicketsStackView.arrangedSubviews.count) * heightRatio)
+        }
     }
 
 }
