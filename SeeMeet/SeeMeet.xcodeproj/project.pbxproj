@@ -29,8 +29,6 @@
 		19E633E1278D853500776D0C /* CalendarDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19E633E0278D853500776D0C /* CalendarDetail.storyboard */; };
 		19F1AF722792AB0300022A6A /* SelectedDateSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F1AF712792AB0300022A6A /* SelectedDateSheet.swift */; };
 		19F1AF7A2793453700022A6A /* SelectedDateSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F1AF792793453700022A6A /* SelectedDateSheet.xib */; };
-		19E633DE278D84F200776D0C /* CalendarDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E633DD278D84F200776D0C /* CalendarDetailVC.swift */; };
-		19E633E1278D853500776D0C /* CalendarDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19E633E0278D853500776D0C /* CalendarDetail.storyboard */; };
 		360E6F4627898D4400DACFD8 /* HomeEventCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360E6F4427898D4400DACFD8 /* HomeEventCVC.swift */; };
 		360E6F4727898D4400DACFD8 /* HomeEventCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 360E6F4527898D4400DACFD8 /* HomeEventCVC.xib */; };
 		3623EA83278F65AB00853F87 /* ProgressSendCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA81278F65AB00853F87 /* ProgressSendCVC.swift */; };
@@ -102,8 +100,6 @@
 		19E633E0278D853500776D0C /* CalendarDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CalendarDetail.storyboard; sourceTree = "<group>"; };
 		19F1AF712792AB0300022A6A /* SelectedDateSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedDateSheet.swift; sourceTree = "<group>"; };
 		19F1AF792793453700022A6A /* SelectedDateSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectedDateSheet.xib; sourceTree = "<group>"; };
-		19E633DD278D84F200776D0C /* CalendarDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailVC.swift; sourceTree = "<group>"; };
-		19E633E0278D853500776D0C /* CalendarDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CalendarDetail.storyboard; sourceTree = "<group>"; };
 		360E6F4427898D4400DACFD8 /* HomeEventCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEventCVC.swift; sourceTree = "<group>"; };
 		360E6F4527898D4400DACFD8 /* HomeEventCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeEventCVC.xib; sourceTree = "<group>"; };
 		3623EA81278F65AB00853F87 /* ProgressSendCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressSendCVC.swift; sourceTree = "<group>"; };
@@ -449,8 +445,6 @@
 			children = (
 				6A4A20EB278B58FC00DD4DCD /* RequestScene */,
 				191E8C17278F01C60042B8F1 /* SMPopUpVC.swift */,
-				19F1AF712792AB0300022A6A /* SelectedDateSheet.swift */,
-				1968464A279413A900DBAF3A /* DateTicketView.swift */,
 				191E8C1D278F471E0042B8F1 /* FriendsScene */,
 				36D9E8B6278BDC7B00D5244D /* PlansScene */,
 				1912FCAC278AB77900F33952 /* CalendarScene */,
@@ -534,6 +528,8 @@
 			children = (
 				6A4A20EC278B5F7000DD4DCD /* RequestPlansContentsVC.swift */,
 				6A7C7C0A27920F80006D39F6 /* ChipView.swift */,
+				19F1AF712792AB0300022A6A /* SelectedDateSheet.swift */,
+				1968464A279413A900DBAF3A /* DateTicketView.swift */,
 			);
 			path = RequestScene;
 			sourceTree = "<group>";
