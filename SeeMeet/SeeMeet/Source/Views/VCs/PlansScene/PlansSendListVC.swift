@@ -7,10 +7,11 @@
 
 import UIKit
 
-class cellIndexAction: UITapGestureRecognizer {
-    var viewTag: Int = 0
+class sendCellIndex: UITapGestureRecognizer {
+    var cellView: UIView?
     var isChecked: Bool?
-    var button: UIButton?
+    var yearLabel: UILabel?
+    var dateLabel: UILabel?
 }
 
 class PlansSendListVC: UIViewController {
@@ -92,11 +93,15 @@ class PlansSendListVC: UIViewController {
     }
     //MARK: Var
     var dateCount: Int = 4
+    var isChecked: Bool = false
+    var cellChecked: Bool = false
+    var checkedIndex: Int = 0
+    
+    //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         setHeadLayout()
         setCellViewLayout()
-
     }
 //MARK: setLayout
     func setHeadLayout() {
@@ -148,13 +153,6 @@ class PlansSendListVC: UIViewController {
             $0.height.equalTo(99)
         }
                 for cellCount in 1 ... dateCount {
-                    let cellBackgroundView = UIView().then{
-                        $0.backgroundColor = UIColor.grey02
-                        $0.clipsToBounds = true
-                        $0.layer.cornerRadius = 10
-                    }
-                    dateSelectBackgroundView.addSubview(cellBackgroundView)
-                    cellBackgroundView.tag = cellCount
                     let yearLabel = UILabel().then{
                         $0.font = UIFont.dinProBoldFont(ofSize: 18)
                         $0.text = "2021.12.23"
@@ -174,7 +172,23 @@ class PlansSendListVC: UIViewController {
                         $0.layer.cornerRadius = 10
                         $0.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
                     }
-                    cellBackgroundView.addSubviews([yearLabel, centerView, timeLabel, cellbottomView])
+                    let cellBackgroundView = UIView().then{
+                        let tapGesture = sendCellIndex(target: self, action: #selector(cellClicked(gesture:)))
+                        $0.addGestureRecognizer(tapGesture)
+                        $0.isUserInteractionEnabled = true
+                        tapGesture.cellView = $0
+                        tapGesture.isChecked = false
+                        $0.backgroundColor = UIColor.grey02
+                        $0.clipsToBounds = true
+                        $0.layer.cornerRadius = 10
+                        $0.addSubviews([yearLabel, centerView, timeLabel, cellbottomView])
+                        tapGesture.yearLabel = yearLabel
+                        tapGesture.dateLabel = timeLabel
+                    }
+                    dateSelectBackgroundView.addSubview(cellBackgroundView)
+                    cellBackgroundView.tag = cellCount
+                    
+                    
                     let profileImageView = UIImageView().then{
                         $0.image = UIImage(named: "ic_friend")
                     }
@@ -308,8 +322,31 @@ class PlansSendListVC: UIViewController {
     }
     
     //MARK: function
-    @objc private func cellClicked(gesture: cellIndexAction){
-        
+    @objc private func cellClicked(gesture: sendCellIndex){
+        print(gesture.cellView?.tag)
+        if isChecked == false {
+            isChecked = true
+            if gesture.isChecked == false{
+                gesture.isChecked = true
+                gesture.cellView?.backgroundColor = UIColor.black
+                gesture.yearLabel?.textColor = UIColor.white
+                gesture.dateLabel?.textColor = UIColor.white
+                gesture.cellView?.layer.borderWidth = 1
+                gesture.cellView?.layer.borderColor = UIColor.black.cgColor
+                checkedIndex = gesture.cellView?.tag ?? 0
+            }
+        }
+        else{
+            if gesture.isChecked == true{
+                gesture.isChecked = false
+                isChecked = false
+                gesture.cellView?.backgroundColor = UIColor.grey02
+                gesture.cellView?.layer.borderWidth = 0
+                gesture.yearLabel?.textColor = UIColor.grey06
+                gesture.dateLabel?.textColor = UIColor.grey06
+                checkedIndex = gesture.cellView?.tag ?? 0
+            }
+        }
     }
     
     func setStackButton(){
