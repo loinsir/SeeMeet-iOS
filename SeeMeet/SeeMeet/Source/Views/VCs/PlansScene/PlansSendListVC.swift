@@ -320,7 +320,6 @@ class PlansSendListVC: UIViewController {
             $0.height.equalTo(54)
         }
     }
-    
     //MARK: function
     @objc private func cellClicked(gesture: sendCellIndex){
         print(gesture.cellView?.tag)
@@ -334,6 +333,7 @@ class PlansSendListVC: UIViewController {
                 gesture.cellView?.layer.borderWidth = 1
                 gesture.cellView?.layer.borderColor = UIColor.black.cgColor
                 checkedIndex = gesture.cellView?.tag ?? 0
+                confirmButton.backgroundColor = UIColor.pink01
             }
         }
         else{
@@ -345,10 +345,10 @@ class PlansSendListVC: UIViewController {
                 gesture.yearLabel?.textColor = UIColor.grey06
                 gesture.dateLabel?.textColor = UIColor.grey06
                 checkedIndex = gesture.cellView?.tag ?? 0
+                confirmButton.backgroundColor = UIColor.grey02
             }
         }
     }
-    
     func setStackButton(){
         let nameDummy: [String] = ["김김김", "김김김", "김김김"]
            nameDummy.forEach {
@@ -364,8 +364,5 @@ class PlansSendListVC: UIViewController {
                nameTagStackView.addArrangedSubview(nameButton)
            }
        }
-    
-    
-
 }
 
