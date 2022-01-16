@@ -13,4 +13,10 @@ extension UITextField {
     self.leftView = paddingView
     self.leftViewMode = ViewMode.always
   }
+
+    func setLeftPadding(width: CGFloat){
+        self.leftView?.snp.updateConstraints{ make in
+            make.width.equalTo(width)
+        }
+    }
 }
