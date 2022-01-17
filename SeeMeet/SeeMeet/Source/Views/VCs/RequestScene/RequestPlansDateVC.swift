@@ -41,7 +41,20 @@ class RequestPlansDateVC: UIViewController {
     private let addButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "btn_embody_on"), for: .normal)
     }
-    private let scrollView = UIScrollView()
+//    private let scrollView = UIScrollView()
+    private let scrollView = UIScrollView().then{
+        $0.isPagingEnabled = false
+        $0.bounces = true
+        $0.isPagingEnabled = false
+        $0.contentSize = CGSize(width: UIScreen.getDeviceWidth(), height: 4000)
+        $0.backgroundColor = .red
+        $0.showsVerticalScrollIndicator = true
+       // $0.contentInsetAdjustmentBehavior = .never
+        $0.frame.size = CGSize(width: UIScreen.getDeviceWidth(), height: 700)
+    }
+//    private let contentView = UIView().then{
+//        $0.backgroundColor = .pink01
+//    }
     
     private let selectDateLabel = UILabel().then{
         $0.text = "약속 신청할 날짜를 선택하세요"
@@ -139,7 +152,7 @@ class RequestPlansDateVC: UIViewController {
       //  $0.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     private let fillView = UIView().then{
-        $0.backgroundColor = .white    }
+        $0.backgroundColor = .blue   }
 
 
     
@@ -160,8 +173,8 @@ class RequestPlansDateVC: UIViewController {
         titleView.addSubviews([backButton,titleLabel,closeButton])
         addDateView.addSubviews([selectedDateView,addButton])
         selectedDateView.addSubviews([dateLabel,timeLabel])
-        scrollView.addSubviews([selectDateLabel,separateLineView,scheduleView,allDayView,separateLineView2,startTimeSettingView,timeSeparateView,endTimeSettingView])
-        allDayView.addSubviews([allDayLabel,allDaySwitch,fillView])
+        scrollView.addSubviews([selectDateLabel,separateLineView,scheduleView,allDayView,separateLineView2,startTimeSettingView,timeSeparateView,endTimeSettingView,fillView])
+        allDayView.addSubviews([allDayLabel,allDaySwitch])
         startTimeSettingView.addSubviews([startTimeLabel,startAmPmButton,startDatePicker])
         endTimeSettingView.addSubviews([endTimeLabel,endAmPmButton,endDatePicker
         ])
@@ -212,12 +225,13 @@ class RequestPlansDateVC: UIViewController {
             $0.trailing.equalToSuperview().offset(-20)
             $0.centerY.equalToSuperview()
         }
-        scrollView.contentSize = CGSize(width: view.getDeviceWidth(), height: 1000)
+        
         scrollView.snp.makeConstraints{
             $0.top.equalTo(addDateView.snp.bottom).offset(0)
-            $0.width.equalTo(view.getDeviceWidth())
-            $0.height.equalTo(1000)
+            $0.leading.trailing.equalToSuperview().offset(0)
+            $0.bottom.equalToSuperview().offset(-112)
         }
+
         selectDateLabel.snp.makeConstraints{
             $0.top.equalToSuperview().offset(10)
             $0.leading.equalTo(20)
@@ -301,11 +315,13 @@ class RequestPlansDateVC: UIViewController {
         fillView.snp.makeConstraints{
             $0.top.equalTo(endTimeSettingView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(100)
+            $0.height.equalTo(3000)
         }
+        
         
 
         scrollView.isScrollEnabled = true
+        scrollView.isUserInteractionEnabled = true
     }
     
 }
