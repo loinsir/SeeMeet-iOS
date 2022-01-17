@@ -24,8 +24,11 @@
 		1950E5162791DAC900ED357B /* FriendsAdd.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1950E5152791DAC900ED357B /* FriendsAdd.storyboard */; };
 		1950E51B2791FE7B00ED357B /* FriendsAddTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1950E5192791FE7B00ED357B /* FriendsAddTVC.swift */; };
 		1950E51C2791FE7B00ED357B /* FriendsAddTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1950E51A2791FE7B00ED357B /* FriendsAddTVC.xib */; };
+		1968464B279413A900DBAF3A /* DateTicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1968464A279413A900DBAF3A /* DateTicketView.swift */; };
 		19E633DE278D84F200776D0C /* CalendarDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E633DD278D84F200776D0C /* CalendarDetailVC.swift */; };
 		19E633E1278D853500776D0C /* CalendarDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19E633E0278D853500776D0C /* CalendarDetail.storyboard */; };
+		19F1AF722792AB0300022A6A /* SelectedDateSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F1AF712792AB0300022A6A /* SelectedDateSheet.swift */; };
+		19F1AF7A2793453700022A6A /* SelectedDateSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F1AF792793453700022A6A /* SelectedDateSheet.xib */; };
 		360E6F4627898D4400DACFD8 /* HomeEventCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360E6F4427898D4400DACFD8 /* HomeEventCVC.swift */; };
 		360E6F4727898D4400DACFD8 /* HomeEventCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 360E6F4527898D4400DACFD8 /* HomeEventCVC.xib */; };
 		3623EA83278F65AB00853F87 /* ProgressSendCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA81278F65AB00853F87 /* ProgressSendCVC.swift */; };
@@ -96,8 +99,11 @@
 		1950E5152791DAC900ED357B /* FriendsAdd.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FriendsAdd.storyboard; sourceTree = "<group>"; };
 		1950E5192791FE7B00ED357B /* FriendsAddTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsAddTVC.swift; sourceTree = "<group>"; };
 		1950E51A2791FE7B00ED357B /* FriendsAddTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsAddTVC.xib; sourceTree = "<group>"; };
+		1968464A279413A900DBAF3A /* DateTicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTicketView.swift; sourceTree = "<group>"; };
 		19E633DD278D84F200776D0C /* CalendarDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailVC.swift; sourceTree = "<group>"; };
 		19E633E0278D853500776D0C /* CalendarDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CalendarDetail.storyboard; sourceTree = "<group>"; };
+		19F1AF712792AB0300022A6A /* SelectedDateSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedDateSheet.swift; sourceTree = "<group>"; };
+		19F1AF792793453700022A6A /* SelectedDateSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectedDateSheet.xib; sourceTree = "<group>"; };
 		360E6F4427898D4400DACFD8 /* HomeEventCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEventCVC.swift; sourceTree = "<group>"; };
 		360E6F4527898D4400DACFD8 /* HomeEventCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeEventCVC.xib; sourceTree = "<group>"; };
 		3623EA81278F65AB00853F87 /* ProgressSendCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressSendCVC.swift; sourceTree = "<group>"; };
@@ -509,6 +515,7 @@
 				3623EAA22795435E00853F87 /* LoginScene */,
 				6A4A20EE278B5FB300DD4DCD /* RequestScene */,
 				191E8C19278F01DD0042B8F1 /* SMPopUp.storyboard */,
+				19F1AF792793453700022A6A /* SelectedDateSheet.xib */,
 				191E8C20278F47890042B8F1 /* FriendsScene */,
 				36D9E8B9278BDCD400D5244D /* PlansScene */,
 				36D9E8AD2789A7B500D5244D /* Tabbar */,
@@ -549,6 +556,8 @@
 			children = (
 				6A4A20EC278B5F7000DD4DCD /* RequestPlansContentsVC.swift */,
 				6A7C7C0A27920F80006D39F6 /* ChipView.swift */,
+				19F1AF712792AB0300022A6A /* SelectedDateSheet.swift */,
+				1968464A279413A900DBAF3A /* DateTicketView.swift */,
 			);
 			path = RequestScene;
 			sourceTree = "<group>";
@@ -683,6 +692,7 @@
 				368212472785E643005D7236 /* DINEngschriftStd.otf in Resources */,
 				3682123E2785E643005D7236 /* DINNeuzeitGroteskStd-Light.otf in Resources */,
 				1950E51C2791FE7B00ED357B /* FriendsAddTVC.xib in Resources */,
+				19F1AF7A2793453700022A6A /* SelectedDateSheet.xib in Resources */,
 				1950E5162791DAC900ED357B /* FriendsAdd.storyboard in Resources */,
 				368212422785E643005D7236 /* SpoqaHanSansNeo-Thin.ttf in Resources */,
 				6A4A20F0278B5FE300DD4DCD /* RequestPlansContents.storyboard in Resources */,
@@ -741,6 +751,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				36EFE3212785CC3B00466818 /* Date++.swift in Sources */,
+				19F1AF722792AB0300022A6A /* SelectedDateSheet.swift in Sources */,
 				191E8C2A278FFB870042B8F1 /* SMSearchBar.swift in Sources */,
 				3623EA8F278FDE0C00853F87 /* CompletePlansCVC.swift in Sources */,
 				36EFE31F2785CC3B00466818 /* UIFont++.swift in Sources */,
@@ -761,6 +772,7 @@
 				3623EAAC279570A000853F87 /* GrayTextView.swift in Sources */,
 				191E8C1C278F38DC0042B8F1 /* String++.swift in Sources */,
 				360E6F4627898D4400DACFD8 /* HomeEventCVC.swift in Sources */,
+				1968464B279413A900DBAF3A /* DateTicketView.swift in Sources */,
 				3623EA87278F686A00853F87 /* ProgressReceiveCVC.swift in Sources */,
 				36EFE31A2785CC3B00466818 /* UIViewController++.swift in Sources */,
 				36EFE31C2785CC3B00466818 /* UICollectionView++.swift in Sources */,
