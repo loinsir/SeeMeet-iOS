@@ -46,7 +46,7 @@ class RequestPlansDateVC: UIViewController {
         $0.isPagingEnabled = false
         $0.bounces = true
         $0.isPagingEnabled = false
-        $0.contentSize = CGSize(width: UIScreen.getDeviceWidth(), height: 4000)
+   //     $0.contentSize = CGSize(width: UIScreen.getDeviceWidth(), height: 4000)
         $0.backgroundColor = .red
         $0.showsVerticalScrollIndicator = true
        // $0.contentInsetAdjustmentBehavior = .never
@@ -235,6 +235,7 @@ class RequestPlansDateVC: UIViewController {
         selectDateLabel.snp.makeConstraints{
             $0.top.equalToSuperview().offset(10)
             $0.leading.equalTo(20)
+           // $0.height.equalTo(20)
         }
         separateLineView.snp.makeConstraints{
             $0.top.equalTo(selectDateLabel.snp.bottom).offset(13)
@@ -244,12 +245,12 @@ class RequestPlansDateVC: UIViewController {
         }
         scheduleView.snp.makeConstraints{
             $0.top.equalTo(separateLineView.snp.bottom)
-            $0.width.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(330)
         }
         allDayView.snp.makeConstraints{
             $0.top.equalTo(scheduleView.snp.bottom)
-            $0.width.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(66)
         }
         allDayLabel.snp.makeConstraints{
@@ -263,13 +264,11 @@ class RequestPlansDateVC: UIViewController {
         separateLineView2.snp.makeConstraints{
             $0.top.equalTo(allDayView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
-            $0.width.equalToSuperview()
             $0.height.equalTo(1)
         }
         startTimeSettingView.snp.makeConstraints{
             $0.top.equalTo(separateLineView2.snp.bottom)
             $0.leading.trailing.equalToSuperview()
-            $0.width.equalToSuperview()
             $0.height.equalTo(63)
         }
         startTimeLabel.snp.makeConstraints{
@@ -289,13 +288,12 @@ class RequestPlansDateVC: UIViewController {
         timeSeparateView.snp.makeConstraints{
             $0.top.equalTo(startTimeSettingView.snp.bottom)
             $0.leading.equalToSuperview().offset(21)
-            $0.width.equalTo(335)
+            $0.trailing.equalToSuperview().offset(19)
             $0.height.equalTo(1)
         }
         endTimeSettingView.snp.makeConstraints{
             $0.top.equalTo(timeSeparateView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
-            $0.width.equalToSuperview()
             $0.height.equalTo(63)
         }
         endTimeLabel.snp.makeConstraints{
@@ -315,13 +313,18 @@ class RequestPlansDateVC: UIViewController {
         fillView.snp.makeConstraints{
             $0.top.equalTo(endTimeSettingView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(3000)
+            $0.height.equalTo(300)
         }
-        
         
 
         scrollView.isScrollEnabled = true
         scrollView.isUserInteractionEnabled = true
+        
+        
     }
-    
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scrollView.contentSize = CGSize(width: UIScreen.getDeviceWidth(), height: 3000)
+    }
 }
