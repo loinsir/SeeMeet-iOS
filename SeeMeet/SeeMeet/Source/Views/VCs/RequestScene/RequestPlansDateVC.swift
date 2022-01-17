@@ -7,6 +7,8 @@
 
 import UIKit
 
+fileprivate let heightRatio = UIScreen.getDeviceHeight() / 812
+
 class RequestPlansDateVC: UIViewController {
     
 //MARK: Vars
@@ -15,6 +17,7 @@ class RequestPlansDateVC: UIViewController {
     
 
 //MARK: Components
+    var cellList = [DayCellView]()
     private let titleView = UIView()
     private let backButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "btn_back"), for: .normal)
@@ -49,7 +52,7 @@ class RequestPlansDateVC: UIViewController {
 //    private let scrollView = UIScrollView()
     private let scrollView = UIScrollView().then{
         $0.isPagingEnabled = false
-       // $0.bounces = true
+        $0.bounces = true
         $0.isPagingEnabled = false
         $0.showsVerticalScrollIndicator = true
        // $0.contentInsetAdjustmentBehavior = .never
@@ -133,9 +136,7 @@ class RequestPlansDateVC: UIViewController {
     private let scheduleTableView = UITableView().then{
         $0.register(ScheduleTVC.self, forCellReuseIdentifier: ScheduleTVC.identifier)
         $0.bounces = false
-//        $0.backgroundColor = .clear
-//        $0.backgroundView = nil
-       
+
     }
     
     private let allDayView = UIView().then{
@@ -202,22 +203,25 @@ class RequestPlansDateVC: UIViewController {
         $0.preferredDatePickerStyle = .inline
         
     }
-    
+    private let bottomSheetView = SelectedDateSheet()
     
     
     private let navigationLineView = UIView().then{
         $0.backgroundColor = UIColor.grey02
     }
+    private let navigationBarView = UIView().then{
+        $0.backgroundColor = UIColor.white
+    }
     
     private let requestPlansButton = UIButton().then{
         $0.backgroundColor = UIColor.pink01
-        $0.setTitle("다음", for: .normal)
+        $0.setTitle("약속 신청", for: .normal)
         $0.titleLabel?.font = UIFont.hanSansMediumFont(ofSize: 16)
         $0.layer.cornerRadius = 10
       //  $0.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     private let fillView = UIView().then{
-        $0.backgroundColor = .blue   }
+        $0.backgroundColor = .white   }
 
    // private let sheetView = SelectedDateSheet
     
@@ -226,6 +230,7 @@ class RequestPlansDateVC: UIViewController {
         super.viewDidLoad()
         setLayout()
         setDelegate()
+        setCellList()
         
 
         // Do any additional setup after loading the view.
@@ -236,6 +241,10 @@ class RequestPlansDateVC: UIViewController {
         scheduleTableView.dataSource = self
         scheduleTableView.delegate = self
     }
+    func setCellList() {
+        cellList.append(contentsOf:[sunCell,monCell,tueCell,wedCell,thuCell,friCell,satCell])
+    }
+    
 
 //MARK: Layout
     func setLayout() {
@@ -243,7 +252,9 @@ class RequestPlansDateVC: UIViewController {
         view.addSubviews([titleView,
                           addDateView,
                           scrollView,
-                          requestPlansButton])
+                        //  bottomSheetView,
+                          navigationLineView,
+                          navigationBarView])
         
         titleView.addSubviews([backButton,
                                titleLabel,
@@ -281,6 +292,7 @@ class RequestPlansDateVC: UIViewController {
         endTimeSettingView.addSubviews([endTimeLabel,
                                         endAmPmButton,
                                         endDatePicker])
+        navigationBarView.addSubview(requestPlansButton)
                                          
                                     
         
@@ -484,7 +496,25 @@ class RequestPlansDateVC: UIViewController {
             $0.height.equalTo(77)
             $0.bottom.equalToSuperview()
         }
-        
+//        bottomSheetView.snp.makeConstraints{
+//            $0.leading.bottom.trailing.equalToSuperview()
+//            $0.height.equalTo(500*heightRatio)
+//        }
+        navigationLineView.snp.makeConstraints{
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(requestPlansButton.snp.top).offset(-16)
+            $0.height.equalTo(1)
+        }
+        navigationBarView.snp.makeConstraints{
+            $0.leading.bottom.trailing.equalToSuperview()
+            $0.height.equalTo(112)
+        }
+        requestPlansButton.snp.makeConstraints{
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.bottom.equalToSuperview().offset(-42)
+            $0.height.equalTo(54)
+        }
         
         scrollView.isScrollEnabled = true
         scrollView.isUserInteractionEnabled = true

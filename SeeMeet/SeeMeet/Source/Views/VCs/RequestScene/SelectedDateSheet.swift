@@ -33,16 +33,6 @@ class SelectedDateSheet: UIView {
         $0.alignment = .top
     }
     
-    private let separator: UIView = UIView().then {
-        $0.backgroundColor = UIColor.grey02
-    }
-    
-    private let requestButton: UIButton = UIButton().then {
-        $0.backgroundColor = UIColor.pink01
-        let attributedtext = UILabel().setTextFontAttribute(defaultText: "약속 신청", containText: "약속 신청", changingFont: UIFont.hanSansMediumFont(ofSize: 16), color: UIColor.white)
-        $0.setAttributedTitle(attributedtext, for: .normal)
-        $0.layer.cornerRadius = 10
-    }
     
     // MARK: - Life Cycle
     
@@ -60,7 +50,7 @@ class SelectedDateSheet: UIView {
         isUserInteractionEnabled = true
         backgroundColor = .white
         layer.cornerRadius = 20
-        addSubviews([grabber, titleLabel, selectedCountLabel, dateTicketsStackView, requestButton, separator])
+        addSubviews([grabber, titleLabel, selectedCountLabel, dateTicketsStackView])
         
         grabber.snp.makeConstraints {
             $0.height.equalTo(4 * heightRatio)
@@ -90,7 +80,7 @@ class SelectedDateSheet: UIView {
         dateTicketsStackView.addArrangedSubview(DateTicketView())
         dateTicketsStackView.addArrangedSubview(DateTicketView())
         dateTicketsStackView.addArrangedSubview(DateTicketView())
-        updateStackViewHeight()
+//        updateStackViewHeight()
     }
     
     // 스택뷰 갯수 바뀌고 마지막에 반드시 호출할 함수
