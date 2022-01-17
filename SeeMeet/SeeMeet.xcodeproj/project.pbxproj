@@ -77,6 +77,7 @@
 		6A7C7C0F279364CA006D39F6 /* RequestPlansDateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7C7C0E279364CA006D39F6 /* RequestPlansDateVC.swift */; };
 		6A7C7C13279367DF006D39F6 /* RequestPlansDate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A7C7C12279367DF006D39F6 /* RequestPlansDate.storyboard */; };
 		6A8E387C27958A2F00A480F7 /* DayCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E387B27958A2E00A480F7 /* DayCellView.swift */; };
+		6A8E38802795B82400A480F7 /* ScheduleTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E387F2795B82400A480F7 /* ScheduleTVC.swift */; };
 		6AAD47C6278DF01300D8C800 /* UITextField++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAD47C5278DF01300D8C800 /* UITextField++.swift */; };
 		6AF609222790BA6000F49DF4 /* SearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF609212790BA6000F49DF4 /* SearchTVC.swift */; };
 /* End PBXBuildFile section */
@@ -154,6 +155,7 @@
 		6A7C7C0E279364CA006D39F6 /* RequestPlansDateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPlansDateVC.swift; sourceTree = "<group>"; };
 		6A7C7C12279367DF006D39F6 /* RequestPlansDate.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RequestPlansDate.storyboard; sourceTree = "<group>"; };
 		6A8E387B27958A2E00A480F7 /* DayCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCellView.swift; sourceTree = "<group>"; };
+		6A8E387F2795B82400A480F7 /* ScheduleTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTVC.swift; sourceTree = "<group>"; };
 		6AAD47C5278DF01300D8C800 /* UITextField++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField++.swift"; sourceTree = "<group>"; };
 		6AF609212790BA6000F49DF4 /* SearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTVC.swift; sourceTree = "<group>"; };
 		7E4152A410430753EE447189 /* Pods_SeeMeet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SeeMeet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -563,6 +565,7 @@
 			isa = PBXGroup;
 			children = (
 				6AF609212790BA6000F49DF4 /* SearchTVC.swift */,
+				6A8E387F2795B82400A480F7 /* ScheduleTVC.swift */,
 			);
 			path = RequestScene;
 			sourceTree = "<group>";
@@ -747,6 +750,7 @@
 				36EFE2ED2785682200466818 /* AppDelegate.swift in Sources */,
 				6A7C7C0B27920F80006D39F6 /* ChipView.swift in Sources */,
 				191E8C18278F01C60042B8F1 /* SMPopUpVC.swift in Sources */,
+				6A8E38802795B82400A480F7 /* ScheduleTVC.swift in Sources */,
 				36EFE31D2785CC3B00466818 /* UIColor++.swift in Sources */,
 				191E8C1C278F38DC0042B8F1 /* String++.swift in Sources */,
 				360E6F4627898D4400DACFD8 /* HomeEventCVC.swift in Sources */,

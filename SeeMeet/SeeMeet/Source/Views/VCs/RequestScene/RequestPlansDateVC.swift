@@ -8,6 +8,11 @@
 import UIKit
 
 class RequestPlansDateVC: UIViewController {
+    
+//MARK: Vars
+    var timeList: [String] = ["09 - 11","09 - 14","16 - 21","17 - 23"]
+    var planList: [String] = ["마라샹궈","솝트세미나","스터디","데이트"]
+    
 
 //MARK: Components
     private let titleView = UIView()
@@ -125,7 +130,12 @@ class RequestPlansDateVC: UIViewController {
         $0.textColor = UIColor.grey06
     }
     
-    private let scheduleTableView = UITableView()
+    private let scheduleTableView = UITableView().then{
+        $0.register(ScheduleTVC.self, forCellReuseIdentifier: ScheduleTVC.identifier)
+//        $0.backgroundColor = UIColor.grey01
+//        $0.backgroundView = nil
+       
+    }
     
     private let allDayView = UIView().then{
         $0.backgroundColor = UIColor.white
@@ -193,6 +203,7 @@ class RequestPlansDateVC: UIViewController {
     }
     
     
+    
     private let navigationLineView = UIView().then{
         $0.backgroundColor = UIColor.grey02
     }
@@ -213,11 +224,17 @@ class RequestPlansDateVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
+        setDelegate()
         
 
         // Do any additional setup after loading the view.
     }
     
+//MARK: Func
+    func setDelegate() {
+        scheduleTableView.dataSource = self
+        scheduleTableView.delegate = self
+    }
 
 //MARK: Layout
     func setLayout() {
@@ -394,8 +411,8 @@ class RequestPlansDateVC: UIViewController {
         scheduleTableView.snp.makeConstraints{
             $0.top.equalTo(todayLabel.snp.bottom).offset(11)
             $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.bottom.equalToSuperview().offset(-20)
         }
         
         allDayView.snp.makeConstraints{
@@ -463,11 +480,37 @@ class RequestPlansDateVC: UIViewController {
         fillView.snp.makeConstraints{
             $0.top.equalTo(endTimeSettingView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(300)
+            $0.height.equalTo(77)
             $0.bottom.equalToSuperview()
         }
+        
+        
         scrollView.isScrollEnabled = true
         scrollView.isUserInteractionEnabled = true
+        
+        scheduleTableView.separatorStyle = .none
     }
 
 }
+
+
+extension RequestPlansDateVC: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return timeList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ScheduleTVC.identifier) as? ScheduleTVC else { return UITableViewCell() }
+        cell.setData(time: timeList[indexPath.row], plansTitle: planList[indexPath.row])
+        return cell
+    }
+    
+    
+}
+    
+extension RequestPlansDateVC: UITableViewDelegate{
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 35
+    }
+}
+

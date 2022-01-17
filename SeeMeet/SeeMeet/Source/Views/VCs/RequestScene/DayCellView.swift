@@ -34,9 +34,8 @@ class DayCellView: UIView {
         $0.font = UIFont.hanSansBoldFont(ofSize: 13)
         $0.textColor = UIColor.grey06
     }
-    private let pinkDot = UIView().then{
+    private let pinkDotView = UIView().then{
         $0.backgroundColor = UIColor.pink01
-        $0.layer.cornerRadius = $0.frame.width/2
     }
     
     
@@ -63,7 +62,7 @@ class DayCellView: UIView {
         }
         
         private func setLayout() {
-            addSubviews([cellView,pinkDot])
+            addSubviews([cellView,pinkDotView])
             cellView.addSubviews([montosunLabel,dayLabel])
             
             
@@ -88,11 +87,13 @@ class DayCellView: UIView {
                 $0.top.equalTo(montosunLabel.snp.bottom).offset(8)
                 $0.centerX.equalToSuperview()
             }
-            pinkDot.snp.makeConstraints{
+            pinkDotView.snp.makeConstraints{
                 $0.top.equalTo(cellView.snp.bottom).offset(4)
                 $0.centerX.equalTo(cellView.snp.centerX)
                 $0.width.height.equalTo(5)
             }
+            
+            pinkDotView.layer.cornerRadius = 5/2
            
         }
     func setDate(montosun: String,day: Int,isScheduled: Bool){
