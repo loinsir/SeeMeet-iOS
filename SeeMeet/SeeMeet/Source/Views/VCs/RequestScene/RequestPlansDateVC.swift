@@ -132,7 +132,8 @@ class RequestPlansDateVC: UIViewController {
     
     private let scheduleTableView = UITableView().then{
         $0.register(ScheduleTVC.self, forCellReuseIdentifier: ScheduleTVC.identifier)
-//        $0.backgroundColor = UIColor.grey01
+        $0.bounces = false
+//        $0.backgroundColor = .clear
 //        $0.backgroundView = nil
        
     }
@@ -218,7 +219,7 @@ class RequestPlansDateVC: UIViewController {
     private let fillView = UIView().then{
         $0.backgroundColor = .blue   }
 
-
+   // private let sheetView = SelectedDateSheet
     
 
     override func viewDidLoad() {
