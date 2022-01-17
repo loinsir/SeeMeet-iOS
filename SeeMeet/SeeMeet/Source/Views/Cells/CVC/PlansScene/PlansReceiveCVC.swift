@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class PlansRecieveCVC: UICollectionViewCell {
+class PlansReceiveCVC: UICollectionViewCell {
     
     private let titleLabel = UILabel().then{
         $0.font = UIFont.hanSansBoldFont(ofSize: 16)
@@ -92,7 +92,7 @@ class PlansRecieveCVC: UICollectionViewCell {
     }
     //MARK: Var
     let nameDummy: [String] = ["김준희", "김준희", "김준희"]
-    static let identifier: String = "PlansRecieveCVC"
+    static let identifier: String = "PlansReceiveCVC"
     
     override func awakeFromNib() {
         super.awakeFromNib()

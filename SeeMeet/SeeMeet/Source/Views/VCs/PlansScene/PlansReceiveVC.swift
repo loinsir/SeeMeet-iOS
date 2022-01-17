@@ -253,7 +253,7 @@ class PlansReceiveVC: UIViewController {
     func setDetailData(){
         detailSelectDateCollectionView.delegate = self
         detailSelectDateCollectionView.dataSource = self
-        detailSelectDateCollectionView.registerCustomXib(xibName: "PlansRecieveCVC")
+        detailSelectDateCollectionView.registerCustomXib(xibName: "PlansReceiveCVC")
         
         detailBackgroundView.snp.makeConstraints{
             $0.top.equalTo(selectDateBackgroundView.snp.bottom).offset(0)
@@ -460,7 +460,7 @@ extension PlansReceiveVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: PlansRecieveCVC.identifier, for: indexPath) as! PlansRecieveCVC
+        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: PlansReceiveCVC.identifier, for: indexPath) as! PlansReceiveCVC
         return cell
     }
     
