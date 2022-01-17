@@ -21,4 +21,13 @@ extension UILabel {
         changeText.addAttribute(NSAttributedString.Key.kern, value: value, range: NSRange(0 ... changeText.length-1))
         return changeText
     }
+    
+    func setTextFontColorSpacingAttribute(defaultText: String, value: CGFloat, containText: String, changingFont: UIFont, color: UIColor) -> NSAttributedString{
+        let text: String = defaultText
+        let changeText = NSMutableAttributedString(string: text)
+        changeText.addAttribute(NSAttributedString.Key.kern, value: value, range: NSRange(0 ... changeText.length-1))
+        changeText.addAttribute(.font, value: changingFont, range: (text as NSString).range(of: containText))
+        changeText.addAttribute(.foregroundColor, value: color, range: (text as NSString).range(of: containText))
+        return changeText
+    }
 }
