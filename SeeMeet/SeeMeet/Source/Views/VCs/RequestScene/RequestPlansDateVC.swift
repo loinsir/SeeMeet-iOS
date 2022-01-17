@@ -44,17 +44,12 @@ class RequestPlansDateVC: UIViewController {
 //    private let scrollView = UIScrollView()
     private let scrollView = UIScrollView().then{
         $0.isPagingEnabled = false
-        $0.bounces = true
+       // $0.bounces = true
         $0.isPagingEnabled = false
-   //     $0.contentSize = CGSize(width: UIScreen.getDeviceWidth(), height: 4000)
-        $0.backgroundColor = .red
         $0.showsVerticalScrollIndicator = true
        // $0.contentInsetAdjustmentBehavior = .never
-        $0.frame.size = CGSize(width: UIScreen.getDeviceWidth(), height: 700)
+       // $0.frame.size = CGSize(width: UIScreen.getDeviceWidth(), height: 700)
     }
-//    private let contentView = UIView().then{
-//        $0.backgroundColor = .pink01
-//    }
     
     private let selectDateLabel = UILabel().then{
         $0.text = "약속 신청할 날짜를 선택하세요"
@@ -71,9 +66,32 @@ class RequestPlansDateVC: UIViewController {
     private let scheduleView = UIView().then{
         $0.backgroundColor = UIColor.grey01
     }
-    private let whiteView = UIView().then{
-        $0.backgroundColor = UIColor.white
+    private let prevWeekButton = UIButton().then{
+        $0.setBackgroundImage(UIImage(named: "leftchevron"), for: .normal)
     }
+    private let presentWeekLabel = UILabel().then{
+        $0.text = "2022년 2월"
+        $0.font = UIFont.dinProMediumFont(ofSize: 18)
+        $0.textColor = UIColor.pink01
+        $0.textAlignment = .center
+    }
+    private let nextWeekButton = UIButton().then{
+        $0.setBackgroundImage(UIImage(named: "rightchevron"), for: .normal)
+    }
+    private let caleandarView = UIView()
+    
+    private let calendarSeparateLineView =  UIView().then{
+        $0.backgroundColor = UIColor.grey02
+    }
+    
+    private let todayLabel = UILabel().then{
+        $0.text = "1월 6일 금요일"
+        $0.font = UIFont.hanSansBoldFont(ofSize: 16)
+        $0.textColor = UIColor.pink01
+    }
+    
+    private let scheduleTableView = UITableView()
+    
     private let allDayView = UIView().then{
         $0.backgroundColor = UIColor.white
     }
@@ -174,6 +192,7 @@ class RequestPlansDateVC: UIViewController {
         addDateView.addSubviews([selectedDateView,addButton])
         selectedDateView.addSubviews([dateLabel,timeLabel])
         scrollView.addSubviews([selectDateLabel,separateLineView,scheduleView,allDayView,separateLineView2,startTimeSettingView,timeSeparateView,endTimeSettingView,fillView])
+        scheduleView.addSubviews([prevWeekButton,presentWeekLabel,nextWeekButton,caleandarView,calendarSeparateLineView,todayLabel,scheduleTableView])
         allDayView.addSubviews([allDayLabel,allDaySwitch])
         startTimeSettingView.addSubviews([startTimeLabel,startAmPmButton,startDatePicker])
         endTimeSettingView.addSubviews([endTimeLabel,endAmPmButton,endDatePicker
@@ -248,6 +267,38 @@ class RequestPlansDateVC: UIViewController {
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(330)
         }
+        
+        prevWeekButton.snp.makeConstraints{
+            $0.top.equalToSuperview().offset(6)
+            $0.leading.equalToSuperview().offset(1)
+            $0.width.height.equalTo(42)
+        }
+        presentWeekLabel.snp.makeConstraints{
+            $0.leading.equalToSuperview().offset(19)
+            $0.trailing.equalToSuperview().offset(-18)
+            $0.centerY.equalTo(prevWeekButton.snp.centerY)
+
+        }
+        nextWeekButton.snp.makeConstraints{
+            $0.trailing.equalToSuperview().offset(-2)
+            $0.centerY.equalTo(presentWeekLabel.snp.centerY)
+        }
+//        nextWeekButton.snp.makeConstraints{
+//
+//        }
+//        caleandarView.snp.makeConstraints{
+//
+//        }
+//        calendarSeparateLineView.snp.makeConstraints{
+//
+//        }
+//        todayLabel.snp.makeConstraints{
+//
+//        }
+//        scheduleTableView.snp.makeConstraints{
+//
+//        }
+        
         allDayView.snp.makeConstraints{
             $0.top.equalTo(scheduleView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
@@ -314,17 +365,10 @@ class RequestPlansDateVC: UIViewController {
             $0.top.equalTo(endTimeSettingView.snp.bottom)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(300)
+            $0.bottom.equalToSuperview()
         }
-        
-
         scrollView.isScrollEnabled = true
         scrollView.isUserInteractionEnabled = true
-        
-        
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        scrollView.contentSize = CGSize(width: UIScreen.getDeviceWidth(), height: 3000)
-    }
 }
