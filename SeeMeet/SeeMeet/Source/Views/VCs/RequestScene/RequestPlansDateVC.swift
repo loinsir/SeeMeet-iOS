@@ -80,6 +80,41 @@ class RequestPlansDateVC: UIViewController {
     }
     private let caleandarView = UIView()
     
+    private let sunCell = DayCellView().then{
+        $0.setDate(montosun: "일", day: 1,isScheduled: false)
+        $0.backgroundColor = UIColor.grey01
+        $0.layer.cornerRadius = 10
+    }
+    private let monCell = DayCellView().then{
+        $0.setDate(montosun: "월", day: 2,isScheduled: false)
+        $0.backgroundColor = UIColor.grey01
+        $0.layer.cornerRadius = 10
+    }
+    private let tueCell = DayCellView().then{
+        $0.setDate(montosun: "화", day: 3,isScheduled: true)
+        $0.backgroundColor = UIColor.grey01
+        $0.layer.cornerRadius = 10
+    }
+    private let wedCell = DayCellView().then{
+        $0.setDate(montosun: "수", day: 4,isScheduled: false)
+        $0.backgroundColor = UIColor.grey01
+        $0.layer.cornerRadius = 10
+    }
+    private let thuCell = DayCellView().then{
+        $0.setDate(montosun: "목", day: 5,isScheduled: true)
+        $0.backgroundColor = UIColor.grey01
+        $0.layer.cornerRadius = 10
+    }
+    private let friCell = DayCellView().then{
+        $0.setDate(montosun: "금", day: 6,isScheduled: true)
+        $0.backgroundColor = UIColor.grey01
+        $0.layer.cornerRadius = 10
+    }
+    private let satCell = DayCellView().then{
+        $0.setDate(montosun: "토", day: 7,isScheduled: false)
+        $0.backgroundColor = UIColor.grey01
+        $0.layer.cornerRadius = 10
+    }
     private let calendarSeparateLineView =  UIView().then{
         $0.backgroundColor = UIColor.grey02
     }
@@ -87,7 +122,7 @@ class RequestPlansDateVC: UIViewController {
     private let todayLabel = UILabel().then{
         $0.text = "1월 6일 금요일"
         $0.font = UIFont.hanSansBoldFont(ofSize: 16)
-        $0.textColor = UIColor.pink01
+        $0.textColor = UIColor.grey06
     }
     
     private let scheduleTableView = UITableView()
@@ -187,16 +222,47 @@ class RequestPlansDateVC: UIViewController {
 //MARK: Layout
     func setLayout() {
         self.navigationController?.isNavigationBarHidden = true
-        view.addSubviews([titleView,addDateView,scrollView,requestPlansButton])
-        titleView.addSubviews([backButton,titleLabel,closeButton])
-        addDateView.addSubviews([selectedDateView,addButton])
-        selectedDateView.addSubviews([dateLabel,timeLabel])
-        scrollView.addSubviews([selectDateLabel,separateLineView,scheduleView,allDayView,separateLineView2,startTimeSettingView,timeSeparateView,endTimeSettingView,fillView])
-        scheduleView.addSubviews([prevWeekButton,presentWeekLabel,nextWeekButton,caleandarView,calendarSeparateLineView,todayLabel,scheduleTableView])
-        allDayView.addSubviews([allDayLabel,allDaySwitch])
-        startTimeSettingView.addSubviews([startTimeLabel,startAmPmButton,startDatePicker])
-        endTimeSettingView.addSubviews([endTimeLabel,endAmPmButton,endDatePicker
-        ])
+        view.addSubviews([titleView,
+                          addDateView,
+                          scrollView,
+                          requestPlansButton])
+        
+        titleView.addSubviews([backButton,
+                               titleLabel,
+                               closeButton])
+        
+        addDateView.addSubviews([selectedDateView,
+                                 addButton])
+        
+        selectedDateView.addSubviews([dateLabel,
+                                      timeLabel])
+        
+        scrollView.addSubviews([selectDateLabel,
+                                separateLineView,
+                                scheduleView,
+                                allDayView,
+                                separateLineView2,
+                                startTimeSettingView,
+                                timeSeparateView,
+                                endTimeSettingView,
+                                fillView])
+        
+        scheduleView.addSubviews([prevWeekButton,
+                                  presentWeekLabel,
+                                  nextWeekButton,
+                                  caleandarView,
+                                  calendarSeparateLineView,
+                                  todayLabel,
+                                  scheduleTableView])
+        caleandarView.addSubviews([sunCell,monCell,tueCell,wedCell,thuCell,friCell,satCell])
+        allDayView.addSubviews([allDayLabel,
+                                allDaySwitch])
+        startTimeSettingView.addSubviews([startTimeLabel,
+                                          startAmPmButton,
+                                          startDatePicker])
+        endTimeSettingView.addSubviews([endTimeLabel,
+                                        endAmPmButton,
+                                        endDatePicker])
                                          
                                     
         
@@ -277,27 +343,60 @@ class RequestPlansDateVC: UIViewController {
             $0.leading.equalToSuperview().offset(19)
             $0.trailing.equalToSuperview().offset(-18)
             $0.centerY.equalTo(prevWeekButton.snp.centerY)
-
         }
         nextWeekButton.snp.makeConstraints{
             $0.trailing.equalToSuperview().offset(-2)
             $0.centerY.equalTo(presentWeekLabel.snp.centerY)
         }
-//        nextWeekButton.snp.makeConstraints{
-//
-//        }
-//        caleandarView.snp.makeConstraints{
-//
-//        }
-//        calendarSeparateLineView.snp.makeConstraints{
-//
-//        }
-//        todayLabel.snp.makeConstraints{
-//
-//        }
-//        scheduleTableView.snp.makeConstraints{
-//
-//        }
+        caleandarView.snp.makeConstraints{
+            $0.top.equalTo(presentWeekLabel.snp.bottom).offset(5)
+            $0.leading.equalToSuperview().offset(9)
+            $0.trailing.equalToSuperview().offset(-10)
+            $0.height.equalTo(90)
+        }
+        sunCell.snp.makeConstraints{
+            $0.trailing.equalTo(monCell.snp.leading).offset(-7)
+            $0.centerY.equalTo(wedCell.snp.centerY)
+        }
+        monCell.snp.makeConstraints{
+            $0.trailing.equalTo(tueCell.snp.leading).offset(-7)
+            $0.centerY.equalTo(wedCell.snp.centerY)
+        }
+        tueCell.snp.makeConstraints{
+            $0.trailing.equalTo(wedCell.snp.leading).offset(-7)
+            $0.centerY.equalTo(wedCell.snp.centerY)
+        }
+        wedCell.snp.makeConstraints{
+            $0.centerY.equalToSuperview().offset(-2)
+            $0.centerX.equalToSuperview()
+        }
+        thuCell.snp.makeConstraints{
+            $0.leading.equalTo(wedCell.snp.trailing).offset(7)
+            $0.centerY.equalTo(wedCell.snp.centerY)
+        }
+        friCell.snp.makeConstraints{
+            $0.leading.equalTo(thuCell.snp.trailing).offset(7)
+            $0.centerY.equalTo(wedCell.snp.centerY)
+        }
+        satCell.snp.makeConstraints{
+            $0.leading.equalTo(friCell.snp.trailing).offset(7)
+            $0.centerY.equalTo(wedCell.snp.centerY)
+        }
+        calendarSeparateLineView.snp.makeConstraints{
+            $0.top.equalTo(caleandarView.snp.bottom).offset(8)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(1)
+        }
+        todayLabel.snp.makeConstraints{
+            $0.top.equalTo(calendarSeparateLineView.snp.bottom).offset(15)
+            $0.leading.equalToSuperview().offset(20)
+        }
+        scheduleTableView.snp.makeConstraints{
+            $0.top.equalTo(todayLabel.snp.bottom).offset(11)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(20)
+        }
         
         allDayView.snp.makeConstraints{
             $0.top.equalTo(scheduleView.snp.bottom)
