@@ -1,7 +1,6 @@
 import UIKit
 import SnapKit
 import Then
-import SwiftUI
 
 class LoginVC: UIViewController {
     
@@ -11,10 +10,12 @@ class LoginVC: UIViewController {
     private let emailTextView = GrayTextView(type: .loginEmail)
     private let emailTextField = GrayTextField(type: .email, placeHolder: "이메일").then{
         $0.tag = 1
+        $0.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     private let pwdTextView =  GrayTextView(type: .loginPassword)
     private let pwdTextField = GrayTextField(type: .password, placeHolder: "비밀번호").then{
         $0.tag = 2
+        $0.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     private let pwdSeeButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "ic_password_notsee"), for: .normal)
@@ -27,6 +28,7 @@ class LoginVC: UIViewController {
         $0.setTitleColor(UIColor.white, for: .normal)
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 10
+        $0.addTarget(self, action: #selector(loginButtonClicked(_:)), for: .touchUpInside)
     }
     private let accountButton = UIImageView().then{
         $0.image = UIImage(named: "btn_sign-up")
@@ -108,7 +110,12 @@ class LoginVC: UIViewController {
             pwdTextField.isSecureTextEntry = isNotSee
         }
     }
-
+    @objc private func loginButtonClicked(_ sender: UIButton){
+        guard let homeVC = UIStoryboard(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "TabbarVC") as? TabbarVC else {return}
+        if isFull == true {
+            self.navigationController?.pushViewController(homeVC, animated: true)
+        }
+     }
     
 }
 
