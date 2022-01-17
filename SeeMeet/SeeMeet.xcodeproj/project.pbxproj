@@ -39,6 +39,8 @@
 		3623EA88278F686A00853F87 /* ProgressReceiveCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA86278F686A00853F87 /* ProgressReceiveCVC.xib */; };
 		3623EA8F278FDE0C00853F87 /* CompletePlansCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA8D278FDE0C00853F87 /* CompletePlansCVC.swift */; };
 		3623EA90278FDE0C00853F87 /* CompletePlansCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA8E278FDE0C00853F87 /* CompletePlansCVC.xib */; };
+		3623EA9E27931EAC00853F87 /* PlansSendListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA9D27931EAC00853F87 /* PlansSendListVC.swift */; };
+		3623EAA027931EC000853F87 /* PlansSendList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA9F27931EC000853F87 /* PlansSendList.storyboard */; };
 		3623EA922791282700853F87 /* PlansReceiveVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA912791282700853F87 /* PlansReceiveVC.swift */; };
 		3623EA942791283600853F87 /* PlansReceiveList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA932791283600853F87 /* PlansReceiveList.storyboard */; };
 		3623EAAD2795928000853F87 /* PlansReceiveCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA962791D1D300853F87 /* PlansReceiveCVC.xib */; };
@@ -116,6 +118,8 @@
 		3623EA86278F686A00853F87 /* ProgressReceiveCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProgressReceiveCVC.xib; sourceTree = "<group>"; };
 		3623EA8D278FDE0C00853F87 /* CompletePlansCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletePlansCVC.swift; sourceTree = "<group>"; };
 		3623EA8E278FDE0C00853F87 /* CompletePlansCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompletePlansCVC.xib; sourceTree = "<group>"; };
+		3623EA9D27931EAC00853F87 /* PlansSendListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansSendListVC.swift; sourceTree = "<group>"; };
+		3623EA9F27931EC000853F87 /* PlansSendList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlansSendList.storyboard; sourceTree = "<group>"; };
 		3623EA912791282700853F87 /* PlansReceiveVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansReceiveVC.swift; sourceTree = "<group>"; };
 		3623EA932791283600853F87 /* PlansReceiveList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlansReceiveList.storyboard; sourceTree = "<group>"; };
 		3623EA952791D1D300853F87 /* PlansReceiveCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansReceiveCVC.swift; sourceTree = "<group>"; };
@@ -348,6 +352,7 @@
 			isa = PBXGroup;
 			children = (
 				36D9E8B7278BDCCC00D5244D /* PlansListVC.swift */,
+				3623EA9D27931EAC00853F87 /* PlansSendListVC.swift */,
 				3623EA912791282700853F87 /* PlansReceiveVC.swift */,
 			);
 			path = PlansScene;
@@ -357,6 +362,7 @@
 			isa = PBXGroup;
 			children = (
 				36D9E8BA278BDCE800D5244D /* PlansList.storyboard */,
+				3623EA9F27931EC000853F87 /* PlansSendList.storyboard */,
 				3623EA932791283600853F87 /* PlansReceiveList.storyboard */,
 			);
 			path = PlansScene;
@@ -665,6 +671,7 @@
 				3682124C2785E643005D7236 /* LICENSE in Resources */,
 				191E8C27278F490A0042B8F1 /* FriendsListTVC.xib in Resources */,
 				368212482785E643005D7236 /* DINPro-Bold.otf in Resources */,
+				3623EAA027931EC000853F87 /* PlansSendList.storyboard in Resources */,
 				1912FCB0278AB7BB00F33952 /* Calendar.storyboard in Resources */,
 				36D9E8AF2789A7BF00D5244D /* Tabbar.storyboard in Resources */,
 				368212442785E643005D7236 /* SpoqaHanSansNeo-Regular.ttf in Resources */,
@@ -744,6 +751,7 @@
 				19F1AF722792AB0300022A6A /* SelectedDateSheet.swift in Sources */,
 				191E8C2A278FFB870042B8F1 /* SMSearchBar.swift in Sources */,
 				3623EA8F278FDE0C00853F87 /* CompletePlansCVC.swift in Sources */,
+				3623EA9E27931EAC00853F87 /* PlansSendListVC.swift in Sources */,
 				3623EA922791282700853F87 /* PlansReceiveVC.swift in Sources */,
 				36EFE31F2785CC3B00466818 /* UIFont++.swift in Sources */,
 				1912FCAE278AB7A000F33952 /* CalendarVC.swift in Sources */,
