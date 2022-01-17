@@ -322,7 +322,10 @@ extension PlansListVC: UICollectionViewDataSource{
             return UICollectionViewCell()
         }
     }
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let receiveVC = UIStoryboard(name: "PlansReceiveList", bundle: nil).instantiateViewController(withIdentifier: "PlansReceiveVC") as? PlansReceiveVC else {return}
+        self.navigationController?.pushViewController(receiveVC, animated: true)
+    }
     
 }
 extension PlansListVC: UICollectionViewDelegateFlowLayout{

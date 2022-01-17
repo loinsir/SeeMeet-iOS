@@ -24,6 +24,8 @@
 		1950E5162791DAC900ED357B /* FriendsAdd.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1950E5152791DAC900ED357B /* FriendsAdd.storyboard */; };
 		1950E51B2791FE7B00ED357B /* FriendsAddTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1950E5192791FE7B00ED357B /* FriendsAddTVC.swift */; };
 		1950E51C2791FE7B00ED357B /* FriendsAddTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1950E51A2791FE7B00ED357B /* FriendsAddTVC.xib */; };
+		19E633DE278D84F200776D0C /* CalendarDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E633DD278D84F200776D0C /* CalendarDetailVC.swift */; };
+		19E633E1278D853500776D0C /* CalendarDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19E633E0278D853500776D0C /* CalendarDetail.storyboard */; };
 		1968464B279413A900DBAF3A /* DateTicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1968464A279413A900DBAF3A /* DateTicketView.swift */; };
 		19E633DE278D84F200776D0C /* CalendarDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E633DD278D84F200776D0C /* CalendarDetailVC.swift */; };
 		19E633E1278D853500776D0C /* CalendarDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19E633E0278D853500776D0C /* CalendarDetail.storyboard */; };
@@ -37,6 +39,12 @@
 		3623EA88278F686A00853F87 /* ProgressReceiveCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA86278F686A00853F87 /* ProgressReceiveCVC.xib */; };
 		3623EA8F278FDE0C00853F87 /* CompletePlansCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA8D278FDE0C00853F87 /* CompletePlansCVC.swift */; };
 		3623EA90278FDE0C00853F87 /* CompletePlansCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA8E278FDE0C00853F87 /* CompletePlansCVC.xib */; };
+		3623EA9E27931EAC00853F87 /* PlansSendListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA9D27931EAC00853F87 /* PlansSendListVC.swift */; };
+		3623EAA027931EC000853F87 /* PlansSendList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA9F27931EC000853F87 /* PlansSendList.storyboard */; };
+		3623EA922791282700853F87 /* PlansReceiveVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA912791282700853F87 /* PlansReceiveVC.swift */; };
+		3623EA942791283600853F87 /* PlansReceiveList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA932791283600853F87 /* PlansReceiveList.storyboard */; };
+		3623EAAD2795928000853F87 /* PlansReceiveCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA962791D1D300853F87 /* PlansReceiveCVC.xib */; };
+		3623EAAE2795929000853F87 /* PlansReceiveCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA952791D1D300853F87 /* PlansReceiveCVC.swift */; };
 		36545312278EA30400A0770F /* UILabel++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36545311278EA30400A0770F /* UILabel++.swift */; };
 		3682123E2785E643005D7236 /* DINNeuzeitGroteskStd-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3682122F2785E642005D7236 /* DINNeuzeitGroteskStd-Light.otf */; };
 		3682123F2785E643005D7236 /* SpoqaHanSansNeo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 368212302785E642005D7236 /* SpoqaHanSansNeo-Light.ttf */; };
@@ -99,6 +107,8 @@
 		1950E5152791DAC900ED357B /* FriendsAdd.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FriendsAdd.storyboard; sourceTree = "<group>"; };
 		1950E5192791FE7B00ED357B /* FriendsAddTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsAddTVC.swift; sourceTree = "<group>"; };
 		1950E51A2791FE7B00ED357B /* FriendsAddTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsAddTVC.xib; sourceTree = "<group>"; };
+		19E633DD278D84F200776D0C /* CalendarDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailVC.swift; sourceTree = "<group>"; };
+		19E633E0278D853500776D0C /* CalendarDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CalendarDetail.storyboard; sourceTree = "<group>"; };
 		1968464A279413A900DBAF3A /* DateTicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTicketView.swift; sourceTree = "<group>"; };
 		19E633DD278D84F200776D0C /* CalendarDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailVC.swift; sourceTree = "<group>"; };
 		19E633E0278D853500776D0C /* CalendarDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CalendarDetail.storyboard; sourceTree = "<group>"; };
@@ -112,6 +122,12 @@
 		3623EA86278F686A00853F87 /* ProgressReceiveCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProgressReceiveCVC.xib; sourceTree = "<group>"; };
 		3623EA8D278FDE0C00853F87 /* CompletePlansCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletePlansCVC.swift; sourceTree = "<group>"; };
 		3623EA8E278FDE0C00853F87 /* CompletePlansCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompletePlansCVC.xib; sourceTree = "<group>"; };
+		3623EA9D27931EAC00853F87 /* PlansSendListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansSendListVC.swift; sourceTree = "<group>"; };
+		3623EA9F27931EC000853F87 /* PlansSendList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlansSendList.storyboard; sourceTree = "<group>"; };
+		3623EA912791282700853F87 /* PlansReceiveVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansReceiveVC.swift; sourceTree = "<group>"; };
+		3623EA932791283600853F87 /* PlansReceiveList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlansReceiveList.storyboard; sourceTree = "<group>"; };
+		3623EA952791D1D300853F87 /* PlansReceiveCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansReceiveCVC.swift; sourceTree = "<group>"; };
+		3623EA962791D1D300853F87 /* PlansReceiveCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlansReceiveCVC.xib; sourceTree = "<group>"; };
 		36545311278EA30400A0770F /* UILabel++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel++.swift"; sourceTree = "<group>"; };
 		3682122F2785E642005D7236 /* DINNeuzeitGroteskStd-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DINNeuzeitGroteskStd-Light.otf"; sourceTree = "<group>"; };
 		368212302785E642005D7236 /* SpoqaHanSansNeo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Light.ttf"; sourceTree = "<group>"; };
@@ -275,6 +291,7 @@
 				3623EA81278F65AB00853F87 /* ProgressSendCVC.swift */,
 				3623EA85278F686A00853F87 /* ProgressReceiveCVC.swift */,
 				3623EA8D278FDE0C00853F87 /* CompletePlansCVC.swift */,
+				3623EA952791D1D300853F87 /* PlansReceiveCVC.swift */,
 			);
 			path = PlansScene;
 			sourceTree = "<group>";
@@ -285,6 +302,7 @@
 				3623EA82278F65AB00853F87 /* ProgressSendCVC.xib */,
 				3623EA8E278FDE0C00853F87 /* CompletePlansCVC.xib */,
 				3623EA86278F686A00853F87 /* ProgressReceiveCVC.xib */,
+				3623EA962791D1D300853F87 /* PlansReceiveCVC.xib */,
 			);
 			path = PlansScene;
 			sourceTree = "<group>";
@@ -342,6 +360,8 @@
 			isa = PBXGroup;
 			children = (
 				36D9E8B7278BDCCC00D5244D /* PlansListVC.swift */,
+				3623EA9D27931EAC00853F87 /* PlansSendListVC.swift */,
+				3623EA912791282700853F87 /* PlansReceiveVC.swift */,
 			);
 			path = PlansScene;
 			sourceTree = "<group>";
@@ -350,6 +370,8 @@
 			isa = PBXGroup;
 			children = (
 				36D9E8BA278BDCE800D5244D /* PlansList.storyboard */,
+				3623EA9F27931EC000853F87 /* PlansSendList.storyboard */,
+				3623EA932791283600853F87 /* PlansReceiveList.storyboard */,
 			);
 			path = PlansScene;
 			sourceTree = "<group>";
@@ -647,6 +669,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3623EAAD2795928000853F87 /* PlansReceiveCVC.xib in Resources */,
 				3623EA90278FDE0C00853F87 /* CompletePlansCVC.xib in Resources */,
 				3682123F2785E643005D7236 /* SpoqaHanSansNeo-Light.ttf in Resources */,
 				36EFE30F2785C8CA00466818 /* Home.storyboard in Resources */,
@@ -660,6 +683,7 @@
 				3682124C2785E643005D7236 /* LICENSE in Resources */,
 				191E8C27278F490A0042B8F1 /* FriendsListTVC.xib in Resources */,
 				368212482785E643005D7236 /* DINPro-Bold.otf in Resources */,
+				3623EAA027931EC000853F87 /* PlansSendList.storyboard in Resources */,
 				1912FCB0278AB7BB00F33952 /* Calendar.storyboard in Resources */,
 				36D9E8AF2789A7BF00D5244D /* Tabbar.storyboard in Resources */,
 				368212442785E643005D7236 /* SpoqaHanSansNeo-Regular.ttf in Resources */,
@@ -682,6 +706,7 @@
 				6A4A20F0278B5FE300DD4DCD /* RequestPlansContents.storyboard in Resources */,
 				1919F5D5278B5E18009F33AE /* CalendarPlansCVC.xib in Resources */,
 				368212412785E643005D7236 /* DINPro-Medium.otf in Resources */,
+				3623EA942791283600853F87 /* PlansReceiveList.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -734,10 +759,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3623EAAE2795929000853F87 /* PlansReceiveCVC.swift in Sources */,
 				36EFE3212785CC3B00466818 /* Date++.swift in Sources */,
 				19F1AF722792AB0300022A6A /* SelectedDateSheet.swift in Sources */,
 				191E8C2A278FFB870042B8F1 /* SMSearchBar.swift in Sources */,
 				3623EA8F278FDE0C00853F87 /* CompletePlansCVC.swift in Sources */,
+				3623EA9E27931EAC00853F87 /* PlansSendListVC.swift in Sources */,
+				3623EA922791282700853F87 /* PlansReceiveVC.swift in Sources */,
 				36EFE31F2785CC3B00466818 /* UIFont++.swift in Sources */,
 				1912FCAE278AB7A000F33952 /* CalendarVC.swift in Sources */,
 				36EFE31E2785CC3B00466818 /* UIView++.swift in Sources */,
