@@ -85,9 +85,8 @@ class LoginVC: UIViewController {
         }
         
     }
-    
-    
-    
+
+    //원래 비밀번호 상태 true가 디폴트
     var isNotSee: Bool = true
     var isFull: Bool = false
     
@@ -98,15 +97,15 @@ class LoginVC: UIViewController {
     
     @objc func notSeeButtonClicked(_ sender: UIButton) {
         print(pwdTextField.tag)
-        if isNotSee == false{
-            isNotSee = true
+        if isNotSee == true{
+            isNotSee = false
             pwdSeeButton.setBackgroundImage(UIImage(named: "ic_password_see"), for: .normal)
-            pwdTextField.isSecureTextEntry = true
+            pwdTextField.isSecureTextEntry = isNotSee
         }
         else{
-            isNotSee = false
+            isNotSee = true
             pwdSeeButton.setBackgroundImage(UIImage(named: "ic_password_notsee"), for: .normal)
-            pwdTextField.isSecureTextEntry = false
+            pwdTextField.isSecureTextEntry = isNotSee
         }
     }
 
@@ -115,48 +114,14 @@ class LoginVC: UIViewController {
 
 extension LoginVC: UITextFieldDelegate{
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        switch textField.tag{
-        case 1:
-            emailTextView.emailTextIamgeView.isHidden = true
-            emailTextField.snp.remakeConstraints{
-                $0.leading.equalToSuperview().offset(22)
-                $0.top.bottom.equalToSuperview().offset(0)
-                $0.width.equalTo(200)
-            }
-        case 2:
-            pwdTextView.pwdTextImageView.isHidden = true
-            pwdTextField.snp.remakeConstraints{
-                $0.leading.equalToSuperview().offset(22)
-                $0.top.bottom.equalToSuperview().offset(0)
-                $0.width.equalTo(200)
-            }
+        if textField.tag == 2{
             pwdSeeButton.isHidden = false
-        default:
-            print("error")
         }
 
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
-        switch textField.tag{
-        case 1:
+        if textField.tag == 2{
             if textField.text?.isEmpty == true{
-                emailTextField.snp.remakeConstraints{
-                    $0.top.bottom.equalToSuperview().offset(0)
-                    $0.leading.equalToSuperview().offset(52)
-                    $0.trailing.equalToSuperview().offset(-22)
-                }
-                emailTextField.attributedPlaceholder = String.getAttributedText(text: "이메일", letterSpacing: -0.6, lineSpacing: nil)
-                emailTextView.emailTextIamgeView.isHidden = false
-            }
-        default:
-            if textField.text?.isEmpty == true{
-                pwdTextField.snp.remakeConstraints{
-                    $0.top.bottom.equalToSuperview().offset(0)
-                    $0.leading.equalToSuperview().offset(52)
-                    $0.trailing.equalToSuperview().offset(-22)
-                }
-                pwdTextField.attributedPlaceholder = String.getAttributedText(text: "비밀번호", letterSpacing: -0.6, lineSpacing: nil)
-                pwdTextView.pwdTextImageView.isHidden = false
                 pwdSeeButton.isHidden = true
             }
         }
