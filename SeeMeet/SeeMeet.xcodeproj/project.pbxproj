@@ -36,6 +36,8 @@
 		3623EA90278FDE0C00853F87 /* CompletePlansCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA8E278FDE0C00853F87 /* CompletePlansCVC.xib */; };
 		3623EAA42795437400853F87 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAA32795437400853F87 /* LoginVC.swift */; };
 		3623EAA62795437D00853F87 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3623EAA52795437D00853F87 /* Login.storyboard */; };
+		3623EAAA2795701D00853F87 /* GrayTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAA92795701D00853F87 /* GrayTextField.swift */; };
+		3623EAAC279570A000853F87 /* GrayTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAAB279570A000853F87 /* GrayTextView.swift */; };
 		36545312278EA30400A0770F /* UILabel++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36545311278EA30400A0770F /* UILabel++.swift */; };
 		3682123E2785E643005D7236 /* DINNeuzeitGroteskStd-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3682122F2785E642005D7236 /* DINNeuzeitGroteskStd-Light.otf */; };
 		3682123F2785E643005D7236 /* SpoqaHanSansNeo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 368212302785E642005D7236 /* SpoqaHanSansNeo-Light.ttf */; };
@@ -106,6 +108,8 @@
 		3623EA8E278FDE0C00853F87 /* CompletePlansCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompletePlansCVC.xib; sourceTree = "<group>"; };
 		3623EAA32795437400853F87 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		3623EAA52795437D00853F87 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		3623EAA92795701D00853F87 /* GrayTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayTextField.swift; sourceTree = "<group>"; };
+		3623EAAB279570A000853F87 /* GrayTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayTextView.swift; sourceTree = "<group>"; };
 		36545311278EA30400A0770F /* UILabel++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel++.swift"; sourceTree = "<group>"; };
 		3682122F2785E642005D7236 /* DINNeuzeitGroteskStd-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DINNeuzeitGroteskStd-Light.otf"; sourceTree = "<group>"; };
 		368212302785E642005D7236 /* SpoqaHanSansNeo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Light.ttf"; sourceTree = "<group>"; };
@@ -457,6 +461,8 @@
 		36EFE3062785C7F500466818 /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				3623EAA92795701D00853F87 /* GrayTextField.swift */,
+				3623EAAB279570A000853F87 /* GrayTextView.swift */,
 				3623EAA12795434600853F87 /* LoginScene */,
 				6A4A20EB278B58FC00DD4DCD /* RequestScene */,
 				191E8C17278F01C60042B8F1 /* SMPopUpVC.swift */,
@@ -751,6 +757,8 @@
 				6A7C7C0B27920F80006D39F6 /* ChipView.swift in Sources */,
 				191E8C18278F01C60042B8F1 /* SMPopUpVC.swift in Sources */,
 				36EFE31D2785CC3B00466818 /* UIColor++.swift in Sources */,
+				3623EAAA2795701D00853F87 /* GrayTextField.swift in Sources */,
+				3623EAAC279570A000853F87 /* GrayTextView.swift in Sources */,
 				191E8C1C278F38DC0042B8F1 /* String++.swift in Sources */,
 				360E6F4627898D4400DACFD8 /* HomeEventCVC.swift in Sources */,
 				3623EA87278F686A00853F87 /* ProgressReceiveCVC.swift in Sources */,

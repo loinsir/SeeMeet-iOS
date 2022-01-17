@@ -1,51 +1,25 @@
 import UIKit
 import SnapKit
 import Then
+import SwiftUI
 
 class LoginVC: UIViewController {
     
     private let LoginImageView = UIImageView().then{
         $0.image = UIImage(named: "img_seemeet_logo")
     }
-    private let emailTextView = UIView().then{
-        $0.backgroundColor = UIColor.grey01
-        $0.clipsToBounds = true
-        $0.layer.cornerRadius = 10
-    }
-    private let emailTextIamgeView = UIImageView().then{
-        $0.image = UIImage(named: "ic_e-mail")
-    }
-    private let emailTextField = UITextField().then{
-        $0.font = UIFont.hanSansRegularFont(ofSize: 14)
+    private let emailTextView = GrayTextView(type: .loginEmail)
+    private let emailTextField = GrayTextField(type: .email, placeHolder: "이메일").then{
         $0.tag = 1
-        $0.textColor = UIColor.grey06
-        $0.contentVerticalAlignment = .center
-        $0.attributedPlaceholder = String.getAttributedText(text: "이메일", letterSpacing: -0.6, lineSpacing: nil)
-        $0.tintColor = UIColor.pink01
-        $0.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
-    private let pwdTextView = UIView().then{
-        $0.backgroundColor = UIColor.grey01
-        $0.clipsToBounds = true
-        $0.layer.cornerRadius = 10
-    }
-    private let pwdTextImageView = UIImageView().then{
-        $0.image = UIImage(named: "ic_password")
-    }
-    private let pwdTextField = UITextField().then{
-        $0.font = UIFont.hanSansRegularFont(ofSize: 14)
+    private let pwdTextView =  GrayTextView(type: .loginPassword)
+    private let pwdTextField = GrayTextField(type: .password, placeHolder: "비밀번호").then{
         $0.tag = 2
-        $0.textColor = UIColor.grey06
-        $0.contentVerticalAlignment = .center
-        $0.isSecureTextEntry = true
-        $0.attributedPlaceholder = String.getAttributedText(text: "비밀번호", letterSpacing: -0.6, lineSpacing: nil)
-        $0.isSecureTextEntry = true
-        $0.tintColor = UIColor.pink01
-        $0.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     private let pwdSeeButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "ic_password_notsee"), for: .normal)
         $0.addTarget(self, action: #selector(notSeeButtonClicked(_:)), for: .touchUpInside)
+        $0.isHidden = true
     }
     private let loginButton = UIButton().then{
         $0.backgroundColor = UIColor.grey04
@@ -61,10 +35,11 @@ class LoginVC: UIViewController {
     func setLoginLayout(){
         view.backgroundColor = UIColor.white
         view.addSubviews([LoginImageView, emailTextView, pwdTextView, loginButton, accountButton])
-        emailTextView.addSubviews([emailTextIamgeView, emailTextField])
-        pwdTextView.addSubviews([pwdTextImageView, pwdTextField, pwdSeeButton])
-        emailTextField.delegate = self
+        emailTextView.addSubview(emailTextField)
+        pwdTextView.addSubviews([pwdTextField, pwdSeeButton])
         pwdTextField.delegate = self
+        emailTextField.delegate = self
+        
         LoginImageView.snp.makeConstraints{
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(70)
             $0.centerX.equalToSuperview()
@@ -76,14 +51,14 @@ class LoginVC: UIViewController {
             $0.trailing.equalToSuperview().offset(-20)
             $0.height.equalTo(48)
         }
-        emailTextIamgeView.snp.makeConstraints{
-            $0.top.leading.bottom.equalToSuperview().offset(0)
-            $0.width.equalTo(48)
-        }
         emailTextField.snp.makeConstraints{
-            $0.top.bottom.equalToSuperview().offset(0)
-            $0.leading.equalTo(emailTextIamgeView.snp.trailing).offset(4)
-            $0.trailing.equalToSuperview().offset(-22)
+            $0.leading.equalToSuperview().offset(52)
+            $0.top.bottom.equalTo(0)
+            $0.width.equalTo(200)
+        }
+        pwdSeeButton.snp.makeConstraints{
+            $0.trailing.top.bottom.equalToSuperview().offset(0)
+            $0.width.equalTo(48)
         }
         pwdTextView.snp.makeConstraints{
             $0.top.equalTo(emailTextView.snp.bottom).offset(14)
@@ -91,14 +66,10 @@ class LoginVC: UIViewController {
             $0.trailing.equalToSuperview().offset(-20)
             $0.height.equalTo(48)
         }
-        pwdTextImageView.snp.makeConstraints{
-            $0.top.leading.bottom.equalToSuperview().offset(0)
-            $0.width.equalTo(48)
-        }
         pwdTextField.snp.makeConstraints{
-            $0.top.bottom.equalToSuperview().offset(0)
-            $0.leading.equalTo(pwdTextImageView.snp.trailing).offset(0)
-            $0.trailing.equalToSuperview().offset(-22)
+            $0.leading.equalToSuperview().offset(52)
+            $0.top.bottom.equalTo(0)
+            $0.width.equalTo(200)
         }
         loginButton.snp.makeConstraints{
             $0.top.equalTo(pwdTextView.snp.bottom).offset(40)
@@ -112,36 +83,33 @@ class LoginVC: UIViewController {
             $0.width.equalTo(129)
             $0.height.equalTo(32)
         }
-        pwdSeeButton.snp.makeConstraints{
-            $0.top.bottom.trailing.equalToSuperview().offset(0)
-            $0.width.equalTo(48)
-        }
-        pwdSeeButton.isHidden = true
         
     }
     
     
-    @objc private func notSeeButtonClicked(_ sender: UIButton){
-        if isNotSee == true{
-            isNotSee = false
-            pwdSeeButton.setBackgroundImage(UIImage(named: "ic_password_see"), for: .normal)
-            pwdTextField.isSecureTextEntry = false
-        }
-        else{
-            isNotSee = true
-            pwdSeeButton.setBackgroundImage(UIImage(named: "ic_password_notsee"), for: .normal)
-            pwdTextField.isSecureTextEntry = true
-        }
-     }
-
+    
     var isNotSee: Bool = true
     var isFull: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setLoginLayout()
-
     }
+    
+    @objc func notSeeButtonClicked(_ sender: UIButton) {
+        print(pwdTextField.tag)
+        if isNotSee == false{
+            isNotSee = true
+            pwdSeeButton.setBackgroundImage(UIImage(named: "ic_password_see"), for: .normal)
+            pwdTextField.isSecureTextEntry = true
+        }
+        else{
+            isNotSee = false
+            pwdSeeButton.setBackgroundImage(UIImage(named: "ic_password_notsee"), for: .normal)
+            pwdTextField.isSecureTextEntry = false
+        }
+    }
+
     
 }
 
@@ -149,46 +117,47 @@ extension LoginVC: UITextFieldDelegate{
     func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField.tag{
         case 1:
-            emailTextIamgeView.isHidden = true
+            emailTextView.emailTextIamgeView.isHidden = true
             emailTextField.snp.remakeConstraints{
-                $0.top.bottom.equalToSuperview().offset(0)
                 $0.leading.equalToSuperview().offset(22)
-                $0.trailing.equalToSuperview().offset(-22)
+                $0.top.bottom.equalToSuperview().offset(0)
+                $0.width.equalTo(200)
             }
-            textField.placeholder = ""
-            
-        default:
-            pwdTextImageView.isHidden = true
-            pwdSeeButton.isHidden = false
+        case 2:
+            pwdTextView.pwdTextImageView.isHidden = true
             pwdTextField.snp.remakeConstraints{
-                $0.top.bottom.equalToSuperview().offset(0)
                 $0.leading.equalToSuperview().offset(22)
-                $0.trailing.equalToSuperview().offset(-22)
+                $0.top.bottom.equalToSuperview().offset(0)
+                $0.width.equalTo(200)
             }
-            textField.placeholder = ""
+            pwdSeeButton.isHidden = false
+        default:
+            print("error")
         }
+
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField.tag{
         case 1:
             if textField.text?.isEmpty == true{
-                emailTextIamgeView.isHidden = false
                 emailTextField.snp.remakeConstraints{
                     $0.top.bottom.equalToSuperview().offset(0)
-                    $0.leading.equalTo(emailTextIamgeView.snp.trailing).offset(4)
+                    $0.leading.equalToSuperview().offset(52)
                     $0.trailing.equalToSuperview().offset(-22)
                 }
                 emailTextField.attributedPlaceholder = String.getAttributedText(text: "이메일", letterSpacing: -0.6, lineSpacing: nil)
+                emailTextView.emailTextIamgeView.isHidden = false
             }
         default:
             if textField.text?.isEmpty == true{
-                pwdTextImageView.isHidden = false
                 pwdTextField.snp.remakeConstraints{
                     $0.top.bottom.equalToSuperview().offset(0)
-                    $0.leading.equalTo(pwdTextImageView.snp.trailing).offset(4)
+                    $0.leading.equalToSuperview().offset(52)
                     $0.trailing.equalToSuperview().offset(-22)
                 }
                 pwdTextField.attributedPlaceholder = String.getAttributedText(text: "비밀번호", letterSpacing: -0.6, lineSpacing: nil)
+                pwdTextView.pwdTextImageView.isHidden = false
+                pwdSeeButton.isHidden = true
             }
         }
     }
