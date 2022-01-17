@@ -294,7 +294,6 @@ class PlansSendListVC: UIViewController {
             $0.bottom.equalToSuperview().offset(18)
         }
         setBottomButtonView()
-        print(backGroundScrollView.frame)
     }
     func setBottomButtonView() {
         bottomView.addSubviews([cancelButton, confirmButton])
@@ -305,7 +304,6 @@ class PlansSendListVC: UIViewController {
             $0.bottom.equalToSuperview().offset(0)
             $0.height.equalTo(112)
         }
-        print(backGroundScrollView.frame)
         cancelButton.snp.makeConstraints{
             $0.top.equalToSuperview().offset(16)
             $0.leading.equalToSuperview().offset(20)
@@ -322,7 +320,6 @@ class PlansSendListVC: UIViewController {
     }
     //MARK: function
     @objc private func cellClicked(gesture: sendCellIndex){
-        print(gesture.cellView?.tag)
         if isChecked == false {
             isChecked = true
             if gesture.isChecked == false{
