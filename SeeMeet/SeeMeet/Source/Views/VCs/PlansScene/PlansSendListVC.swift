@@ -84,12 +84,14 @@ class PlansSendListVC: UIViewController {
         $0.setTitle("취소", for: .normal)
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 10
+        $0.addTarget(self, action: #selector(cancelButtonClicked(_:)), for: .touchUpInside)
     }
     private let confirmButton = UIButton().then{
         $0.backgroundColor = UIColor.grey02
         $0.setTitle("확정", for: .normal)
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 10
+        $0.addTarget(self, action: #selector(accessButtonClicked(_:)), for: .touchUpInside)
     }
     //MARK: Var
     var dateCount: Int = 4
@@ -361,5 +363,19 @@ class PlansSendListVC: UIViewController {
                nameTagStackView.addArrangedSubview(nameButton)
            }
        }
+    @objc private func accessButtonClicked(_ sender: UIButton){
+        //타입은 서버처리 이후에 분기처리 해서 선택
+        guard let confirmAlertVC = SMRequestPopUpVC(withType: .sendConfirm) as? SMRequestPopUpVC else {return}
+        guard let notSelectAlertVC = SMRequestPopUpVC(withType: .sendNotSelectConfirm) as? SMRequestPopUpVC else {return}
+        guard let notRequestAlertVC = SMRequestPopUpVC(withType: .sendNotRequestConfirm) as? SMRequestPopUpVC else {return}
+
+        confirmAlertVC.modalPresentationStyle = .overFullScreen
+        self.present(confirmAlertVC, animated: false, completion: nil)
+     }
+    @objc private func cancelButtonClicked(_ sender: UIButton){
+        guard let AlertVC = SMPopUpVC(withType: .cancelPlans) as? SMPopUpVC else {return}
+        AlertVC.modalPresentationStyle = .overFullScreen
+        self.present(AlertVC, animated: false, completion: nil)
+     }
 }
 

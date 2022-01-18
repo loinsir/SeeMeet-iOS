@@ -43,6 +43,8 @@
 		3623EAA62795437D00853F87 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3623EAA52795437D00853F87 /* Login.storyboard */; };
 		3623EAAA2795701D00853F87 /* GrayTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAA92795701D00853F87 /* GrayTextField.swift */; };
 		3623EAAC279570A000853F87 /* GrayTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAAB279570A000853F87 /* GrayTextView.swift */; };
+		3623EA9A2792A8D100853F87 /* SMRequestPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA992792A8D100853F87 /* SMRequestPopUpVC.swift */; };
+		3623EA9C2792A90E00853F87 /* SMRequestPopUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA9B2792A90E00853F87 /* SMRequestPopUp.storyboard */; };
 		3623EA9E27931EAC00853F87 /* PlansSendListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA9D27931EAC00853F87 /* PlansSendListVC.swift */; };
 		3623EAA027931EC000853F87 /* PlansSendList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA9F27931EC000853F87 /* PlansSendList.storyboard */; };
 		3623EA922791282700853F87 /* PlansReceiveVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA912791282700853F87 /* PlansReceiveVC.swift */; };
@@ -86,6 +88,10 @@
 		6A4A20ED278B5F7000DD4DCD /* RequestPlansContentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4A20EC278B5F7000DD4DCD /* RequestPlansContentsVC.swift */; };
 		6A4A20F0278B5FE300DD4DCD /* RequestPlansContents.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A4A20EF278B5FE300DD4DCD /* RequestPlansContents.storyboard */; };
 		6A7C7C0B27920F80006D39F6 /* ChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7C7C0A27920F80006D39F6 /* ChipView.swift */; };
+		6A7C7C0F279364CA006D39F6 /* RequestPlansDateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7C7C0E279364CA006D39F6 /* RequestPlansDateVC.swift */; };
+		6A7C7C13279367DF006D39F6 /* RequestPlansDate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A7C7C12279367DF006D39F6 /* RequestPlansDate.storyboard */; };
+		6A8E387C27958A2F00A480F7 /* DayCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E387B27958A2E00A480F7 /* DayCellView.swift */; };
+		6A8E38802795B82400A480F7 /* ScheduleTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E387F2795B82400A480F7 /* ScheduleTVC.swift */; };
 		6AAD47C6278DF01300D8C800 /* UITextField++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAD47C5278DF01300D8C800 /* UITextField++.swift */; };
 		6AF609222790BA6000F49DF4 /* SearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF609212790BA6000F49DF4 /* SearchTVC.swift */; };
 /* End PBXBuildFile section */
@@ -126,6 +132,8 @@
 		3623EAA52795437D00853F87 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		3623EAA92795701D00853F87 /* GrayTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayTextField.swift; sourceTree = "<group>"; };
 		3623EAAB279570A000853F87 /* GrayTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayTextView.swift; sourceTree = "<group>"; };
+		3623EA992792A8D100853F87 /* SMRequestPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMRequestPopUpVC.swift; sourceTree = "<group>"; };
+		3623EA9B2792A90E00853F87 /* SMRequestPopUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SMRequestPopUp.storyboard; sourceTree = "<group>"; };
 		3623EA9D27931EAC00853F87 /* PlansSendListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansSendListVC.swift; sourceTree = "<group>"; };
 		3623EA9F27931EC000853F87 /* PlansSendList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlansSendList.storyboard; sourceTree = "<group>"; };
 		3623EA912791282700853F87 /* PlansReceiveVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansReceiveVC.swift; sourceTree = "<group>"; };
@@ -172,6 +180,10 @@
 		6A4A20EC278B5F7000DD4DCD /* RequestPlansContentsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPlansContentsVC.swift; sourceTree = "<group>"; };
 		6A4A20EF278B5FE300DD4DCD /* RequestPlansContents.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RequestPlansContents.storyboard; sourceTree = "<group>"; };
 		6A7C7C0A27920F80006D39F6 /* ChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipView.swift; sourceTree = "<group>"; };
+		6A7C7C0E279364CA006D39F6 /* RequestPlansDateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestPlansDateVC.swift; sourceTree = "<group>"; };
+		6A7C7C12279367DF006D39F6 /* RequestPlansDate.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RequestPlansDate.storyboard; sourceTree = "<group>"; };
+		6A8E387B27958A2E00A480F7 /* DayCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCellView.swift; sourceTree = "<group>"; };
+		6A8E387F2795B82400A480F7 /* ScheduleTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTVC.swift; sourceTree = "<group>"; };
 		6AAD47C5278DF01300D8C800 /* UITextField++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField++.swift"; sourceTree = "<group>"; };
 		6AF609212790BA6000F49DF4 /* SearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTVC.swift; sourceTree = "<group>"; };
 		7E4152A410430753EE447189 /* Pods_SeeMeet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SeeMeet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -433,11 +445,11 @@
 		36EFE3012785C79200466818 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				3682122E2785E579005D7236 /* Font */,
 				36EFE2F52785682400466818 /* Assets.xcassets */,
 				36EFE2FA2785682400466818 /* Info.plist */,
 				36EFE3072785C80300466818 /* Xibs */,
 				36EFE30A2785C84C00466818 /* Storyboards */,
-				3682122E2785E579005D7236 /* Font */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -494,6 +506,7 @@
 				3623EAA12795434600853F87 /* LoginScene */,
 				6A4A20EB278B58FC00DD4DCD /* RequestScene */,
 				191E8C17278F01C60042B8F1 /* SMPopUpVC.swift */,
+				3623EA992792A8D100853F87 /* SMRequestPopUpVC.swift */,
 				191E8C1D278F471E0042B8F1 /* FriendsScene */,
 				36D9E8B6278BDC7B00D5244D /* PlansScene */,
 				1912FCAC278AB77900F33952 /* CalendarScene */,
@@ -535,6 +548,7 @@
 			isa = PBXGroup;
 			children = (
 				3623EAA22795435E00853F87 /* LoginScene */,
+				3623EA9B2792A90E00853F87 /* SMRequestPopUp.storyboard */,
 				6A4A20EE278B5FB300DD4DCD /* RequestScene */,
 				191E8C19278F01DD0042B8F1 /* SMPopUp.storyboard */,
 				19F1AF792793453700022A6A /* SelectedDateSheet.xib */,
@@ -578,8 +592,10 @@
 			children = (
 				6A4A20EC278B5F7000DD4DCD /* RequestPlansContentsVC.swift */,
 				6A7C7C0A27920F80006D39F6 /* ChipView.swift */,
+				6A7C7C0E279364CA006D39F6 /* RequestPlansDateVC.swift */,
 				19F1AF712792AB0300022A6A /* SelectedDateSheet.swift */,
 				1968464A279413A900DBAF3A /* DateTicketView.swift */,
+				6A8E387B27958A2E00A480F7 /* DayCellView.swift */,
 			);
 			path = RequestScene;
 			sourceTree = "<group>";
@@ -588,6 +604,7 @@
 			isa = PBXGroup;
 			children = (
 				6A4A20EF278B5FE300DD4DCD /* RequestPlansContents.storyboard */,
+				6A7C7C12279367DF006D39F6 /* RequestPlansDate.storyboard */,
 			);
 			path = RequestScene;
 			sourceTree = "<group>";
@@ -604,6 +621,7 @@
 			isa = PBXGroup;
 			children = (
 				6AF609212790BA6000F49DF4 /* SearchTVC.swift */,
+				6A8E387F2795B82400A480F7 /* ScheduleTVC.swift */,
 			);
 			path = RequestScene;
 			sourceTree = "<group>";
@@ -691,6 +709,7 @@
 				36EFE30F2785C8CA00466818 /* Home.storyboard in Resources */,
 				36EFE2F92785682400466818 /* LaunchScreen.storyboard in Resources */,
 				3682124B2785E643005D7236 /* SpoqaHanSansNeo-Bold.ttf in Resources */,
+				3623EA9C2792A90E00853F87 /* SMRequestPopUp.storyboard in Resources */,
 				191E8C1A278F01DD0042B8F1 /* SMPopUp.storyboard in Resources */,
 				19E633E1278D853500776D0C /* CalendarDetail.storyboard in Resources */,
 				368212492785E643005D7236 /* SpoqaHanSansNeo-Medium.ttf in Resources */,
@@ -713,6 +732,7 @@
 				368212402785E643005D7236 /* DINMittelschriftStd.otf in Resources */,
 				368212432785E643005D7236 /* DINPro-Black.otf in Resources */,
 				191E8C22278F47990042B8F1 /* FriendsList.storyboard in Resources */,
+				6A7C7C13279367DF006D39F6 /* RequestPlansDate.storyboard in Resources */,
 				368212472785E643005D7236 /* DINEngschriftStd.otf in Resources */,
 				3682123E2785E643005D7236 /* DINNeuzeitGroteskStd-Light.otf in Resources */,
 				1950E51C2791FE7B00ED357B /* FriendsAddTVC.xib in Resources */,
@@ -795,6 +815,7 @@
 				36EFE2ED2785682200466818 /* AppDelegate.swift in Sources */,
 				6A7C7C0B27920F80006D39F6 /* ChipView.swift in Sources */,
 				191E8C18278F01C60042B8F1 /* SMPopUpVC.swift in Sources */,
+				6A8E38802795B82400A480F7 /* ScheduleTVC.swift in Sources */,
 				36EFE31D2785CC3B00466818 /* UIColor++.swift in Sources */,
 				3623EAAA2795701D00853F87 /* GrayTextField.swift in Sources */,
 				3623EAAC279570A000853F87 /* GrayTextView.swift in Sources */,
@@ -803,16 +824,19 @@
 				1968464B279413A900DBAF3A /* DateTicketView.swift in Sources */,
 				3623EA87278F686A00853F87 /* ProgressReceiveCVC.swift in Sources */,
 				36EFE31A2785CC3B00466818 /* UIViewController++.swift in Sources */,
+				3623EA9A2792A8D100853F87 /* SMRequestPopUpVC.swift in Sources */,
 				36EFE31C2785CC3B00466818 /* UICollectionView++.swift in Sources */,
 				3623EA83278F65AB00853F87 /* ProgressSendCVC.swift in Sources */,
 				6AAD47C6278DF01300D8C800 /* UITextField++.swift in Sources */,
 				191E8C1F278F477B0042B8F1 /* FriendsListVC.swift in Sources */,
 				36EFE2EF2785682200466818 /* SceneDelegate.swift in Sources */,
+				6A7C7C0F279364CA006D39F6 /* RequestPlansDateVC.swift in Sources */,
 				36EFE3202785CC3B00466818 /* UITabelView++.swift in Sources */,
 				1950E5142791DAA300ED357B /* FriendsAddVC.swift in Sources */,
 				19E633DE278D84F200776D0C /* CalendarDetailVC.swift in Sources */,
 				36545312278EA30400A0770F /* UILabel++.swift in Sources */,
 				36D9E8B12789A81A00D5244D /* TabbarVC.swift in Sources */,
+				6A8E387C27958A2F00A480F7 /* DayCellView.swift in Sources */,
 				36D9E8B8278BDCCC00D5244D /* PlansListVC.swift in Sources */,
 				1950E51B2791FE7B00ED357B /* FriendsAddTVC.swift in Sources */,
 			);
