@@ -8,4 +8,7 @@ struct Constants {
     static let registerURL = baseURL + "/auth/register"
     static let loginURL = baseURL + "/auth/login"
     static let withdrawURL = baseURL + "/auth/userDelete"
+    
+    //home관련
+    static let homeURL = baseURL + "/plan/comeplan"
 }
