@@ -103,7 +103,6 @@ class LoginVC: UIViewController {
     }
     
     @objc func notSeeButtonClicked(_ sender: UIButton) {
-        print(pwdTextField.tag)
         if isNotSee == true{
             isNotSee = false
             pwdSeeButton.setBackgroundImage(UIImage(named: "ic_password_see"), for: .normal)
@@ -149,7 +148,6 @@ class LoginVC: UIViewController {
     @objc private func accountButtonClicked(_ sender: UITapGestureRecognizer){
         guard let accountVC = UIStoryboard(name: "Register", bundle: nil).instantiateViewController(withIdentifier: "RegisterVC") as? RegisterVC else {return}
         self.navigationController?.pushViewController(accountVC, animated: true)
-        print("??")
      }
 }
 
@@ -176,6 +174,5 @@ extension LoginVC: UITextFieldDelegate{
             isFull = false
             loginButton.backgroundColor = UIColor.grey04
         }
-        print(isFull)
     }
 }
