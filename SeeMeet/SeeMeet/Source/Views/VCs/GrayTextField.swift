@@ -20,6 +20,9 @@ class GrayTextField: UITextField{
         self.font = UIFont.hanSansRegularFont(ofSize: 14)
         self.tintColor = UIColor.pink01
         self.contentVerticalAlignment = .center
+        if #available(iOS 12.0, *) {
+            self.textContentType = .oneTimeCode
+        }
 
         switch type{
         case .email:
