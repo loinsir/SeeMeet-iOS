@@ -32,6 +32,7 @@ class LoginVC: UIViewController {
     }
     private let accountButton = UIImageView().then{
         $0.image = UIImage(named: "btn_sign-up")
+        
     }
     
     func setLoginLayout(){
@@ -85,7 +86,9 @@ class LoginVC: UIViewController {
             $0.width.equalTo(129)
             $0.height.equalTo(32)
         }
-        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(accountButtonClicked(_ :)))
+        accountButton.isUserInteractionEnabled = true
+        accountButton.addGestureRecognizer(gesture)
     }
 
     //원래 비밀번호 상태 true가 디폴트
@@ -115,6 +118,11 @@ class LoginVC: UIViewController {
         if isFull == true {
             self.navigationController?.pushViewController(homeVC, animated: true)
         }
+     }
+    @objc private func accountButtonClicked(_ sender: UITapGestureRecognizer){
+        guard let accountVC = UIStoryboard(name: "Register", bundle: nil).instantiateViewController(withIdentifier: "RegisterVC") as? RegisterVC else {return}
+        self.navigationController?.pushViewController(accountVC, animated: true)
+        print("??")
      }
     
 }
