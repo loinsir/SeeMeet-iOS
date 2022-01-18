@@ -56,6 +56,8 @@
 		3623EABE2796E76500853F87 /* RegisterDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EABD2796E76500853F87 /* RegisterDataModel.swift */; };
 		3623EAC02796ED1000853F87 /* PostRegisterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EABF2796ED1000853F87 /* PostRegisterService.swift */; };
 		3623EAC22796F8A500853F87 /* TokenUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAC12796F8A500853F87 /* TokenUtils.swift */; };
+		3623EAC42797038100853F87 /* PostLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAC32797038100853F87 /* PostLoginService.swift */; };
+		3623EAC6279705C500853F87 /* ToastMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAC5279705C500853F87 /* ToastMessageView.swift */; };
 		36545312278EA30400A0770F /* UILabel++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36545311278EA30400A0770F /* UILabel++.swift */; };
 		3682123E2785E643005D7236 /* DINNeuzeitGroteskStd-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3682122F2785E642005D7236 /* DINNeuzeitGroteskStd-Light.otf */; };
 		3682123F2785E643005D7236 /* SpoqaHanSansNeo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 368212302785E642005D7236 /* SpoqaHanSansNeo-Light.ttf */; };
@@ -150,6 +152,8 @@
 		3623EABD2796E76500853F87 /* RegisterDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterDataModel.swift; sourceTree = "<group>"; };
 		3623EABF2796ED1000853F87 /* PostRegisterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRegisterService.swift; sourceTree = "<group>"; };
 		3623EAC12796F8A500853F87 /* TokenUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenUtils.swift; sourceTree = "<group>"; };
+		3623EAC32797038100853F87 /* PostLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLoginService.swift; sourceTree = "<group>"; };
+		3623EAC5279705C500853F87 /* ToastMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageView.swift; sourceTree = "<group>"; };
 		36545311278EA30400A0770F /* UILabel++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel++.swift"; sourceTree = "<group>"; };
 		3682122F2785E642005D7236 /* DINNeuzeitGroteskStd-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DINNeuzeitGroteskStd-Light.otf"; sourceTree = "<group>"; };
 		368212302785E642005D7236 /* SpoqaHanSansNeo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Light.ttf"; sourceTree = "<group>"; };
@@ -330,6 +334,7 @@
 				3623EAB32796A7DE00853F87 /* NetworkResult.swift */,
 				3623EABF2796ED1000853F87 /* PostRegisterService.swift */,
 				3623EAC12796F8A500853F87 /* TokenUtils.swift */,
+				3623EAC32797038100853F87 /* PostLoginService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -522,8 +527,8 @@
 		36EFE3032785C7B700466818 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				36EFE3062785C7F500466818 /* VCs */,
 				36EFE3052785C7D500466818 /* Cells */,
+				36EFE3062785C7F500466818 /* VCs */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -551,6 +556,7 @@
 				3623EAB72796A9F000853F87 /* RegisterScene */,
 				3623EAA92795701D00853F87 /* GrayTextField.swift */,
 				3623EAAB279570A000853F87 /* GrayTextView.swift */,
+				3623EAC5279705C500853F87 /* ToastMessageView.swift */,
 				3623EAA12795434600853F87 /* LoginScene */,
 				6A4A20EB278B58FC00DD4DCD /* RequestScene */,
 				191E8C17278F01C60042B8F1 /* SMPopUpVC.swift */,
@@ -854,12 +860,14 @@
 				3623EA922791282700853F87 /* PlansReceiveVC.swift in Sources */,
 				36EFE31F2785CC3B00466818 /* UIFont++.swift in Sources */,
 				3623EAB92796AA0600853F87 /* RegisterVC.swift in Sources */,
+				3623EAC42797038100853F87 /* PostLoginService.swift in Sources */,
 				1912FCAE278AB7A000F33952 /* CalendarVC.swift in Sources */,
 				36EFE31E2785CC3B00466818 /* UIView++.swift in Sources */,
 				1919F5D4278B5E18009F33AE /* CalendarPlansCVC.swift in Sources */,
 				6AF609222790BA6000F49DF4 /* SearchTVC.swift in Sources */,
 				36EFE31B2785CC3B00466818 /* UIScreen++.swift in Sources */,
 				191E8C26278F490A0042B8F1 /* FriendsListTVC.swift in Sources */,
+				3623EAC6279705C500853F87 /* ToastMessageView.swift in Sources */,
 				36EFE3112785C8D600466818 /* HomeVC.swift in Sources */,
 				3623EAA42795437400853F87 /* LoginVC.swift in Sources */,
 				6A4A20ED278B5F7000DD4DCD /* RequestPlansContentsVC.swift in Sources */,
