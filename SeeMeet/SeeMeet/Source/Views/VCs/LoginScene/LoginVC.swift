@@ -1,9 +1,9 @@
 import UIKit
 import SnapKit
 import Then
+import SwiftUI
 
 class LoginVC: UIViewController {
-    
     private let LoginImageView = UIImageView().then{
         $0.image = UIImage(named: "img_seemeet_logo")
     }
@@ -42,6 +42,8 @@ class LoginVC: UIViewController {
         pwdTextView.addSubviews([pwdTextField, pwdSeeButton])
         pwdTextField.delegate = self
         emailTextField.delegate = self
+        
+        view.dismissKeyboardWhenTappedAround()
         
         LoginImageView.snp.makeConstraints{
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(70)
@@ -101,7 +103,6 @@ class LoginVC: UIViewController {
     }
     
     @objc func notSeeButtonClicked(_ sender: UIButton) {
-        print(pwdTextField.tag)
         if isNotSee == true{
             isNotSee = false
             pwdSeeButton.setBackgroundImage(UIImage(named: "ic_password_see"), for: .normal)
@@ -114,17 +115,40 @@ class LoginVC: UIViewController {
         }
     }
     @objc private func loginButtonClicked(_ sender: UIButton){
-        guard let homeVC = UIStoryboard(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "TabbarVC") as? TabbarVC else {return}
         if isFull == true {
-            self.navigationController?.pushViewController(homeVC, animated: true)
+            PostLoginService.shared.login(email: emailTextField.text ?? "", password: pwdTextField.text ?? ""){ (response) in
+                switch(response)
+                {
+                case .success(let success):
+                    if let success = success as? RegisterDataModel {
+                        if success.status == 404 {
+                            self.view.makeToastAnimation(message: success.message)
+                        }
+                        else{
+                            //토큰 저장하기~
+                            let accessToken = success.data?.accesstoken as! String
+                            let tk = TokenUtils()
+                            tk.create("accesstoken", account: "accessToken", value: accessToken)
+                            guard let homeVC = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "HomeVC") as? HomeVC else {return}
+                            self.navigationController?.pushViewController(homeVC, animated: true)
+                        }
+                    }
+                case .requestErr(let message) :
+                    print("requestERR", message)
+                case .pathErr :
+                    print("pathERR")
+                case .serverErr:
+                    print("serverERR")
+                case .networkFail:
+                    print("networkFail")
+                }
+            }
         }
      }
     @objc private func accountButtonClicked(_ sender: UITapGestureRecognizer){
         guard let accountVC = UIStoryboard(name: "Register", bundle: nil).instantiateViewController(withIdentifier: "RegisterVC") as? RegisterVC else {return}
         self.navigationController?.pushViewController(accountVC, animated: true)
-        print("??")
      }
-    
 }
 
 extension LoginVC: UITextFieldDelegate{
@@ -150,6 +174,5 @@ extension LoginVC: UITextFieldDelegate{
             isFull = false
             loginButton.backgroundColor = UIColor.grey04
         }
-        print(isFull)
     }
 }
