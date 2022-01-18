@@ -51,9 +51,11 @@
 		3623EAAE2795929000853F87 /* PlansReceiveCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA952791D1D300853F87 /* PlansReceiveCVC.swift */; };
 		3623EAB22796A77A00853F87 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAB12796A77A00853F87 /* Constants.swift */; };
 		3623EAB42796A7DE00853F87 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAB32796A7DE00853F87 /* NetworkResult.swift */; };
-		3623EAB62796A89E00853F87 /* dummy123.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAB52796A89E00853F87 /* dummy123.swift */; };
 		3623EAB92796AA0600853F87 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAB82796AA0600853F87 /* RegisterVC.swift */; };
 		3623EABC2796AA2800853F87 /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3623EABB2796AA2800853F87 /* Register.storyboard */; };
+		3623EABE2796E76500853F87 /* RegisterDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EABD2796E76500853F87 /* RegisterDataModel.swift */; };
+		3623EAC02796ED1000853F87 /* PostRegisterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EABF2796ED1000853F87 /* PostRegisterService.swift */; };
+		3623EAC22796F8A500853F87 /* TokenUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAC12796F8A500853F87 /* TokenUtils.swift */; };
 		36545312278EA30400A0770F /* UILabel++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36545311278EA30400A0770F /* UILabel++.swift */; };
 		3682123E2785E643005D7236 /* DINNeuzeitGroteskStd-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3682122F2785E642005D7236 /* DINNeuzeitGroteskStd-Light.otf */; };
 		3682123F2785E643005D7236 /* SpoqaHanSansNeo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 368212302785E642005D7236 /* SpoqaHanSansNeo-Light.ttf */; };
@@ -143,9 +145,11 @@
 		3623EAAB279570A000853F87 /* GrayTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayTextView.swift; sourceTree = "<group>"; };
 		3623EAB12796A77A00853F87 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3623EAB32796A7DE00853F87 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
-		3623EAB52796A89E00853F87 /* dummy123.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummy123.swift; sourceTree = "<group>"; };
 		3623EAB82796AA0600853F87 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		3623EABB2796AA2800853F87 /* Register.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Register.storyboard; sourceTree = "<group>"; };
+		3623EABD2796E76500853F87 /* RegisterDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterDataModel.swift; sourceTree = "<group>"; };
+		3623EABF2796ED1000853F87 /* PostRegisterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRegisterService.swift; sourceTree = "<group>"; };
+		3623EAC12796F8A500853F87 /* TokenUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenUtils.swift; sourceTree = "<group>"; };
 		36545311278EA30400A0770F /* UILabel++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel++.swift"; sourceTree = "<group>"; };
 		3682122F2785E642005D7236 /* DINNeuzeitGroteskStd-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DINNeuzeitGroteskStd-Light.otf"; sourceTree = "<group>"; };
 		368212302785E642005D7236 /* SpoqaHanSansNeo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Light.ttf"; sourceTree = "<group>"; };
@@ -324,6 +328,8 @@
 			children = (
 				3623EAB12796A77A00853F87 /* Constants.swift */,
 				3623EAB32796A7DE00853F87 /* NetworkResult.swift */,
+				3623EABF2796ED1000853F87 /* PostRegisterService.swift */,
+				3623EAC12796F8A500853F87 /* TokenUtils.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -331,7 +337,7 @@
 		3623EAB02796A75100853F87 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3623EAB52796A89E00853F87 /* dummy123.swift */,
+				3623EABD2796E76500853F87 /* RegisterDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -841,7 +847,6 @@
 			files = (
 				3623EAAE2795929000853F87 /* PlansReceiveCVC.swift in Sources */,
 				36EFE3212785CC3B00466818 /* Date++.swift in Sources */,
-				3623EAB62796A89E00853F87 /* dummy123.swift in Sources */,
 				19F1AF722792AB0300022A6A /* SelectedDateSheet.swift in Sources */,
 				191E8C2A278FFB870042B8F1 /* SMSearchBar.swift in Sources */,
 				3623EA8F278FDE0C00853F87 /* CompletePlansCVC.swift in Sources */,
@@ -875,14 +880,17 @@
 				3623EAB42796A7DE00853F87 /* NetworkResult.swift in Sources */,
 				36EFE31C2785CC3B00466818 /* UICollectionView++.swift in Sources */,
 				3623EA83278F65AB00853F87 /* ProgressSendCVC.swift in Sources */,
+				3623EABE2796E76500853F87 /* RegisterDataModel.swift in Sources */,
 				6AAD47C6278DF01300D8C800 /* UITextField++.swift in Sources */,
 				191E8C1F278F477B0042B8F1 /* FriendsListVC.swift in Sources */,
 				36EFE2EF2785682200466818 /* SceneDelegate.swift in Sources */,
 				6A7C7C0F279364CA006D39F6 /* RequestPlansDateVC.swift in Sources */,
 				36EFE3202785CC3B00466818 /* UITabelView++.swift in Sources */,
 				1950E5142791DAA300ED357B /* FriendsAddVC.swift in Sources */,
+				3623EAC02796ED1000853F87 /* PostRegisterService.swift in Sources */,
 				19E633DE278D84F200776D0C /* CalendarDetailVC.swift in Sources */,
 				36545312278EA30400A0770F /* UILabel++.swift in Sources */,
+				3623EAC22796F8A500853F87 /* TokenUtils.swift in Sources */,
 				36D9E8B12789A81A00D5244D /* TabbarVC.swift in Sources */,
 				6A8E387C27958A2F00A480F7 /* DayCellView.swift in Sources */,
 				36D9E8B8278BDCCC00D5244D /* PlansListVC.swift in Sources */,
