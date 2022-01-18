@@ -252,7 +252,7 @@ class RequestPlansDateVC: UIViewController {
         view.addSubviews([titleView,
                           addDateView,
                           scrollView,
-                        //  bottomSheetView,
+                         bottomSheetView,
                           navigationLineView,
                           navigationBarView])
         
@@ -292,6 +292,7 @@ class RequestPlansDateVC: UIViewController {
         endTimeSettingView.addSubviews([endTimeLabel,
                                         endAmPmButton,
                                         endDatePicker])
+        
         navigationBarView.addSubview(requestPlansButton)
                                          
                                     
@@ -496,10 +497,10 @@ class RequestPlansDateVC: UIViewController {
             $0.height.equalTo(77)
             $0.bottom.equalToSuperview()
         }
-//        bottomSheetView.snp.makeConstraints{
-//            $0.leading.bottom.trailing.equalToSuperview()
-//            $0.height.equalTo(500*heightRatio)
-//        }
+        bottomSheetView.snp.makeConstraints{
+            $0.leading.bottom.trailing.equalToSuperview()
+            $0.height.equalTo(482 * heightRatio)
+        }
         navigationLineView.snp.makeConstraints{
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(requestPlansButton.snp.top).offset(-16)

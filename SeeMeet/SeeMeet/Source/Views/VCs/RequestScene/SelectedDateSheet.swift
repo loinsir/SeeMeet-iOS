@@ -21,6 +21,9 @@ class SelectedDateSheet: UIView {
         $0.font = UIFont.hanSansMediumFont(ofSize: 16)
         $0.textColor = UIColor.grey06
     }
+    private let touchAreaView: UIView = UIView().then {
+        $0.backgroundColor = .clear
+    }
     
     private let selectedCountLabel: UILabel = UILabel().then {
         $0.text = "0/4"
@@ -30,7 +33,8 @@ class SelectedDateSheet: UIView {
     
     private let dateTicketsStackView: UIStackView = UIStackView().then {
         $0.axis = .vertical
-        $0.alignment = .top
+        $0.alignment = .fill
+        $0.distribution = .fillEqually
     }
     
     
@@ -50,7 +54,7 @@ class SelectedDateSheet: UIView {
         isUserInteractionEnabled = true
         backgroundColor = .white
         layer.cornerRadius = 20
-        addSubviews([grabber, titleLabel, selectedCountLabel, dateTicketsStackView])
+        addSubviews([grabber, titleLabel,touchAreaView,selectedCountLabel, dateTicketsStackView])
         
         grabber.snp.makeConstraints {
             $0.height.equalTo(4 * heightRatio)
@@ -62,6 +66,10 @@ class SelectedDateSheet: UIView {
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(30 * heightRatio)
             $0.leading.equalToSuperview().offset(20 * widthRatio)
+        }
+        touchAreaView.snp.makeConstraints{
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(75)
         }
         
         selectedCountLabel.snp.makeConstraints {
@@ -79,8 +87,8 @@ class SelectedDateSheet: UIView {
         // 임시!
         dateTicketsStackView.addArrangedSubview(DateTicketView())
         dateTicketsStackView.addArrangedSubview(DateTicketView())
-        dateTicketsStackView.addArrangedSubview(DateTicketView())
-//        updateStackViewHeight()
+//        dateTicketsStackView.addArrangedSubview(DateTicketView())
+        updateStackViewHeight()
     }
     
     // 스택뷰 갯수 바뀌고 마지막에 반드시 호출할 함수

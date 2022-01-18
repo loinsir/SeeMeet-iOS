@@ -66,7 +66,7 @@ class DateTicketView: UIView {
         removeButton.snp.makeConstraints {
             $0.width.height.equalTo(40 * widthRatio)
             $0.trailing.equalToSuperview().offset(-4 * widthRatio)
-            $0.top.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-33 * heightRatio)
         }
     }
     
