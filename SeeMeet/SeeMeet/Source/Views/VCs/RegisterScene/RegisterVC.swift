@@ -110,6 +110,7 @@ class RegisterVC: UIViewController {
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 10
         $0.setTitle("회원가입", for: .normal)
+        $0.addTarget(self, action: #selector(registerButtonClicked(_:)), for: .touchUpInside)
     }
     func setRegisterLayout(){
         view.addSubviews([scrollBackgroundView, headerView])
@@ -359,6 +360,49 @@ class RegisterVC: UIViewController {
             isKeboardShow = false
         }
     }
+    func overlappingEmail(){
+        emailWarningLabel.isHidden = false
+        emailTextView.layer.borderWidth = 1
+        emailTextView.layer.borderColor = UIColor.red.cgColor
+        emailWarningLabel.text = "이미 등록된 이메일이에요."
+        emailBool = false
+    }
+    
+    @objc func registerButtonClicked(_ sender: UIButton) {
+        if buttonOn {
+        PostRegisterService.shared.register(username: nameTextField.text ?? "", email: emailTextField.text ?? "", password: passwordTextField.text ?? "", passwordConfirm: confirmTextField.text ?? ""){ (response) in
+            switch(response)
+            {
+            case .success(let success):
+                if let success = success as? RegisterDataModel {
+                    if success.status == 404{
+                        self.overlappingEmail()
+                    }
+                    else{
+                        //토큰 저장하기~
+                        let accessToken = success.data?.accesstoken as! String
+                        let tk = TokenUtils()
+                        //accesstoken으로 통일 ㄱㄱ
+                        tk.create("accesstoken", account: "accessToken", value: accessToken)
+                        /*
+                         tk.read(Constants.registerURL, account: "accessToken")
+                         */
+                        guard let homeVC = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "HomeVC") as? HomeVC else {return}
+                        self.navigationController?.pushViewController(homeVC, animated: true)
+                    }
+                }
+            case .requestErr(let message) :
+                print("requestERR", message)
+            case .pathErr :
+                print("pathERR")
+            case .serverErr:
+                print("serverERR")
+            case .networkFail:
+                print("networkFail")
+            }
+        }
+    }
+    }
 
 }
 
@@ -444,20 +488,6 @@ extension RegisterVC: UITextFieldDelegate{
                 passwordWarningLabel.isHidden = true
             }
         }
-        if confirmTextField.text != passwordTextField.text {
-            confirmTextView.layer.borderWidth = 1
-            confirmTextView.layer.borderColor = UIColor.red.cgColor
-            confirmWarningLabel.isHidden = false
-            confirmWarningLabel.text = "비밀번호가 일치하지 않아요."
-            pwdCheckBool = false
-            isButtonOn()
-        }
-        else{
-            confirmTextView.layer.borderWidth = 0
-            confirmWarningLabel.isHidden = true
-            pwdCheckBool = true
-            isButtonOn()
-        }
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -477,3 +507,5 @@ extension RegisterVC: UITextFieldDelegate{
         return true
     }
 }
+
+
