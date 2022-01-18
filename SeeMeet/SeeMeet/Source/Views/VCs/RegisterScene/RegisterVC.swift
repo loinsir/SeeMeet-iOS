@@ -118,7 +118,7 @@ class RegisterVC: UIViewController {
         nameView.addSubviews([nameViewheadLabel, nameTextView])
         nameTextView.addSubview(nameTextField)
         backbuttonView.addSubviews([registerButton, topview])
-        
+                
         emailView.addSubviews([emailViewheadLabel, emailTextView, emailWarningLabel])
         emailTextView.addSubview(emailTextField)
         
@@ -137,6 +137,7 @@ class RegisterVC: UIViewController {
         passwordWarningLabel.isHidden = true
         confirmWarningLabel.isHidden = true
         
+        view.dismissKeyboardWhenTappedAround()
         
         headerView.snp.makeConstraints{
             $0.top.leading.trailing.equalToSuperview().offset(0)
@@ -286,12 +287,17 @@ class RegisterVC: UIViewController {
     }
     private var isConfirmNotSee = true
     private var isPasswordNotSee = true
-
+    private var emailBool: Bool = false
+    private var pwdBool: Bool = false
+    private var pwdCheckBool: Bool = false
+    private var buttonOn: Bool = false
+    private var isKeboardShow: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setRegisterLayout()
-
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     func isValidEmail(testStr:String) -> Bool {
            let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,50}"
@@ -306,6 +312,16 @@ class RegisterVC: UIViewController {
             passwordStatus.append(passwordTest.evaluate(with: testStr))
         }
         return passwordStatus
+    }
+    func isButtonOn(){
+        if !(nameTextField.text?.isEmpty ?? true) && emailBool && pwdBool && pwdCheckBool {
+            buttonOn = true
+            registerButton.backgroundColor = UIColor.pink01
+        }
+        else{
+            buttonOn = false
+            registerButton.backgroundColor = UIColor.grey02
+        }
     }
     @objc func seeConfirmButtonClicked(_ sender: UIButton) {
         if isConfirmNotSee == true{
@@ -331,6 +347,18 @@ class RegisterVC: UIViewController {
             passwordTextField.isSecureTextEntry = isPasswordNotSee
         }
     }
+    @objc func keyboardWillShow(_ sender: Notification) {
+        if isKeboardShow == false {
+            view.frame.origin.y -= 150
+            isKeboardShow = true
+        }
+    }
+    @objc func keyboardWillHide(_ sender: Notification) {
+        if isKeboardShow == true{
+            view.frame.origin.y += 150
+            isKeboardShow = false
+        }
+    }
 
 }
 
@@ -349,10 +377,14 @@ extension RegisterVC: UITextFieldDelegate{
                 emailTextView.layer.borderColor = UIColor.red.cgColor
                 emailWarningLabel.text = "올바른 이메일을 입력해주세요."
                 emailWarningLabel.isHidden = false
+                emailBool = false
+                isButtonOn()
             }
             else{
                 emailTextView.layer.borderWidth = 0
                 emailWarningLabel.isHidden = true
+                emailBool = true
+                isButtonOn()
             }
         case passwordTextField:
             let regList: [String] = ["^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+=-]).{8,16}", "^(?=.*[A-Za-z])(?=.*[0-9]).{8,16}", "^(?=.*[A-Za-z])(?=.*[!@#$%^&*()_+=-]).{8,16}", "^(?=.*[0-9])(?=.*[!@#$%^&*()_+=-]).{8,16}"]
@@ -370,10 +402,14 @@ extension RegisterVC: UITextFieldDelegate{
                 passwordTextView.layer.borderColor = UIColor.red.cgColor
                 passwordWarningLabel.text = "영문, 숫자, 특수문자 중 2가지 이상을 사용해주세요."
                 passwordWarningLabel.isHidden = false
+                pwdBool = false
+                isButtonOn()
             }
             else{
                 passwordTextView.layer.borderWidth = 0
                 passwordWarningLabel.isHidden = true
+                pwdBool = true
+                isButtonOn()
             }
         case confirmTextField:
             if confirmTextField.text != passwordTextField.text {
@@ -381,10 +417,14 @@ extension RegisterVC: UITextFieldDelegate{
                 confirmTextView.layer.borderColor = UIColor.red.cgColor
                 confirmWarningLabel.isHidden = false
                 confirmWarningLabel.text = "비밀번호가 일치하지 않아요."
+                pwdCheckBool = false
+                isButtonOn()
             }
             else{
                 confirmTextView.layer.borderWidth = 0
                 confirmWarningLabel.isHidden = true
+                pwdCheckBool = true
+                isButtonOn()
             }
         default:
             print("default")
@@ -403,6 +443,20 @@ extension RegisterVC: UITextFieldDelegate{
                 passwordTextView.layer.borderWidth = 0
                 passwordWarningLabel.isHidden = true
             }
+        }
+        if confirmTextField.text != passwordTextField.text {
+            confirmTextView.layer.borderWidth = 1
+            confirmTextView.layer.borderColor = UIColor.red.cgColor
+            confirmWarningLabel.isHidden = false
+            confirmWarningLabel.text = "비밀번호가 일치하지 않아요."
+            pwdCheckBool = false
+            isButtonOn()
+        }
+        else{
+            confirmTextView.layer.borderWidth = 0
+            confirmWarningLabel.isHidden = true
+            pwdCheckBool = true
+            isButtonOn()
         }
     }
     
