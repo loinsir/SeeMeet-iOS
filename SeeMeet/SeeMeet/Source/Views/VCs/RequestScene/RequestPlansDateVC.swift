@@ -15,6 +15,13 @@ class RequestPlansDateVC: UIViewController {
     var timeList: [String] = ["09 - 11","09 - 14","16 - 21","17 - 23"]
     var planList: [String] = ["마라샹궈","솝트세미나","스터디","데이트"]
     
+    var selectedDate = PickedDate()
+    var addedDateList = [PickedDate]()
+    var defaultStartDate = Date()
+    var defaultEndDate = Date()
+    
+    
+    
 
 //MARK: Components
     var cellList = [DayCellView]()
@@ -35,16 +42,18 @@ class RequestPlansDateVC: UIViewController {
     private let selectedDateView = UIView().then{
         $0.backgroundColor = UIColor.grey01
         $0.layer.cornerRadius = 10
+        $0.layer.borderColor = UIColor.pink01.cgColor
+        $0.layer.borderWidth = 1
     }
     private let dateLabel = UILabel().then{
         $0.text = "2022.01.04"
         $0.font = UIFont.dinProBoldFont(ofSize:18)
-        $0.textColor = UIColor.grey04
+        $0.textColor = UIColor.grey06
     }
     private let timeLabel = UILabel().then{
         $0.text = "오전 11:00 ~ 오전 12:00"
         $0.font = UIFont.dinProRegularFont(ofSize: 14)
-        $0.textColor = UIColor.grey04
+        $0.textColor = UIColor.grey06
     }
     private let addButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "btn_embody_on"), for: .normal)
@@ -160,21 +169,21 @@ class RequestPlansDateVC: UIViewController {
         $0.font = UIFont.hanSansMediumFont(ofSize: 14)
         $0.textColor = UIColor.grey04
     }
-    private let startAmPmButton = UIButton().then{
-        $0.setTitle("오전", for: .normal)
-        $0.setTitleColor(UIColor.grey06, for: .normal)
-        $0.titleLabel?.font = UIFont.hanSansMediumFont(ofSize: 14)
-        $0.titleLabel?.tintColor = UIColor.grey06
-        $0.backgroundColor = UIColor.grey01
-        $0.layer.cornerRadius = 18
-    }
+//    private let startAmPmButton = UIButton().then{
+//        $0.setTitle("오전", for: .normal)
+//        $0.setTitleColor(UIColor.grey06, for: .normal)
+//        $0.titleLabel?.font = UIFont.hanSansMediumFont(ofSize: 14)
+//        $0.titleLabel?.tintColor = UIColor.grey06
+//        $0.backgroundColor = UIColor.grey01
+//        $0.layer.cornerRadius = 18
+//    }
     private let startDatePicker = UIDatePicker().then{
-        $0.datePickerMode = .time
-        $0.locale = Locale(identifier: "ko-KR")
-        $0.timeZone = .autoupdatingCurrent//몰까
-        $0.preferredDatePickerStyle = .inline
-        
-    }
+            $0.datePickerMode = .time
+            $0.locale = Locale(identifier: "ko-KR")
+            $0.timeZone = .autoupdatingCurrent//몰까
+            $0.preferredDatePickerStyle = .inline
+            $0.minuteInterval = 5
+        }
 
     private let timeSeparateView = UIView().then{
         $0.backgroundColor = UIColor.grey01
@@ -188,14 +197,14 @@ class RequestPlansDateVC: UIViewController {
         $0.font = UIFont.hanSansMediumFont(ofSize: 14)
         $0.textColor = UIColor.grey04
     }
-    private let endAmPmButton = UIButton().then{
-        $0.setTitle("오전", for: .normal)
-        $0.setTitleColor(UIColor.grey06, for: .normal)
-        $0.titleLabel?.font = UIFont.hanSansMediumFont(ofSize: 14)
-        $0.titleLabel?.tintColor = UIColor.grey06
-        $0.layer.cornerRadius = 18
-        $0.backgroundColor = UIColor.grey01
-    }
+//    private let endAmPmButton = UIButton().then{
+//        $0.setTitle("오전", for: .normal)
+//        $0.setTitleColor(UIColor.grey06, for: .normal)
+//        $0.titleLabel?.font = UIFont.hanSansMediumFont(ofSize: 14)
+//        $0.titleLabel?.tintColor = UIColor.grey06
+//        $0.layer.cornerRadius = 18
+//        $0.backgroundColor = UIColor.grey01
+//    }
     private let endDatePicker = UIDatePicker().then{
         $0.datePickerMode = .time
         $0.locale = Locale(identifier: "ko-KR")
@@ -223,16 +232,16 @@ class RequestPlansDateVC: UIViewController {
     private let fillView = UIView().then{
         $0.backgroundColor = .white   }
 
-   // private let sheetView = SelectedDateSheet
-    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
         setDelegate()
         setCellList()
+        initSelectedTime()
         
-
+        
         // Do any additional setup after loading the view.
     }
     
@@ -244,7 +253,57 @@ class RequestPlansDateVC: UIViewController {
     func setCellList() {
         cellList.append(contentsOf:[sunCell,monCell,tueCell,wedCell,thuCell,friCell,satCell])
     }
-    
+
+    func initSelectedTime(){
+        let now = Date()
+        let min = Calendar.current.component(.minute, from: now)
+        
+        selectedDate.startTime = now
+        
+        //시간이 30분 이하일 때 다음 정각으로 설정
+        if Int(min)<30{
+//            guard let hourRevisedDate = Calendar.current.date(byAdding: .hour, value: 1, to: selectedDate.startTime) else {return}
+//            selectedDate.startTime = hourRevisedDate
+//            print(selectedDate.getStartToEndString())
+//
+            guard let minuteRevisedDate = Calendar.current.date(bySetting: .minute, value: 0, of: selectedDate.startTime) else {return}
+            selectedDate.startTime = minuteRevisedDate
+            print(selectedDate.getStartToEndString())//올림해줘버림..
+            
+            guard let hourRevisedDate = Calendar.current.date(byAdding: .hour, value: 1, to: selectedDate.endTime) else {return}
+            selectedDate.endTime = hourRevisedDate
+            print(selectedDate.getStartToEndString())
+            
+            guard let minuteRevisedDate = Calendar.current.date(bySetting: .minute, value: 0, of: selectedDate.endTime) else {return}
+            selectedDate.endTime = minuteRevisedDate
+            print(selectedDate.getStartToEndString())
+            updateSelectedDateLabel()
+            
+
+        }else{//30분 이상일 때 다음 삼십분으로 설정
+//            guard let hourRevisedDate = Calendar.current.date(byAdding: .hour, value: 1, to: selectedDate.startTime) else {return}
+//            selectedDate.startTime = hourRevisedDate
+//
+            guard let minuteRevisedDate = Calendar.current.date(bySetting: .minute, value: 30, of: selectedDate.startTime) else {return}
+            selectedDate.startTime = minuteRevisedDate
+            
+            guard let hourRevisedDate = Calendar.current.date(byAdding: .hour, value: 1, to: selectedDate.endTime) else {return}
+            selectedDate.endTime = hourRevisedDate
+            
+            guard let minuteRevisedDate = Calendar.current.date(bySetting: .minute, value: 30, of: selectedDate.endTime) else {return}
+            selectedDate.endTime = minuteRevisedDate
+        }
+        updateSelectedDateLabel()
+
+        }
+        
+    func updateSelectedDateLabel() {
+            dateLabel.text = selectedDate.getDateString()
+            timeLabel.text = selectedDate.getStartToEndString()
+           
+        }
+
+  
 
 //MARK: Layout
     func setLayout() {
@@ -287,10 +346,10 @@ class RequestPlansDateVC: UIViewController {
         allDayView.addSubviews([allDayLabel,
                                 allDaySwitch])
         startTimeSettingView.addSubviews([startTimeLabel,
-                                          startAmPmButton,
+                                          //startAmPmButton,
                                           startDatePicker])
         endTimeSettingView.addSubviews([endTimeLabel,
-                                        endAmPmButton,
+                                       // endAmPmButton,
                                         endDatePicker])
         
         navigationBarView.addSubview(requestPlansButton)
@@ -456,15 +515,16 @@ class RequestPlansDateVC: UIViewController {
             $0.leading.equalTo(21)
             $0.centerY.equalToSuperview()
         }
-        startAmPmButton.snp.makeConstraints{
-            $0.trailing.equalTo(startDatePicker.snp.leading).offset(-12)
-            $0.width.equalTo(70)
-            $0.height.equalTo(41)
-            $0.centerY.equalToSuperview()
-        }
+//        startAmPmButton.snp.makeConstraints{
+//            $0.trailing.equalTo(startDatePicker.snp.leading).offset(-12)
+//            $0.width.equalTo(70)
+//            $0.height.equalTo(41)
+//            $0.centerY.equalToSuperview()
+//        }
         startDatePicker.snp.makeConstraints{
             $0.trailing.equalToSuperview().offset(-19)
             $0.centerY.equalToSuperview()
+            
         }
         timeSeparateView.snp.makeConstraints{
             $0.top.equalTo(startTimeSettingView.snp.bottom)
@@ -481,12 +541,12 @@ class RequestPlansDateVC: UIViewController {
             $0.leading.equalTo(21)
             $0.centerY.equalToSuperview()
         }
-        endAmPmButton.snp.makeConstraints{
-            $0.trailing.equalTo(startDatePicker.snp.leading).offset(-12)
-            $0.width.equalTo(70)
-            $0.height.equalTo(41)
-            $0.centerY.equalToSuperview()
-        }
+//        endAmPmButton.snp.makeConstraints{
+//            $0.trailing.equalTo(startDatePicker.snp.leading).offset(-12)
+//            $0.width.equalTo(70)
+//            $0.height.equalTo(41)
+//            $0.centerY.equalToSuperview()
+//        }
         endDatePicker.snp.makeConstraints{
             $0.trailing.equalToSuperview().offset(-19)
             $0.centerY.equalToSuperview()
@@ -499,7 +559,7 @@ class RequestPlansDateVC: UIViewController {
         }
         bottomSheetView.snp.makeConstraints{
             $0.leading.bottom.trailing.equalToSuperview()
-            $0.height.equalTo(482 * heightRatio)
+            $0.height.equalTo(0 * heightRatio)
         }
         navigationLineView.snp.makeConstraints{
             $0.leading.trailing.equalToSuperview()

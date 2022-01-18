@@ -34,6 +34,22 @@ extension Date {
         return str
     }
     
+    static func getCurrentHour() -> String{
+        let nowDate = Date() // 현재의 Date (ex: 2020-08-13 09:14:48 +0000)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh" // 2020-08-13 16:30
+        let str = dateFormatter.string(from: nowDate)
+        return str
+    }
+    
+    static func getCurrentMinute() -> String{
+        let nowDate = Date() // 현재의 Date (ex: 2020-08-13 09:14:48 +0000)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "mm" // 2020-08-13 16:30
+        let str = dateFormatter.string(from: nowDate)
+        return str
+    }
+    
     static func getCurrentKoreanWeekDay() -> String {
         getKoreanWeekDay(from: Date())
     }
@@ -60,6 +76,62 @@ extension Date {
             return "일"
         }
     }
+    
+    public var year: Int {
+            return Calendar.current.component(.year, from: self)
+        }
+        
+        public var month: Int {
+             return Calendar.current.component(.month, from: self)
+        }
+        
+        public var day: Int {
+             return Calendar.current.component(.day, from: self)
+        }
+        
+        public var weekday: Int{
+            return Calendar.current.component(.weekday, from: self) - 1
+        }
+    
+    public var isLeapMonth: Bool{
+           if year % 400 == 0 || (year % 4 == 0 && year % 100 != 0){
+               return true
+           }
+           else{
+               return false
+           }
+       }
+    
+    public var numberOfMonth: Int{
+            let numberList = [0,31,28,31,30,31,30,31,31,30,31,30,31]
+            if isLeapMonth && month == 2{
+                return 29
+            }
+            else{
+                return numberList[month]
+            }
+        }
+    
+    public var firstWeekday: Int{
+            var dateComponent = DateComponents()
+            dateComponent.year = Calendar.current.component(.year, from: self)
+            dateComponent.month = Calendar.current.component(.month, from: self)
+            dateComponent.day = 1
+            dateComponent.weekday = Calendar.current.component(.weekday,from: Calendar.current.date(from: dateComponent)!)
+            /// 리턴값 : 일 - 토 -> 0 - 6
+            return dateComponent.weekday! - 1
+        }
+
+    func nextDate() -> Date {
+            let nextDate = Calendar.current.date(byAdding: .day, value: 1, to: self)
+            return nextDate ?? Date()
+        }
+        
+        func previousDate() -> Date {
+            let previousDate = Calendar.current.date(byAdding: .day, value: -1, to: self)
+            return previousDate ?? Date()
+        }
+    
     
 }
 
