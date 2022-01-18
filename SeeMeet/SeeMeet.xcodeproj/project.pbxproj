@@ -154,6 +154,7 @@
 		3623EAC12796F8A500853F87 /* TokenUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenUtils.swift; sourceTree = "<group>"; };
 		3623EAC32797038100853F87 /* PostLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLoginService.swift; sourceTree = "<group>"; };
 		3623EAC5279705C500853F87 /* ToastMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageView.swift; sourceTree = "<group>"; };
+		3623EAC727971F1600853F87 /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		36545311278EA30400A0770F /* UILabel++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel++.swift"; sourceTree = "<group>"; };
 		3682122F2785E642005D7236 /* DINNeuzeitGroteskStd-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DINNeuzeitGroteskStd-Light.otf"; sourceTree = "<group>"; };
 		368212302785E642005D7236 /* SpoqaHanSansNeo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Light.ttf"; sourceTree = "<group>"; };
@@ -684,6 +685,7 @@
 		6B37187F1B9AA6194E839C69 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3623EAC727971F1600853F87 /* Kingfisher.framework */,
 				7E4152A410430753EE447189 /* Pods_SeeMeet.framework */,
 			);
 			name = Frameworks;
@@ -1029,6 +1031,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -1044,7 +1047,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = U24ZACT97M;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SeeMeet/Resource/Info.plist;
@@ -1075,7 +1078,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = U24ZACT97M;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SeeMeet/Resource/Info.plist;
@@ -1092,6 +1095,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = SeeMeet.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
