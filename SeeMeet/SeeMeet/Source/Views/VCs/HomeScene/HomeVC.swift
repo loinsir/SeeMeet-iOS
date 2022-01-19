@@ -1,6 +1,7 @@
 import UIKit
 import SnapKit
 import Then
+import CoreMedia
 
 class HomeVC: UIViewController {
 //MARK: Components
@@ -28,9 +29,12 @@ class HomeVC: UIViewController {
         $0.font = UIFont.hanSansRegularFont(ofSize: 22)
         $0.textColor = UIColor.black
         $0.numberOfLines = 2
+        $0.attributedText = $0.setTextFontColorSpacingAttribute(defaultText: "씨밋과 함께 약속을 잡아볼까요?", value: -0.6, containText: "약속", changingFont: UIFont.hanSansBoldFont(ofSize: 26), color: UIColor.white)
         //가운데 일수는 26/bold/white
     }
-    private let characterImageView = UIImageView()
+    private let characterImageView = UIImageView().then{
+        $0.image = UIImage(named: "img_illust_5")
+    }
     private let collectionViewHeadLabel = UILabel().then{
         $0.text = "다가오는 약속"
         $0.font = UIFont.hanSansBoldFont(ofSize: 20)
@@ -59,7 +63,8 @@ class HomeVC: UIViewController {
     }
 
 //MARK: Var
-    var lastEventCount: Int = 0
+    var lastEventCount: String = ""
+    var friendsCount: Int = 0
     var userWidth: CGFloat = UIScreen.getDeviceWidth()
     var userHeight: CGFloat = UIScreen.getDeviceHeight() - 88
     
@@ -68,12 +73,18 @@ class HomeVC: UIViewController {
 //MARK: ViewDidLoad
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        getFriendsList()
         getHomeData()
+        getLastPlansCount()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         setHomeLayout()
         setCollectionViewLayout()
+        isNoEventLayout()
+//        let tk = TokenUtils()
+//        tk.delete("accesstoken", account: "accessToken")
+        setMainillust()
     }
 //MARK: Layout
     func setHomeLayout() {
@@ -144,29 +155,22 @@ class HomeVC: UIViewController {
         
     }
     func isNoEventLayout() {
-        homeBackgroundView.addSubviews([noEventImageView, noEventLabel])
-        noEventImageView.snp.makeConstraints{
-            $0.top.equalTo(collectionViewHeadLabel.snp.bottom).offset(10)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(249)
-            $0.height.equalTo(128)
-        }
-        noEventLabel.snp.makeConstraints{
-            $0.top.equalTo(noEventImageView.snp.bottom).offset(12)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(110)
+        if homeData.count == 0 {
+            homeBackgroundView.addSubviews([noEventImageView, noEventLabel])
+            noEventImageView.snp.makeConstraints{
+                $0.top.equalTo(collectionViewHeadLabel.snp.bottom).offset(10)
+                $0.centerX.equalToSuperview()
+                $0.width.equalTo(249)
+                $0.height.equalTo(128)
+            }
+            noEventLabel.snp.makeConstraints{
+                $0.top.equalTo(noEventImageView.snp.bottom).offset(12)
+                $0.centerX.equalToSuperview()
+                $0.width.equalTo(110)
+            }
         }
     }
 //MARK: Function
-//    func changeDdayLabel() {
-//        dDayLabel.text = "약속을 잡은지\n벌써 \(lastEventCount)일이 지났어요!"
-//        guard let text: String = dDayLabel.text else {return}
-//        let dDayText = NSMutableAttributedString(string: text)
-//        dDayText.addAttribute(.font, value: UIFont.hanSansBoldFont(ofSize: 26), range: (text as NSString).range(of: "\(lastEventCount)일"))
-//        dDayText.addAttribute(.foregroundColor, value: UIColor.white, range: (text as NSString).range(of: "\(lastEventCount)일"))
-//        dDayLabel.attributedText = dDayText
-//    }
-    
     @objc private func notiButtonClicked(_ sender: UIButton){
         guard let plansVC = UIStoryboard(name: "PlansList", bundle: nil).instantiateViewController(withIdentifier: PlansListVC.identifier) as? PlansListVC else {return}
         self.tabBarController?.tabBar.isHidden = true
@@ -204,6 +208,19 @@ class HomeVC: UIViewController {
         }
         print("\(days) 일 차이 난다")
     }
+    func countPrevious(date: String) -> Int{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+
+        let startDate = dateFormatter.date(from: Date.getCurrentYear() + "-" + Date.getCurrentMonth() + "-" + Date.getCurrentDate()) ?? Date()
+        let endDate = dateFormatter.date(from: date) ?? Date()
+
+        let interval = endDate.timeIntervalSince(startDate)
+        let days = Int(interval / 86400)
+
+        return days
+        print("\(days) 일 차이 난다")
+    }
     func setDayMonth(date: String) -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
@@ -215,44 +232,64 @@ class HomeVC: UIViewController {
         
         return changeDate2
     }
+    func findTodayPlans() -> Bool{
+        var i = 0
+        for plans in homeData{
+//            plans.data[i].date
+            if "2022-01-19" == (Date.getCurrentYear() + "-" + Date.getCurrentMonth() + "-" + Date.getCurrentDate()){
+                return true
+            }
+        }
+        return false
+    }
     func setMainillust(){
         let firstComeIn: String = "씨밋과 함께 약속을 잡아볼까요?"
         let firstFriendAdd: String = "친구가 당신의 약속 신청을 기다리고 있어요!"
         let todayMeet: String = "아싸 오늘은 친구 만나는 날이다!"
         let twoWeek: String = "약속잡기에 딱 좋은 시기에요!"
-        lastEventCount = Int(dateCal(date: homeData[0].data[homeData[0].data.count - 1].date)) ?? 0
         let threeWeek: String = "친구와 만난지 벌써 \n\(lastEventCount)일이 지났어요"
         let overThreeWeek: String = "친구를 언제 만났는지 기억도 안나요…"
         
-        let randList: [String] = [firstFriendAdd, twoWeek, threeWeek, overThreeWeek]
-        
-        if homeData[0].data.count > 0{
-            let titleText = randList.randomElement() ?? ""
-            switch titleText{
+        let randList: [String] = [firstFriendAdd, twoWeek, overThreeWeek]
+
+        if friendsCount == 0 && homeData.count == 0{
+            dDayLabel.attributedText = dDayLabel.setTextFontColorSpacingAttribute(defaultText: firstComeIn, value: -0.6, containText: "약속", changingFont: UIFont.hanSansBoldFont(ofSize: 26), color: UIColor.white)
+            characterImageView.image = UIImage(named: "img_illust_5")
+        }
+        else if friendsCount > 0 && homeData[0].data.count == 0{
+            switch randList.randomElement(){
             case firstFriendAdd:
                 dDayLabel.attributedText = dDayLabel.setTextFontColorSpacingAttribute(defaultText: firstFriendAdd, value: -0.6, containText: "약속 신청", changingFont: UIFont.hanSansBoldFont(ofSize: 26), color: UIColor.white)
                 characterImageView.image = UIImage(named: "img_illust_4")
             case twoWeek:
                 dDayLabel.attributedText = dDayLabel.setTextFontColorSpacingAttribute(defaultText: twoWeek, value: -0.6, containText: "딱 좋은", changingFont: UIFont.hanSansBoldFont(ofSize: 26), color: UIColor.white)
-                characterImageView.image = UIImage(named: "img_illust_8")
-            case threeWeek:
-                dDayLabel.attributedText = dDayLabel.setTextFontColorSpacingAttribute(defaultText: threeWeek, value: -0.6, containText: "\(lastEventCount)일", changingFont: UIFont.hanSansBoldFont(ofSize: 26), color: UIColor.white)
-                characterImageView.image = UIImage(named: "img_illust_6")
+                    characterImageView.image = UIImage(named: "img_illust_8")
             case overThreeWeek:
                 dDayLabel.attributedText = dDayLabel.setTextFontColorSpacingAttribute(defaultText: overThreeWeek, value: -0.6, containText: "기억도", changingFont: UIFont.hanSansBoldFont(ofSize: 26), color: UIColor.white)
                 characterImageView.image = UIImage(named: "img_illust_7")
-
             default:
-                print("default")
+                print("error")
             }
-
-            
-            
-            
         }
-        
+        else if isPrevious(date: lastEventCount) {
+            if countPrevious(date: lastEventCount) < -14{
+                dDayLabel.attributedText = dDayLabel.setTextFontColorSpacingAttribute(defaultText: twoWeek, value: -0.6, containText: "딱 좋은", changingFont: UIFont.hanSansBoldFont(ofSize: 26), color: UIColor.white)
+                    characterImageView.image = UIImage(named: "img_illust_8")
+            }
+            else if countPrevious(date: lastEventCount) < -14 && countPrevious(date: lastEventCount) > -21{
+                dDayLabel.attributedText = dDayLabel.setTextFontColorSpacingAttribute(defaultText: threeWeek, value: -0.6, containText: "딱 좋은", changingFont: UIFont.hanSansBoldFont(ofSize: 26), color: UIColor.white)
+                    characterImageView.image = UIImage(named: "img_illust_6")
+            }
+            else if countPrevious(date: lastEventCount) < -22 {
+                dDayLabel.attributedText = dDayLabel.setTextFontColorSpacingAttribute(defaultText: threeWeek, value: -0.6, containText: "딱 좋은", changingFont: UIFont.hanSansBoldFont(ofSize: 26), color: UIColor.white)
+                    characterImageView.image = UIImage(named: "img_illust_6")
+            }
+        }
+        else if findTodayPlans() {
+            dDayLabel.attributedText = dDayLabel.setTextFontColorSpacingAttribute(defaultText: todayMeet, value: -0.6, containText: "친구", changingFont: UIFont.hanSansBoldFont(ofSize: 26), color: UIColor.white)
+            characterImageView.image = UIImage(named: "img_illust_1")
+        }
     }
-    
 //MARK: Server
     func getHomeData(){
         GetHomeDataService.shared.getHomeData(year: Date.getCurrentYear(), month: Date.getCurrentMonth()){ (response) in
@@ -280,8 +317,47 @@ class HomeVC: UIViewController {
                    }
                }
     }
+    func getLastPlansCount(){
+        GetLastDateService.shared.getLastPlans(year: Date.getCurrentYear(), month: Date.getCurrentMonth(), day: Date.getCurrentDate()){ (response) in
+                   switch response
+                   {
+                   case .success(let data) :
+                       if let response = data as? LastDateDataModel{
+                           self.lastEventCount = self.dateCal(date: response.data.date)
+                           print(self.lastEventCount)
+                           self.setMainillust()
+                       }
+                   case .requestErr(let message) :
+                       print("requestERR")
+                   case .pathErr :
+                       print("pathERR")
+                   case .serverErr:
+                       print("serverERR")
+                   case .networkFail:
+                       print("networkFail")
+                   }
+               }
+    }
+    func getFriendsList(){
+        GetFriendsListService.shared.getFriendsList(){ (response) in
+                   switch response
+                   {
+                   case .success(let data) :
+                       if let response = data as? FriendsDataModel{
+                           self.friendsCount = response.data.count
+                       }
+                   case .requestErr(let message) :
+                       print("requestERR")
+                   case .pathErr :
+                       print("pathERR")
+                   case .serverErr:
+                       print("serverERR")
+                   case .networkFail:
+                       print("networkFail")
+                   }
+               }
+    }
 }
-
 //MARK: Extension
 extension HomeVC: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
