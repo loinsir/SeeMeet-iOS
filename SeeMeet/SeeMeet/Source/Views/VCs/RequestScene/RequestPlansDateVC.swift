@@ -22,7 +22,7 @@ class RequestPlansDateVC: UIViewController {
     var addedDateList = [PickedDate]()
     var defaultStartDate = Date()
     var defaultEndDate = Date()
-    var weekCalendar = [Date]()
+    var weekCalendarDateList = [Date]()
     
     var isOpened: Bool = false
     
@@ -253,6 +253,8 @@ class RequestPlansDateVC: UIViewController {
         setCellList()
         initSelectedTime()
         setTarget()
+        initWeekCalendarDataList()
+        layoutCalendarView()
         
         // Do any additional setup after loading the view.
     }
@@ -271,6 +273,7 @@ class RequestPlansDateVC: UIViewController {
         startDatePicker.addTarget(self, action: #selector(changedStartDatePicker), for: .valueChanged)
         endDatePicker.addTarget(self, action: #selector(changedEndDatePicker), for: .valueChanged)
         addButton.addTarget(self, action: #selector(tapAddButton), for: .touchUpInside)
+      
     
     }
 
@@ -320,16 +323,109 @@ class RequestPlansDateVC: UIViewController {
            
         }
     
-//
-//    func initWeekCalendar() {
-//        var today = Date()
-//        if Date.getKoreanWeekDay(from: today) == "일"{
-//            weekCalendar.append(today)
-//            weekCalendar.append(today.nextDate())
-//        }else
-//
-//
-//    }
+
+    func initWeekCalendarDataList() {
+        let today = Date()
+        switch Date.getKoreanWeekDay(from: today){
+        case "일":
+            let num = WeekDay.Sun.rawValue
+            for x in 0...(6-num-1){
+                weekCalendarDateList.append(today.previousDate(value: 6-num-x))
+            }
+            weekCalendarDateList.append(today)
+            for x in 0...(num-1){
+                weekCalendarDateList.append(today.nextDate(value: x+1))
+            }
+        case "월":
+            let num = WeekDay.Mon.rawValue
+            for x in 0...(6-num-1){
+                weekCalendarDateList.append(today.previousDate(value: 6-num-x))
+            }
+            weekCalendarDateList.append(today)
+            for x in 0...(num-1){
+                weekCalendarDateList.append(today.nextDate(value: x+1))
+            }
+            
+        case "화":
+            let num = WeekDay.Tue.rawValue
+            for x in 0...(6-num-1){
+                weekCalendarDateList.append(today.previousDate(value: 6-num-x))
+            }
+            weekCalendarDateList.append(today)
+            for x in 0...(num-1){
+                weekCalendarDateList.append(today.nextDate(value: x+1))
+            }
+        case "수":
+            let num = WeekDay.Wed.rawValue
+            for x in 0...(6-num-1){
+                weekCalendarDateList.append(today.previousDate(value: 6-num-x))
+            }
+            weekCalendarDateList.append(today)
+            for x in 0...(num-1){
+                weekCalendarDateList.append(today.nextDate(value: x+1))
+            }
+        case "목":
+            let num = WeekDay.Thu.rawValue
+            for x in 0...(6-num-1){
+                weekCalendarDateList.append(today.previousDate(value: 6-num-x))
+            }
+            weekCalendarDateList.append(today)
+            for x in 0...(num-1){
+                weekCalendarDateList.append(today.nextDate(value: x+1))
+            }
+        case "금":
+            let num = WeekDay.Fri.rawValue
+            for x in 0...(6-num-1){
+                weekCalendarDateList.append(today.previousDate(value: 6-num-x))
+            }
+            weekCalendarDateList.append(today)
+            for x in 0...(num-1){
+                weekCalendarDateList.append(today.nextDate(value: x+1))
+            }
+        case "토":
+            let num = WeekDay.Sat.rawValue
+            for x in 0...(6-num-1){
+                weekCalendarDateList.append(today.previousDate(value: 6-num-x))
+            }
+            weekCalendarDateList.append(today)
+            for x in 0...(num-1){
+                weekCalendarDateList.append(today.nextDate(value: x+1))
+            }
+        default:
+            let num = WeekDay.Sun.rawValue
+            for x in 0...(6-num-1){
+                weekCalendarDateList.append(today.previousDate(value: 6-num-x))
+            }
+            weekCalendarDateList.append(today)
+            for x in 0...(num-1){
+                weekCalendarDateList.append(today.nextDate(value: x+1))
+            }
+            
+        }
+        
+        print(weekCalendarDateList)
+
+    }
+    
+    func layoutCalendarView(){
+        for i in 0...cellList.count-1{
+            
+            let day = weekCalendarDateList[i].day
+            var montosun  = String()
+            switch i{
+            case 0 : montosun = "일"
+            case 1 : montosun = "월"
+            case 2 : montosun = "화"
+            case 3 : montosun = "수"
+            case 4 : montosun = "목"
+            case 5 : montosun = "금"
+            case 6 : montosun = "토"
+            default:montosun = "토"
+            }
+            
+            cellList[i].setDate(montosun: montosun, day: day, isScheduled: true)
+        }
+    }
     
 //
     @objc func changedStartDatePicker(){
@@ -430,7 +526,7 @@ class RequestPlansDateVC: UIViewController {
          
         }
         
-       }
+    }
     
     @objc func tapAddButton(){
         print("tapped")

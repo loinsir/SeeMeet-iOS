@@ -10,5 +10,6 @@ import Foundation
 
 
 enum WeekDay: Int{
-    case Sun=6, Mon=5, Tue=4, wed=3,Thu=2, Fri=1, Sat=0
+    case Sun=6, Mon=5, Tue=4,
+         Wed=3,Thu=2, Fri=1, Sat=0
 }

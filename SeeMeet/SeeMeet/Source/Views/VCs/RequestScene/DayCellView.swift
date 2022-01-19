@@ -94,6 +94,7 @@ class DayCellView: UIView {
             }
             
             pinkDotView.layer.cornerRadius = 5/2
+            pinkDotView.isHidden = true
            
         }
     func setDate(montosun: String,day: Int,isScheduled: Bool){
@@ -102,6 +103,24 @@ class DayCellView: UIView {
         self.montosunLabel.text = montosun
         self.dayLabel.text = String(day)
         self.isScheduled = isScheduled
+        self.setPinkDotView()
+    }
+    
+    func setDate(day: Int){
+        self.day = day
+        self.dayLabel.text = String(day)
+    }
+    func setDate(day:Int, isScheduled: Bool){
+        self.isScheduled = isScheduled
+        self.setPinkDotView()
+    }
+    
+    func setPinkDotView(){
+        if isScheduled == true{
+            pinkDotView.isHidden = false
+        }else{
+            pinkDotView.isHidden = true
+        }
     }
     
     func setGestureRecognizer(){
