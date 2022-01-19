@@ -70,6 +70,7 @@ class HomeVC: UIViewController {
     var userHeight: CGFloat = UIScreen.getDeviceHeight() - 88
     
     var homeData: [HomeDataModel] = []
+    var friendsData: [FriendsData] = []
     
 //MARK: ViewDidLoad
     override func viewDidAppear(_ animated: Bool) {
@@ -181,6 +182,7 @@ class HomeVC: UIViewController {
     @objc private func touchUpFriendsButton(_ sender: UIButton) {
         guard let friendsListVC = UIStoryboard(name: "FriendsList", bundle: nil).instantiateViewController(withIdentifier: FriendsListVC.identifier) as? FriendsListVC else { return }
         self.tabBarController?.tabBar.isHidden = true
+        friendsListVC.friendsNameData = friendsData.map { $0.username }
         self.navigationController?.pushViewController(friendsListVC, animated: true)
     }
     
@@ -352,6 +354,7 @@ class HomeVC: UIViewController {
                    case .success(let data) :
                        if let response = data as? FriendsDataModel{
                            self.friendsCount = response.data.count
+                           self.friendsData = response.data
                        }
                    case .requestErr(let message) :
                        print("requestERR")

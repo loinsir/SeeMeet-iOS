@@ -60,9 +60,8 @@ class FriendsListVC: UIViewController {
         $0.text = "친구를 추가해 주세요"
     }
     
-    // 임시
-    var data: [String] = []
-    var filteredData: [String] = []
+    var friendsNameData: [String] = []
+    var filteredNameData: [String] = []
     
     // MARK: - Life Cycle
     
@@ -113,7 +112,7 @@ class FriendsListVC: UIViewController {
         }
         
         // 데이터유무에 따라 분기 처리 필요
-        if data.isEmpty {
+        if friendsNameData.isEmpty {
             setLayoutsIfEmptyTable()
         } else {
             tableView.dataSource = self
@@ -182,7 +181,7 @@ extension FriendsListVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if !searchText.isEmpty {
-            filteredData = data.filter { $0.lowercased().prefix(searchText.count) == searchText.lowercased() }
+            filteredNameData = friendsNameData.filter { $0.lowercased().prefix(searchText.count) == searchText.lowercased() }
         }
         tableView.reloadData() // 일단은 음절단위로 갑시다!
     }
@@ -190,10 +189,10 @@ extension FriendsListVC: UISearchBarDelegate {
 
 extension FriendsListVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if filteredData.isEmpty {
-            return data.count
+        if filteredNameData.isEmpty {
+            return friendsNameData.count
         } else {
-            return filteredData.count
+            return filteredNameData.count
         }
     }
     
@@ -203,10 +202,10 @@ extension FriendsListVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendsListTVC.identifier, for: indexPath) as? FriendsListTVC else { return UITableViewCell() }
-        if filteredData.isEmpty {
-            cell.nameLabel.text = data[indexPath.row]
+        if filteredNameData.isEmpty {
+            cell.nameLabel.text = friendsNameData[indexPath.row]
         } else {
-            cell.nameLabel.text = filteredData[indexPath.row]
+            cell.nameLabel.text = filteredNameData[indexPath.row]
         }
         
         return cell
