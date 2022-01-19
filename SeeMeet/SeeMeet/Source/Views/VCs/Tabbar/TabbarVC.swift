@@ -56,8 +56,8 @@ class TabbarVC: UITabBarController {
         let sendEventTab = UINavigationController(rootViewController: sendEventVC)
         sendEventTab.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "btn_send-message"), selectedImage: UIImage(named: "btn_send-message"))
         
-        let calendarStoryboard = UIStoryboard(name: "Home", bundle: nil)
-        let calendarVC = calendarStoryboard.instantiateViewController(identifier: "HomeVC")
+        let calendarStoryboard = UIStoryboard(name: "Calendar", bundle: nil)
+        let calendarVC = calendarStoryboard.instantiateViewController(identifier: "CalendarVC")
         let calendarTab = UINavigationController(rootViewController: calendarVC)
         calendarTab.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "calendar_ic"), selectedImage: UIImage(named: "calendar_ic_clicked"))
         
