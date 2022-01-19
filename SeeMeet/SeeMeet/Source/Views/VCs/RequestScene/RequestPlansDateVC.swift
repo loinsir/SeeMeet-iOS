@@ -18,8 +18,9 @@ class RequestPlansDateVC: UIViewController {
     var planList: [String] = ["마라샹궈","솝트세미나","스터디","데이트"]
     
     var todayDate = Date()
-    var selectedDate = PickedDate()
-    var addedDateList = [PickedDate]()
+    var selectedDate = PickedDate()//선택된 날짜 + 시간
+    var selectedDay = Date()//선택된 날짜
+    var addedDateList = [PickedDate]()// 선택된 날짜 + 시간 모음
     var defaultStartDate = Date()
     var defaultEndDate = Date()
     var weekCalendarDateList = [Date]()
@@ -153,6 +154,11 @@ class RequestPlansDateVC: UIViewController {
         $0.bounces = false
 
     }
+    private let emptyScheduleLabel = UILabel().then{
+        $0.text = "일정이 없어요"
+        $0.font = UIFont.hanSansRegularFont(ofSize: 16)
+        $0.textColor = UIColor.grey04
+    }
     
     private let allDayView = UIView().then{
         $0.backgroundColor = UIColor.white
@@ -250,6 +256,7 @@ class RequestPlansDateVC: UIViewController {
         super.viewDidLoad()
         setLayout()
         setDelegate()
+        initSelectedDay()
         setCellList()
         initSelectedTime()
         setTarget()
@@ -260,6 +267,11 @@ class RequestPlansDateVC: UIViewController {
     }
     
 //MARK: Func
+    func initSelectedDay(){
+        selectedDay = todayDate
+        print(selectedDay)
+        print(todayDate)
+    }
     func setDelegate() {
         scheduleTableView.dataSource = self
         scheduleTableView.delegate = self
@@ -281,10 +293,10 @@ class RequestPlansDateVC: UIViewController {
     }
 
     func initSelectedTime(){
-        let now = Date()
-        let min = Calendar.current.component(.minute, from: now)
         
-        selectedDate.startTime = now
+        let min = Calendar.current.component(.minute, from: todayDate)
+        
+        selectedDate.startTime = todayDate
         
         //시간이 30분 이하일 때 다음 정각으로 설정
         if Int(min)<30{
@@ -328,80 +340,80 @@ class RequestPlansDateVC: UIViewController {
     
 
     func initWeekCalendarDataList() {
-        let today = Date()
-        switch Date.getKoreanWeekDay(from: today){
+    
+        switch Date.getKoreanWeekDay(from: todayDate){
         case "일":
             let num = WeekDay.Sun.rawValue
             for x in 0...(6-num-1){
-                weekCalendarDateList.append(today.previousDate(value: 6-num-x))
+                weekCalendarDateList.append(todayDate.previousDate(value: 6-num-x))
             }
-            weekCalendarDateList.append(today)
+            weekCalendarDateList.append(todayDate)
             for x in 0...(num-1){
-                weekCalendarDateList.append(today.nextDate(value: x+1))
+                weekCalendarDateList.append(todayDate.nextDate(value: x+1))
             }
         case "월":
             let num = WeekDay.Mon.rawValue
             for x in 0...(6-num-1){
-                weekCalendarDateList.append(today.previousDate(value: 6-num-x))
+                weekCalendarDateList.append(todayDate.previousDate(value: 6-num-x))
             }
-            weekCalendarDateList.append(today)
+            weekCalendarDateList.append(todayDate)
             for x in 0...(num-1){
-                weekCalendarDateList.append(today.nextDate(value: x+1))
+                weekCalendarDateList.append(todayDate.nextDate(value: x+1))
             }
             
         case "화":
             let num = WeekDay.Tue.rawValue
             for x in 0...(6-num-1){
-                weekCalendarDateList.append(today.previousDate(value: 6-num-x))
+                weekCalendarDateList.append(todayDate.previousDate(value: 6-num-x))
             }
-            weekCalendarDateList.append(today)
+            weekCalendarDateList.append(todayDate)
             for x in 0...(num-1){
-                weekCalendarDateList.append(today.nextDate(value: x+1))
+                weekCalendarDateList.append(todayDate.nextDate(value: x+1))
             }
         case "수":
             let num = WeekDay.Wed.rawValue
             for x in 0...(6-num-1){
-                weekCalendarDateList.append(today.previousDate(value: 6-num-x))
+                weekCalendarDateList.append(todayDate.previousDate(value: 6-num-x))
             }
-            weekCalendarDateList.append(today)
+            weekCalendarDateList.append(todayDate)
             for x in 0...(num-1){
-                weekCalendarDateList.append(today.nextDate(value: x+1))
+                weekCalendarDateList.append(todayDate.nextDate(value: x+1))
             }
         case "목":
             let num = WeekDay.Thu.rawValue
             for x in 0...(6-num-1){
-                weekCalendarDateList.append(today.previousDate(value: 6-num-x))
+                weekCalendarDateList.append(todayDate.previousDate(value: 6-num-x))
             }
-            weekCalendarDateList.append(today)
+            weekCalendarDateList.append(todayDate)
             for x in 0...(num-1){
-                weekCalendarDateList.append(today.nextDate(value: x+1))
+                weekCalendarDateList.append(todayDate.nextDate(value: x+1))
             }
         case "금":
             let num = WeekDay.Fri.rawValue
             for x in 0...(6-num-1){
-                weekCalendarDateList.append(today.previousDate(value: 6-num-x))
+                weekCalendarDateList.append(todayDate.previousDate(value: 6-num-x))
             }
-            weekCalendarDateList.append(today)
+            weekCalendarDateList.append(todayDate)
             for x in 0...(num-1){
-                weekCalendarDateList.append(today.nextDate(value: x+1))
+                weekCalendarDateList.append(todayDate.nextDate(value: x+1))
             }
         case "토":
             let num = WeekDay.Sat.rawValue
             for x in 0...(6-num-1){
-                weekCalendarDateList.append(today.previousDate(value: 6-num-x))
+                weekCalendarDateList.append(todayDate.previousDate(value: 6-num-x))
             }
-            weekCalendarDateList.append(today)
+            weekCalendarDateList.append(todayDate)
             for x in 0...(num-1){
-                weekCalendarDateList.append(today.nextDate(value: x+1))
+                weekCalendarDateList.append(todayDate.nextDate(value: x+1))
             }
         default:
             let num = WeekDay.Sun.rawValue
             for x in 0...(6-num-1){
-                weekCalendarDateList.append(today.previousDate(value: 6-num-x))
+                weekCalendarDateList.append(todayDate.previousDate(value: 6-num-x))
             }
-            weekCalendarDateList.append(today)
+            weekCalendarDateList.append(todayDate)
             for x in 0...(num-1){
-                weekCalendarDateList.append(today.nextDate(value: x+1))
+                weekCalendarDateList.append(todayDate.nextDate(value: x+1))
             }
             
         }
@@ -427,6 +439,22 @@ class RequestPlansDateVC: UIViewController {
             }
             
             cellList[i].setDate(montosun: montosun, day: day, isScheduled: true)
+            if((weekCalendarDateList[i].compare(todayDate) == .orderedSame) && (weekCalendarDateList[i].compare(selectedDay) == .orderedSame)){
+                cellList[i].setTodaySelectedState()
+                print("dd")
+            }
+            else if(weekCalendarDateList[i].compare(todayDate) == .orderedSame){
+                cellList[i].setTodayState()
+               
+            }else if(weekCalendarDateList[i].compare(selectedDay) == .orderedSame){
+                cellList[i].setSelectedState()
+            }
+            else{
+                cellList[i].setBasicState()
+            }
+            
+            
+           
         }
         
         setPresentWeekLabel()
@@ -612,7 +640,8 @@ class RequestPlansDateVC: UIViewController {
                                   caleandarView,
                                   calendarSeparateLineView,
                                   todayLabel,
-                                  scheduleTableView])
+                                  scheduleTableView,
+                                  emptyScheduleLabel])
         caleandarView.addSubviews([sunCell,monCell,tueCell,wedCell,thuCell,friCell,satCell])
         allDayView.addSubviews([allDayLabel,
                                 allDaySwitch])
@@ -758,6 +787,10 @@ class RequestPlansDateVC: UIViewController {
             $0.trailing.equalToSuperview().offset(-20)
             $0.bottom.equalToSuperview().offset(-20)
         }
+        emptyScheduleLabel.snp.makeConstraints{
+            $0.top.equalTo(calendarSeparateLineView.snp.bottom).offset(88)
+            $0.centerX.equalToSuperview()
+        }
         
         allDayView.snp.makeConstraints{
             $0.top.equalTo(scheduleView.snp.bottom)
@@ -853,6 +886,8 @@ class RequestPlansDateVC: UIViewController {
         scrollView.isUserInteractionEnabled = true
         
         scheduleTableView.separatorStyle = .none
+        
+        emptyScheduleLabel.isHidden = true
     }
 
 }

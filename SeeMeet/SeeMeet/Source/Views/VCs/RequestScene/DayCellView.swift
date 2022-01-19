@@ -123,6 +123,40 @@ class DayCellView: UIView {
         }
     }
     
+    func setFillColor(fillColor: UIColor){
+        cellView.backgroundColor = fillColor
+        
+    }
+    func setFontColor(fontColor: UIColor){
+        montosunLabel.textColor = fontColor
+    }
+    
+    func setTodayState(){
+        cellView.backgroundColor = UIColor.pink01
+        montosunLabel.textColor = .white
+        dayLabel.textColor = .white
+    }
+    
+    func setSelectedState(){
+        cellView.backgroundColor = UIColor.black
+        montosunLabel.textColor = .white
+        dayLabel.textColor = .white
+    }
+    
+    func setTodaySelectedState(){
+        cellView.layer.borderColor = UIColor.black.cgColor
+        cellView.layer.borderWidth = 1
+        cellView.backgroundColor = UIColor.pink01
+        montosunLabel.textColor = .white
+        dayLabel.textColor = .white
+    }
+    func setBasicState() {
+        cellView.layer.borderWidth = 0
+        cellView.backgroundColor = UIColor.white
+        montosunLabel.textColor = .grey04
+        dayLabel.textColor = .grey06
+    }
+    
     func setGestureRecognizer(){
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapCellView(gestureRecognizer:)))
         cellView.addGestureRecognizer(tapRecognizer)
@@ -130,6 +164,7 @@ class DayCellView: UIView {
         isUserInteractionEnabled = true
         
     }
+    
     
     @objc func tapCellView(gestureRecognizer: UIGestureRecognizer){
         tapCellViewDelegate?.tapCellView(dayCellView: self)
