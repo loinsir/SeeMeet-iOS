@@ -11,9 +11,8 @@ class FriendsListTVC: UITableViewCell {
     
     static let identifier: String = "FriendsListTVC"
     
-    // 임시 프로필 뷰
-    let profileIcon: UIView = UIView().then {
-        $0.backgroundColor = UIColor.grey03
+    let profileIcon: UIImageView = UIImageView().then {
+        $0.image = UIImage(named: "img_profile")
     }
     
     let nameLabel: UILabel = UILabel().then {
@@ -52,7 +51,6 @@ class FriendsListTVC: UITableViewCell {
             $0.width.height.equalTo(42 * heightRatio)
             $0.leading.centerY.equalToSuperview()
         }
-        profileIcon.layer.cornerRadius = 20
         
         nameLabel.snp.makeConstraints {
             $0.leading.equalTo(profileIcon.snp.trailing).offset(18 * widthRatio)

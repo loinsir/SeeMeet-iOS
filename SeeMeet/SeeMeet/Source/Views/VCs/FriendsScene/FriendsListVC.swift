@@ -44,8 +44,8 @@ class FriendsListVC: UIViewController {
         $0.register(FriendsListTVC.self, forCellReuseIdentifier: FriendsListTVC.identifier)
     }
     
-    private lazy var emptyImage: UIView = UIView().then {
-        $0.backgroundColor = UIColor.grey03
+    private lazy var emptyImage: UIImageView = UIImageView().then {
+        $0.image = UIImage(named: "img_illust_9")
     }
     
     private lazy var emptyMessageLabel1: UILabel = UILabel().then {
@@ -61,7 +61,7 @@ class FriendsListVC: UIViewController {
     }
     
     // 임시
-    var data: [String] = ["김준희", "김준희", "김인환", "박익범", "이유진"]
+    var data: [String] = []
     var filteredData: [String] = []
     
     // MARK: - Life Cycle
@@ -133,7 +133,7 @@ class FriendsListVC: UIViewController {
         emptyImage.snp.makeConstraints {
             $0.width.height.equalTo(164 * heightRatio)
             $0.top.equalTo(searchBar.snp.bottom).offset(135 * heightRatio)
-            $0.leading.equalToSuperview().offset(106 * heightRatio)
+            $0.centerX.equalToSuperview()
         }
         
         emptyMessageLabel1.snp.makeConstraints {
@@ -150,7 +150,7 @@ class FriendsListVC: UIViewController {
     // MARK: - objc func
     
     @objc private func touchUpBackButton(_ sender: UIButton) {
-        
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc private func touchUpAddFriendsButton(_ sender: UIButton) {
