@@ -256,7 +256,7 @@ class HomeVC: UIViewController {
             dDayLabel.attributedText = dDayLabel.setTextFontColorSpacingAttribute(defaultText: firstComeIn, value: -0.6, containText: "약속", changingFont: UIFont.hanSansBoldFont(ofSize: 26), color: UIColor.white)
             characterImageView.image = UIImage(named: "img_illust_5")
         }
-        else if friendsCount > 0 && homeData[0].data.count == 0{
+        else if friendsCount > 0 && homeData.count == 0{
             switch randList.randomElement(){
             case firstFriendAdd:
                 dDayLabel.attributedText = dDayLabel.setTextFontColorSpacingAttribute(defaultText: firstFriendAdd, value: -0.6, containText: "약속 신청", changingFont: UIFont.hanSansBoldFont(ofSize: 26), color: UIColor.white)

@@ -48,14 +48,14 @@ class CompletePlansCVC: UICollectionViewCell {
         dateAgoLable.snp.makeConstraints{
             $0.top.equalToSuperview().offset(6)
             $0.leading.equalToSuperview().offset(20)
-            $0.height.equalTo(32)
+            $0.height.equalTo(18)
             $0.width.equalTo(34)
         }
         cancelPlansButton.snp.makeConstraints{
             $0.centerY.equalTo(dateAgoLable)
             $0.leading.equalTo(dateAgoLable.snp.trailing).offset(6)
             $0.width.equalTo(55)
-            $0.height.equalTo(32)
+            $0.height.equalTo(18)
         }
         closeButton.snp.makeConstraints{
             $0.top.equalToSuperview().offset(0)
@@ -84,15 +84,17 @@ class CompletePlansCVC: UICollectionViewCell {
             $0.leading.trailing.equalToSuperview().offset(0)
             $0.height.equalTo(1)
         }
-        getStackButton()
+        
     }
     //MARK: function
     func getStackButton(){
+        nameTagButtonStackView.removeAllSubViews()
         nameDummy.forEach {
+            var i: Int = 0
             let nameButton: UIButton = UIButton()
             nameButton.setTitle($0, for: .normal)
             nameButton.titleLabel?.font = UIFont.hanSansMediumFont(ofSize: 14)
-            if isAccept == true{
+            if isAccept[0] == true{
                 nameButton.setTitleColor(UIColor.grey06, for: .normal)
                 nameButton.backgroundColor = UIColor.grey02
             }
@@ -108,19 +110,52 @@ class CompletePlansCVC: UICollectionViewCell {
             nameButton.snp.makeConstraints{
                 $0.top.bottom.equalToSuperview().offset(0)
             }
+            i += 1
+            if $0 == "" {
+                nameButton.layer.borderWidth = 0
+                nameButton.backgroundColor = .none
+            }
         }
+        plansNameLabel.attributedText = String.getAttributedText(text: plansTitle, letterSpacing: -0.6, lineSpacing: nil)
+        
+        if isConfirmData == true && isCanceldData == false{
+            cancelPlansButton.setTitle("약속 확정", for: .normal)
+        }
+        else{
+            cancelPlansButton.setTitle("약속 취소", for: .normal)
+        }
+        
+        dateAgoLable.attributedText = String.getAttributedText(text: dDayagoText + "일전", letterSpacing: -0.6, lineSpacing: nil)
+    }
+    
+    func setData(dDayago: String, plansName: String, isConfirm: Bool, isCanceled: Bool, nameList: [String], nameBoolList: [Bool]){
+        nameDummy = nameList
+        isAccept = nameBoolList
+        isConfirmData = isConfirm
+        isCanceldData = isCanceled
+        dDayagoText = dDayago
+        plansTitle = plansName
+        
+        setLayout()
+        getStackButton()
     }
     
     
     //MARK:Var
     static let identifier: String = "CompletePlansCVC"
     var nameDummy: [String] = ["가나다", "가나다", "가나다"]
-    var isAccept: Bool = true
+    var isAccept: [Bool] = [false, false, false]
+    var isConfirmData: Bool = false
+    var isCanceldData: Bool = false
+    var dDayagoText: String = ""
+    var plansTitle: String = ""
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        setLayout()
         // Initialization code
     }
+    
+
+
 
 }
