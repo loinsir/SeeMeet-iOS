@@ -13,23 +13,21 @@ class FriendsAddTVC: UITableViewCell {
     static let identifier: String = "FriendsAddTVC"
     
     let profileImage: UIImageView = UIImageView().then {
-        $0.image = UIImage(named: "Ellipse_dummy")
+        $0.image = UIImage(named: "img_illust_2")
     }
     
     let nameLabel: UILabel = UILabel().then {
         $0.font = UIFont.hanSansMediumFont(ofSize: 16)
         $0.textColor = UIColor.black
-        $0.text = "김준희"
     }
     
     let emailLabel: UILabel = UILabel().then {
         $0.font = UIFont.hanSansMediumFont(ofSize: 13)
         $0.textColor = UIColor.grey04
-        $0.text = "joon13579@sookyung.ac.kr"
     }
     
     private let addButton: UIButton = UIButton().then {
-        $0.setImage(UIImage(named: "btn_add-friends"), for: .normal)
+        $0.setImage(UIImage(named: "btn_add-friends_circle"), for: .normal)
         $0.addTarget(self, action: #selector(touchUpAddButton(_:)), for: .touchUpInside)
     }
     

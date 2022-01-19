@@ -35,6 +35,12 @@ class FriendsAddVC: UIViewController {
         $0.separatorStyle = .none
         $0.register(FriendsAddTVC.self, forCellReuseIdentifier: FriendsAddTVC.identifier)
     }
+    
+    private var searchResults: FriendData? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,6 +91,29 @@ class FriendsAddVC: UIViewController {
         
     }
     
+    private func requestFriendsSearchResults(email: String) {
+        FriendsSearchService.shared.searchFriends(email: email) { responseData in
+            dump(responseData)
+            switch responseData {
+            case .success(let response):
+                guard let response = response as? FriendsSearchResponseModel else { return }
+                self.searchResults = response.data
+            case .requestErr(let response):
+                guard let response = response as? FriendsSearchResponseModel else { return }
+                if response.message != "" {
+                    self.view.makeToastAnimation(message: response.message ?? "통신 오류")
+                }
+            case .pathErr:
+                self.view.makeToastAnimation(message: "존재하지 않는 회원입니다.")
+                print("Path Error")
+            case .serverErr:
+                print("Server Error")
+            case .networkFail:
+                print("Network Fail")
+            }
+        }
+    }
+    
     // MARK: - objc
     
     @objc private func touchUpCloseButton(_ sender: UIButton) {
@@ -99,12 +128,17 @@ extension FriendsAddVC: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.layer.borderColor = UIColor.pink01.cgColor
         searchBar.layer.borderWidth = 1
-        print("HIHI")
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.layer.borderColor = nil
         searchBar.layer.borderWidth = 0
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) { // 키보드 완료
+        searchBar.endEditing(true)
+        guard let searchEmail = searchBar.text else { return }
+        requestFriendsSearchResults(email: searchEmail)
     }
 }
 
@@ -114,12 +148,17 @@ extension FriendsAddVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        if searchResults != nil {
+            return 1
+        } else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell: FriendsAddTVC = tableView.dequeueReusableCell(withIdentifier: FriendsAddTVC.identifier) as? FriendsAddTVC else { return UITableViewCell() }
-        
+        cell.nameLabel.text = searchResults?.username
+        cell.emailLabel.text = searchResults?.email
         return cell
     }
 }
