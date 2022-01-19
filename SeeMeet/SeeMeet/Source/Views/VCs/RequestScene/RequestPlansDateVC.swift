@@ -273,6 +273,9 @@ class RequestPlansDateVC: UIViewController {
         startDatePicker.addTarget(self, action: #selector(changedStartDatePicker), for: .valueChanged)
         endDatePicker.addTarget(self, action: #selector(changedEndDatePicker), for: .valueChanged)
         addButton.addTarget(self, action: #selector(tapAddButton), for: .touchUpInside)
+        
+        nextWeekButton.addTarget(self, action: #selector(tapNextButton), for: .touchUpInside)
+        prevWeekButton.addTarget(self, action: #selector(tapPreviousButton), for: .touchUpInside)
       
     
     }
@@ -527,6 +530,22 @@ class RequestPlansDateVC: UIViewController {
         }
         
     }
+    @objc func tapNextButton(){
+        
+        for i in 0..<weekCalendarDateList.count{
+            weekCalendarDateList[i] = weekCalendarDateList[i].nextWeekDate()
+        }
+        layoutCalendarView()
+        
+       }
+    @objc func tapPreviousButton(){
+        
+        for i in 0..<weekCalendarDateList.count{
+            weekCalendarDateList[i] = weekCalendarDateList[i].prevWeekDate()
+        }
+        layoutCalendarView()
+        
+       }
     
     @objc func tapAddButton(){
         print("tapped")
@@ -534,6 +553,7 @@ class RequestPlansDateVC: UIViewController {
         print(addedDateList)
 
     }
+    
     
 
 //MARK: Layout
