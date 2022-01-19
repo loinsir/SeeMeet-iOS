@@ -270,9 +270,7 @@ class RequestPlansDateVC: UIViewController {
         allDaySwitch.addTarget(self, action: #selector(onClickSwitch(sender:)), for: UIControl.Event.valueChanged)
         startDatePicker.addTarget(self, action: #selector(changedStartDatePicker), for: .valueChanged)
         endDatePicker.addTarget(self, action: #selector(changedEndDatePicker), for: .valueChanged)
-        
-      
-
+        addButton.addTarget(self, action: #selector(tapAddButton), for: .touchUpInside)
     
     }
 
@@ -360,9 +358,39 @@ class RequestPlansDateVC: UIViewController {
             startDatePicker.setDate(startDate,animated: true)
             guard let endDate = dateFormatter.date(from: "오후 11:55") else{ return}
             endDatePicker.setDate(endDate,animated: true)
-            selectedDate.startTime = startDate
-            selectedDate.endTime = endDate
+//
+//            guard let hourRevisedStartDate = Calendar.current.date(bySetting: .hour, value: 0, of: selectedDate.startTime)else {return}
+//
+//            guard let minuteRevisedStartDate = Calendar.current.date(bySetting: .minute, value: 0, of: hourRevisedStartDate) else {return}
+            
+            let startDateComponents = DateComponents(year: selectedDate.startTime.year, month: selectedDate.startTime.month, day: selectedDate.startTime.day, hour: 0,minute: 0)
+            
+            guard let revisedStartDate = Calendar.current.date(from: startDateComponents) else{return}
+            
+   
+            
+            let endDateComponents = DateComponents(year: selectedDate.startTime.year, month: selectedDate.startTime.month, day: selectedDate.startTime.day, hour:23,minute: 55)
+            
+            guard let revisedEndDate = Calendar.current.date(from: endDateComponents) else{return}
+
+            selectedDate.startTime = revisedStartDate
+            selectedDate.endTime = revisedEndDate
             updateSelectedDateLabel()
+//
+//            guard let hourRevisedStartDate = Calendar.current.date(bySetting: .hour, value: 0, of: selectedDate.startTime)else {return}
+//
+//            guard let minuteRevisedStartDate = Calendar.current.date(bySetting: .minute, value: 0, of: hourRevisedStartDate) else {return}
+
+        
+//            guard let hourRevisedEndDate = Calendar.current.date(bySetting: .hour, value: 23, of: selectedDate.endTime)else {return}
+//
+//            guard let minuteRevisedEndDate = Calendar.current.date(bySetting: .minute, value: 55, of: hourRevisedEndDate ) else {return}
+            
+//
+//            selectedDate.startTime = startDate
+//            selectedDate.endTime = endDate
+            
+            
             
         } else {
             let dateFormatter = DateFormatter()
@@ -373,13 +401,41 @@ class RequestPlansDateVC: UIViewController {
             startDatePicker.setDate(startDate,animated: true)
             guard let endDate = dateFormatter.date(from: "오후 02:00") else{ return}
             endDatePicker.setDate(endDate,animated: true)
-            selectedDate.startTime = startDate
-            selectedDate.endTime = endDate
+  
+            let startDateComponents = DateComponents(year: selectedDate.startTime.year, month: selectedDate.startTime.month, day: selectedDate.startTime.day, hour: 9,minute: 0)
+            
+            guard let revisedStartDate = Calendar.current.date(from: startDateComponents) else{return}
+            
+            let endDateComponents = DateComponents(year: selectedDate.startTime.year, month: selectedDate.startTime.month, day: selectedDate.startTime.day, hour:14,minute: 0)
+            
+            guard let revisedEndDate = Calendar.current.date(from: endDateComponents) else{return}
+
+            selectedDate.startTime = revisedStartDate
+            selectedDate.endTime = revisedEndDate
+        
             updateSelectedDateLabel()
+            
+//            guard let hourRevisedStartDate = Calendar.current.date(bySetting: .hour, value: 9, of: selectedDate.startTime)else {return}
+//
+//            guard let minuteRevisedStartDate = Calendar.current.date(bySetting: .minute, value: 0, of: hourRevisedStartDate) else {return}
+//
+//            guard let hourRevisedEndDate = Calendar.current.date(bySetting: .hour, value: 14, of: selectedDate.endTime)else {return}
+//
+//            guard let minuteRevisedEndDate = Calendar.current.date(bySetting: .minute, value: 0, of: hourRevisedEndDate ) else {return}
+//
+//            selectedDate.startTime = minuteRevisedStartDate
+//            selectedDate.endTime = minuteRevisedEndDate
+           
+     
          
         }
         
        }
+    
+    @objc func tapAddButton(){
+        print("tapped")
+
+    }
     
 
 //MARK: Layout

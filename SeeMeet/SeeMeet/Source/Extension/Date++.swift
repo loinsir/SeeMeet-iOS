@@ -10,6 +10,17 @@ import Foundation
 
 extension Date {
     
+   
+    
+//    static func setDate(date: Date,year: Int,month: Int,day: Int, hour: Int, minute: Int){
+//        let dateComponents = DateComponents(year: year, month: month, day: day, hour: hour,minute: minute)
+//
+//        guard let revisedDate = Calendar.current.date(from: dateComponents) else{return}
+//        
+//
+//         date = revisedDate
+//    }
+    
     static func getCurrentYear() -> String{
         let nowDate = Date() // 현재의 Date (ex: 2020-08-13 09:14:48 +0000)
         let dateFormatter = DateFormatter()
@@ -88,6 +99,13 @@ extension Date {
         public var day: Int {
              return Calendar.current.component(.day, from: self)
         }
+    
+    public var hour: Int {
+         return Calendar.current.component(.hour, from: self)
+    }
+    public var minute: Int {
+         return Calendar.current.component(.minute, from: self)
+    }
         
         public var weekday: Int{
             return Calendar.current.component(.weekday, from: self) - 1
