@@ -106,6 +106,12 @@ extension TabbarVC: UITabBarControllerDelegate {
                     let customAlert = SMPopUpVC(withType: .needLogin) as! SMPopUpVC
                     customAlert.modalPresentationStyle = .overFullScreen
                     self.present(customAlert, animated: false, completion: nil)
+                    customAlert.pinkButtonCompletion =
+                                {
+                                    let loginVC = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+                                    self.navigationController?.pushViewController(loginVC, animated: true)
+                                    self.dismiss(animated: false, completion: nil)
+                                }
                     return false
                 }
             }
