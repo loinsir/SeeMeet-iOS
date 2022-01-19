@@ -182,6 +182,8 @@ extension FriendsListVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if !searchText.isEmpty {
             filteredNameData = friendsNameData.filter { $0.lowercased().prefix(searchText.count) == searchText.lowercased() }
+        } else {
+            filteredNameData.removeAll()
         }
         tableView.reloadData() // 일단은 음절단위로 갑시다!
     }
