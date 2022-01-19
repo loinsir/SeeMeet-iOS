@@ -108,11 +108,14 @@ class RequestPlansDateVC: UIViewController {
         $0.setDate(montosun: "일", day: 1,isScheduled: false)
         $0.backgroundColor = UIColor.grey01
         $0.layer.cornerRadius = 10
+        
     }
     private let monCell = DayCellView().then{
         $0.setDate(montosun: "월", day: 2,isScheduled: false)
         $0.backgroundColor = UIColor.grey01
         $0.layer.cornerRadius = 10
+
+        
     }
     private let tueCell = DayCellView().then{
         $0.setDate(montosun: "화", day: 3,isScheduled: true)
@@ -269,13 +272,19 @@ class RequestPlansDateVC: UIViewController {
 //MARK: Func
     func initSelectedDay(){
         selectedDay = todayDate
-        print(selectedDay)
-        print(todayDate)
     }
     func setDelegate() {
         scheduleTableView.dataSource = self
         scheduleTableView.delegate = self
         bottomSheetView.tapTouchAreaViewDelegate = self
+        sunCell.tapCellViewDelegate = self
+        monCell.tapCellViewDelegate = self
+        tueCell.tapCellViewDelegate = self
+        wedCell.tapCellViewDelegate = self
+        thuCell.tapCellViewDelegate = self
+        friCell.tapCellViewDelegate = self
+        satCell.tapCellViewDelegate = self
+        
     }
     func setCellList() {
         cellList.append(contentsOf:[sunCell,monCell,tueCell,wedCell,thuCell,friCell,satCell])
@@ -288,7 +297,10 @@ class RequestPlansDateVC: UIViewController {
         
         nextWeekButton.addTarget(self, action: #selector(tapNextButton), for: .touchUpInside)
         prevWeekButton.addTarget(self, action: #selector(tapPreviousButton), for: .touchUpInside)
-      
+        
+        
+       
+
     
     }
 
@@ -417,8 +429,6 @@ class RequestPlansDateVC: UIViewController {
             }
             
         }
-        
-        print(weekCalendarDateList)
 
     }
     
@@ -439,14 +449,14 @@ class RequestPlansDateVC: UIViewController {
             }
             
             cellList[i].setDate(montosun: montosun, day: day, isScheduled: true)
+           
             if((weekCalendarDateList[i].compare(todayDate) == .orderedSame) && (weekCalendarDateList[i].compare(selectedDay) == .orderedSame)){
                 cellList[i].setTodaySelectedState()
-                print("dd")
             }
-            else if(weekCalendarDateList[i].compare(todayDate) == .orderedSame){
+            else if((weekCalendarDateList[i].compare(todayDate) ==  .orderedSame) && (weekCalendarDateList[i].compare(selectedDay) != .orderedSame)){
                 cellList[i].setTodayState()
                
-            }else if(weekCalendarDateList[i].compare(selectedDay) == .orderedSame){
+            }else if((weekCalendarDateList[i].compare(todayDate) !=  .orderedSame) && (weekCalendarDateList[i].compare(selectedDay) == .orderedSame)){
                 cellList[i].setSelectedState()
             }
             else{
@@ -595,11 +605,10 @@ class RequestPlansDateVC: UIViewController {
        }
     
     @objc func tapAddButton(){
-        print("tapped")
         addedDateList.append(selectedDate)
-        print(addedDateList)
 
     }
+
     
     
 
@@ -935,5 +944,35 @@ extension RequestPlansDateVC: TapTouchAreaViewDelegate{
     }
     
    
+}
+
+extension RequestPlansDateVC: tapCellViewDelegate{
+    func tapCellView(dayCellView: DayCellView) {
+      
+        switch dayCellView.montosun{
+        case "일":
+            selectedDay = weekCalendarDateList[0]
+          
+        case "월":
+            selectedDay = weekCalendarDateList[1]
+        case "화":
+            selectedDay = weekCalendarDateList[2]
+        case "수":
+            selectedDay = weekCalendarDateList[3]
+        case "목":
+            selectedDay = weekCalendarDateList[4]
+        case "금":
+            selectedDay = weekCalendarDateList[5]
+        case "토":
+            selectedDay = weekCalendarDateList[6]
+        default:
+            selectedDay = weekCalendarDateList[0]
+           
+        }
+       
+        layoutCalendarView()
+    }
+    
+    
 }
 

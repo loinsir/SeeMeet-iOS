@@ -38,6 +38,10 @@ class DayCellView: UIView {
         $0.backgroundColor = UIColor.pink01
     }
     
+    private let touchAreaView: UIView = UIView().then {
+        $0.backgroundColor = UIColor.clear
+    }
+    
     
 
     override init(frame: CGRect) {
@@ -92,7 +96,7 @@ class DayCellView: UIView {
                 $0.centerX.equalTo(cellView.snp.centerX)
                 $0.width.height.equalTo(5)
             }
-            
+         
             pinkDotView.layer.cornerRadius = 5/2
             pinkDotView.isHidden = true
            
@@ -132,6 +136,7 @@ class DayCellView: UIView {
     }
     
     func setTodayState(){
+        cellView.layer.borderWidth = 0
         cellView.backgroundColor = UIColor.pink01
         montosunLabel.textColor = .white
         dayLabel.textColor = .white
