@@ -28,12 +28,13 @@ class CalendarPlansCVC: UICollectionViewCell {
     
     let headerTitle: UILabel = UILabel().then {
         $0.textColor = .white
-        $0.font = UIFont(name: "SpoqaHanSansNeo-Bold", size: 14.0)
+        $0.font = UIFont.hanSansBoldFont(ofSize: 14)
+        $0.lineBreakMode = .byTruncatingTail
     }
     
     let hourLabel: UILabel = UILabel().then {
         $0.textColor = .grey06
-        $0.font = UIFont(name: "DINPro-Regular", size: 14.0)
+        $0.font = UIFont.dinProRegularFont(ofSize: 14)
         $0.text = "오전 11:00"
     }
     
@@ -42,11 +43,15 @@ class CalendarPlansCVC: UICollectionViewCell {
         $0.alignment = .fill
         $0.distribution = .fillEqually
         $0.spacing = 6 * widthRatio
-        $0.layoutMargins = UIEdgeInsets(top: 10 * heightRatio, left: 10 * widthRatio, bottom: 10 * heightRatio, right: 10 * widthRatio)
+        $0.layoutMargins = UIEdgeInsets(top: 10 * heightRatio, left: 0, bottom: 10 * heightRatio, right: 0)
         $0.isLayoutMarginsRelativeArrangement = true
     }
     
-    var namesToShow: [String] = ["김인환", "김인환", "김인환"]
+    var namesToShow: [String]? {
+        didSet {
+            setNameStackViewLayout()
+        }
+    }
     
     // MARK: - Life Cycle
 
@@ -71,6 +76,10 @@ class CalendarPlansCVC: UICollectionViewCell {
         setContentViewLayouts()
     }
     
+    override func prepareForReuse() {
+        namesToShow?.removeAll()
+    }
+    
     // MARK: - layout
     
     private func setBaseViewLayouts() {
@@ -88,6 +97,7 @@ class CalendarPlansCVC: UICollectionViewCell {
         headerTitle.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(22 * widthRatio)
             $0.top.equalToSuperview().offset(17 * heightRatio)
+            $0.trailing.equalToSuperview().offset(-12 * widthRatio)
         }
     }
     
@@ -105,33 +115,48 @@ class CalendarPlansCVC: UICollectionViewCell {
         }
         
         if isSchedule {
-            hourLabel.font = UIFont(name: "DINPro-Regular", size: 16.0)
-        } else {
+            hourLabel.font = UIFont.dinProRegularFont(ofSize: 16)
+        }
+        else {
 
             guard let nameLabelStackView = nameLabelStackView else { return }
 
             addSubview(nameLabelStackView)
             nameLabelStackView.snp.makeConstraints {
-                $0.leading.equalToSuperview().offset(12 * widthRatio)
+                $0.leading.equalToSuperview().offset(22 * widthRatio)
                 $0.top.equalTo(hourLabel.snp.bottom).offset(4 * heightRatio)
-                $0.width.equalTo(200 * widthRatio)
+                $0.width.equalTo(62 * widthRatio)
                 $0.height.equalTo(45 * heightRatio)
-            }
-            
-            namesToShow.forEach {
-                let nameLabel: UILabel = UILabel()
-                nameLabel.font = UIFont(name: "SpoqaHanSansNeo-Medium", size: 12.0)
-                nameLabel.textColor = UIColor.pink01
-                nameLabel.text = $0
-                nameLabel.sizeToFit()
-                nameLabel.clipsToBounds = true
-                nameLabel.layer.cornerRadius = 12
-                nameLabel.layer.borderWidth = 1
-                nameLabel.layer.borderColor = UIColor.pink01.cgColor
-                nameLabel.textAlignment = .center
-                nameLabelStackView.addArrangedSubview(nameLabel)
             }
         }
     }
-
+    
+    func setNameStackViewLayout() {
+    
+        guard let nameLabelStackView = nameLabelStackView else { return }
+    
+        nameLabelStackView.snp.updateConstraints {
+            $0.width.equalTo(56 * widthRatio * CGFloat(namesToShow?.count ?? 0) + 6 * CGFloat((namesToShow?.count ?? 1) - 1))
+        }
+        
+        nameLabelStackView.arrangedSubviews.forEach { // 표시 데이터 초기화 안하면 쌓임쌓임
+            $0.removeFromSuperview()
+        }
+        
+        namesToShow?.forEach {
+            let nameLabel: UILabel = UILabel()
+            nameLabel.font = UIFont.hanSansMediumFont(ofSize: 12)
+            nameLabel.textColor = UIColor.pink01
+            nameLabel.text = $0
+            nameLabel.sizeToFit()
+            nameLabel.clipsToBounds = true
+            nameLabel.layer.cornerRadius = 13 * heightRatio
+            nameLabel.layer.borderWidth = 1
+            nameLabel.layer.borderColor = UIColor.pink01.cgColor
+            nameLabel.textAlignment = .center
+            nameLabelStackView.addArrangedSubview(nameLabel)
+        }
+        setNeedsLayout()
+        layoutIfNeeded()
+    }
 }
