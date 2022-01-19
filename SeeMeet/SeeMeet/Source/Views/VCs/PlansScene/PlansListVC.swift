@@ -99,6 +99,7 @@ class PlansListVC: UIViewController {
         $0.bounces = true
         $0.showsVerticalScrollIndicator = false
     }
+    
 //MARK: Var
     static let identifier: String = "PlansListVC"
     
@@ -106,7 +107,17 @@ class PlansListVC: UIViewController {
     var completePlansCount: Int = 0
     var userWidth: CGFloat = UIScreen.getDeviceWidth()
     var userHeight: CGFloat = UIScreen.getDeviceHeight()
+    
+    var confirmData: [ConfirmedAndCanceld] = []
+    var invitaionData: [Invitation] = []
+    
+    var confirmCellCount = 0
+    var invitationCellCount = 0
+    
 //MARK: ViewDidLoad
+    override func viewWillAppear(_ animated: Bool) {
+        getPlansData()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setHeaderLayout()
@@ -171,6 +182,7 @@ class PlansListVC: UIViewController {
             $0.height.equalTo(3)
         }
         
+        
     }
     func setScrollViewLayout() {
         plansListBackgroundView.addSubview(collectionScrollView)
@@ -229,7 +241,7 @@ class PlansListVC: UIViewController {
         completeHeadCountLabel.snp.makeConstraints{
             $0.centerY.equalToSuperview()
             $0.trailing.equalToSuperview().offset(-20)
-            $0.width.equalTo(35)
+            $0.width.equalTo(50)
         }
         progressCollectionView.snp.makeConstraints{
             $0.top.equalTo(progressHeadView.snp.bottom).offset(0)
@@ -290,7 +302,133 @@ class PlansListVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
         self.tabBarController?.tabBar.isHidden = false
      }
+    func setCompleteEmptyView(){
+        let emptyImage = UIImageView().then{
+            $0.image = UIImage(named: "img_illust_9")
+        }
+        let emptyLabel = UILabel().then{
+            $0.text = "완료된 약속이 없어요!"
+            $0.font = UIFont.hanSansRegularFont(ofSize: 16)
+            $0.textColor = UIColor.grey05
+            $0.textAlignment = .center
+        }
+        if completePlansCount == 0 {
+            completeCollectionView.addSubviews([emptyImage, emptyLabel])
+            emptyImage.snp.makeConstraints{
+                $0.centerX.equalToSuperview()
+                $0.top.equalToSuperview().offset(110)
+                $0.width.height.equalTo(164)
+            }
+            emptyLabel.snp.makeConstraints{
+                $0.top.equalTo(emptyImage.snp.bottom).offset(15)
+                $0.centerX.equalToSuperview()
+                $0.height.equalTo(30)
+            }
+        }
+        else{
+            completeCollectionView.removeAllSubViews()
+        }
+    }
+    func setProgressEmptyView(){
+        let emptyImage = UIImageView().then{
+            $0.image = UIImage(named: "img_illust_9")
+        }
+        let emptyLabel = UILabel().then{
+            $0.text = "진행 중인 약속이 없어요!"
+            $0.font = UIFont.hanSansRegularFont(ofSize: 16)
+            $0.textColor = UIColor.grey05
+            $0.textAlignment = .center
+        }
+        if progressPlansCount == 0 {
+            progressCollectionView.addSubviews([emptyImage, emptyLabel])
+            emptyImage.snp.makeConstraints{
+                $0.centerX.equalToSuperview()
+                $0.top.equalToSuperview().offset(110)
+                $0.width.height.equalTo(164)
+            }
+            emptyLabel.snp.makeConstraints{
+                $0.top.equalTo(emptyImage.snp.bottom).offset(15)
+                $0.centerX.equalToSuperview()
+                $0.height.equalTo(30)
+            }
+        }
+        else{
+            progressCollectionView.removeAllSubViews()
+        }
+       
+    }
     //MARK: Server
+    func getPlansData(){
+        setCompleteEmptyView()
+        setProgressEmptyView()
+        GetPlansListDataService.shared.getPlansList(){ (response) in
+                   switch response
+                   {
+                   case .success(let data) :
+                       if let response = data as? PlansListDataModel{
+                           self.invitaionData = response.data.invitations
+                           self.confirmData = response.data.confirmedAndCanceld
+                           self.invitationCellCount = response.data.invitations.count
+                           self.confirmCellCount = response.data.confirmedAndCanceld.count
+                           self.progressPlansCount = response.data.invitations.count
+                           self.completePlansCount = response.data.confirmedAndCanceld.count
+                           self.setCountLabel()
+                           self.setCompleteEmptyView()
+                           self.setProgressEmptyView()
+                           self.progressCollectionView.reloadData()
+                           self.completeCollectionView.reloadData()
+                       }
+                   case .requestErr(let message) :
+                       print("requestERR")
+                   case .pathErr :
+                       print("pathERR")
+                   case .serverErr:
+                       print("serverERR")
+                   case .networkFail:
+                       print("networkFail")
+                   }
+               }
+    }
+    func calGuest(guestList: [Guest]) -> Int{
+        var cnt: Int = 0
+        for guest in guestList {
+            if guest.isResponse == true{
+                cnt += 1
+            }
+        }
+        return cnt
+    }
+    func addGuest(guesList: [Guest]) -> [String]{
+        var cnt: Int = 0
+        var nameList: [String] = ["", "", ""]
+        for guest in guesList{
+            nameList[cnt] = guest.username
+            cnt += 1
+        }
+        return nameList
+    }
+    func addBoolGuest(guesList: [Guest]) -> [Bool]{
+        var cnt: Int = 0
+        var boolList: [Bool] = [false, false, false]
+        for guest in guesList{
+            boolList[cnt] = guest.isResponse
+            cnt += 1
+        }
+        return boolList
+    }
+    func dateCal(date: String) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+
+        let startDate = dateFormatter.date(from: Date.getCurrentYear() + "-" + Date.getCurrentMonth() + "-" + Date.getCurrentDate()) ?? Date()
+        let endDate = dateFormatter.date(from: date) ?? Date()
+
+        let interval = endDate.timeIntervalSince(startDate)
+        let days = Int(interval / 86400)
+        print("\(days) 일 차이 난다") //4일
+
+        return String(abs(days))
+    }
 }
 
 //MARK: Extension
@@ -306,18 +444,39 @@ extension PlansListVC: UICollectionViewDelegate{
 }
 extension PlansListVC: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        if collectionView == progressCollectionView{
+            return invitationCellCount
+        }
+        if collectionView == completeCollectionView {
+            return confirmCellCount
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        var day: Int = 1
         switch collectionView.tag {
         case 1:
             let progressSendCell = collectionView.dequeueReusableCell(withReuseIdentifier: ProgressSendCVC.identifier, for: indexPath) as! ProgressSendCVC
             let progressRecieveCell = collectionView.dequeueReusableCell(withReuseIdentifier: ProgressReceiveCVC.identifier, for: indexPath) as! ProgressReceiveCVC
-            return progressRecieveCell
+        
+            if invitaionData[indexPath.row].isReceived == false {
+                progressRecieveCell.setData(freindsCnt: calGuest(guestList: invitaionData[indexPath.row].guests!), nameList: addGuest(guesList: invitaionData[indexPath.row].guests!), dayAgo: dateCal(date: invitaionData[indexPath.row].createdAt), nameAccept: addBoolGuest(guesList: invitaionData[indexPath.row].guests!))
+                return progressRecieveCell
+            }
+            if invitaionData[indexPath.row].isReceived == true{
+                print(invitaionData[indexPath.row].createdAt, "asfdasdf")
+                progressSendCell.setData(dayAgo: dateCal(date: invitaionData[indexPath.row].createdAt), hostName: invitaionData[indexPath.row].host?.username ?? "")
+                return progressSendCell
+            }
+            return UICollectionViewCell()
+            
         case 2:
             let completeCell =  collectionView.dequeueReusableCell(withReuseIdentifier: CompletePlansCVC.identifier, for: indexPath) as! CompletePlansCVC
+            
+            completeCell.setData(dDayago: String(day + indexPath.row), plansName: confirmData[indexPath.row].invitationTitle, isConfirm: confirmData[indexPath.row].isConfirmed, isCanceled: confirmData[indexPath.row].isCancled, nameList: addGuest(guesList: confirmData[indexPath.row].guests), nameBoolList: addBoolGuest(guesList: confirmData[indexPath.row].guests))
             return completeCell
+            
         default:
             return UICollectionViewCell()
         }
