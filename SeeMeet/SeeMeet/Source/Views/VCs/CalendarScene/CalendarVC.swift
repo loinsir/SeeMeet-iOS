@@ -16,7 +16,7 @@ class CalendarVC: UIViewController {
     
     private let calendarHeaderLabel: UILabel = UILabel().then {
         $0.textColor = UIColor.pink01
-        $0.font = UIFont(name: "DINPro-Bold", size: 22)
+        $0.font = UIFont.dinProBoldFont(ofSize: 22)
     }
     
     fileprivate weak var calendar: FSCalendar! = FSCalendar().then {
@@ -29,12 +29,15 @@ class CalendarVC: UIViewController {
         $0.weekdayHeight = CGFloat(55.0 * heightRatio)
         
         $0.headerHeight = CGFloat.zero
-        $0.appearance.titleFont =  UIFont(name: "DINPro-Regular", size: 16.0)
+        $0.appearance.titleFont = UIFont.dinProRegularFont(ofSize: 16)
+        $0.appearance.weekdayFont = UIFont.dinProRegularFont(ofSize: 16)
+        $0.appearance.subtitleFont = UIFont.dinProRegularFont(ofSize: 16)
         $0.appearance.weekdayTextColor = UIColor.grey05
         $0.appearance.titleDefaultColor = UIColor.grey06
         $0.appearance.todayColor = UIColor.pink01
         $0.appearance.eventDefaultColor = UIColor.pink01
         $0.appearance.selectionColor = UIColor.grey06
+        $0.appearance.eventSelectionColor = UIColor.pink01
     }
     
     private let bottomCollectionContainerView: UIView = UIView().then {
@@ -42,7 +45,7 @@ class CalendarVC: UIViewController {
     }
     
     private let dateAndDayLabel: UILabel = UILabel().then {
-        $0.font = UIFont(name: "SpoqaHanSansNeo-Bold", size: 18)
+        $0.font = UIFont.hanSansBoldFont(ofSize: 18)
         $0.textColor = UIColor.grey06
         
         let nowDate = Date()
@@ -69,11 +72,22 @@ class CalendarVC: UIViewController {
 
         return collectionView
     }()
+    
+    private var initialFlag: Bool = true
+    private var planDatas: [Plan]? {
+        didSet {
+            if initialFlag {
+                displayPlansCollectionView()
+                initialFlag.toggle()
+            }
+        }
+    }
+    private var selectedDatas: [Plan]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setLayouts()
+        requestCalendarData(year: Date.getCurrentYear(), month: Date.getCurrentMonth())
     }
     
     // MARK: - layout
@@ -90,6 +104,7 @@ class CalendarVC: UIViewController {
         
         // 화면 작은 애들은 추후 수정 필요...?
         calendar.delegate = self
+        calendar.dataSource = self
         addSubviewAndConstraints(add: calendar, to: view) {
             $0.top.equalTo(calendarHeaderLabel.snp.bottom).offset(9 * heightRatio)
             $0.centerX.equalTo(view.snp.centerX)
@@ -118,7 +133,6 @@ class CalendarVC: UIViewController {
             $0.height.equalTo(157 * heightRatio)
             $0.top.equalTo(dateAndDayLabel.snp.bottom).offset(16 * heightRatio)
         }
-        
     }
     
     private func layoutCalendarWeekdaySeparator() {
@@ -137,10 +151,59 @@ class CalendarVC: UIViewController {
         superView.addSubview(subView)
         subView.snp.makeConstraints(closure)
     }
+    
+    private func requestCalendarData(year: String, month: String) {
+        CalendarService.shared.getPlanDatas(year: year, month: month) { responseData in
+            switch responseData {
+            case .success(let response):
+                guard let response = response as? MonthlyPlansResponseModel else { return }
+                self.planDatas = response.data
+                self.calendar.reloadData()
+            case .requestErr(let msg):
+                print(msg)
+            case .pathErr:
+                print("path error")
+            case .serverErr:
+                print("server error")
+            case .networkFail:
+                print("network Fail")
+            }
+        }
+    }
+    
+    private func displayPlansCollectionView(at date: Date = Date()) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let cellDay = formatter.string(from: date)
+        print(cellDay)
+        selectedDatas = planDatas?.filter {
+            $0.date.components(separatedBy: "T").first == cellDay
+        }
+        collectionView.reloadData()
+    }
 
 }
 
 // MARK: - Extension
+
+extension CalendarVC: FSCalendarDataSource {
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        guard let cellDay: String = formatter.string(from: date).components(separatedBy: "T").first else { return 0}
+        
+        let cellPlans = planDatas?.filter {
+            $0.date.components(separatedBy: "T").first == cellDay
+        }
+//        print(cellPlans)
+        
+        if cellPlans != nil && cellPlans?.count != 0 {
+            return 1
+        } else {
+            return 0
+        }
+    }
+}
 
 extension CalendarVC: FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
@@ -156,26 +219,74 @@ extension CalendarVC: FSCalendarDelegate {
         let selectedDate = Calendar.current.component(.day, from: date)
 
         dateAndDayLabel.text = "\(selectedMonth)월 \(selectedDate)일 \(Date.getKoreanWeekDay(from: date))요일"
+        
+        // 선택된 날의 약속 목록 설정
+        if monthPosition == .current {
+            displayPlansCollectionView(at: date)
+        }
+    }
+    
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        // 현재 달과 선택된 날이 다르면 캘린더 페이지 바뀌게 하는 로직
+        if monthPosition != .current {
+            calendar.setCurrentPage(date, animated: true)
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) { // 페이지 바뀌면 바뀐 페이지의 일정 다시 요청
+        let currentPage = calendar.currentPage
+        let currentYear = String(Calendar.current.component(.year, from: currentPage))
+        let currentMonth = String(Calendar.current.component(.month, from: currentPage))
+        requestCalendarData(year: currentYear, month: currentMonth)
     }
 }
 
 extension CalendarVC: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        1
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        3 // 임시
+        return selectedDatas?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CalendarPlansCVC", for: indexPath) as? CalendarPlansCVC else { return UICollectionViewCell() }
         
         // 약속 데이터 받아와 넣기
-        cell.headerTitle.text = "HIHI"
-        cell.isSchedule = false
+        let planData = selectedDatas?[indexPath.row]
+        cell.headerTitle.text = planData?.invitationTitle
         
+        var hourString = ""
+        let startHourComponents = planData?.start.components(separatedBy: ":")
+        let endHourComponents = planData?.end.components(separatedBy: ":")
+        
+        guard let startHourString = startHourComponents?.first,
+              let startMinuteString = startHourComponents?[1],
+              let endHourString = endHourComponents?.first,
+              let endMinuteString = endHourComponents?[1],
+              let startHour = Int(startHourString),
+              let endHour = Int(endHourString)
+        else { return UICollectionViewCell() }
+        
+        hourString = startHour < 12 ? "오전 \(startHour):\(startMinuteString)" : "오후 \(startHour):\(startMinuteString)"
+        hourString += endHour < 12 ? " - 오전 \(endHour):\(endMinuteString)" : " - 오후 \(endHour):\(endMinuteString)"
+        
+        cell.hourLabel.text = hourString
+        var namesToShow: [String] = planData?.users.map { $0.username } ?? []
+        if namesToShow.count > 3 {
+            namesToShow.removeSubrange(3...namesToShow.count-1)
+        }
+        cell.namesToShow = namesToShow
         return cell
     }
+}
 
+extension CalendarVC: UICollectionViewDelegate {
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        <#code#>
+//    }
 }

@@ -20,6 +20,7 @@ class HomeVC: UIViewController {
     }
     private let friendsButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "btn_friends"), for: .normal)
+        $0.addTarget(self, action: #selector(touchUpFriendsButton(_:)), for: .touchUpInside)
     }
     private let notificationButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "ic_noti"), for: .normal)
@@ -69,6 +70,7 @@ class HomeVC: UIViewController {
     var userHeight: CGFloat = UIScreen.getDeviceHeight() - 88
     
     var homeData: [HomeDataModel] = []
+    var friendsData: [FriendsData] = []
     
 //MARK: ViewDidLoad
     override func viewDidAppear(_ animated: Bool) {
@@ -176,6 +178,13 @@ class HomeVC: UIViewController {
         self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.pushViewController(plansVC, animated: true)
      }
+    
+    @objc private func touchUpFriendsButton(_ sender: UIButton) {
+        guard let friendsListVC = UIStoryboard(name: "FriendsList", bundle: nil).instantiateViewController(withIdentifier: FriendsListVC.identifier) as? FriendsListVC else { return }
+        self.tabBarController?.tabBar.isHidden = true
+        friendsListVC.friendsNameData = friendsData.map { $0.username }
+        self.navigationController?.pushViewController(friendsListVC, animated: true)
+    }
     
     func dateCal(date: String) -> String{
         let dateFormatter = DateFormatter()
@@ -345,6 +354,7 @@ class HomeVC: UIViewController {
                    case .success(let data) :
                        if let response = data as? FriendsDataModel{
                            self.friendsCount = response.data.count
+                           self.friendsData = response.data
                        }
                    case .requestErr(let message) :
                        print("requestERR")
