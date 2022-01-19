@@ -144,11 +144,21 @@ extension Date {
             let nextDate = Calendar.current.date(byAdding: .day, value: 1, to: self)
             return nextDate ?? Date()
         }
-        
-        func previousDate() -> Date {
-            let previousDate = Calendar.current.date(byAdding: .day, value: -1, to: self)
-            return previousDate ?? Date()
-        }
+    
+    func nextDate(value: Int) -> Date{
+        let nextDate = Calendar.current.date(byAdding: .day, value: value, to: self)
+        return nextDate ?? Date()
+    }
+    
+    func previousDate() -> Date {
+        let previousDate = Calendar.current.date(byAdding: .day, value: -1, to: self)
+        return previousDate ?? Date()
+    }
+    
+    func previousDate(value: Int) -> Date {
+        let previousDate = Calendar.current.date(byAdding: .day, value: -value, to: self)
+        return previousDate ?? Date()
+    }
     func nextWeekDate() -> Date {
         let nextDate = Calendar.current.date(byAdding: .day, value: 7, to: self)
         return nextDate ?? Date()
