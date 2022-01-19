@@ -51,7 +51,7 @@ class ProgressReceiveCVC: UICollectionViewCell {
         dateAgoLabel.snp.makeConstraints{
             $0.centerY.equalTo(cellHeadLabel)
             $0.trailing.equalToSuperview().offset(-24)
-            $0.width.equalTo(50)
+            $0.width.equalTo(37)
             $0.height.equalTo(32)
         }
         sendLabel.snp.makeConstraints{

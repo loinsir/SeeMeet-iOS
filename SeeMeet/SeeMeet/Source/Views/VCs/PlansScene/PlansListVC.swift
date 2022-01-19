@@ -392,7 +392,7 @@ class PlansListVC: UIViewController {
     func calGuest(guestList: [Guest]) -> Int{
         var cnt: Int = 0
         for guest in guestList {
-            if guest.isResponse == true{
+            if guest.isResponse == false{
                 cnt += 1
             }
         }
