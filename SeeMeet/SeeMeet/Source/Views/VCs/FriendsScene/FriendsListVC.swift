@@ -153,7 +153,9 @@ class FriendsListVC: UIViewController {
     }
     
     @objc private func touchUpAddFriendsButton(_ sender: UIButton) {
-        
+        guard let friendsAddVC = UIStoryboard(name: "FriendsAdd", bundle: nil).instantiateViewController(withIdentifier: FriendsAddVC.identifier) as? FriendsAddVC else { return }
+        friendsAddVC.modalPresentationStyle = .fullScreen
+        present(friendsAddVC, animated: true, completion: nil)
     }
     
     // MARK: - tableview Delegate

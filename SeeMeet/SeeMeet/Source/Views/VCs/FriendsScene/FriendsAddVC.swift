@@ -88,7 +88,7 @@ class FriendsAddVC: UIViewController {
     // MARK: - objc
     
     @objc private func touchUpCloseButton(_ sender: UIButton) {
-        
+        dismiss(animated: true, completion: nil)
     }
 
 }
