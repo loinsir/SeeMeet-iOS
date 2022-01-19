@@ -44,13 +44,20 @@ class DateTicketView: UIView {
     }
     
     private func setLayouts() {
+//        self.snp.makeConstraints{
+//            $0.width.equalTo(349*widthRatio)
+//            $0.height.equalTo(63*heightRatio)
+//        }
         addSubviews([ticketBodyView, removeButton])
         ticketBodyView.addSubviews([dateLabel, timeLabel])
+        
         ticketBodyView.snp.makeConstraints {
-            $0.width.equalTo(328 * widthRatio)
+            //$0.width.equalTo(328 * widthRatio)
             $0.height.equalTo(53 * heightRatio)
             $0.leading.equalToSuperview()
+            $0.trailing.equalToSuperview().offset(-21*widthRatio)
             $0.bottom.equalToSuperview()
+            //$0.top.equalToSuperview().offset(20*heightRatio)
         }
         
         dateLabel.snp.makeConstraints {
@@ -60,13 +67,15 @@ class DateTicketView: UIView {
         
         timeLabel.snp.makeConstraints {
             $0.trailing.equalTo(-33 * widthRatio)
-            $0.top.equalTo(17 * heightRatio)
+            $0.centerY.equalToSuperview()
+//$0.top.equalTo(17 * heightRatio)
         }
         
         removeButton.snp.makeConstraints {
             $0.width.height.equalTo(40 * widthRatio)
             $0.trailing.equalToSuperview().offset(-4 * widthRatio)
-            $0.bottom.equalToSuperview().offset(-33 * heightRatio)
+            $0.bottom.equalToSuperview().offset(-33*heightRatio)
+            //$0.top.equalToSuperview()
         }
     }
     

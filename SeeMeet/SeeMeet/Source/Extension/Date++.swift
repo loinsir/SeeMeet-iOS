@@ -131,6 +131,14 @@ extension Date {
             let previousDate = Calendar.current.date(byAdding: .day, value: -1, to: self)
             return previousDate ?? Date()
         }
+    func nextWeekDate() -> Date {
+        let nextDate = Calendar.current.date(byAdding: .day, value: 7, to: self)
+        return nextDate ?? Date()
+    }
+    func prevWeekDate() -> Date {
+        let nextDate = Calendar.current.date(byAdding: .day, value: -7, to: self)
+        return nextDate ?? Date()
+    }
     
     
 }

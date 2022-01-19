@@ -9,16 +9,22 @@ import UIKit
 
 fileprivate let heightRatio = UIScreen.getDeviceHeight() / 812
 
+
+
 class RequestPlansDateVC: UIViewController {
     
 //MARK: Vars
     var timeList: [String] = ["09 - 11","09 - 14","16 - 21","17 - 23"]
     var planList: [String] = ["마라샹궈","솝트세미나","스터디","데이트"]
     
+    var todayDate = Date()
     var selectedDate = PickedDate()
     var addedDateList = [PickedDate]()
     var defaultStartDate = Date()
     var defaultEndDate = Date()
+    var weekCalendar = [Date]()
+    
+    var isOpened: Bool = false
     
     
     
@@ -161,6 +167,8 @@ class RequestPlansDateVC: UIViewController {
     }
     private let allDaySwitch = UISwitch().then{
         $0.onTintColor = UIColor.pink01
+       
+
     }
     private let startTimeSettingView = UIView()
     
@@ -210,6 +218,8 @@ class RequestPlansDateVC: UIViewController {
         $0.locale = Locale(identifier: "ko-KR")
         $0.timeZone = .autoupdatingCurrent//몰까
         $0.preferredDatePickerStyle = .inline
+        $0.minuteInterval = 5
+       
         
     }
     private let bottomSheetView = SelectedDateSheet()
@@ -231,6 +241,8 @@ class RequestPlansDateVC: UIViewController {
     }
     private let fillView = UIView().then{
         $0.backgroundColor = .white   }
+    
+    
 
 
 
@@ -240,7 +252,7 @@ class RequestPlansDateVC: UIViewController {
         setDelegate()
         setCellList()
         initSelectedTime()
-        
+        setTarget()
         
         // Do any additional setup after loading the view.
     }
@@ -249,9 +261,19 @@ class RequestPlansDateVC: UIViewController {
     func setDelegate() {
         scheduleTableView.dataSource = self
         scheduleTableView.delegate = self
+        bottomSheetView.tapTouchAreaViewDelegate = self
     }
     func setCellList() {
         cellList.append(contentsOf:[sunCell,monCell,tueCell,wedCell,thuCell,friCell,satCell])
+    }
+    func setTarget() {
+        allDaySwitch.addTarget(self, action: #selector(onClickSwitch(sender:)), for: UIControl.Event.valueChanged)
+        startDatePicker.addTarget(self, action: #selector(changedStartDatePicker), for: .valueChanged)
+        endDatePicker.addTarget(self, action: #selector(changedEndDatePicker), for: .valueChanged)
+        
+      
+
+    
     }
 
     func initSelectedTime(){
@@ -267,16 +289,13 @@ class RequestPlansDateVC: UIViewController {
 //            print(selectedDate.getStartToEndString())
 //
             guard let minuteRevisedDate = Calendar.current.date(bySetting: .minute, value: 0, of: selectedDate.startTime) else {return}
-            selectedDate.startTime = minuteRevisedDate
-            print(selectedDate.getStartToEndString())//올림해줘버림..
+            selectedDate.startTime = minuteRevisedDate//올림해줘버림..
             
             guard let hourRevisedDate = Calendar.current.date(byAdding: .hour, value: 1, to: selectedDate.endTime) else {return}
             selectedDate.endTime = hourRevisedDate
-            print(selectedDate.getStartToEndString())
             
             guard let minuteRevisedDate = Calendar.current.date(bySetting: .minute, value: 0, of: selectedDate.endTime) else {return}
             selectedDate.endTime = minuteRevisedDate
-            print(selectedDate.getStartToEndString())
             updateSelectedDateLabel()
             
 
@@ -302,8 +321,66 @@ class RequestPlansDateVC: UIViewController {
             timeLabel.text = selectedDate.getStartToEndString()
            
         }
-
-  
+    
+//
+//    func initWeekCalendar() {
+//        var today = Date()
+//        if Date.getKoreanWeekDay(from: today) == "일"{
+//            weekCalendar.append(today)
+//            weekCalendar.append(today.nextDate())
+//        }else
+//
+//
+//    }
+    
+//
+    @objc func changedStartDatePicker(){
+        let dateformatter = DateFormatter()
+        dateformatter.dateStyle = .none
+        dateformatter.timeStyle = .short
+       // let date = dateformatter.string(from: startDatePicker.date)
+        selectedDate.startTime = startDatePicker.date
+        updateSelectedDateLabel()
+    }
+    @objc func changedEndDatePicker(){
+        let dateformatter = DateFormatter()
+        dateformatter.dateStyle = .none
+        dateformatter.timeStyle = .short
+       // let date = dateformatter.string(from: startDatePicker.date)
+        selectedDate.endTime = endDatePicker.date
+        updateSelectedDateLabel()
+    }
+    @objc func onClickSwitch(sender: UISwitch) {
+        if sender.isOn {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "a hh:mm"
+            dateFormatter.timeZone = NSTimeZone(name: "ko_KR") as TimeZone?
+            dateFormatter.locale = Locale(identifier: "ko_KR")
+            guard let startDate = dateFormatter.date(from: "오전 12:00") else{ return}
+            startDatePicker.setDate(startDate,animated: true)
+            guard let endDate = dateFormatter.date(from: "오후 11:55") else{ return}
+            endDatePicker.setDate(endDate,animated: true)
+            selectedDate.startTime = startDate
+            selectedDate.endTime = endDate
+            updateSelectedDateLabel()
+            
+        } else {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "a hh:mm"
+            dateFormatter.timeZone = NSTimeZone(name: "ko_KR") as TimeZone?
+            dateFormatter.locale = Locale(identifier: "ko_KR")
+            guard let startDate = dateFormatter.date(from: "오전 09:00") else{ return}
+            startDatePicker.setDate(startDate,animated: true)
+            guard let endDate = dateFormatter.date(from: "오후 02:00") else{ return}
+            endDatePicker.setDate(endDate,animated: true)
+            selectedDate.startTime = startDate
+            selectedDate.endTime = endDate
+            updateSelectedDateLabel()
+         
+        }
+        
+       }
+    
 
 //MARK: Layout
     func setLayout() {
@@ -311,9 +388,10 @@ class RequestPlansDateVC: UIViewController {
         view.addSubviews([titleView,
                           addDateView,
                           scrollView,
-                         bottomSheetView,
+                          bottomSheetView,
                           navigationLineView,
-                          navigationBarView])
+                          navigationBarView
+                          ])
         
         titleView.addSubviews([backButton,
                                titleLabel,
@@ -558,8 +636,9 @@ class RequestPlansDateVC: UIViewController {
             $0.bottom.equalToSuperview()
         }
         bottomSheetView.snp.makeConstraints{
-            $0.leading.bottom.trailing.equalToSuperview()
-            $0.height.equalTo(0 * heightRatio)
+            $0.bottom.equalTo(navigationBarView.snp.bottom).offset(310)
+            $0.trailing.leading.equalToSuperview().offset(0)
+            $0.height.equalTo(480)
         }
         navigationLineView.snp.makeConstraints{
             $0.leading.trailing.equalToSuperview()
@@ -604,5 +683,29 @@ extension RequestPlansDateVC: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 35
     }
+}
+
+extension RequestPlansDateVC: TapTouchAreaViewDelegate{
+    func tapTouchAreaView(dateSheetView: SelectedDateSheet) {
+        
+        switch isOpened{
+        case false :
+            isOpened = true
+            bottomSheetView.snp.updateConstraints {
+                $0.bottom.equalTo(navigationBarView.snp.bottom).offset(310)
+             }
+    
+        case true:
+            bottomSheetView.snp.updateConstraints {
+                $0.bottom.equalTo(navigationBarView.snp.bottom)
+             }
+            isOpened = false
+      
+        }
+        
+        
+    }
+    
+   
 }
 

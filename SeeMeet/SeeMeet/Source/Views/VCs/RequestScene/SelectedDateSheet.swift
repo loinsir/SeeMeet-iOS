@@ -2,14 +2,21 @@ import UIKit
 
 fileprivate let userHeight = UIScreen.getDeviceHeight() - 0.0
 fileprivate let userWidth = UIScreen.getDeviceWidth() - 0.0
-fileprivate let heightRatio = userHeight / 812
-fileprivate let widthRatio = userWidth / 375
+//fileprivate let heightRatio = userHeight / 812
+fileprivate let heightRatio = 1.0
+//fileprivate let widthRatio = userWidth / 375
+fileprivate let widthRatio = 1.0
 
+protocol TapTouchAreaViewDelegate{
+    func tapTouchAreaView(dateSheetView: SelectedDateSheet)
+}
 class SelectedDateSheet: UIView {
     
     // MARK: - properties
     
     static let identifier: String = "SelectedDateSheet"
+    
+    var tapTouchAreaViewDelegate: TapTouchAreaViewDelegate?
     
     private let grabber: UIView = UIView().then {
         $0.backgroundColor = UIColor.grey02
@@ -43,18 +50,22 @@ class SelectedDateSheet: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setLayouts()
+        setGestureRecognizer()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setLayouts()
+        setGestureRecognizer()
     }
     
     private func setLayouts() {
         isUserInteractionEnabled = true
         backgroundColor = .white
         layer.cornerRadius = 20
-        addSubviews([grabber, titleLabel,touchAreaView,selectedCountLabel, dateTicketsStackView])
+        getShadowView(color: UIColor.black.cgColor, masksToBounds: false, shadowOffset: CGSize(width: 0, height: -3), shadowRadius: 3, shadowOpacity: 0.1)
+        
+        addSubviews([grabber, titleLabel,selectedCountLabel,touchAreaView,dateTicketsStackView])
         
         grabber.snp.makeConstraints {
             $0.height.equalTo(4 * heightRatio)
@@ -68,8 +79,9 @@ class SelectedDateSheet: UIView {
             $0.leading.equalToSuperview().offset(20 * widthRatio)
         }
         touchAreaView.snp.makeConstraints{
-            $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalTo(75)
+            $0.top.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(60)
         }
         
         selectedCountLabel.snp.makeConstraints {
@@ -78,9 +90,10 @@ class SelectedDateSheet: UIView {
         }
         
         dateTicketsStackView.snp.makeConstraints {
-            $0.width.equalTo(349 * widthRatio)
-            $0.height.equalTo(292 * heightRatio)
+           // $0.width.equalTo(349 * widthRatio)
+            $0.height.equalTo(200 * heightRatio)
             $0.leading.equalToSuperview().offset(19 * widthRatio)
+            $0.trailing.equalToSuperview().offset(-6 * widthRatio)
             $0.top.equalTo(titleLabel.snp.bottom)
         }
         
@@ -91,11 +104,22 @@ class SelectedDateSheet: UIView {
         updateStackViewHeight()
     }
     
+    private func setGestureRecognizer(){
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapTouchArea(gestureRecognizer:)))
+        touchAreaView.addGestureRecognizer(tapRecognizer)
+        touchAreaView.isUserInteractionEnabled = true
+    }
+//
+    @objc func tapTouchArea(gestureRecognizer: UIGestureRecognizer){
+        tapTouchAreaViewDelegate?.tapTouchAreaView(dateSheetView: self)
+
+
+        }
+//    
     // 스택뷰 갯수 바뀌고 마지막에 반드시 호출할 함수
     private func updateStackViewHeight() {
-        dateTicketsStackView.snp.updateConstraints {
-            $0.height.equalTo(73 * CGFloat(dateTicketsStackView.arrangedSubviews.count) * heightRatio)
+            dateTicketsStackView.snp.updateConstraints {
+                $0.height.equalTo(73 * CGFloat(2) * heightRatio)
+            }
         }
-    }
-
 }
