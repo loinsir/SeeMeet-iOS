@@ -411,10 +411,10 @@ class RequestPlansDateVC: UIViewController {
     }
     
     func layoutCalendarView(){
-        for i in 0...cellList.count-1{
+        for i in 0..<cellList.count{
             
-            let day = weekCalendarDateList[i].day
-            var montosun  = String()
+            let day = weekCalendarDateList[i].day//캘린더 데이터의 데이
+            var montosun  = String()//캘린더 요일 라벨 설정
             switch i{
             case 0 : montosun = "일"
             case 1 : montosun = "월"
@@ -428,8 +428,27 @@ class RequestPlansDateVC: UIViewController {
             
             cellList[i].setDate(montosun: montosun, day: day, isScheduled: true)
         }
+        
+        setPresentWeekLabel()
+        
     }
-    
+    func setPresentWeekLabel(){
+        if (weekCalendarDateList.first?.year != weekCalendarDateList.last?.year) || (weekCalendarDateList.first?.month != weekCalendarDateList.last?.month){
+            
+            
+            guard let firstYear = weekCalendarDateList.first?.year else {return}
+            guard let  firstMonth = weekCalendarDateList.first?.month else {return}
+            guard let  lastYear = weekCalendarDateList.last?.year else {return}
+            guard let  lastMonth = weekCalendarDateList.last?.month else {return}
+            presentWeekLabel.text = "\(firstYear)년 \(firstMonth)월-\(lastYear)년 \(lastMonth)월"
+        }else {
+            guard let   year = weekCalendarDateList.first?.year else {return}
+            guard let  month = weekCalendarDateList.first?.month else {return}
+           
+          
+            presentWeekLabel.text = "\(year)년 \(month)월"
+        }
+    }
 //
     @objc func changedStartDatePicker(){
         let dateformatter = DateFormatter()
