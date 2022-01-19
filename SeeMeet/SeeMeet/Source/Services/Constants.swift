@@ -11,4 +11,8 @@ struct Constants {
     
     //home관련
     static let homeURL = baseURL + "/plan/comeplan"
+    static let lastURL = baseURL + "/plan/lastplan"
+    
+    //친구 관련
+    static let friendsListURL = baseURL + "/friend/list"
 }
