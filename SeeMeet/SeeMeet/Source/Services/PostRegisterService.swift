@@ -20,7 +20,6 @@ struct PostRegisterService {
                   completion : @escaping (NetworkResult<Any>) -> Void)
     {
         let header : HTTPHeaders = ["Content-Type": "application/json"]
-        
         let dataRequest = AF.request(Constants.registerURL,
                                      method: .post,
                                      parameters: makeParameter(username: username,
@@ -29,7 +28,7 @@ struct PostRegisterService {
                                                                passwordConfirm: passwordConfirm),
                                      encoding: JSONEncoding.default,
                                      headers: header)
-        
+//        dump(dataRequest)
         dataRequest.responseData { dataResponse in
             switch dataResponse.result {
             case .success:
@@ -55,6 +54,7 @@ struct PostRegisterService {
         switch statusCode {
         case 200, 404:
             //404가 이제 중복된 이메일 있을때
+            print(statusCode)
             return .success(decodedData)
         case 400:
             print(decodedData.message)
