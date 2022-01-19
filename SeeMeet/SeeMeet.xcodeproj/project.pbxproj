@@ -86,6 +86,7 @@
 		6A8E38802795B82400A480F7 /* ScheduleTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E387F2795B82400A480F7 /* ScheduleTVC.swift */; };
 		6A8E388427970D7000A480F7 /* PickedDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E388327970D7000A480F7 /* PickedDate.swift */; };
 		6AAD47C6278DF01300D8C800 /* UITextField++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAD47C5278DF01300D8C800 /* UITextField++.swift */; };
+		6AC748662798256B0027B823 /* WeekDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC748652798256B0027B823 /* WeekDay.swift */; };
 		6AF609222790BA6000F49DF4 /* SearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF609212790BA6000F49DF4 /* SearchTVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -171,6 +172,7 @@
 		6A8E387F2795B82400A480F7 /* ScheduleTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTVC.swift; sourceTree = "<group>"; };
 		6A8E388327970D7000A480F7 /* PickedDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickedDate.swift; sourceTree = "<group>"; };
 		6AAD47C5278DF01300D8C800 /* UITextField++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField++.swift"; sourceTree = "<group>"; };
+		6AC748652798256B0027B823 /* WeekDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDay.swift; sourceTree = "<group>"; };
 		6AF609212790BA6000F49DF4 /* SearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTVC.swift; sourceTree = "<group>"; };
 		7E4152A410430753EE447189 /* Pods_SeeMeet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SeeMeet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3594175EA1BA01667464A70 /* Pods-SeeMeet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeeMeet.debug.xcconfig"; path = "Target Support Files/Pods-SeeMeet/Pods-SeeMeet.debug.xcconfig"; sourceTree = "<group>"; };
@@ -561,6 +563,7 @@
 				1968464A279413A900DBAF3A /* DateTicketView.swift */,
 				6A8E387B27958A2E00A480F7 /* DayCellView.swift */,
 				6A8E388327970D7000A480F7 /* PickedDate.swift */,
+				6AC748652798256B0027B823 /* WeekDay.swift */,
 			);
 			path = RequestScene;
 			sourceTree = "<group>";
@@ -758,6 +761,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AC748662798256B0027B823 /* WeekDay.swift in Sources */,
 				3623EAAE2795929000853F87 /* PlansReceiveCVC.swift in Sources */,
 				36EFE3212785CC3B00466818 /* Date++.swift in Sources */,
 				19F1AF722792AB0300022A6A /* SelectedDateSheet.swift in Sources */,

@@ -434,6 +434,8 @@ class RequestPlansDateVC: UIViewController {
     
     @objc func tapAddButton(){
         print("tapped")
+        addedDateList.append(selectedDate)
+        print(addedDateList)
 
     }
     
