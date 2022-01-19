@@ -99,6 +99,7 @@ class LoginVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        autoLogin()
         setLoginLayout()
     }
     
@@ -126,10 +127,12 @@ class LoginVC: UIViewController {
                         }
                         else{
                             //토큰 저장하기~
+                            UserDefaults.standard.set(true, forKey: "isLogin")
                             let accessToken = success.data?.accesstoken as! String
                             let tk = TokenUtils()
                             tk.create("accesstoken", account: "accessToken", value: accessToken)
-                            guard let homeVC = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "HomeVC") as? HomeVC else {return}
+                            print(tk.read("accesstoken", account: "accessToken"))
+                            guard let homeVC = UIStoryboard(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "TabbarVC") as? TabbarVC else {return}
                             self.navigationController?.pushViewController(homeVC, animated: true)
                         }
                     }
@@ -149,6 +152,12 @@ class LoginVC: UIViewController {
         guard let accountVC = UIStoryboard(name: "Register", bundle: nil).instantiateViewController(withIdentifier: "RegisterVC") as? RegisterVC else {return}
         self.navigationController?.pushViewController(accountVC, animated: true)
      }
+    func autoLogin(){
+        if UserDefaults.standard.bool(forKey: "isLogin") == true{
+            guard let homeVC = UIStoryboard(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "TabbarVC") as? TabbarVC else {return}
+            self.navigationController?.pushViewController(homeVC, animated: true)
+        }
+    }
 }
 
 extension LoginVC: UITextFieldDelegate{

@@ -387,7 +387,7 @@ class RegisterVC: UIViewController {
                         /*
                          tk.read(Constants.registerURL, account: "accessToken")
                          */
-                        guard let homeVC = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "HomeVC") as? HomeVC else {return}
+                        guard let homeVC = UIStoryboard(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "TabbarVC") as? HomeVC else {return}
                         self.navigationController?.pushViewController(homeVC, animated: true)
                     }
                 }
