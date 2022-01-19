@@ -58,6 +58,12 @@
 		3623EAC22796F8A500853F87 /* TokenUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAC12796F8A500853F87 /* TokenUtils.swift */; };
 		3623EAC42797038100853F87 /* PostLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAC32797038100853F87 /* PostLoginService.swift */; };
 		3623EAC6279705C500853F87 /* ToastMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAC5279705C500853F87 /* ToastMessageView.swift */; };
+		3623EACC2797324600853F87 /* HomeDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EACB2797324600853F87 /* HomeDataModel.swift */; };
+		3623EACE2797330800853F87 /* GetHomeDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EACD2797330800853F87 /* GetHomeDataService.swift */; };
+		3623EAD02797D6FA00853F87 /* LastDateDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EACF2797D6FA00853F87 /* LastDateDataModel.swift */; };
+		3623EAD22797D72500853F87 /* GetLastDateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAD12797D72500853F87 /* GetLastDateService.swift */; };
+		3623EAD42797DAE900853F87 /* FriendsListDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAD32797DAE900853F87 /* FriendsListDataModel.swift */; };
+		3623EAD62797DC4500853F87 /* GetFriendsListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAD52797DC4500853F87 /* GetFriendsListService.swift */; };
 		36545312278EA30400A0770F /* UILabel++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36545311278EA30400A0770F /* UILabel++.swift */; };
 		3682123E2785E643005D7236 /* DINNeuzeitGroteskStd-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3682122F2785E642005D7236 /* DINNeuzeitGroteskStd-Light.otf */; };
 		3682123F2785E643005D7236 /* SpoqaHanSansNeo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 368212302785E642005D7236 /* SpoqaHanSansNeo-Light.ttf */; };
@@ -155,6 +161,12 @@
 		3623EAC32797038100853F87 /* PostLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLoginService.swift; sourceTree = "<group>"; };
 		3623EAC5279705C500853F87 /* ToastMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageView.swift; sourceTree = "<group>"; };
 		3623EAC727971F1600853F87 /* Kingfisher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Kingfisher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3623EACB2797324600853F87 /* HomeDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDataModel.swift; sourceTree = "<group>"; };
+		3623EACD2797330800853F87 /* GetHomeDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHomeDataService.swift; sourceTree = "<group>"; };
+		3623EACF2797D6FA00853F87 /* LastDateDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastDateDataModel.swift; sourceTree = "<group>"; };
+		3623EAD12797D72500853F87 /* GetLastDateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLastDateService.swift; sourceTree = "<group>"; };
+		3623EAD32797DAE900853F87 /* FriendsListDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsListDataModel.swift; sourceTree = "<group>"; };
+		3623EAD52797DC4500853F87 /* GetFriendsListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFriendsListService.swift; sourceTree = "<group>"; };
 		36545311278EA30400A0770F /* UILabel++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel++.swift"; sourceTree = "<group>"; };
 		3682122F2785E642005D7236 /* DINNeuzeitGroteskStd-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DINNeuzeitGroteskStd-Light.otf"; sourceTree = "<group>"; };
 		368212302785E642005D7236 /* SpoqaHanSansNeo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Light.ttf"; sourceTree = "<group>"; };
@@ -336,6 +348,9 @@
 				3623EABF2796ED1000853F87 /* PostRegisterService.swift */,
 				3623EAC12796F8A500853F87 /* TokenUtils.swift */,
 				3623EAC32797038100853F87 /* PostLoginService.swift */,
+				3623EACD2797330800853F87 /* GetHomeDataService.swift */,
+				3623EAD12797D72500853F87 /* GetLastDateService.swift */,
+				3623EAD52797DC4500853F87 /* GetFriendsListService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -344,6 +359,9 @@
 			isa = PBXGroup;
 			children = (
 				3623EABD2796E76500853F87 /* RegisterDataModel.swift */,
+				3623EACB2797324600853F87 /* HomeDataModel.swift */,
+				3623EACF2797D6FA00853F87 /* LastDateDataModel.swift */,
+				3623EAD32797DAE900853F87 /* FriendsListDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -854,6 +872,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3623EAAE2795929000853F87 /* PlansReceiveCVC.swift in Sources */,
+				3623EAD02797D6FA00853F87 /* LastDateDataModel.swift in Sources */,
 				36EFE3212785CC3B00466818 /* Date++.swift in Sources */,
 				19F1AF722792AB0300022A6A /* SelectedDateSheet.swift in Sources */,
 				191E8C2A278FFB870042B8F1 /* SMSearchBar.swift in Sources */,
@@ -862,21 +881,25 @@
 				3623EA922791282700853F87 /* PlansReceiveVC.swift in Sources */,
 				36EFE31F2785CC3B00466818 /* UIFont++.swift in Sources */,
 				3623EAB92796AA0600853F87 /* RegisterVC.swift in Sources */,
+				3623EAD42797DAE900853F87 /* FriendsListDataModel.swift in Sources */,
 				3623EAC42797038100853F87 /* PostLoginService.swift in Sources */,
 				1912FCAE278AB7A000F33952 /* CalendarVC.swift in Sources */,
 				36EFE31E2785CC3B00466818 /* UIView++.swift in Sources */,
 				1919F5D4278B5E18009F33AE /* CalendarPlansCVC.swift in Sources */,
 				6AF609222790BA6000F49DF4 /* SearchTVC.swift in Sources */,
 				36EFE31B2785CC3B00466818 /* UIScreen++.swift in Sources */,
+				3623EACE2797330800853F87 /* GetHomeDataService.swift in Sources */,
 				191E8C26278F490A0042B8F1 /* FriendsListTVC.swift in Sources */,
 				3623EAC6279705C500853F87 /* ToastMessageView.swift in Sources */,
 				36EFE3112785C8D600466818 /* HomeVC.swift in Sources */,
 				3623EAA42795437400853F87 /* LoginVC.swift in Sources */,
 				6A4A20ED278B5F7000DD4DCD /* RequestPlansContentsVC.swift in Sources */,
+				3623EAD22797D72500853F87 /* GetLastDateService.swift in Sources */,
 				36EFE2ED2785682200466818 /* AppDelegate.swift in Sources */,
 				6A7C7C0B27920F80006D39F6 /* ChipView.swift in Sources */,
 				191E8C18278F01C60042B8F1 /* SMPopUpVC.swift in Sources */,
 				6A8E38802795B82400A480F7 /* ScheduleTVC.swift in Sources */,
+				3623EAD62797DC4500853F87 /* GetFriendsListService.swift in Sources */,
 				36EFE31D2785CC3B00466818 /* UIColor++.swift in Sources */,
 				3623EAAA2795701D00853F87 /* GrayTextField.swift in Sources */,
 				3623EAAC279570A000853F87 /* GrayTextView.swift in Sources */,
@@ -893,6 +916,7 @@
 				3623EABE2796E76500853F87 /* RegisterDataModel.swift in Sources */,
 				6AAD47C6278DF01300D8C800 /* UITextField++.swift in Sources */,
 				191E8C1F278F477B0042B8F1 /* FriendsListVC.swift in Sources */,
+				3623EACC2797324600853F87 /* HomeDataModel.swift in Sources */,
 				36EFE2EF2785682200466818 /* SceneDelegate.swift in Sources */,
 				6A7C7C0F279364CA006D39F6 /* RequestPlansDateVC.swift in Sources */,
 				36EFE3202785CC3B00466818 /* UITabelView++.swift in Sources */,
