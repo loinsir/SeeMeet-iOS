@@ -23,6 +23,7 @@ class RegisterVC: UIViewController {
     }
     private let backButton = UIButton().then {
         $0.setBackgroundImage(UIImage(named: "btn_back"), for: .normal)
+        $0.addTarget(self, action: #selector(backButtonClicked(_:)), for: .touchUpInside)
     }
     private let headLabel = UILabel().then{
         $0.font = UIFont.hanSansBoldFont(ofSize: 24)
@@ -367,6 +368,9 @@ class RegisterVC: UIViewController {
         emailWarningLabel.text = "이미 등록된 이메일이에요."
         emailBool = false
     }
+    @objc func backButtonClicked(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
     
     @objc func registerButtonClicked(_ sender: UIButton) {
         if buttonOn {
@@ -378,7 +382,7 @@ class RegisterVC: UIViewController {
                     if success.status == 404{
                         self.overlappingEmail()
                     }
-                    else{
+                    else if success.status == 200{
                         //토큰 저장하기~
                         let accessToken = success.data?.accesstoken as! String
                         let tk = TokenUtils()
@@ -387,7 +391,7 @@ class RegisterVC: UIViewController {
                         /*
                          tk.read(Constants.registerURL, account: "accessToken")
                          */
-                        guard let homeVC = UIStoryboard(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "TabbarVC") as? HomeVC else {return}
+                        guard let homeVC = UIStoryboard(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "TabbarVC") as? TabbarVC else {return}
                         self.navigationController?.pushViewController(homeVC, animated: true)
                     }
                 }
