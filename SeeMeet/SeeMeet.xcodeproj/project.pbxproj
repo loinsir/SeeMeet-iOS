@@ -22,6 +22,10 @@
 		191E8C2A278FFB870042B8F1 /* SMSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191E8C29278FFB870042B8F1 /* SMSearchBar.swift */; };
 		19509B652796C00D00CAA4C2 /* MonthlyPlansResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19509B642796C00D00CAA4C2 /* MonthlyPlansResponseModel.swift */; };
 		19509B672796C25100CAA4C2 /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19509B662796C25100CAA4C2 /* CalendarService.swift */; };
+		19509B692798583500CAA4C2 /* FriendsSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19509B682798583500CAA4C2 /* FriendsSearchService.swift */; };
+		19509B6B27986D2A00CAA4C2 /* FriendsSearchResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19509B6A27986D2A00CAA4C2 /* FriendsSearchResponseModel.swift */; };
+		19509B6D27989CD800CAA4C2 /* FriendsAddResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19509B6C27989CD800CAA4C2 /* FriendsAddResponseModel.swift */; };
+		19509B6F27989DAF00CAA4C2 /* FriendsAddService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19509B6E27989DAF00CAA4C2 /* FriendsAddService.swift */; };
 		1950E5142791DAA300ED357B /* FriendsAddVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1950E5132791DAA300ED357B /* FriendsAddVC.swift */; };
 		1950E5162791DAC900ED357B /* FriendsAdd.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1950E5152791DAC900ED357B /* FriendsAdd.storyboard */; };
 		1950E51B2791FE7B00ED357B /* FriendsAddTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1950E5192791FE7B00ED357B /* FriendsAddTVC.swift */; };
@@ -128,6 +132,10 @@
 		191E8C29278FFB870042B8F1 /* SMSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSearchBar.swift; sourceTree = "<group>"; };
 		19509B642796C00D00CAA4C2 /* MonthlyPlansResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyPlansResponseModel.swift; sourceTree = "<group>"; };
 		19509B662796C25100CAA4C2 /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
+		19509B682798583500CAA4C2 /* FriendsSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsSearchService.swift; sourceTree = "<group>"; };
+		19509B6A27986D2A00CAA4C2 /* FriendsSearchResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsSearchResponseModel.swift; sourceTree = "<group>"; };
+		19509B6C27989CD800CAA4C2 /* FriendsAddResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsAddResponseModel.swift; sourceTree = "<group>"; };
+		19509B6E27989DAF00CAA4C2 /* FriendsAddService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsAddService.swift; sourceTree = "<group>"; };
 		1950E5132791DAA300ED357B /* FriendsAddVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsAddVC.swift; sourceTree = "<group>"; };
 		1950E5152791DAC900ED357B /* FriendsAdd.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FriendsAdd.storyboard; sourceTree = "<group>"; };
 		1950E5192791FE7B00ED357B /* FriendsAddTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsAddTVC.swift; sourceTree = "<group>"; };
@@ -360,6 +368,8 @@
 				3623EACD2797330800853F87 /* GetHomeDataService.swift */,
 				3623EAD12797D72500853F87 /* GetLastDateService.swift */,
 				3623EAD52797DC4500853F87 /* GetFriendsListService.swift */,
+				19509B682798583500CAA4C2 /* FriendsSearchService.swift */,
+				19509B6E27989DAF00CAA4C2 /* FriendsAddService.swift */,
 				3623EAD927980F0600853F87 /* GetPlansListDataService.swift */,
 			);
 			path = Services;
@@ -369,10 +379,12 @@
 			isa = PBXGroup;
 			children = (
 				3623EABD2796E76500853F87 /* RegisterDataModel.swift */,
+				19509B6C27989CD800CAA4C2 /* FriendsAddResponseModel.swift */,
 				19509B642796C00D00CAA4C2 /* MonthlyPlansResponseModel.swift */,
 				3623EACB2797324600853F87 /* HomeDataModel.swift */,
 				3623EACF2797D6FA00853F87 /* LastDateDataModel.swift */,
 				3623EAD32797DAE900853F87 /* FriendsListDataModel.swift */,
+				19509B6A27986D2A00CAA4C2 /* FriendsSearchResponseModel.swift */,
 				3623EAD727980EC000853F87 /* PlansListDataModel.swift */,
 			);
 			path = Models;
@@ -906,12 +918,15 @@
 				3623EACE2797330800853F87 /* GetHomeDataService.swift in Sources */,
 				191E8C26278F490A0042B8F1 /* FriendsListTVC.swift in Sources */,
 				3623EAC6279705C500853F87 /* ToastMessageView.swift in Sources */,
+				19509B6B27986D2A00CAA4C2 /* FriendsSearchResponseModel.swift in Sources */,
 				36EFE3112785C8D600466818 /* HomeVC.swift in Sources */,
+				19509B6F27989DAF00CAA4C2 /* FriendsAddService.swift in Sources */,
 				3623EAA42795437400853F87 /* LoginVC.swift in Sources */,
 				6A4A20ED278B5F7000DD4DCD /* RequestPlansContentsVC.swift in Sources */,
 				3623EAD22797D72500853F87 /* GetLastDateService.swift in Sources */,
 				36EFE2ED2785682200466818 /* AppDelegate.swift in Sources */,
 				6A7C7C0B27920F80006D39F6 /* ChipView.swift in Sources */,
+				19509B6D27989CD800CAA4C2 /* FriendsAddResponseModel.swift in Sources */,
 				191E8C18278F01C60042B8F1 /* SMPopUpVC.swift in Sources */,
 				6A8E38802795B82400A480F7 /* ScheduleTVC.swift in Sources */,
 				3623EAD62797DC4500853F87 /* GetFriendsListService.swift in Sources */,
@@ -923,6 +938,7 @@
 				3623EAB22796A77A00853F87 /* Constants.swift in Sources */,
 				360E6F4627898D4400DACFD8 /* HomeEventCVC.swift in Sources */,
 				1968464B279413A900DBAF3A /* DateTicketView.swift in Sources */,
+				19509B692798583500CAA4C2 /* FriendsSearchService.swift in Sources */,
 				3623EA87278F686A00853F87 /* ProgressReceiveCVC.swift in Sources */,
 				36EFE31A2785CC3B00466818 /* UIViewController++.swift in Sources */,
 				3623EA9A2792A8D100853F87 /* SMRequestPopUpVC.swift in Sources */,
