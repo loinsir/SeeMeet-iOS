@@ -52,6 +52,7 @@ struct CalendarService {
                                  headers: headers)
         
         request.responseData { responseData in
+            dump(responseData)
             switch responseData.result {
             case .success:
                 if let statusCode = responseData.response?.statusCode,
@@ -77,7 +78,14 @@ struct CalendarService {
     
     private func isValidDecodableData(data: Data) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
-        guard let decodedData = try? decoder.decode(MonthlyPlansResponseModel.self, from: data) else { return .pathErr}
-        return .success(decodedData)
+        if let decodedData = try? decoder.decode(MonthlyPlansResponseModel.self, from: data){
+            return .success(decodedData)
+        } else {
+            if let decodedData = try? decoder.decode(PlanDetailResponseModel.self, from: data) {
+                return .success(decodedData)
+            } else {
+                return .pathErr
+            }
+        }
     }
 }

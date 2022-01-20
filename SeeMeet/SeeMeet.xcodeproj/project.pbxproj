@@ -31,6 +31,7 @@
 		1950E51B2791FE7B00ED357B /* FriendsAddTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1950E5192791FE7B00ED357B /* FriendsAddTVC.swift */; };
 		1950E51C2791FE7B00ED357B /* FriendsAddTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1950E51A2791FE7B00ED357B /* FriendsAddTVC.xib */; };
 		1968464B279413A900DBAF3A /* DateTicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1968464A279413A900DBAF3A /* DateTicketView.swift */; };
+		197F57B5279913C000FB4467 /* PlanDetailResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197F57B4279913C000FB4467 /* PlanDetailResponseModel.swift */; };
 		19E633DE278D84F200776D0C /* CalendarDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E633DD278D84F200776D0C /* CalendarDetailVC.swift */; };
 		19E633E1278D853500776D0C /* CalendarDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19E633E0278D853500776D0C /* CalendarDetail.storyboard */; };
 		19F1AF722792AB0300022A6A /* SelectedDateSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F1AF712792AB0300022A6A /* SelectedDateSheet.swift */; };
@@ -145,6 +146,7 @@
 		1950E5192791FE7B00ED357B /* FriendsAddTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsAddTVC.swift; sourceTree = "<group>"; };
 		1950E51A2791FE7B00ED357B /* FriendsAddTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsAddTVC.xib; sourceTree = "<group>"; };
 		1968464A279413A900DBAF3A /* DateTicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTicketView.swift; sourceTree = "<group>"; };
+		197F57B4279913C000FB4467 /* PlanDetailResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailResponseModel.swift; sourceTree = "<group>"; };
 		19E633DD278D84F200776D0C /* CalendarDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailVC.swift; sourceTree = "<group>"; };
 		19E633E0278D853500776D0C /* CalendarDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CalendarDetail.storyboard; sourceTree = "<group>"; };
 		19F1AF712792AB0300022A6A /* SelectedDateSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedDateSheet.swift; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 				3623EABD2796E76500853F87 /* RegisterDataModel.swift */,
 				19509B6C27989CD800CAA4C2 /* FriendsAddResponseModel.swift */,
 				19509B642796C00D00CAA4C2 /* MonthlyPlansResponseModel.swift */,
+				197F57B4279913C000FB4467 /* PlanDetailResponseModel.swift */,
 				3623EACB2797324600853F87 /* HomeDataModel.swift */,
 				3623EACF2797D6FA00853F87 /* LastDateDataModel.swift */,
 				3623EAD32797DAE900853F87 /* FriendsListDataModel.swift */,
@@ -912,6 +915,7 @@
 				19509B652796C00D00CAA4C2 /* MonthlyPlansResponseModel.swift in Sources */,
 				19F1AF722792AB0300022A6A /* SelectedDateSheet.swift in Sources */,
 				191E8C2A278FFB870042B8F1 /* SMSearchBar.swift in Sources */,
+				197F57B5279913C000FB4467 /* PlanDetailResponseModel.swift in Sources */,
 				3623EADA27980F0600853F87 /* GetPlansListDataService.swift in Sources */,
 				3623EA8F278FDE0C00853F87 /* CompletePlansCVC.swift in Sources */,
 				3623EA9E27931EAC00853F87 /* PlansSendListVC.swift in Sources */,
@@ -1121,7 +1125,7 @@
 				INFOPLIST_FILE = SeeMeet/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Home;
+				INFOPLIST_KEY_UIMainStoryboardFile = Tabbar;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1152,7 +1156,7 @@
 				INFOPLIST_FILE = SeeMeet/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Home;
+				INFOPLIST_KEY_UIMainStoryboardFile = Tabbar;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
