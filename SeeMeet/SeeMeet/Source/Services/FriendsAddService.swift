@@ -1,11 +1,11 @@
 import Foundation
 import Alamofire
 
-struct FriendsSearchService {
+struct FriendsAddService {
     
     // MARK: - properties
     
-    static let shared = FriendsSearchService()
+    static let shared = FriendsAddService()
     
     private var headers: HTTPHeaders?
     
@@ -18,9 +18,9 @@ struct FriendsSearchService {
     
     // MARK: - methods
     
-    func searchFriends(email: String,
+    func addFriends(email: String,
                        completion: @escaping (NetworkResult<Any>) -> Void) {
-        let url = Constants.baseURL + "/friend/search"
+        let url = Constants.baseURL + "/friend/addFriend"
         
         let requestBody: Parameters = ["email": email]
         
@@ -56,11 +56,12 @@ struct FriendsSearchService {
     
     private func isValidDecodableData(data: Data) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
-        guard let decodedData = try? decoder.decode(FriendsSearchResponseModel.self, from: data) else { return .pathErr }
+        guard let decodedData = try? decoder.decode(FriendsAddResponseModel.self, from: data) else { return .pathErr }
         if decodedData.status == 200 {
             return .success(decodedData)
         } else {
             return .requestErr(decodedData)
         }
     }
+    
 }

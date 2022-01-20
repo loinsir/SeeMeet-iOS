@@ -93,7 +93,6 @@ class FriendsAddVC: UIViewController {
     
     private func requestFriendsSearchResults(email: String) {
         FriendsSearchService.shared.searchFriends(email: email) { responseData in
-            dump(responseData)
             switch responseData {
             case .success(let response):
                 guard let response = response as? FriendsSearchResponseModel else { return }
@@ -159,6 +158,7 @@ extension FriendsAddVC: UITableViewDataSource {
         guard let cell: FriendsAddTVC = tableView.dequeueReusableCell(withIdentifier: FriendsAddTVC.identifier) as? FriendsAddTVC else { return UITableViewCell() }
         cell.nameLabel.text = searchResults?.username
         cell.emailLabel.text = searchResults?.email
+        cell.delegate = self
         return cell
     }
 }
@@ -166,5 +166,11 @@ extension FriendsAddVC: UITableViewDataSource {
 extension FriendsAddVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return cellHeight
+    }
+}
+
+extension FriendsAddVC: FriendsAddTVCDelegate {
+    func friendsAddTVC(cell: FriendsAddTVC, resultMessage: String) {
+        view.makeToastAnimation(message: resultMessage)
     }
 }
