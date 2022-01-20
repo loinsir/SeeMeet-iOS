@@ -37,8 +37,10 @@ class ProgressSendCVC: UICollectionViewCell {
    
     //MARK: Var
     static let identifier: String = "ProgressSendCVC"
-    //MARK: setLayoutFunction
+    var hostNameText: String = ""
+    var dayAgoText: String = ""
     
+    //MARK: setLayoutFunction
     func setLayout(){
         addSubviews([cellHeadLabel, dateAgoLabel, nameButton, receiveLabel])
         
@@ -56,7 +58,7 @@ class ProgressSendCVC: UICollectionViewCell {
         dateAgoLabel.snp.makeConstraints{
             $0.centerY.equalTo(cellHeadLabel)
             $0.trailing.equalToSuperview().offset(-24)
-            $0.width.equalTo(35)
+            $0.width.equalTo(37)
             $0.height.equalTo(32)
         }
         nameButton.snp.makeConstraints{
@@ -75,9 +77,19 @@ class ProgressSendCVC: UICollectionViewCell {
     }
     
     func setButtonTitle(){
-        nameButton.setTitle("하이요", for: .normal)
+        nameButton.setTitle(hostNameText, for: .normal)
+        if dayAgoText == "0" {
+            dateAgoLabel.attributedText = String.getAttributedText(text: "방금 전", letterSpacing: -0.6, lineSpacing: nil)
+        }
+        else{
+            dateAgoLabel.attributedText = String.getAttributedText(text: dayAgoText + "일전", letterSpacing: -0.6, lineSpacing: nil)
+        }
     }
-       
+    func setData(dayAgo: String, hostName: String){
+        hostNameText = hostName
+        dayAgoText = dayAgo
+        setButtonTitle()
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         setLayout()

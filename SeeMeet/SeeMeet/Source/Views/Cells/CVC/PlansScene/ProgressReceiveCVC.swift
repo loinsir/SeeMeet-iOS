@@ -51,7 +51,7 @@ class ProgressReceiveCVC: UICollectionViewCell {
         dateAgoLabel.snp.makeConstraints{
             $0.centerY.equalTo(cellHeadLabel)
             $0.trailing.equalToSuperview().offset(-24)
-            $0.width.equalTo(35)
+            $0.width.equalTo(37)
             $0.height.equalTo(32)
         }
         sendLabel.snp.makeConstraints{
@@ -66,18 +66,27 @@ class ProgressReceiveCVC: UICollectionViewCell {
             $0.height.equalTo(26)
             $0.width.equalTo(213)
         }
-        getStackButton()
         setTextAttribute()
     }
     func setTextAttribute(){
         sendLabel.attributedText = sendLabel.setTextFontAttribute(defaultText: "친구 \(friendsCount)명의 답변을 기다리고 있어요!", containText: String(friendsCount), changingFont: UIFont.hanSansBoldFont(ofSize: 16), color: UIColor.pink01)
+        
+        if dateAgoText == "0" {
+            dateAgoLabel.attributedText = String.getAttributedText(text: "방금 전", letterSpacing: -0.6, lineSpacing: nil)
+        }
+        else{
+            dateAgoLabel.attributedText = String.getAttributedText(text: dateAgoText + "일전", letterSpacing: -0.6, lineSpacing: nil)
+        }
+        getStackButton()
+        print(nameDummy, isAccept)
     }
     func getStackButton(){
+        var i = 0
         nameDummy.forEach {
             let nameButton: UIButton = UIButton()
             nameButton.titleLabel?.font = UIFont.hanSansMediumFont(ofSize: 14)
             nameButton.setTitle($0, for: .normal)
-            if isAccept == true{
+            if isAccept[i] == true{
                 nameButton.setTitleColor(UIColor.white, for: .normal)
                 nameButton.backgroundColor = UIColor.pink01
             }
@@ -93,13 +102,26 @@ class ProgressReceiveCVC: UICollectionViewCell {
             nameButton.snp.makeConstraints{
                 $0.top.bottom.equalToSuperview().offset(0)
             }
+            if $0 == "" {
+                nameButton.layer.borderWidth = 0
+            }
+            i += 1
         }
+    }
+    func setData(freindsCnt: Int, nameList: [String], dayAgo: String, nameAccept: [Bool]){
+        friendsCount = freindsCnt
+        nameDummy = nameList
+        isAccept = nameAccept
+        dateAgoText = dayAgo
+        nameTagButtonStackView.removeAllSubViews()
+        setTextAttribute()
     }
     //MARK: Var
     static let identifier: String = "ProgressReceiveCVC"
-    let friendsCount: Int = 2
-    let nameDummy: [String] = ["가나다", "가나다", "가나다"]
-    let isAccept: Bool = true
+    var friendsCount: Int = 2
+    var dateAgoText: String = "0"
+    var nameDummy: [String] = ["가나다", "가나다", "가나다"]
+    var isAccept: [Bool] = [false, false, false]
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -130,12 +130,14 @@ class PlansReceiveVC: UIViewController {
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 10
         $0.setTitle("거절", for: .normal)
+        $0.addTarget(self, action: #selector(dinineButtonClicked(_:)), for: .touchUpInside)
     }
     private let bottomAcceptButton = UIButton().then{
         $0.backgroundColor = UIColor.pink01
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 10
         $0.setTitle("답변", for: .normal)
+        $0.addTarget(self, action: #selector(accessButtonClicked(_:)), for: .touchUpInside)
     }
     //MARK: setLayout
     func addView(){
@@ -436,6 +438,18 @@ class PlansReceiveVC: UIViewController {
             print("\(index+1)", isChecked[index])
         }
      }
+    
+    @objc private func accessButtonClicked(_ sender: UIButton){
+        guard let requestAlertVC = SMRequestPopUpVC(withType: .recieveConfirm) as? SMRequestPopUpVC else {return}
+        requestAlertVC.modalPresentationStyle = .overFullScreen
+        self.present(requestAlertVC, animated: false, completion: nil)
+     }
+    @objc private func dinineButtonClicked(_ sender: UIButton){
+        guard let AlertVC = SMPopUpVC(withType: .dismissRequest) as? SMPopUpVC else {return}
+        AlertVC.modalPresentationStyle = .overFullScreen
+        self.present(AlertVC, animated: false, completion: nil)
+     }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -45,5 +45,16 @@ extension UIView {
         layer.shadowOpacity = 0
     }
     
+    func makeToastAnimation(message: String){
+        let toastMessage = ToastMessageView(message: message)
+        self.addSubview(toastMessage)
+        toastMessage.snp.makeConstraints{
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
+        }
+        UIView.animate(withDuration: 1.0, animations: {
+            toastMessage.alpha = 0
+        }, completion: {_ in toastMessage.isHidden = true})
+    }
 }
 
