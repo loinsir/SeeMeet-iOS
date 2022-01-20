@@ -128,6 +128,7 @@ class CalendarVC: UIViewController {
         }
         
         collectionView.dataSource = self
+        collectionView.delegate = self
         addSubviewAndConstraints(add: collectionView, to: bottomCollectionContainerView) {
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(157 * heightRatio)
@@ -286,7 +287,9 @@ extension CalendarVC: UICollectionViewDataSource {
 }
 
 extension CalendarVC: UICollectionViewDelegate {
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        <#code#>
-//    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        tabBarController?.tabBar.isHidden = true
+        guard let detailVC = UIStoryboard(name: "CalendarDetail", bundle: nil).instantiateViewController(withIdentifier: CalendarDetailVC.identifier) as? CalendarDetailVC else { return }
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
 }

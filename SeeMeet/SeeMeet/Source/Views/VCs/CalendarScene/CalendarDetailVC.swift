@@ -16,7 +16,7 @@ class CalendarDetailVC: UIViewController {
     }
     
     private let backButton: UIButton = UIButton().then {
-        $0.setImage(UIImage(named: "btn_back"), for: .normal)
+        $0.setImage(UIImage(named: "btn_back_white"), for: .normal)
         $0.addTarget(self, action: #selector(touchBackButton(_:)), for: .touchUpInside)
     }
     
@@ -259,7 +259,8 @@ class CalendarDetailVC: UIViewController {
     }
     
     @objc private func touchBackButton(_ sender: UIButton) {
-        
+        navigationController?.popViewController(animated: true)
+        tabBarController?.tabBar.isHidden = false
     }
     
     @objc private func touchDeleteButton(_ sender: UIButton) {
