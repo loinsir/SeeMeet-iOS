@@ -230,21 +230,22 @@ class CalendarDetailVC: UIViewController {
             $0.leading.equalTo(divider.snp.trailing).offset(15.5 * widthRatio)
         }
         
-        tabBarController?.tabBar.isHidden = true
-        view.addSubview(bottomSeparator)
-        bottomSeparator.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(1)
-            $0.bottom.equalTo(-112 * heightRatio)
-        }
-        
-        view.addSubview(deleteButton)
-        deleteButton.snp.makeConstraints {
-            $0.top.equalTo(bottomSeparator.snp.bottom).offset(16 * heightRatio)
-            $0.leading.equalTo(20 * widthRatio)
-            $0.trailing.equalTo(-20 * widthRatio)
-            $0.height.equalTo(54 * heightRatio)
-        }
+        // 추후 추가
+//        tabBarController?.tabBar.isHidden = true
+//        view.addSubview(bottomSeparator)
+//        bottomSeparator.snp.makeConstraints {
+//            $0.leading.trailing.equalToSuperview()
+//            $0.height.equalTo(1)
+//            $0.bottom.equalTo(-112 * heightRatio)
+//        }
+//
+//        view.addSubview(deleteButton)
+//        deleteButton.snp.makeConstraints {
+//            $0.top.equalTo(bottomSeparator.snp.bottom).offset(16 * heightRatio)
+//            $0.leading.equalTo(20 * widthRatio)
+//            $0.trailing.equalTo(-20 * widthRatio)
+//            $0.height.equalTo(54 * heightRatio)
+//        }
     }
     
     private func requestPlanDetail() { // UI 코드를 분리 시켜야 할듯... 일단 나중에ㅠㅠ
