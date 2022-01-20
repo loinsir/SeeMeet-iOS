@@ -18,7 +18,7 @@ class DayCellView: UIView {
     
     var tapCellViewDelegate: tapCellViewDelegate?
     
-    private let cellView = UIView().then{
+    let cellView = UIView().then{
         $0.tintColor = UIColor.white
         $0.layer.cornerRadius = 10
         $0.backgroundColor = UIColor.white
@@ -36,6 +36,10 @@ class DayCellView: UIView {
     }
     private let pinkDotView = UIView().then{
         $0.backgroundColor = UIColor.pink01
+    }
+    
+    private let touchAreaView: UIView = UIView().then {
+        $0.backgroundColor = UIColor.clear
     }
     
     
@@ -92,8 +96,9 @@ class DayCellView: UIView {
                 $0.centerX.equalTo(cellView.snp.centerX)
                 $0.width.height.equalTo(5)
             }
-            
+         
             pinkDotView.layer.cornerRadius = 5/2
+            pinkDotView.isHidden = true
            
         }
     func setDate(montosun: String,day: Int,isScheduled: Bool){
@@ -102,6 +107,65 @@ class DayCellView: UIView {
         self.montosunLabel.text = montosun
         self.dayLabel.text = String(day)
         self.isScheduled = isScheduled
+        self.setPinkDotView()
+    }
+    
+    func setDate(day: Int){
+        self.day = day
+        self.dayLabel.text = String(day)
+    }
+    func setDate(day:Int, isScheduled: Bool){
+        self.isScheduled = isScheduled
+        self.setPinkDotView()
+    }
+    
+    func setPinkDotView(){
+        if isScheduled == true{
+            pinkDotView.isHidden = false
+        }else{
+            pinkDotView.isHidden = true
+        }
+    }
+    
+    func setFillColor(fillColor: UIColor){
+        cellView.backgroundColor = fillColor
+        
+    }
+    func setFontColor(fontColor: UIColor){
+        montosunLabel.textColor = fontColor
+    }
+    
+    func setTodayState(){
+        cellView.layer.borderWidth = 0
+        cellView.backgroundColor = UIColor.pink01
+        montosunLabel.textColor = .white
+        dayLabel.textColor = .white
+    }
+    
+    func setSelectedState(){
+        cellView.backgroundColor = UIColor.black
+        montosunLabel.textColor = .white
+        dayLabel.textColor = .white
+    }
+    
+    func setTodaySelectedState(){
+        cellView.layer.borderColor = UIColor.black.cgColor
+        cellView.layer.borderWidth = 1
+        cellView.backgroundColor = UIColor.pink01
+        montosunLabel.textColor = .white
+        dayLabel.textColor = .white
+    }
+    func setBasicState() {
+        cellView.layer.borderWidth = 0
+        cellView.backgroundColor = UIColor.white
+        montosunLabel.textColor = .grey04
+        dayLabel.textColor = .grey06
+    }
+    func setInvalidStae(){
+        cellView.layer.borderWidth = 0
+        cellView.backgroundColor = .grey02
+        montosunLabel.textColor = .grey03
+        dayLabel.textColor = .grey03
     }
     
     func setGestureRecognizer(){
@@ -111,6 +175,7 @@ class DayCellView: UIView {
         isUserInteractionEnabled = true
         
     }
+    
     
     @objc func tapCellView(gestureRecognizer: UIGestureRecognizer){
         tapCellViewDelegate?.tapCellView(dayCellView: self)

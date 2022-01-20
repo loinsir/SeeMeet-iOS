@@ -6,30 +6,34 @@ fileprivate let userWidth = UIScreen.getDeviceWidth() - 0.0
 fileprivate let heightRatio = userHeight / 812
 fileprivate let widthRatio = userWidth / 375
 
+protocol FriendsAddTVCDelegate {
+    func friendsAddTVC(cell: FriendsAddTVC, resultMessage: String)
+}
+
 class FriendsAddTVC: UITableViewCell {
     
     // MARK: - properties
     
     static let identifier: String = "FriendsAddTVC"
     
+    var delegate: FriendsAddTVCDelegate?
+    
     let profileImage: UIImageView = UIImageView().then {
-        $0.image = UIImage(named: "Ellipse_dummy")
+        $0.image = UIImage(named: "img_illust_2")
     }
     
     let nameLabel: UILabel = UILabel().then {
         $0.font = UIFont.hanSansMediumFont(ofSize: 16)
         $0.textColor = UIColor.black
-        $0.text = "김준희"
     }
     
     let emailLabel: UILabel = UILabel().then {
         $0.font = UIFont.hanSansMediumFont(ofSize: 13)
         $0.textColor = UIColor.grey04
-        $0.text = "joon13579@sookyung.ac.kr"
     }
     
     private let addButton: UIButton = UIButton().then {
-        $0.setImage(UIImage(named: "btn_add-friends"), for: .normal)
+        $0.setImage(UIImage(named: "btn_add-friends_circle"), for: .normal)
         $0.addTarget(self, action: #selector(touchUpAddButton(_:)), for: .touchUpInside)
     }
     
@@ -81,7 +85,29 @@ class FriendsAddTVC: UITableViewCell {
     // MARK: - objc
     
     @objc private func touchUpAddButton(_ sender: UIButton) {
-        addButton.setImage(UIImage(named: "btn_add-friends_fin"), for: .normal)
+        requestAddFriend()
+    }
+    
+    private func requestAddFriend() {
+        guard let email = emailLabel.text else { return }
+        FriendsAddService.shared.addFriends(email: email) { responseData in
+            switch responseData {
+            case .success(let response):
+                self.addButton.setImage(UIImage(named: "btn_add-friends_fin"), for: .normal)
+            case .requestErr(let response):
+                guard let response = response as? FriendsAddResponseModel else { return }
+                if response.message != "" {
+                    self.delegate?.friendsAddTVC(cell: self, resultMessage: response.message ?? "잘못된 요청입니다.")
+                }
+            case .pathErr:
+                self.delegate?.friendsAddTVC(cell: self, resultMessage: "잘못된 요청입니다.")
+                print("Path Error")
+            case .serverErr:
+                print("Server Error")
+            case .networkFail:
+                print("Network Fail")
+            }
+        }
     }
     
 }

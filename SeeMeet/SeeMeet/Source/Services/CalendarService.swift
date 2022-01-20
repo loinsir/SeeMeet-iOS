@@ -68,14 +68,14 @@ struct CalendarService {
     
     private func judgeStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
         switch statusCode {
-        case 200: return isValidData(data: data)
+        case 200: return isValidDecodableData(data: data)
         case 400: return .pathErr
         case 500: return .serverErr
         default: return .networkFail
         }
     }
     
-    private func isValidData(data: Data) -> NetworkResult<Any> {
+    private func isValidDecodableData(data: Data) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
         if let decodedData = try? decoder.decode(MonthlyPlansResponseModel.self, from: data){
             return .success(decodedData)
