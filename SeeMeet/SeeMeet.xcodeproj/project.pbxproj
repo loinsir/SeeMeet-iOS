@@ -385,8 +385,8 @@
 				19509B682798583500CAA4C2 /* FriendsSearchService.swift */,
 				19509B6E27989DAF00CAA4C2 /* FriendsAddService.swift */,
 				3623EAD927980F0600853F87 /* GetPlansListDataService.swift */,
-				6AE863062799E2EA0050A978 /* PostRequestPlansService.swift */,
 				6AE863082799FABC0050A978 /* GetScheduleService.swift */,
+				6AE863062799E2EA0050A978 /* PostRequestPlansService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";

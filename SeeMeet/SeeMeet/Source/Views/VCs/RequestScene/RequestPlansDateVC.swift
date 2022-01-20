@@ -28,6 +28,14 @@ class RequestPlansDateVC: UIViewController {
     var isOpened: Bool = false
     
     
+    private var scheduleData: [ScheduleData]? {
+        didSet {
+//            if initialFlag {
+//                displayPlansCollectionView()
+//                initialFlag.toggle()
+//            }
+        }
+    }
     
 
 //MARK: Components
@@ -628,27 +636,7 @@ class RequestPlansDateVC: UIViewController {
         bottomSheetView.addPickedDate(date: selectedDate)
     }
 
-//MARK: Network
-    func requestPlans(){
-        PostRequestPlansService.shared.requestPlans(guest: <#T##[Host]#>, title: <#T##String#>, contents: <#T##String#>, date: <#T##[String]#>, start: <#T##[String]#>, end: <#T##[String]#>){ responseData in
-            switch responseData {
-            case.success(let requestResponse):
-                guard let response = requestResponse as? RequestResponseData else { return }
-                if let plansData = response.data{
-                    //노티피케이션 센터 이용해서 팝시키고 메인에 토스트 띄우기
-                }
-            case .requestErr(let msg):
-                print("requestERR \(msg)")
-            case .pathErr:
-                print("pathErr")
-            case .serverErr:
-                print("serverErr")
-            case .networkFail:
-                print("networkFail")
-            
-            }
-        }
-    }
+
     
 
 //MARK: Layout
@@ -1120,5 +1108,50 @@ extension RequestPlansDateVC: tapCellViewDelegate{
     }
     
     
+}
+
+//MARK: Network
+
+extension RequestPlansDateVC{
+    func requestPlans(){
+        PostRequestPlansService.shared.requestPlans(guest: <#T##[Host]#>, title: <#T##String#>, contents: <#T##String#>, date: <#T##[String]#>, start: <#T##[String]#>, end: <#T##[String]#>){ responseData in
+            switch responseData {
+            case.success(let requestResponse):
+                guard let response = requestResponse as? RequestResponseData else { return }
+                if let plansData = response.data{
+                    //노티피케이션 센터 이용해서 팝시키고 메인에 토스트 띄우기
+                }
+            case .requestErr(let msg):
+                print("requestERR \(msg)")
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            
+            }
+        }
+    }
+    
+    func requestCalendarData(year: String, month: String) {
+        GetScheduleService.shared.getScheduleData(year: <#T##String#>, month: <#T##String#>)  { responseData in
+            switch responseData {
+            case .success(let response):
+                guard let response = response as? InvitationPlanData else { return }
+                self.scheduleData = response.data
+               // self.calendar.reloadData()
+            case .requestErr(let msg):
+                print(msg)
+            case .pathErr:
+                print("path error")
+            case .serverErr:
+                print("server error")
+            case .networkFail:
+                print("network Fail")
+            }
+        }
+    }
+
 }
 
