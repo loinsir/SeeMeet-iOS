@@ -1,16 +1,25 @@
+
 import Foundation
 
-// MARK: - HomeDataModel
+// MARK: - PlansDetailDataModel
 struct PlansDetailDataModel: Codable {
     let status: Int
     let success: Bool
-    let data: PlansDetailListData
+    let data: PlansDetailData
 }
 
 // MARK: - DataClass
-struct PlansDetailListData: Codable {
+struct PlansDetailData: Codable {
+    let isResponse: Bool
     let invitation: PlansInvitation
-    let invitationDates: [InvitationDate]
+    let invitationDates: [PlansInvitationDate]
+    let guests: [PlansGuest]
+}
+
+// MARK: - Guest
+struct PlansGuest: Codable {
+    let id: Int
+    let username: String
 }
 
 // MARK: - Invitation
@@ -20,8 +29,6 @@ struct PlansInvitation: Codable {
     let isConfirmed, isCancled: Bool
     let createdAt: String
     let isDeleted: Bool
-    let host: PlansHost
-    let guests: [PlansGuest]
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -32,32 +39,17 @@ struct PlansInvitation: Codable {
         case isCancled = "is_cancled"
         case createdAt = "created_at"
         case isDeleted = "is_deleted"
-        case host, guests
     }
 }
 
-// MARK: - Guest
-struct PlansGuest: Codable {
-    let id: Int
-    let username: String
-    let isResponse: Bool
-}
-
-// MARK: - Host
-struct PlansHost: Codable {
-    let id: Int
-    let username: String
-}
-
 // MARK: - InvitationDate
-struct InvitationDate: Codable {
+struct PlansInvitationDate: Codable {
     let id, invitationID: Int
     let date, start, end: String
-    let respondent: [PlansHost]
 
     enum CodingKeys: String, CodingKey {
         case id
         case invitationID = "invitation_id"
-        case date, start, end, respondent
+        case date, start, end
     }
 }
