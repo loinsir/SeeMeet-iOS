@@ -35,6 +35,7 @@ class PlansReceiveVC: UIViewController {
     }
     private let backButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "btn_back"), for: .normal)
+        $0.addTarget(self, action: #selector(backButtonClicked(_:)), for: .touchUpInside)
     }
     private let titleLabel = UILabel().then{
         $0.textColor = UIColor.orange
@@ -43,11 +44,11 @@ class PlansReceiveVC: UIViewController {
     }
     private let nameTitleLabel = UILabel().then{
         $0.textColor = UIColor.grey06
-        $0.font = UIFont.hanSansBoldFont(ofSize: 24)
+        $0.font = UIFont.hanSansRegularFont(ofSize: 24)
         $0.text = "김준희님이 보냈어요"
     }
     private let titleImageView = UIImageView().then{
-        $0.image = UIImage(named: "profile_Dummy")
+        $0.image = UIImage(named: "img_illust_11")
     }
     //textView
     private let textBackGroundView = UIView().then{
@@ -139,6 +140,11 @@ class PlansReceiveVC: UIViewController {
         $0.setTitle("답변", for: .normal)
         $0.addTarget(self, action: #selector(accessButtonClicked(_:)), for: .touchUpInside)
     }
+    //emptyView
+    private let emptyLabel = UILabel().then{
+        $0.attributedText = String.getAttributedText(text: "일정이 없어요!", letterSpacing: -0.6, lineSpacing: nil)
+        $0.textColor = UIColor.grey04
+    }
     //MARK: setLayout
     func addView(){
         view.addSubviews([backGroundScrollView, headerBackgroundView])
@@ -221,7 +227,7 @@ class PlansReceiveVC: UIViewController {
         nameTagButtonStackView.snp.makeConstraints{
             $0.top.equalTo(withRecieveLabel.snp.bottom).offset(11)
             $0.leading.equalToSuperview().offset(20)
-            $0.width.equalTo(128)
+            $0.width.equalTo(188)
             $0.height.equalTo(32)
         }
         withReciveBottomView.snp.makeConstraints{
@@ -256,6 +262,7 @@ class PlansReceiveVC: UIViewController {
         detailSelectDateCollectionView.delegate = self
         detailSelectDateCollectionView.dataSource = self
         detailSelectDateCollectionView.registerCustomXib(xibName: "PlansReceiveCVC")
+        detailBackgroundView.addSubview(emptyLabel)
         
         detailBackgroundView.snp.makeConstraints{
             $0.top.equalTo(selectDateBackgroundView.snp.bottom).offset(0)
@@ -264,6 +271,12 @@ class PlansReceiveVC: UIViewController {
             $0.width.equalTo(userWidth)
             $0.height.equalTo(261)
         }
+        emptyLabel.snp.makeConstraints{
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
+            $0.width.equalTo(100)
+        }
+        emptyLabel.isHidden = true
         detailCollectionHeadLabel.snp.makeConstraints{
             $0.top.equalToSuperview().offset(24)
             $0.leading.equalToSuperview().offset(20)
@@ -315,12 +328,13 @@ class PlansReceiveVC: UIViewController {
             let yearLabel = UILabel().then{
                 $0.font = UIFont.dinProBoldFont(ofSize: 16)
                 $0.textColor = UIColor.grey06
-                $0.text = "2021.12.23"
+                $0.text = plansDate[cellCount-1].date
             }
             let timeLabel = UILabel().then{
                 $0.font = UIFont.dinProRegularFont(ofSize: 14)
                 $0.textColor = UIColor.grey06
-                $0.text = "오전 11:00 ~ 오후 04:00"
+                $0.text = setDateLabel(date: plansDate[cellCount-1].start) + " ~ " + setDateLabel(date: plansDate[cellCount-1].end)
+//                $0.text = "오전 11:00 ~ 오후 04:00"
             }
             checkButton = UIButton().then{
                 $0.tag = cellCount
@@ -394,14 +408,20 @@ class PlansReceiveVC: UIViewController {
     //MARK: Var
     let userHeigth: Int = UIScreen.getDeviceHeight()
     let userWidth: Int = UIScreen.getDeviceWidth()
-    let nameDummy: [String] = ["하이루", "바이루"]
-    let dateCount: Int = 4
-    var cellIndex: Int = 0
+    var nameDummy: [String] = ["하이루", "바이루"]
+    var dateCount: Int = 4
+    var cellIndex: Int = 1
     var isFinished: Bool = false
-    var isChecked: [Bool] = [false, true, true, false]
+    var isChecked: [Bool] = [false, false, false, false]
+    var plansId: String = "0"
+    var plansData: [PlansDetailData] = []
+    var plansDate: [PlansInvitationDate] = []
+    var collectionData: [ResponseDateData] = []
+    var collectionCellCount: Int = 0
     
     //Function
     func setStackButton(){
+        var i: Int = 0
         nameDummy.forEach {
             let nameButton: UIButton = UIButton()
             nameButton.titleLabel?.font = UIFont.hanSansRegularFont(ofSize: 13)
@@ -410,6 +430,9 @@ class PlansReceiveVC: UIViewController {
             nameButton.backgroundColor = UIColor.white
             nameButton.clipsToBounds = true
             nameButton.layer.borderWidth = 1
+            if nameDummy[0] == ""{
+                nameButton.layer.borderWidth = 0
+            }
             nameButton.layer.borderColor = UIColor.pink01.cgColor
             nameButton.layer.cornerRadius = 12
             nameTagButtonStackView.addArrangedSubview(nameButton)
@@ -423,6 +446,8 @@ class PlansReceiveVC: UIViewController {
                 self.sideView.transform = yFrame
             }
         }
+        setCVData()
+        getTodayData()
      }
     @objc private func cellCheckButtonClicked(gesture: cellIndexAction){
         if isFinished == false{
@@ -449,19 +474,118 @@ class PlansReceiveVC: UIViewController {
         AlertVC.modalPresentationStyle = .overFullScreen
         self.present(AlertVC, animated: false, completion: nil)
      }
+    @objc private func backButtonClicked(_ sender: UIButton){
+        self.navigationController?.popViewController(animated: true)
+     }
+    func addGuest(guesList: [PlansGuest]) -> [String]{
+        var cnt: Int = 0
+        var nameList: [String] = ["", "", ""]
+        for guest in guesList{
+            nameList[cnt] = guest.username
+            cnt += 1
+        }
+        return nameList
+    }
+    func addCVGuest(guesList: [ResponseUser]) -> [String]{
+        var cnt: Int = 0
+        var nameList: [String] = ["", "", ""]
+        for guest in guesList{
+            nameList[cnt] = guest.username
+            cnt += 1
+        }
+        return nameList
+    }
+    func setData(){
+        nameTitleLabel.attributedText = nameTitleLabel.setTextFontColorSpacingAttribute(defaultText: "ㅇㅇㅇ님이 보냈어요", value: -0.6, containText: "ㅇㅇㅇ님", changingFont: UIFont.hanSansBoldFont(ofSize: 24), color: UIColor.grey06)
+        plansTitleLabel.attributedText = plansTitleLabel.setTextLineAttribute(defaultText: plansData[0].invitation.invitationTitle, value: -0.6)
+        plansDetailTextView.attributedText = String.getAttributedText(text: plansData[0].invitation.invitationDesc, letterSpacing: -0.6, lineSpacing: 24)
+        nameDummy = addGuest(guesList: plansData[0].guests)
+        dateCount = plansData[0].invitationDates.count
+    }
+    func setCVData(){
+        detailCollectionHeadLabel.attributedText = detailCollectionHeadLabel.setTextLineAttribute(defaultText: plansDate[cellIndex-1].date, value: -0.6)
+    }
     
-
+    func getPlansData(){
+        GetPlansDetailDataService.shared.getPlansDetail(postID: plansId){ (response) in
+                   switch response
+                   {
+                   case .success(let data) :
+                       if let response = data as? PlansDetailDataModel{
+                           self.plansData.append(response.data)
+                           self.plansDate = self.plansData[0].invitationDates
+                           self.dateCount = self.plansData[0].invitationDates.count
+                           self.addView()
+                           self.setHeadLayout()
+                           self.setTextViewLayout()
+                           self.setSelectData()
+                           self.setSelectDateCellLayout()
+                           self.setData()
+                           self.setStackButton()
+                           self.getTodayData()
+                           self.setCVData()
+                       }
+                   case .requestErr(let message) :
+                       print("requestERR")
+                   case .pathErr :
+                       print("pathERR")
+                   case .serverErr:
+                       print("serverERR")
+                   case .networkFail:
+                       print("networkFail")
+                   }
+               }
+    }
+    func getTodayData(){
+        GetResponseDateDataService.shared.getResponseDate(date: String(51)){ (response) in
+            //String(plansData[0].invitationDates[cellIndex-1].id)
+            print(String(self.plansData[0].invitationDates[self.cellIndex-1].id))
+                   switch response
+                   {
+                   case .success(let data) :
+                       if let response = data as? ResponseDateDataModel{
+                           self.collectionData = response.data
+                           self.collectionCellCount = self.collectionData.count
+                           self.detailSelectDateCollectionView.reloadData()
+                           if self.collectionCellCount == 0 {
+                               self.emptyLabel.isHidden = false
+                           }
+                           else {
+                               self.emptyLabel.isHidden = true
+                           }
+                       }
+                   case .requestErr(let message) :
+                       print("requestERR")
+                   case .pathErr :
+                       print("pathERR")
+                   case .serverErr:
+                       print("serverERR")
+                   case .networkFail:
+                       print("networkFail")
+                   }
+               }
+    }
+    func setDateLabel(date: String) -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        var changeDate = formatter.date(from: date) ?? Date()
+        
+        let formatter2 = DateFormatter()
+        formatter2.dateFormat = "a hh:mm"
+        var returnDate = formatter2.string(from: changeDate)
+        return returnDate
+    }
+    func setEmptyView(){
+        if collectionCellCount == 0{
+            
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        addView()
-        setHeadLayout()
-        setTextViewLayout()
-        setSelectData()
-        setStackButton()
-        setSelectDateCellLayout()
+        getPlansData()
     }
+    
 }
-
 
 extension PlansReceiveVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -470,11 +594,12 @@ extension PlansReceiveVC: UICollectionViewDelegate {
 }
 extension PlansReceiveVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return collectionCellCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: PlansReceiveCVC.identifier, for: indexPath) as! PlansReceiveCVC
+        cell.setDate(title: collectionData[indexPath.row].invitationTitle, time: setDateLabel(date: collectionData[indexPath.row].start) + " ~ " + setDateLabel(date: collectionData[indexPath.row].end), nameList: addCVGuest(guesList: collectionData[indexPath.row].users))
         return cell
     }
     
