@@ -18,7 +18,7 @@ class DayCellView: UIView {
     
     var tapCellViewDelegate: tapCellViewDelegate?
     
-    private let cellView = UIView().then{
+    let cellView = UIView().then{
         $0.tintColor = UIColor.white
         $0.layer.cornerRadius = 10
         $0.backgroundColor = UIColor.white
@@ -160,6 +160,12 @@ class DayCellView: UIView {
         cellView.backgroundColor = UIColor.white
         montosunLabel.textColor = .grey04
         dayLabel.textColor = .grey06
+    }
+    func setInvalidStae(){
+        cellView.layer.borderWidth = 0
+        cellView.backgroundColor = .grey02
+        montosunLabel.textColor = .grey03
+        dayLabel.textColor = .grey03
     }
     
     func setGestureRecognizer(){
