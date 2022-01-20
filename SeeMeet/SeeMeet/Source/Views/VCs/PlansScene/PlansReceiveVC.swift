@@ -187,7 +187,6 @@ class PlansReceiveVC: UIViewController {
             $0.top.equalTo(titleLabel.snp.bottom).offset(8)
             $0.leading.equalToSuperview().offset(20)
             $0.height.equalTo(30)
-            $0.width.equalTo(205)
         }
         titleImageView.snp.makeConstraints{
             $0.top.equalToSuperview().offset(0)
@@ -245,7 +244,7 @@ class PlansReceiveVC: UIViewController {
             $0.height.equalTo(120 + (dateCount * 81))
             $0.width.equalTo(userWidth)
             if isFinished == true{
-                $0.bottom.equalToSuperview()
+                $0.bottom.equalToSuperview().offset(-52)
             }
         }
         selectDateHeadLabel.snp.makeConstraints{
@@ -418,6 +417,7 @@ class PlansReceiveVC: UIViewController {
     var plansDate: [PlansInvitationDate] = []
     var collectionData: [ResponseDateData] = []
     var collectionCellCount: Int = 0
+    var plansIndexData: [Int] = []
     
     //Function
     func setStackButton(){
@@ -430,7 +430,7 @@ class PlansReceiveVC: UIViewController {
             nameButton.backgroundColor = UIColor.white
             nameButton.clipsToBounds = true
             nameButton.layer.borderWidth = 1
-            if nameDummy[0] == ""{
+            if $0 == ""{
                 nameButton.layer.borderWidth = 0
             }
             nameButton.layer.borderColor = UIColor.pink01.cgColor
@@ -460,19 +460,51 @@ class PlansReceiveVC: UIViewController {
                 gesture.button?.setImage(UIImage(named: "ic_check_grey"), for: .normal)
                 isChecked[index] = false
             }
-            print("\(index+1)", isChecked[index])
         }
      }
     
     @objc private func accessButtonClicked(_ sender: UIButton){
         guard let requestAlertVC = SMRequestPopUpVC(withType: .recieveConfirm) as? SMRequestPopUpVC else {return}
+        var i: Int = 0
+        var yearList: [String] = []
+        var dateList: [String] = []
+
+        for chk in isChecked {
+            if chk == true {
+                yearList.append(plansDate[i].date)
+                dateList.append(setDateLabel(date: plansDate[i].start) + " ~ " + setDateLabel(date: plansDate[i].end))
+                plansIndexData.append(plansDate[i].id)
+            }
+            i += 1
+        }
+        requestAlertVC.yearText = yearList
+        requestAlertVC.dateText = dateList
+        
         requestAlertVC.modalPresentationStyle = .overFullScreen
         self.present(requestAlertVC, animated: false, completion: nil)
+        
+        requestAlertVC.pinkButtonCompletion =
+                    {
+                        self.postComfirmPlans()
+                        self.dismiss(animated: false, completion: nil)
+                        let viewControllers : [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+                        self.tabBarController?.tabBar.isHidden = false
+                        self.navigationController?.popToViewController(viewControllers[viewControllers.count - 3 ], animated: false)
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toastMessage"), object: "답변을 완료했어요.")
+                    }
      }
     @objc private func dinineButtonClicked(_ sender: UIButton){
-        guard let AlertVC = SMPopUpVC(withType: .dismissRequest) as? SMPopUpVC else {return}
+        guard let AlertVC = SMPopUpVC(withType: .refusePlans) as? SMPopUpVC else {return}
         AlertVC.modalPresentationStyle = .overFullScreen
         self.present(AlertVC, animated: false, completion: nil)
+        AlertVC.pinkButtonCompletion = {
+            self.postRejectPlans()
+            self.dismiss(animated: true, completion: nil)
+            let viewControllers : [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+            self.tabBarController?.tabBar.isHidden = false
+            self.navigationController?.popToViewController(viewControllers[viewControllers.count - 3 ], animated: false)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toastMessage"), object: "답변을 완료했어요.")
+        }
      }
     @objc private func backButtonClicked(_ sender: UIButton){
         self.navigationController?.popViewController(animated: true)
@@ -495,11 +527,21 @@ class PlansReceiveVC: UIViewController {
         }
         return nameList
     }
+    func setCheckButton(list: [PlansInvitationDate]) -> [Bool]{
+        var cnt: Int = 0
+        var checkList: [Bool] = [false, false, false, false]
+        for obj in list{
+            checkList[cnt] = obj.isSelected
+            cnt += 1
+        }
+        return checkList
+    }
     func setData(){
-        nameTitleLabel.attributedText = nameTitleLabel.setTextFontColorSpacingAttribute(defaultText: "ㅇㅇㅇ님이 보냈어요", value: -0.6, containText: "ㅇㅇㅇ님", changingFont: UIFont.hanSansBoldFont(ofSize: 24), color: UIColor.grey06)
+        var hostName: String = plansData[0].invitation.host.username
+        nameTitleLabel.attributedText = nameTitleLabel.setTextFontColorSpacingAttribute(defaultText: hostName + "님이 보냈어요", value: -0.6, containText: hostName+"님", changingFont: UIFont.hanSansBoldFont(ofSize: 24), color: UIColor.grey06)
         plansTitleLabel.attributedText = plansTitleLabel.setTextLineAttribute(defaultText: plansData[0].invitation.invitationTitle, value: -0.6)
         plansDetailTextView.attributedText = String.getAttributedText(text: plansData[0].invitation.invitationDesc, letterSpacing: -0.6, lineSpacing: 24)
-        nameDummy = addGuest(guesList: plansData[0].guests)
+        nameDummy = addGuest(guesList: plansData[0].newGuests)
         dateCount = plansData[0].invitationDates.count
     }
     func setCVData(){
@@ -515,6 +557,8 @@ class PlansReceiveVC: UIViewController {
                            self.plansData.append(response.data)
                            self.plansDate = self.plansData[0].invitationDates
                            self.dateCount = self.plansData[0].invitationDates.count
+                           self.isChecked = self.setCheckButton(list: self.plansData[0].invitationDates)
+                           self.isFinished = response.data.isResponse
                            self.addView()
                            self.setHeadLayout()
                            self.setTextViewLayout()
@@ -537,9 +581,7 @@ class PlansReceiveVC: UIViewController {
                }
     }
     func getTodayData(){
-        GetResponseDateDataService.shared.getResponseDate(date: String(51)){ (response) in
-            //String(plansData[0].invitationDates[cellIndex-1].id)
-            print(String(self.plansData[0].invitationDates[self.cellIndex-1].id))
+        GetResponseDateDataService.shared.getResponseDate(date: String(String(plansData[0].invitationDates[cellIndex-1].id))){ (response) in
                    switch response
                    {
                    case .success(let data) :
@@ -564,6 +606,44 @@ class PlansReceiveVC: UIViewController {
                        print("networkFail")
                    }
                }
+    }
+    func postComfirmPlans(){
+        PostInvitationService.shared.postInvitation(plansId: String(plansData[0].invitation.id), invitationDateIds: plansIndexData){ (response) in
+                    switch(response)
+                    {
+                    case .success(let success):
+                        if let success = success as? InvitationPlansDataModel {
+                            print(success.message, success.status, success.data)
+                        }
+                    case .requestErr(let message) :
+                        print("requestERR", message)
+                    case .pathErr :
+                        print("pathERR")
+                    case .serverErr:
+                        print("serverERR")
+                    case .networkFail:
+                        print("networkFail")
+                    }
+                }
+    }
+    func postRejectPlans(){
+        PostInvitationRejectService.shared.postRejectInvitation(plansId: String(plansData[0].invitation.id)){ (response) in
+                    switch(response)
+                    {
+                    case .success(let success):
+                        if let success = success as? InvitationRejectDataModel {
+                            print(success.message, success.status, success.data)
+                        }
+                    case .requestErr(let message) :
+                        print("requestERR", message)
+                    case .pathErr :
+                        print("pathERR")
+                    case .serverErr:
+                        print("serverERR")
+                    case .networkFail:
+                        print("networkFail")
+                    }
+                }
     }
     func setDateLabel(date: String) -> String{
         let formatter = DateFormatter()

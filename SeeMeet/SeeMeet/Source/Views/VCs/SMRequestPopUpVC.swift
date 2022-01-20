@@ -29,6 +29,8 @@ class SMRequestPopUpVC: UIViewController {
     
     private var messageLabels: [UILabel] = []
     private var dateLabels: [UILabel] = []
+    var yearText: [String] = []
+    var dateText: [String] = []
     
     var greyButtonText: String? {
         didSet {
@@ -205,9 +207,6 @@ class SMRequestPopUpVC: UIViewController {
         }
     }
     private func setDateLayout(){
-        var yearText: [String] = ["2021.01.15", "2021.01.15", "2021.01.15", "2021.01.15"]
-        var dateText: [String] = ["오전 11:00 ~  오후 4:00", "오전 11:00 ~  오후 4:00", "오전 11:00 ~  오후 4:00", "오전 11:00 ~  오후 4:00"]
-        
         yearText.forEach {
                 let label: UILabel = UILabel()
                 label.font = UIFont.dinProBoldFont(ofSize: 18)
@@ -225,10 +224,7 @@ class SMRequestPopUpVC: UIViewController {
                 dateStackView.addArrangedSubview(label)
         }
     }
-    private func setTextMessageLayout(){
-        var yearText: [String] = ["2021.01.15"]
-        var dateText: [String] = ["오전 11:00 ~  오후 4:00"]
-        
+    func setTextMessageLayout(){
         yearText.forEach {
                 let label: UILabel = UILabel()
                 label.font = UIFont.dinProBoldFont(ofSize: 18)
