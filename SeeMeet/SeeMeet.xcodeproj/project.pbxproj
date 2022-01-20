@@ -46,8 +46,6 @@
 		3623EA90278FDE0C00853F87 /* CompletePlansCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA8E278FDE0C00853F87 /* CompletePlansCVC.xib */; };
 		3623EA922791282700853F87 /* PlansReceiveVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA912791282700853F87 /* PlansReceiveVC.swift */; };
 		3623EA942791283600853F87 /* PlansReceiveList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA932791283600853F87 /* PlansReceiveList.storyboard */; };
-		3623EA9E27931EAC00853F87 /* PlansSendListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA9D27931EAC00853F87 /* PlansSendListVC.swift */; };
-		3623EAA027931EC000853F87 /* PlansSendList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA9F27931EC000853F87 /* PlansSendList.storyboard */; };
 		3623EA9A2792A8D100853F87 /* SMRequestPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA992792A8D100853F87 /* SMRequestPopUpVC.swift */; };
 		3623EA9C2792A90E00853F87 /* SMRequestPopUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA9B2792A90E00853F87 /* SMRequestPopUp.storyboard */; };
 		3623EA9E27931EAC00853F87 /* PlansSendListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA9D27931EAC00853F87 /* PlansSendListVC.swift */; };
@@ -119,6 +117,10 @@
 		6A8E388427970D7000A480F7 /* PickedDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E388327970D7000A480F7 /* PickedDate.swift */; };
 		6AAD47C6278DF01300D8C800 /* UITextField++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAD47C5278DF01300D8C800 /* UITextField++.swift */; };
 		6AC748662798256B0027B823 /* WeekDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC748652798256B0027B823 /* WeekDay.swift */; };
+		6AE863032799DEB70050A978 /* InvitationPlanDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE863022799DEB70050A978 /* InvitationPlanDataModel.swift */; };
+		6AE863052799DFA20050A978 /* RequestResponseDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE863042799DFA20050A978 /* RequestResponseDataModel.swift */; };
+		6AE863072799E2EA0050A978 /* PostRequestPlansService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE863062799E2EA0050A978 /* PostRequestPlansService.swift */; };
+		6AE863092799FABC0050A978 /* GetScheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE863082799FABC0050A978 /* GetScheduleService.swift */; };
 		6AF609222790BA6000F49DF4 /* SearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF609212790BA6000F49DF4 /* SearchTVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -163,8 +165,6 @@
 		3623EA932791283600853F87 /* PlansReceiveList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlansReceiveList.storyboard; sourceTree = "<group>"; };
 		3623EA952791D1D300853F87 /* PlansReceiveCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansReceiveCVC.swift; sourceTree = "<group>"; };
 		3623EA962791D1D300853F87 /* PlansReceiveCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlansReceiveCVC.xib; sourceTree = "<group>"; };
-		3623EA9D27931EAC00853F87 /* PlansSendListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansSendListVC.swift; sourceTree = "<group>"; };
-		3623EA9F27931EC000853F87 /* PlansSendList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlansSendList.storyboard; sourceTree = "<group>"; };
 		3623EA992792A8D100853F87 /* SMRequestPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMRequestPopUpVC.swift; sourceTree = "<group>"; };
 		3623EA9B2792A90E00853F87 /* SMRequestPopUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SMRequestPopUp.storyboard; sourceTree = "<group>"; };
 		3623EA9D27931EAC00853F87 /* PlansSendListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansSendListVC.swift; sourceTree = "<group>"; };
@@ -238,6 +238,10 @@
 		6A8E388327970D7000A480F7 /* PickedDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickedDate.swift; sourceTree = "<group>"; };
 		6AAD47C5278DF01300D8C800 /* UITextField++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField++.swift"; sourceTree = "<group>"; };
 		6AC748652798256B0027B823 /* WeekDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDay.swift; sourceTree = "<group>"; };
+		6AE863022799DEB70050A978 /* InvitationPlanDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationPlanDataModel.swift; sourceTree = "<group>"; };
+		6AE863042799DFA20050A978 /* RequestResponseDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestResponseDataModel.swift; sourceTree = "<group>"; };
+		6AE863062799E2EA0050A978 /* PostRequestPlansService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRequestPlansService.swift; sourceTree = "<group>"; };
+		6AE863082799FABC0050A978 /* GetScheduleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetScheduleService.swift; sourceTree = "<group>"; };
 		6AF609212790BA6000F49DF4 /* SearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTVC.swift; sourceTree = "<group>"; };
 		7E4152A410430753EE447189 /* Pods_SeeMeet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SeeMeet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3594175EA1BA01667464A70 /* Pods-SeeMeet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SeeMeet.debug.xcconfig"; path = "Target Support Files/Pods-SeeMeet/Pods-SeeMeet.debug.xcconfig"; sourceTree = "<group>"; };
@@ -381,6 +385,8 @@
 				19509B682798583500CAA4C2 /* FriendsSearchService.swift */,
 				19509B6E27989DAF00CAA4C2 /* FriendsAddService.swift */,
 				3623EAD927980F0600853F87 /* GetPlansListDataService.swift */,
+				6AE863062799E2EA0050A978 /* PostRequestPlansService.swift */,
+				6AE863082799FABC0050A978 /* GetScheduleService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -397,6 +403,8 @@
 				3623EAD32797DAE900853F87 /* FriendsListDataModel.swift */,
 				19509B6A27986D2A00CAA4C2 /* FriendsSearchResponseModel.swift */,
 				3623EAD727980EC000853F87 /* PlansListDataModel.swift */,
+				6AE863022799DEB70050A978 /* InvitationPlanDataModel.swift */,
+				6AE863042799DFA20050A978 /* RequestResponseDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -925,6 +933,7 @@
 				3623EAD42797DAE900853F87 /* FriendsListDataModel.swift in Sources */,
 				3623EAC42797038100853F87 /* PostLoginService.swift in Sources */,
 				1912FCAE278AB7A000F33952 /* CalendarVC.swift in Sources */,
+				6AE863072799E2EA0050A978 /* PostRequestPlansService.swift in Sources */,
 				3623EAD827980EC000853F87 /* PlansListDataModel.swift in Sources */,
 				36EFE31E2785CC3B00466818 /* UIView++.swift in Sources */,
 				1919F5D4278B5E18009F33AE /* CalendarPlansCVC.swift in Sources */,
@@ -935,6 +944,7 @@
 				3623EAC6279705C500853F87 /* ToastMessageView.swift in Sources */,
 				19509B6B27986D2A00CAA4C2 /* FriendsSearchResponseModel.swift in Sources */,
 				36EFE3112785C8D600466818 /* HomeVC.swift in Sources */,
+				6AE863032799DEB70050A978 /* InvitationPlanDataModel.swift in Sources */,
 				19509B6F27989DAF00CAA4C2 /* FriendsAddService.swift in Sources */,
 				3623EAA42795437400853F87 /* LoginVC.swift in Sources */,
 				6A4A20ED278B5F7000DD4DCD /* RequestPlansContentsVC.swift in Sources */,
@@ -951,6 +961,7 @@
 				19509B672796C25100CAA4C2 /* CalendarService.swift in Sources */,
 				191E8C1C278F38DC0042B8F1 /* String++.swift in Sources */,
 				3623EAB22796A77A00853F87 /* Constants.swift in Sources */,
+				6AE863092799FABC0050A978 /* GetScheduleService.swift in Sources */,
 				360E6F4627898D4400DACFD8 /* HomeEventCVC.swift in Sources */,
 				6A8E388427970D7000A480F7 /* PickedDate.swift in Sources */,
 				1968464B279413A900DBAF3A /* DateTicketView.swift in Sources */,
@@ -970,6 +981,7 @@
 				36EFE3202785CC3B00466818 /* UITabelView++.swift in Sources */,
 				1950E5142791DAA300ED357B /* FriendsAddVC.swift in Sources */,
 				3623EAC02796ED1000853F87 /* PostRegisterService.swift in Sources */,
+				6AE863052799DFA20050A978 /* RequestResponseDataModel.swift in Sources */,
 				19E633DE278D84F200776D0C /* CalendarDetailVC.swift in Sources */,
 				36545312278EA30400A0770F /* UILabel++.swift in Sources */,
 				3623EAC22796F8A500853F87 /* TokenUtils.swift in Sources */,

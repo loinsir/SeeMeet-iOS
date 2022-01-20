@@ -18,4 +18,8 @@ struct Constants {
     
     //약속 관련
     static let plansListURL = baseURL + "/invitation/list"
+    
+    //약속신청 관련
+    static let invitationPlanURL = baseURL + "/plan/invitationplan"
+    static let invitationURL = baseURL + "/invitation"
 }

@@ -628,7 +628,27 @@ class RequestPlansDateVC: UIViewController {
         bottomSheetView.addPickedDate(date: selectedDate)
     }
 
-    
+//MARK: Network
+    func requestPlans(){
+        PostRequestPlansService.shared.requestPlans(guest: <#T##[Host]#>, title: <#T##String#>, contents: <#T##String#>, date: <#T##[String]#>, start: <#T##[String]#>, end: <#T##[String]#>){ responseData in
+            switch responseData {
+            case.success(let requestResponse):
+                guard let response = requestResponse as? RequestResponseData else { return }
+                if let plansData = response.data{
+                    //노티피케이션 센터 이용해서 팝시키고 메인에 토스트 띄우기
+                }
+            case .requestErr(let msg):
+                print("requestERR \(msg)")
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            
+            }
+        }
+    }
     
 
 //MARK: Layout
