@@ -171,6 +171,7 @@ class FriendsListVC: UIViewController {
     
     @objc private func touchUpBackButton(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     @objc private func touchUpAddFriendsButton(_ sender: UIButton) {
