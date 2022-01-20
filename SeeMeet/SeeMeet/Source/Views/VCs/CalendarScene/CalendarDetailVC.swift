@@ -23,7 +23,6 @@ class CalendarDetailVC: UIViewController {
     let navigationTitleLabel: UILabel = UILabel().then {
         $0.font = UIFont(name: "SpoqaHanSansNeo-Medium", size: 18.0)
         $0.textAlignment = .center
-        $0.text = "2022년 1월 15일 금요일"
         $0.textColor = UIColor.white
     }
     
@@ -51,7 +50,10 @@ class CalendarDetailVC: UIViewController {
         $0.isLayoutMarginsRelativeArrangement = true
     }
     
-    let nameList: [String] = ["김인환", "김인환"]
+    var planID: Int?
+    
+    private var possibleNameList: [String] = []
+    private var impossibleNameList: [String] = []
     
     private let separator: UIView = UIView().then {
         $0.backgroundColor = UIColor.grey02
@@ -79,7 +81,6 @@ class CalendarDetailVC: UIViewController {
         $0.backgroundColor = UIColor.clear
         $0.textColor = UIColor.grey06
         $0.font = UIFont(name: "SpoqaHanSansNeo-Regular", size: 14)
-        $0.text = "야그들아 대방어먹게 시간 비워놔라야그들아 대방어먹게 시간 비워놔라 야그들아 대방어먹게 시간 비워놔라야그들아 대방어먹게 시간 비워놔라 야그들아 대방어먹게 시간 비워놔라야그들아 대방어먹게 시간 비워놔라 야그들아 대방어먹게 시간 비워놔라야그들아 대방어먹게 시간 비워놔라 야그들아 대방어먹게 시간 비워놔라야그들아 대방어먹게 시간 비워놔라 야그들 "
         
         $0.textContainerInset = UIEdgeInsets(top: 10 * heightRatio, left: 10 * widthRatio, bottom: 10 * heightRatio, right: 10 * widthRatio)
     }
@@ -117,7 +118,12 @@ class CalendarDetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayouts()
+        requestPlanDetail()
+        print(impossibleNameList)
+        print(possibleNameList)
     }
+    
+    // MARK: - methods
     
     private func setLayouts() {
 
@@ -163,23 +169,6 @@ class CalendarDetailVC: UIViewController {
             $0.leading.equalToSuperview().offset(10 * widthRatio)
             $0.top.equalTo(timeLabel.snp.bottom).offset(20 * heightRatio)
             $0.height.equalTo(46 * heightRatio)
-        }
-        
-        nameList.forEach {
-            let label = UILabel()
-            label.text = $0
-            label.textColor = UIColor.white
-            label.textAlignment = .center
-            label.backgroundColor = UIColor.pink01
-            label.clipsToBounds = true
-            label.layer.cornerRadius = 10
-            
-            let numberOfCharacters = $0.count
-            label.snp.makeConstraints {
-                $0.height.equalTo(26 * heightRatio)
-                $0.width.equalTo(63 * Int(widthRatio) * numberOfCharacters / 3)
-            }
-            nameTagStackView.addArrangedSubview(label)
         }
         
         view.addSubview(separator)
@@ -257,6 +246,89 @@ class CalendarDetailVC: UIViewController {
             $0.height.equalTo(54 * heightRatio)
         }
     }
+    
+    private func requestPlanDetail() { // UI 코드를 분리 시켜야 할듯... 일단 나중에ㅠㅠ
+        guard let planID = planID else {
+            view.makeToastAnimation(message: "약속 조회 오류! 다시 시도해주세요.")
+            return
+        }
+
+        CalendarService.shared.getDetailPlanData(planID: planID) { responseData in
+            switch responseData {
+            case .success(let response):
+                guard let response = response as? PlanDetailResponseModel else { return }
+                self.eventTitleLabel.text = response.data?.invitationTitle
+                self.letterTitleLabel.text = response.data?.invitationTitle
+                self.letterContentView.text = response.data?.invitationDesc
+                self.organizerNameLabel.text = response.data?.hostName
+                (response.data?.possible.map { $0.username } ?? []).forEach {
+                    let label = UILabel()
+                    label.text = $0
+                    label.textColor = UIColor.white
+                    label.textAlignment = .center
+                    label.backgroundColor = UIColor.pink01
+                    label.clipsToBounds = true
+                    label.layer.cornerRadius = 13
+
+                    let numberOfCharacters = $0.count
+                    label.snp.makeConstraints {
+                        $0.height.equalTo(26 * heightRatio)
+                        $0.width.equalTo(63 * Int(widthRatio) * numberOfCharacters / 3)
+                    }
+                    self.nameTagStackView.addArrangedSubview(label)
+                    self.nameTagStackView.sizeToFit()
+                }
+                (response.data?.impossible.map { $0.username } ?? []).forEach {
+                    let label = UILabel()
+                    label.text = $0
+                    label.textColor = UIColor.white
+                    label.textAlignment = .center
+                    label.backgroundColor = UIColor.pink01
+                    label.clipsToBounds = true
+                    label.layer.cornerRadius = 13
+
+                    let numberOfCharacters = $0.count
+                    label.snp.makeConstraints {
+                        $0.height.equalTo(26 * heightRatio)
+                        $0.width.equalTo(63 * Int(widthRatio) * numberOfCharacters / 3)
+                    }
+                    self.nameTagStackView.addArrangedSubview(label)
+                    self.nameTagStackView.sizeToFit()
+                }
+                
+                let formatter = DateFormatter().then {
+                    $0.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                    $0.timeZone =  NSTimeZone(name: "UTC") as TimeZone?
+                    $0.locale = Locale(identifier: "ko_KR")
+                }
+                
+                if let responseDate = response.data?.date,
+                   let date: Date = formatter.date(from: responseDate){
+                    formatter.dateFormat = "yyyy월 M월 d일 E요일"
+                    self.navigationTitleLabel.text = formatter.string(from: date)
+                }
+                
+            case .requestErr(let response):
+                guard let response = response as? PlanDetailResponseModel,
+                      let message = response.message else { return }
+                self.view.makeToastAnimation(message: message)
+                
+            case .pathErr:
+                print("Path Err")
+                self.view.makeToastAnimation(message: "요청 오류! 다시 시도하십시오.")
+                
+            case .serverErr:
+                print("Server Err")
+                self.view.makeToastAnimation(message: "서버 에러! 다시 시도하십시오.")
+                
+            case .networkFail:
+                print("Network Err")
+                self.view.makeToastAnimation(message: "통신 오류! 다시 시도하십시오.")
+            }
+        }
+    }
+    
+    // MARK: - objc
     
     @objc private func touchBackButton(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)

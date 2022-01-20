@@ -32,7 +32,7 @@ struct CalendarService {
             case .success:
                 if let statusCode = responseData.response?.statusCode,
                    let value = responseData.value {
-                    let networkResult = judgeLoginStatus(by: statusCode, value)
+                    let networkResult = judgeStatus(by: statusCode, value)
                     completion(networkResult)
                 }
             case .failure(let error):
@@ -56,7 +56,7 @@ struct CalendarService {
             case .success:
                 if let statusCode = responseData.response?.statusCode,
                     let value = responseData.value {
-                    let networkResult = judgeLoginStatus(by: statusCode, value)
+                    let networkResult = judgeStatus(by: statusCode, value)
                     completion(networkResult)
                 }
             case .failure(let error):
@@ -66,18 +66,25 @@ struct CalendarService {
         }
     }
     
-    private func judgeLoginStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
+    private func judgeStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
         switch statusCode {
-        case 200: return isValidLoginData(data: data)
+        case 200: return isValidData(data: data)
         case 400: return .pathErr
         case 500: return .serverErr
         default: return .networkFail
         }
     }
     
-    private func isValidLoginData(data: Data) -> NetworkResult<Any> {
+    private func isValidData(data: Data) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
-        guard let decodedData = try? decoder.decode(MonthlyPlansResponseModel.self, from: data) else { return .pathErr}
-        return .success(decodedData)
+        if let decodedData = try? decoder.decode(MonthlyPlansResponseModel.self, from: data){
+            return .success(decodedData)
+        } else {
+            if let decodedData = try? decoder.decode(PlanDetailResponseModel.self, from: data) {
+                return .success(decodedData)
+            } else {
+                return .pathErr
+            }
+        }
     }
 }

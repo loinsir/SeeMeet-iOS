@@ -3,8 +3,9 @@ import Foundation
 // MARK: - PlanDetailResponseModel
 struct PlanDetailResponseModel: Codable {
     let status: Int
-    let success: Bool
-    let data: PlanDetailData
+    let success: Bool?
+    let data: PlanDetailData?
+    let message: String?
 }
 
 // MARK: - PlanDetailData
@@ -12,12 +13,12 @@ struct PlanDetailData: Codable {
     let planid, invitationid: Int
     let invitationTitle, invitationDesc, date, start: String
     let end: String
-    let hostID: Int
+    let hostName: String
     let impossible, possible: [PossibleUser]
 
     enum CodingKeys: String, CodingKey {
         case planid, invitationid, invitationTitle, invitationDesc, date, start, end
-        case hostID = "hostId"
+        case hostName = "hostname"
         case impossible, possible
     }
 }

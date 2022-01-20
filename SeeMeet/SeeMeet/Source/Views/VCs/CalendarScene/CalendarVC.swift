@@ -19,7 +19,7 @@ class CalendarVC: UIViewController {
         $0.font = UIFont.dinProBoldFont(ofSize: 22)
     }
     
-    fileprivate weak var calendar: FSCalendar! = FSCalendar().then {
+    private weak var calendar: FSCalendar! = FSCalendar().then {
         $0.select($0.today)
         $0.scope = .month
         $0.locale = Locale(identifier: "ko_KR")
@@ -83,6 +83,8 @@ class CalendarVC: UIViewController {
         }
     }
     private var selectedDatas: [Plan]?
+    
+    // MARK: - Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -278,7 +280,7 @@ extension CalendarVC: UICollectionViewDataSource {
         
         cell.hourLabel.text = hourString
         var namesToShow: [String] = planData?.users.map { $0.username } ?? []
-        if namesToShow.count > 3 {
+        if namesToShow.count > 3 { // 최대 3개만 보여줍시다.
             namesToShow.removeSubrange(3...namesToShow.count-1)
         }
         cell.namesToShow = namesToShow
@@ -288,8 +290,16 @@ extension CalendarVC: UICollectionViewDataSource {
 
 extension CalendarVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         tabBarController?.tabBar.isHidden = true
         guard let detailVC = UIStoryboard(name: "CalendarDetail", bundle: nil).instantiateViewController(withIdentifier: CalendarDetailVC.identifier) as? CalendarDetailVC else { return }
+        
+        let planData = selectedDatas?[indexPath.row]
+        detailVC.planID = planData?.planID // 데이터 요청용 ID
+        
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CalendarPlansCVC else { return }
+        detailVC.timeLabel.text = cell.hourLabel.text
+        
         navigationController?.pushViewController(detailVC, animated: true)
     }
 }
