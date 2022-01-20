@@ -52,6 +52,7 @@ struct CalendarService {
                                  headers: headers)
         
         request.responseData { responseData in
+            dump(responseData)
             switch responseData.result {
             case .success:
                 if let statusCode = responseData.response?.statusCode,

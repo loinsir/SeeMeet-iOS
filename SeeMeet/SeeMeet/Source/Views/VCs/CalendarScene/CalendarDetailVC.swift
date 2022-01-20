@@ -29,7 +29,6 @@ class CalendarDetailVC: UIViewController {
     let eventTitleLabel: UILabel = UILabel().then {
         $0.font = UIFont(name: "SpoqaHanSansNeo-Bold", size: 22.0)
         $0.textColor = UIColor.grey06
-        $0.text = "대방어 데이"
         $0.textAlignment = .left
         $0.numberOfLines = 0
         $0.lineBreakMode = .byCharWrapping
@@ -38,7 +37,6 @@ class CalendarDetailVC: UIViewController {
     let timeLabel: UILabel = UILabel().then {
         $0.font = UIFont(name: "DINPro-Regular", size: 18.0)
         $0.textColor = UIColor.grey06
-        $0.text = "오전 11:00 - 오후 2:00"
     }
     
     private let nameTagStackView: UIStackView = UIStackView().then {
@@ -68,7 +66,6 @@ class CalendarDetailVC: UIViewController {
     let letterTitleLabel: UILabel = UILabel().then {
         $0.font = UIFont(name: "SpoqaHanSansNeo-Bold", size: 14)
         $0.textColor = UIColor.grey06
-        $0.text = "대방어 데이를가지려는데 너희는 어떤지 점 궁금하다"
         $0.lineBreakMode = .byTruncatingTail
     }
     
@@ -96,7 +93,6 @@ class CalendarDetailVC: UIViewController {
     }
     
     let organizerNameLabel: UILabel = UILabel().then {
-        $0.text = "김준희"
         $0.font = UIFont(name: "SpoqaHanSansNeo-Bold", size: 15)
     }
     
@@ -119,8 +115,6 @@ class CalendarDetailVC: UIViewController {
         super.viewDidLoad()
         setLayouts()
         requestPlanDetail()
-        print(impossibleNameList)
-        print(possibleNameList)
     }
     
     // MARK: - methods
@@ -284,7 +278,7 @@ class CalendarDetailVC: UIViewController {
                     label.text = $0
                     label.textColor = UIColor.white
                     label.textAlignment = .center
-                    label.backgroundColor = UIColor.pink01
+                    label.backgroundColor = UIColor.grey04
                     label.clipsToBounds = true
                     label.layer.cornerRadius = 13
 
@@ -298,7 +292,7 @@ class CalendarDetailVC: UIViewController {
                 }
                 
                 let formatter = DateFormatter().then {
-                    $0.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                    $0.dateFormat = "yyyy-MM-dd"
                     $0.timeZone =  NSTimeZone(name: "UTC") as TimeZone?
                     $0.locale = Locale(identifier: "ko_KR")
                 }
