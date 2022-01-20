@@ -2,10 +2,10 @@ import UIKit
 
 fileprivate let userHeight = UIScreen.getDeviceHeight() - 0.0
 fileprivate let userWidth = UIScreen.getDeviceWidth() - 0.0
-//fileprivate let heightRatio = userHeight / 812
-fileprivate let heightRatio = 1.0
-//fileprivate let widthRatio = userWidth / 375
-fileprivate let widthRatio = 1.0
+fileprivate let heightRatio = userHeight / 812
+//fileprivate let heightRatio = 1.0
+fileprivate let widthRatio = userWidth / 375
+//fileprivate let widthRatio = 1.0
 
 protocol TapTouchAreaViewDelegate{
     func tapTouchAreaView(dateSheetView: SelectedDateSheet)
@@ -15,6 +15,23 @@ class SelectedDateSheet: UIView {
     // MARK: - properties
     
     static let identifier: String = "SelectedDateSheet"
+    
+    var pickedDateList: [PickedDate] = [] {
+        willSet {
+            dateTicketsStackView.removeAllSubViews()
+            newValue.forEach {
+                let dateTicketView: DateTicketView = DateTicketView()
+                dateTicketView.delegate = self
+                dateTicketView.pickedDate = $0
+                dateTicketView.dateLabel.text = $0.getDateString()
+                dateTicketView.timeLabel.text = $0.getStartToEndString()
+                dateTicketsStackView.addArrangedSubview(dateTicketView)
+               
+            }
+            updateStackViewHeight(by: newValue.count)
+            selectedCountLabel.text = "\(newValue.count)/4"
+        }
+    }
     
     var tapTouchAreaViewDelegate: TapTouchAreaViewDelegate?
     
@@ -91,17 +108,16 @@ class SelectedDateSheet: UIView {
         
         dateTicketsStackView.snp.makeConstraints {
            // $0.width.equalTo(349 * widthRatio)
-            $0.height.equalTo(200 * heightRatio)
             $0.leading.equalToSuperview().offset(19 * widthRatio)
             $0.trailing.equalToSuperview().offset(-6 * widthRatio)
             $0.top.equalTo(titleLabel.snp.bottom)
+            $0.height.equalTo(73 * heightRatio)
         }
         
         // 임시!
-        dateTicketsStackView.addArrangedSubview(DateTicketView())
-        dateTicketsStackView.addArrangedSubview(DateTicketView())
 //        dateTicketsStackView.addArrangedSubview(DateTicketView())
-        updateStackViewHeight()
+//        dateTicketsStackView.addArrangedSubview(DateTicketView())
+//        dateTicketsStackView.addArrangedSubview(DateTicketView())
     }
     
     private func setGestureRecognizer(){
@@ -117,9 +133,28 @@ class SelectedDateSheet: UIView {
         }
 //    
     // 스택뷰 갯수 바뀌고 마지막에 반드시 호출할 함수
-    private func updateStackViewHeight() {
-            dateTicketsStackView.snp.updateConstraints {
-                $0.height.equalTo(73 * CGFloat(2) * heightRatio)
-            }
+    private func updateStackViewHeight(by count: Int) {
+        dateTicketsStackView.snp.updateConstraints {
+            $0.height.equalTo(73 * Double(count) * heightRatio)
         }
+    }
+    
+    func addPickedDate(date: PickedDate){
+        if(pickedDateList.count < 4){
+            pickedDateList.append(date)
+           print(pickedDateList)
+        }
+       
+    }
+       
+}
+
+extension SelectedDateSheet: DateTicketViewDelegate {
+    func dateTicketViewDelete(view: DateTicketView) {
+        if let pickedDate = view.pickedDate,
+           let ticketIndex = pickedDateList.firstIndex(where: { $0 == pickedDate }) {
+                pickedDateList.remove(at: ticketIndex)
+            print(pickedDateList)
+        }
+    }
 }

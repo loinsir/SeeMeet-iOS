@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PickedDate{
+struct PickedDate {
     var startTime: Date = Date()
     var endTime: Date = Date()
    
@@ -28,5 +28,14 @@ struct PickedDate{
         
         return start + "~" + end
     }
+    
+    
    
+}
+
+extension PickedDate: Equatable {
+    static func == (lhs: PickedDate, rhs: PickedDate) -> Bool {
+        return lhs.startTime == rhs.startTime
+        && lhs.endTime == rhs.endTime
+    }
 }

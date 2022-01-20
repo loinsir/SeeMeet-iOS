@@ -5,9 +5,17 @@ fileprivate let userWidth = UIScreen.getDeviceWidth() - 0.0
 fileprivate let heightRatio = userHeight / 812
 fileprivate let widthRatio = userWidth / 375
 
+protocol DateTicketViewDelegate {
+    func dateTicketViewDelete(view: DateTicketView)
+}
+
 class DateTicketView: UIView {
     
     // MARK: - properties
+    
+    var delegate: DateTicketViewDelegate?
+    
+    var pickedDate: PickedDate?
     
     private let ticketBodyView: UIView = UIView().then {
         $0.backgroundColor = UIColor.pink02
@@ -80,7 +88,7 @@ class DateTicketView: UIView {
     }
     
     @objc private func touchUpRemoveButton(_ sender: UIButton) {
-        
+        delegate?.dateTicketViewDelete(view: self)
     }
 
 }

@@ -305,9 +305,7 @@ class RequestPlansDateVC: UIViewController {
     }
 
     func initSelectedTime(){
-        print("완전 초기")
-        print(selectedDate.startTime)
-        print(selectedDate.endTime)
+       
         let min = Calendar.current.component(.minute, from: todayDate)
         
         selectedDate.startTime = todayDate// 상단 선택된 시간 라벨의 초기값은 오늘 날짜이고 시간은 아래 기준으로 결정
@@ -340,9 +338,7 @@ class RequestPlansDateVC: UIViewController {
             selectedDate.endTime = minuteRevisedDate
         }
         updateSelectedDateLabel()
-        print("시간 초기 조건처리한후")
-        print(selectedDate.startTime)
-        print(selectedDate.endTime)
+        
 
         }
         
@@ -509,9 +505,7 @@ class RequestPlansDateVC: UIViewController {
 
         selectedDate.startTime = revisedStartDate
         updateSelectedDateLabel()
-        print("스타트데이트피커 움직인후")
-        print(selectedDate.startTime)
-        print(selectedDate.endTime)
+      
     }
     @objc func changedEndDatePicker(){
         let dateformatter = DateFormatter()
@@ -526,9 +520,7 @@ class RequestPlansDateVC: UIViewController {
         updateSelectedDateLabel()
         
         
-        print("엔드데이트피커 움직인후")
-        print(selectedDate.startTime)
-        print(selectedDate.endTime)
+       
     }
     @objc func onClickSwitch(sender: UISwitch) {
         if sender.isOn {
@@ -556,9 +548,7 @@ class RequestPlansDateVC: UIViewController {
             selectedDate.endTime = revisedEndDate
             updateSelectedDateLabel()
             
-            print("하루종일스위치 킨 후")
-            print(selectedDate.startTime)
-            print(selectedDate.endTime)
+        
 //
 //            guard let hourRevisedStartDate = Calendar.current.date(bySetting: .hour, value: 0, of: selectedDate.startTime)else {return}
 //
@@ -597,9 +587,7 @@ class RequestPlansDateVC: UIViewController {
             selectedDate.endTime = revisedEndDate
         
             updateSelectedDateLabel()
-            print("하루종일스위치 끈 후")
-            print(selectedDate.startTime)
-            print(selectedDate.endTime)
+        
             
 //            guard let hourRevisedStartDate = Calendar.current.date(bySetting: .hour, value: 9, of: selectedDate.startTime)else {return}
 //
@@ -637,8 +625,7 @@ class RequestPlansDateVC: UIViewController {
        }
     
     @objc func tapAddButton(){
-        addedDateList.append(selectedDate)
-
+        bottomSheetView.addPickedDate(date: selectedDate)
     }
 
     
