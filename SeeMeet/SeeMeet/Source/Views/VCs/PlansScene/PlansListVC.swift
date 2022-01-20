@@ -223,7 +223,7 @@ class PlansListVC: UIViewController {
         progressHeadCountLabel.snp.makeConstraints{
             $0.centerY.equalTo(progressHeadLabel)
             $0.trailing.equalToSuperview().offset(-20)
-            $0.width.equalTo(35)
+            $0.width.equalTo(50)
         }
         completeHeadView.snp.makeConstraints{
             $0.top.equalTo(headerView.snp.bottom).offset(0)
@@ -257,7 +257,6 @@ class PlansListVC: UIViewController {
             $0.width.equalTo(userWidth)
             $0.height.equalTo(userHeight-242)
         }
-        
         setCountLabel()
         
     }
@@ -425,7 +424,6 @@ class PlansListVC: UIViewController {
 
         let interval = endDate.timeIntervalSince(startDate)
         let days = Int(interval / 86400)
-        print("\(days) 일 차이 난다") //4일
 
         return String(abs(days))
     }
@@ -460,12 +458,13 @@ extension PlansListVC: UICollectionViewDataSource{
             let progressSendCell = collectionView.dequeueReusableCell(withReuseIdentifier: ProgressSendCVC.identifier, for: indexPath) as! ProgressSendCVC
             let progressRecieveCell = collectionView.dequeueReusableCell(withReuseIdentifier: ProgressReceiveCVC.identifier, for: indexPath) as! ProgressReceiveCVC
         
+            //받은요청
             if invitaionData[indexPath.row].isReceived == false {
                 progressRecieveCell.setData(freindsCnt: calGuest(guestList: invitaionData[indexPath.row].guests!), nameList: addGuest(guesList: invitaionData[indexPath.row].guests!), dayAgo: dateCal(date: invitaionData[indexPath.row].createdAt), nameAccept: addBoolGuest(guesList: invitaionData[indexPath.row].guests!))
                 return progressRecieveCell
             }
+            //보낸요청
             if invitaionData[indexPath.row].isReceived == true{
-                print(invitaionData[indexPath.row].createdAt, "asfdasdf")
                 progressSendCell.setData(dayAgo: dateCal(date: invitaionData[indexPath.row].createdAt), hostName: invitaionData[indexPath.row].host?.username ?? "")
                 return progressSendCell
             }
@@ -482,9 +481,23 @@ extension PlansListVC: UICollectionViewDataSource{
         }
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let receiveVC = UIStoryboard(name: "PlansReceiveList", bundle: nil).instantiateViewController(withIdentifier: "PlansReceiveVC") as? PlansReceiveVC else {return}
-        self.navigationController?.pushViewController(receiveVC, animated: true)
+            if collectionView == progressCollectionView{
+                    guard let receiveVC = UIStoryboard(name: "PlansReceiveList", bundle: nil).instantiateViewController(withIdentifier: "PlansReceiveVC") as? PlansReceiveVC else {return}
+                    if invitaionData[indexPath.row].isReceived == true {
+                        receiveVC.plansId = String(invitaionData[indexPath.row].id)
+                        self.navigationController?.pushViewController(receiveVC, animated: true)
+                    }
+                    else{
+                        guard let sendVC = UIStoryboard(name: "PlansSendList", bundle: nil).instantiateViewController(withIdentifier: "PlansSendListVC") as? PlansSendListVC else {return}
+                        sendVC.plansId = String(invitaionData[indexPath.row].id)
+                        self.navigationController?.pushViewController(sendVC, animated: true)
+                    }
+                }
+            else {
+            
+            }
     }
+
     
 }
 extension PlansListVC: UICollectionViewDelegateFlowLayout{

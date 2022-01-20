@@ -28,6 +28,7 @@ class PlansSendListVC: UIViewController {
     }
     private let backButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "btn_back"), for: .normal)
+        $0.addTarget(self, action: #selector(backButtonClicked(_:)), for: .touchUpInside)
     }
     private let headLabel = UILabel().then{
         $0.font = UIFont.hanSansRegularFont(ofSize: 24)
@@ -95,15 +96,22 @@ class PlansSendListVC: UIViewController {
     }
     //MARK: Var
     var dateCount: Int = 4
+    var plansId: String = "0"
     var isChecked: Bool = false
     var cellChecked: Bool = false
     var checkedIndex: Int = 0
-    
+    var plansData: [PlansSendDetailData] = []
+    var plansDate: [PlansSendInvitationDate] = []
+    var nameDummy: [String] = ["김김김", "김김김", "김김김"]
+    var cellNameDummy: [String] = ["아ㅋㅋ", "아ㅋㅋ", "아ㅋㅋ"]
+    var nameBoolList: [Bool] = [false, false, false]
+    var nameCount: Int = 0
+    var profileCount: Int = 0
+    var checkDataId: Int = 0
     //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        setHeadLayout()
-        setCellViewLayout()
+        getPlansData()
     }
 //MARK: setLayout
     func setHeadLayout() {
@@ -126,7 +134,7 @@ class PlansSendListVC: UIViewController {
         headLabel.snp.makeConstraints{
             $0.top.equalToSuperview().offset(30)
             $0.leading.equalToSuperview().offset(20)
-            $0.width.equalTo(210)
+            $0.width.equalTo(250)
             $0.height.equalTo(32)
         }
         nameTagStackView.snp.makeConstraints{
@@ -136,7 +144,8 @@ class PlansSendListVC: UIViewController {
             $0.height.equalTo(26)
         }
         confirmCountLabel.snp.makeConstraints{
-            $0.top.equalTo(headLabel.snp.bottom).offset(22)
+            $0.centerY.equalTo(nameTagStackView)
+//            $0.top.equalTo(headLabel.snp.bottom).offset(22)
             $0.leading.equalTo(nameTagStackView.snp.trailing).offset(87)
             $0.width.equalTo(43)
             $0.height.equalTo(32)
@@ -146,7 +155,6 @@ class PlansSendListVC: UIViewController {
     
     
     func setCellViewLayout(){
-        var nameDummy: [String] = ["아ㅋㅋ", "아ㅋㅋ", "아ㅋㅋ"]
         //서버통신후 수정,,,
         dateSelectBackgroundView.snp.makeConstraints{
             $0.top.equalTo(nameTagStackView.snp.bottom).offset(32)
@@ -157,7 +165,7 @@ class PlansSendListVC: UIViewController {
                 for cellCount in 1 ... dateCount {
                     let yearLabel = UILabel().then{
                         $0.font = UIFont.dinProBoldFont(ofSize: 18)
-                        $0.text = "2021.12.23"
+                        $0.text = plansDate[cellCount - 1].date
                         $0.textColor = UIColor.grey06
                     }
                     let centerView = UIView().then{
@@ -166,7 +174,8 @@ class PlansSendListVC: UIViewController {
                     let timeLabel = UILabel().then{
                         $0.font = UIFont.dinProMediumFont(ofSize: 16)
                         $0.textColor = UIColor.grey06
-                        $0.text = "오전 11:00 ~ 오후 04:00"
+                        $0.text = setDateLabel(date: plansDate[cellCount-1].start) + " ~ " + setDateLabel(date: plansDate[cellCount-1].end)
+                        $0.textAlignment = .left
                     }
                     let cellbottomView = UIView().then{
                         $0.backgroundColor = UIColor.white
@@ -197,23 +206,36 @@ class PlansSendListVC: UIViewController {
                     let profileCount = UILabel().then{
                         $0.font = UIFont.hanSansRegularFont(ofSize: 13)
                         $0.textColor = UIColor.grey03
-                        $0.text = "3"
+                        $0.text = ""
                     }
-                    let nameStackView = UIStackView().then{
-                        $0.axis = .horizontal
-                        $0.alignment = .fill
-                        $0.distribution = .fillEqually
-                        $0.spacing = 0
-                        $0.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-                        $0.isLayoutMarginsRelativeArrangement = true
-                    }
-                    cellbottomView.addSubviews([profileImageView, profileCount, nameStackView])
-                    nameDummy.forEach {
+                    cellbottomView.addSubviews([profileImageView, profileCount])
+                    cellNameDummy = addCellGuest(guesList: plansDate[cellCount - 1].respondent)
+                    var nameLabellMargin: Int = 0
+                    cellNameDummy.forEach {
+                        if $0 != "" {
                         let nameLabel = UILabel()
                         nameLabel.font = UIFont.hanSansRegularFont(ofSize: 13)
                         nameLabel.textColor = UIColor.grey05
                         nameLabel.text = $0
-                        nameStackView.addArrangedSubview(nameLabel)
+                        cellbottomView.addSubview(nameLabel)
+                        nameLabel.snp.makeConstraints{
+                            $0.trailing.equalToSuperview().offset(-16 + (nameLabellMargin * -64))
+                            $0.centerY.equalToSuperview()
+                            $0.width.equalTo(50)
+                        }
+                        profileImageView.snp.makeConstraints{
+                            $0.top.equalToSuperview().offset(13)
+                            $0.trailing.equalTo(profileCount.snp.leading).offset(-4)
+                            $0.width.height.equalTo(13)
+                        }
+                        profileCount.snp.makeConstraints{
+                            $0.centerY.equalTo(profileImageView)
+                            $0.trailing.equalTo(nameLabel.snp.leading).offset(-17)
+                            $0.width.equalTo(8)
+                            $0.height.equalTo(18)
+                        }
+                        nameLabellMargin += 1
+                        }
                     }
                     cellBackgroundView.snp.makeConstraints{
                         $0.top.equalToSuperview().offset((cellCount - 1) * 115)
@@ -241,26 +263,23 @@ class PlansSendListVC: UIViewController {
                         $0.bottom.leading.trailing.equalToSuperview().offset(0)
                         $0.height.equalTo(41)
                     }
-                    profileImageView.snp.makeConstraints{
-                        $0.top.equalToSuperview().offset(13)
-                        $0.leading.equalToSuperview().offset(131)
-                        $0.width.height.equalTo(13)
-                    }
-                    profileCount.snp.makeConstraints{
-                        $0.centerY.equalTo(profileImageView)
-                        $0.leading.equalTo(profileImageView.snp.trailing).offset(4)
-                        $0.width.equalTo(8)
-                        $0.height.equalTo(18)
-                    }
-                    nameStackView.snp.makeConstraints{
-                        $0.centerY.equalTo(profileCount)
-                        $0.leading.equalTo(profileCount).offset(16)
-                        $0.width.equalTo(124)
-                        $0.height.equalTo(20)
+                    if nameLabellMargin == 0{
+                        profileImageView.snp.makeConstraints{
+                            $0.top.equalToSuperview().offset(13)
+                            $0.trailing.equalTo(profileCount.snp.leading).offset(-4)
+                            $0.width.height.equalTo(13)
+                        }
+                        profileCount.snp.makeConstraints{
+                            $0.centerY.equalTo(profileImageView)
+                            $0.trailing.equalToSuperview().offset(-22)
+                            $0.width.equalTo(8)
+                            $0.height.equalTo(18)
+                        }
                     }
                     dateSelectBackgroundView.snp.updateConstraints{
                         $0.height.equalTo(cellCount * 115)
                     }
+                    profileCount.text = String(plansDate[cellCount - 1].respondent.count)
                 }
         setTextViewLayout()
     }
@@ -291,7 +310,7 @@ class PlansSendListVC: UIViewController {
         }
         detailTextView.snp.makeConstraints{
             $0.top.equalTo(titleBottomView.snp.bottom).offset(3)
-            $0.leading.equalToSuperview().offset(25)
+            $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-22)
             $0.bottom.equalToSuperview().offset(18)
         }
@@ -349,7 +368,7 @@ class PlansSendListVC: UIViewController {
         }
     }
     func setStackButton(){
-        let nameDummy: [String] = ["김김김", "김김김", "김김김"]
+        var index: Int = 0
            nameDummy.forEach {
                let nameButton: UIButton = UIButton()
                nameButton.titleLabel?.font = UIFont.hanSansRegularFont(ofSize: 13)
@@ -360,22 +379,237 @@ class PlansSendListVC: UIViewController {
                nameButton.layer.borderWidth = 1
                nameButton.layer.borderColor = UIColor.pink01.cgColor
                nameButton.layer.cornerRadius = 12
+               if $0 == ""{
+                   nameButton.layer.borderWidth = 0
+                   nameButton.backgroundColor = .none
+               }
+               if nameBoolList[index] == true {
+                   nameButton.backgroundColor = UIColor.pink01
+                   nameButton.setTitleColor(UIColor.white, for: .normal)
+               }
                nameTagStackView.addArrangedSubview(nameButton)
+               index += 1
            }
        }
+    
+    func setData(){
+        nameDummy = addGuest(guesList: plansData[0].invitation.guests)
+        nameBoolList = addBoolGuest(guesList: plansData[0].invitation.guests)
+        titleLabel.text = plansData[0].invitation.invitationTitle
+        detailTextView.text = plansData[0].invitation.invitationDesc
+        var cnt: [Int] = confirmCount(list: nameBoolList)
+        confirmCountLabel.attributedText = confirmCountLabel.setTextFontColorSpacingAttribute(defaultText: "\(cnt[0])/\(cnt[1])", value: -0.6, containText: "\(cnt[0])", changingFont: UIFont.dinProBoldFont(ofSize: 30), color: UIColor.pink01)
+        if cnt[0] == cnt[1] {
+            headLabel.attributedText = headLabel.setTextFontColorSpacingAttribute(defaultText: "약속을 확정해 주세요", value: -0.6, containText: "약속을 확정", changingFont: UIFont.hanSansBoldFont(ofSize: 24), color: UIColor.grey06)
+        }
+        else{
+            headLabel.attributedText = headLabel.setTextFontColorSpacingAttribute(defaultText: "답변을 기다리고 있어요", value: -0.6, containText: "답변", changingFont: UIFont.hanSansBoldFont(ofSize: 24), color: UIColor.grey06)
+        }
+    }
+    
+    func addGuest(guesList: [SendGuest]) -> [String]{
+        var cnt: Int = 0
+        var nameList: [String] = ["", "", ""]
+        for guest in guesList{
+            nameList[cnt] = guest.username
+            cnt += 1
+        }
+        return nameList
+    }
+    func addCellGuest(guesList: [Host]) -> [String]{
+        var cnt: Int = 0
+        var nameList: [String] = ["", "", ""]
+        for guest in guesList{
+            nameList[cnt] = guest.username
+            cnt += 1
+        }
+        if nameList == ["", "", ""] {
+            return []
+        }
+        return nameList
+    }
+    func addBoolGuest(guesList: [SendGuest]) -> [Bool]{
+        var cnt: Int = 0
+        var boolList: [Bool] = [false, false, false]
+        for guest in guesList{
+            boolList[cnt] = guest.isResponse
+            if guest.isResponse == true{
+                nameCount += 1
+            }
+            cnt += 1
+        }
+        return boolList
+    }
+    func confirmCount(list: [Bool]) -> [Int]{
+        var sol: [Int] = [0, 0]
+        for obj in list{
+            if obj == true {
+                sol[0] += 1
+            }
+            else{
+                sol[1] += 1
+            }
+        }
+        return sol
+    }
+    func setDateLabel(date: String) -> String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        var changeDate = formatter.date(from: date) ?? Date()
+        
+        let formatter2 = DateFormatter()
+        formatter2.dateFormat = "a hh:mm"
+        var returnDate = formatter2.string(from: changeDate)
+        return returnDate
+    }
+    func getPlansData(){
+        GetPlansSendDetailDataService.shared.getSendDetail(plansId: plansId){ (response) in
+                   switch response
+                   {
+                   case .success(let data) :
+                       if let response = data as? PlansSendDetailDataModel{
+                           self.plansData.append(response.data)
+                           self.plansDate = response.data.invitationDates
+                           self.dateCount = self.plansDate.count
+                           self.setData()
+                           self.setHeadLayout()
+                           self.setCellViewLayout()
+                       }
+                   case .requestErr(let message) :
+                       print("requestERR")
+                   case .pathErr :
+                       print("pathERR")
+                   case .serverErr:
+                       print("serverERR")
+                   case .networkFail:
+                       print("networkFail")
+                   }
+               }
+    }
+    func postAcceptRequest(){
+        PostPlansRequestAcceptService.shared.postPlansRequestAccept(plansId: plansId, dateId: checkDataId){ (response) in
+                   switch response
+                   {
+                   case .success(let data) :
+                       if let response = data as? PlansRequestAcceptDataModel{
+                           print(response.status, response.message)
+                       }
+                   case .requestErr(let message) :
+                       print("requestERR")
+                   case .pathErr :
+                       print("pathERR")
+                   case .serverErr:
+                       print("serverERR")
+                   case .networkFail:
+                       print("networkFail")
+                   }
+               }
+    }
+    func postCancelRequest(){
+        PutInvitationCancelService.shared.putInvitationCancel(plansId: plansId){ (response) in
+                   switch response
+                   {
+                   case .success(let data) :
+                       if let response = data as? PlansRequestAcceptDataModel{
+                           print(response.status, response.message)
+                       }
+                   case .requestErr(let message) :
+                       print("requestERR")
+                   case .pathErr :
+                       print("pathERR")
+                   case .serverErr:
+                       print("serverERR")
+                   case .networkFail:
+                       print("networkFail")
+                   }
+               }
+    }
+
     @objc private func accessButtonClicked(_ sender: UIButton){
         //타입은 서버처리 이후에 분기처리 해서 선택
         guard let confirmAlertVC = SMRequestPopUpVC(withType: .sendConfirm) as? SMRequestPopUpVC else {return}
         guard let notSelectAlertVC = SMRequestPopUpVC(withType: .sendNotSelectConfirm) as? SMRequestPopUpVC else {return}
         guard let notRequestAlertVC = SMRequestPopUpVC(withType: .sendNotRequestConfirm) as? SMRequestPopUpVC else {return}
+        var cnt: [Int] = confirmCount(list: nameBoolList)
 
-        confirmAlertVC.modalPresentationStyle = .overFullScreen
-        self.present(confirmAlertVC, animated: false, completion: nil)
+        var yearList: [String] = []
+        var dateList: [String] = []
+        checkDataId = plansDate[checkedIndex - 1].id
+        yearList.append(plansDate[checkedIndex - 1].date)
+        dateList.append(setDateLabel(date: plansDate[checkedIndex - 1].start) + " ~ " + setDateLabel(date: plansDate[checkedIndex - 1].end))
+        
+        print(yearList, dateList)
+        
+        if cnt[0] == cnt[1] {
+            if cnt[1] < plansData[0].invitationDates[checkedIndex].respondent.count {
+                notSelectAlertVC.modalPresentationStyle = .overFullScreen
+                notSelectAlertVC.yearText = yearList
+                notSelectAlertVC.dateText = dateList
+                
+                self.present(notSelectAlertVC, animated: false, completion: nil)
+                
+                notSelectAlertVC.pinkButtonCompletion = {
+                    self.postAcceptRequest()
+                    self.dismiss(animated: false, completion: nil)
+                    let viewControllers : [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+                    self.tabBarController?.tabBar.isHidden = false
+                    self.navigationController?.popToViewController(viewControllers[viewControllers.count - 3 ], animated: false)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toastMessage"), object: "약속을 확정했어요")
+                }
+            }
+            else{
+                confirmAlertVC.modalPresentationStyle = .overFullScreen
+                confirmAlertVC.yearText = yearList
+                confirmAlertVC.dateText = dateList
+
+                self.present(confirmAlertVC, animated: false, completion: nil)
+                
+                    confirmAlertVC.pinkButtonCompletion = {
+                        self.postAcceptRequest()
+                        self.dismiss(animated: false, completion: nil)
+                        let viewControllers : [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+                        self.tabBarController?.tabBar.isHidden = false
+                        self.navigationController?.popToViewController(viewControllers[viewControllers.count - 3 ], animated: false)
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toastMessage"), object: "약속을 확정했어요")
+                    }
+            }
+        }
+        else {
+            notRequestAlertVC.modalPresentationStyle = .overFullScreen
+            notRequestAlertVC.yearText = yearList
+            notRequestAlertVC.dateText = dateList
+            
+            self.present(notRequestAlertVC, animated: false, completion: nil)
+            notRequestAlertVC.pinkButtonCompletion = {
+                    notRequestAlertVC.pinkButtonCompletion = {
+                        self.postAcceptRequest()
+                        self.dismiss(animated: false, completion: nil)
+                        let viewControllers : [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+                        self.tabBarController?.tabBar.isHidden = false
+                        self.navigationController?.popToViewController(viewControllers[viewControllers.count - 3 ], animated: false)
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toastMessage"), object: "약속을 확정했어요")
+                    }
+                }
+        }
+        
+     }
+    @objc private func backButtonClicked(_ sender: UIButton){
+        self.navigationController?.popViewController(animated: true)
+        self.tabBarController?.tabBar.isHidden = false
      }
     @objc private func cancelButtonClicked(_ sender: UIButton){
         guard let AlertVC = SMPopUpVC(withType: .cancelPlans) as? SMPopUpVC else {return}
         AlertVC.modalPresentationStyle = .overFullScreen
         self.present(AlertVC, animated: false, completion: nil)
+        
+        AlertVC.pinkButtonCompletion = {
+            self.postCancelRequest()
+            self.dismiss(animated: true, completion: nil)
+            let viewControllers : [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+            self.tabBarController?.tabBar.isHidden = false
+            self.navigationController?.popToViewController(viewControllers[viewControllers.count - 3 ], animated: false)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toastMessage"), object: "약속을 취소했어요")
+        }
      }
 }
 

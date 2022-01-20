@@ -77,6 +77,7 @@ class PlansReceiveCVC: UICollectionViewCell {
     }
     
    private func setStackButton(){
+       nameTagButtonStackView.removeAllSubViews()
         nameDummy.forEach {
             let nameButton: UIButton = UIButton()
             nameButton.titleLabel?.font = UIFont.hanSansRegularFont(ofSize: 13)
@@ -87,11 +88,21 @@ class PlansReceiveCVC: UICollectionViewCell {
             nameButton.layer.borderWidth = 1
             nameButton.layer.borderColor = UIColor.pink01.cgColor
             nameButton.layer.cornerRadius = 12
+            if $0 == "" {
+                nameButton.layer.borderWidth = 0
+                nameButton.backgroundColor = .none
+            }
             nameTagButtonStackView.addArrangedSubview(nameButton)
         }
     }
+    func setDate(title: String, time: String, nameList: [String]){
+        titleLabel.attributedText = String.getAttributedText(text: title, letterSpacing: -0.6, lineSpacing: nil)
+        timeLabel.attributedText = String.getAttributedText(text: time, letterSpacing: -0.6, lineSpacing: nil)
+        nameDummy = nameList
+        setStackButton()
+    }
     //MARK: Var
-    let nameDummy: [String] = ["김준희", "김준희", "김준희"]
+    var nameDummy: [String] = ["김준희", "김준희", "김준희"]
     static let identifier: String = "PlansReceiveCVC"
     
     override func awakeFromNib() {

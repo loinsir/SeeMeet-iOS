@@ -78,6 +78,7 @@ class HomeVC: UIViewController {
         getFriendsList()
         getHomeData()
         getLastPlansCount()
+        NotificationCenter.default.addObserver(self, selector: #selector(makeToast(_:)), name: NSNotification.Name(rawValue: "toastMessage"), object: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -185,6 +186,10 @@ class HomeVC: UIViewController {
         friendsListVC.friendsNameData = friendsData.map { $0.username }
         self.navigationController?.pushViewController(friendsListVC, animated: true)
     }
+    @objc private func makeToast(_ notification: NSNotification){
+        print("???토스트",notification.object as? String ?? "")
+        view.makeToastAnimation(message: notification.object as? String ?? "")
+     }
     
     func dateCal(date: String) -> String{
         let dateFormatter = DateFormatter()
