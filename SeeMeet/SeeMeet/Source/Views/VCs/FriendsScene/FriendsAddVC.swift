@@ -12,6 +12,8 @@ class FriendsAddVC: UIViewController {
     // MARK: - properties
     static let identifier: String = "FriendsAddVC"
     
+    var resultCompletion: (() -> ())?
+    
     private let topView: UIView = UIView().then {
         $0.backgroundColor = UIColor.grey06
     }
@@ -36,6 +38,13 @@ class FriendsAddVC: UIViewController {
         $0.register(FriendsAddTVC.self, forCellReuseIdentifier: FriendsAddTVC.identifier)
     }
     
+    private let undefinedLabel: UILabel = UILabel().then {
+        $0.text = "검색 결과가 없습니다."
+        $0.font = UIFont.hanSansRegularFont(ofSize: 16)
+        $0.textColor = UIColor.grey03
+        $0.isHidden = true
+    }
+    
     private var searchResults: FriendData? {
         didSet {
             tableView.reloadData()
@@ -49,7 +58,7 @@ class FriendsAddVC: UIViewController {
     
     private func setLayouts() {
         view.dismissKeyboardWhenTappedAround()
-        view.addSubviews([topView, searchBar, tableView])
+        view.addSubviews([topView, searchBar, tableView, undefinedLabel])
         topView.addSubviews([navigationTitleLabel, closeButton])
         
         topView.snp.makeConstraints {
@@ -89,6 +98,11 @@ class FriendsAddVC: UIViewController {
             $0.top.equalTo(searchBar.snp.bottom).offset(30 * heightRatio)
         }
         
+        undefinedLabel.snp.makeConstraints {
+            $0.top.equalTo(searchBar.snp.bottom).offset(47 * heightRatio)
+            $0.centerX.equalToSuperview()
+        }
+        
     }
     
     private func requestFriendsSearchResults(email: String) {
@@ -97,17 +111,24 @@ class FriendsAddVC: UIViewController {
             case .success(let response):
                 guard let response = response as? FriendsSearchResponseModel else { return }
                 self.searchResults = response.data
+                self.undefinedLabel.isHidden = true
+                self.tableView.isHidden = false
+                
             case .requestErr(let response):
-                guard let response = response as? FriendsSearchResponseModel else { return }
-                if response.message != "" {
-                    self.view.makeToastAnimation(message: response.message ?? "통신 오류")
-                }
+                self.undefinedLabel.isHidden = false
+                self.tableView.isHidden = true
             case .pathErr:
-                self.view.makeToastAnimation(message: "존재하지 않는 회원입니다.")
+//                self.view.makeToastAnimation(message: "존재하지 않는 회원입니다.")
                 print("Path Error")
+                self.undefinedLabel.isHidden = false
+                self.tableView.isHidden = true
             case .serverErr:
+                self.undefinedLabel.isHidden = false
+                self.tableView.isHidden = true
                 print("Server Error")
             case .networkFail:
+                self.undefinedLabel.isHidden = false
+                self.tableView.isHidden = true
                 print("Network Fail")
             }
         }
@@ -116,7 +137,7 @@ class FriendsAddVC: UIViewController {
     // MARK: - objc
     
     @objc private func touchUpCloseButton(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: resultCompletion)
     }
 
 }
@@ -127,6 +148,8 @@ extension FriendsAddVC: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.layer.borderColor = UIColor.pink01.cgColor
         searchBar.layer.borderWidth = 1
+        undefinedLabel.isHidden = true
+        tableView.isHidden = false
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {

@@ -91,7 +91,6 @@ class FriendsAddTVC: UITableViewCell {
     private func requestAddFriend() {
         guard let email = emailLabel.text else { return }
         FriendsAddService.shared.addFriends(email: email) { responseData in
-//            dump(responseData)
             switch responseData {
             case .success(let response):
                 self.addButton.setImage(UIImage(named: "btn_add-friends_fin"), for: .normal)

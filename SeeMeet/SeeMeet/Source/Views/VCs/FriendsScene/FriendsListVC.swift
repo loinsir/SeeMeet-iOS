@@ -146,6 +146,27 @@ class FriendsListVC: UIViewController {
         }
     }
     
+    private func getFriendsList(){
+        GetFriendsListService.shared.getFriendsList(){ (response) in
+                   switch response
+                   {
+                   case .success(let data) :
+                       if let response = data as? FriendsDataModel {
+                           self.friendsNameData = response.data.map { $0.username }
+                           self.tableView.reloadData()
+                       }
+                   case .requestErr(let message) :
+                       print("requestERR")
+                   case .pathErr :
+                       print("pathERR")
+                   case .serverErr:
+                       print("serverERR")
+                   case .networkFail:
+                       print("networkFail")
+                   }
+               }
+    }
+    
     // MARK: - objc func
     
     @objc private func touchUpBackButton(_ sender: UIButton) {
@@ -155,6 +176,7 @@ class FriendsListVC: UIViewController {
     @objc private func touchUpAddFriendsButton(_ sender: UIButton) {
         guard let friendsAddVC = UIStoryboard(name: "FriendsAdd", bundle: nil).instantiateViewController(withIdentifier: FriendsAddVC.identifier) as? FriendsAddVC else { return }
         friendsAddVC.modalPresentationStyle = .fullScreen
+        friendsAddVC.resultCompletion = { self.getFriendsList() }
         present(friendsAddVC, animated: true, completion: nil)
     }
     
