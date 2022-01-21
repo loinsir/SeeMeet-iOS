@@ -111,6 +111,7 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
 //MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        getFriendsList()
         setLayout()
         setPlaceholder()
         setDelegate()
@@ -175,6 +176,30 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
             chipView2.isHidden = false
             chipView3.isHidden = false
         }
+    }
+    
+    func getFriendsList(){
+        GetFriendsListService.shared.getFriendsList(){ (response) in
+                   switch response
+                   {
+                   case .success(let data) :
+                       if let response = data as? FriendsDataModel{
+                           self.nameList = response.data.map { $0.username }
+                       }
+                   case .requestErr(let message) :
+                       print("requestERR")
+                   case .pathErr :
+                       print("pathERR")
+                   case .serverErr:
+                       print("serverERR")
+                   case .networkFail:
+                       print("networkFail")
+                   }
+               }
+    }
+    
+    @objc func dismissSearchTable() {
+        searchTextField.endEditing(true)
     }
     
 //MARK: Layout
@@ -347,6 +372,8 @@ extension RequestPlansContentsVC: UITextFieldDelegate{
         default:
             textField.layer.borderWidth = 0
         }
+        
+        searchTableView.isHidden = true
     }
     
     @objc func textFieldDidChange(_ sender: Any?) {
@@ -408,6 +435,8 @@ extension RequestPlansContentsVC: UITableViewDelegate{
             setChipView()
             print(searchedNameList)
         }
+        tableView.isHidden = true
+        searchTextField.endEditing(true)
     }
 }
 

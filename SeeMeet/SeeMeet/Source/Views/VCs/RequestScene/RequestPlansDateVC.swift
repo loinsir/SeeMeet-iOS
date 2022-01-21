@@ -10,7 +10,6 @@ import UIKit
 fileprivate let heightRatio = UIScreen.getDeviceHeight() / 812
 
 
-
 class RequestPlansDateVC: UIViewController {
     
 //MARK: Vars
