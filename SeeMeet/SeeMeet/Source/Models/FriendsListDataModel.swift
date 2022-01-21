@@ -11,4 +11,5 @@ struct FriendsDataModel: Codable {
 // MARK: - Datum
 struct FriendsData: Codable {
     let id: Int
-    let username, email: String}
+    let username, email: String
+}
