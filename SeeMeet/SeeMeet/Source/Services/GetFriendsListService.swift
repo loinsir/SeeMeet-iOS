@@ -19,7 +19,7 @@ struct GetFriendsListService
                                      headers: header)
 
         dataRequest.responseData { dataResponse in
-//            dump(dataResponse)
+            dump(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}
@@ -35,7 +35,7 @@ struct GetFriendsListService
     }
     private func judgeStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
         switch statusCode {
-        case 200: return isValidData(data: data)
+        case 200, 304: return isValidData(data: data)
         case 400: return .pathErr
         case 500: return .serverErr
         default: return .networkFail

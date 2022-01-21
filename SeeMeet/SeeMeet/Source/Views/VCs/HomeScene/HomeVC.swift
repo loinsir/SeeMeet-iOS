@@ -294,7 +294,7 @@ class HomeVC: UIViewController {
         let firstComeIn: String = "씨밋과 함께 약속을 잡아볼까요?"
         let firstFriendAdd: String = "친구가 당신의 약속 신청을 기다리고 있어요!"
         let todayMeet: String = "아싸 오늘은 친구 만나는 날이다!"
-        let twoWeek: String = "약속잡기에 딱 좋은 시기에요!"
+        let twoWeek: String = "약속잡기에 딱 좋은\n 시기에요!"
         let threeWeek: String = "친구와 만난지 벌써 \n\(lastEventCount)일이 지났어요"
         let overThreeWeek: String = "친구를 언제 만났는지 기억도 안나요…"
         
@@ -394,6 +394,8 @@ class HomeVC: UIViewController {
                        if let response = data as? FriendsDataModel{
                            self.friendsCount = response.data.count
                            self.friendsData = response.data
+                           self.setMainillust()
+                           print(self.friendsCount, "afsdfa")
                        }
                    case .requestErr(let message) :
                        print("requestERR")
