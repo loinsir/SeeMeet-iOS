@@ -377,6 +377,18 @@ class RequestPlansDateVC: UIViewController {
         requestCalendarData(year: year, month: month)
     }
     
+    func appendWeekCalendarDateList(num: Int) {
+        for x in 0...6 {
+            if x < num {
+                weekCalendarDateList.append(todayDate.previousDate(value: 6-x))
+            } else if x == num {
+                weekCalendarDateList.append(todayDate)
+            } else {
+                weekCalendarDateList.append(todayDate.nextDate(value: x))
+            }
+        }
+    }
+    
 
     func initWeekCalendarDataList() {
     
@@ -391,70 +403,19 @@ class RequestPlansDateVC: UIViewController {
                 weekCalendarDateList.append(todayDate.nextDate(value: x+1))
             }
         case "월":
-            let num = WeekDay.Mon.rawValue
-            for x in 0...(6-num-1){
-                weekCalendarDateList.append(todayDate.previousDate(value: 6-num-x))
-            }
-            weekCalendarDateList.append(todayDate)
-            for x in 0...(num-1){
-                weekCalendarDateList.append(todayDate.nextDate(value: x+1))
-            }
-            
+            appendWeekCalendarDateList(num: 1)
         case "화":
-            let num = WeekDay.Tue.rawValue
-            for x in 0...(6-num-1){
-                weekCalendarDateList.append(todayDate.previousDate(value: 6-num-x))
-            }
-            weekCalendarDateList.append(todayDate)
-            for x in 0...(num-1){
-                weekCalendarDateList.append(todayDate.nextDate(value: x+1))
-            }
+            appendWeekCalendarDateList(num: 2)
         case "수":
-            let num = WeekDay.Wed.rawValue
-            for x in 0...(6-num-1){
-                weekCalendarDateList.append(todayDate.previousDate(value: 6-num-x))
-            }
-            weekCalendarDateList.append(todayDate)
-            for x in 0...(num-1){
-                weekCalendarDateList.append(todayDate.nextDate(value: x+1))
-            }
+            appendWeekCalendarDateList(num: 3)
         case "목":
-            let num = WeekDay.Thu.rawValue
-            for x in 0...(6-num-1){
-                weekCalendarDateList.append(todayDate.previousDate(value: 6-num-x))
-            }
-            weekCalendarDateList.append(todayDate)
-            for x in 0...(num-1){
-                weekCalendarDateList.append(todayDate.nextDate(value: x+1))
-            }
+            appendWeekCalendarDateList(num: 4)
         case "금":
-            let num = WeekDay.Fri.rawValue
-            for x in 0...(6-num-1){
-                weekCalendarDateList.append(todayDate.previousDate(value: 6-num-x))
-            }
-            weekCalendarDateList.append(todayDate)
-            for x in 0...(num-1){
-                weekCalendarDateList.append(todayDate.nextDate(value: x+1))
-            }
+            appendWeekCalendarDateList(num: 5)
         case "토":
-            let num = WeekDay.Sat.rawValue
-            for x in 0...(6-num-1){
-                weekCalendarDateList.append(todayDate.previousDate(value: 6-num-x))
-            }
-            weekCalendarDateList.append(todayDate)
-            for x in 0...(num-1){
-                weekCalendarDateList.append(todayDate.nextDate(value: x+1))
-            }
+            appendWeekCalendarDateList(num: 6)
         default:
-            let num = WeekDay.Sun.rawValue
-            for x in 0...(6-num-1){
-                weekCalendarDateList.append(todayDate.previousDate(value: 6-num-x))
-            }
-            weekCalendarDateList.append(todayDate)
-            for x in 0...(num-1){
-                weekCalendarDateList.append(todayDate.nextDate(value: x+1))
-            }
-            
+            break
         }
 
     }
