@@ -35,7 +35,6 @@
  Alamofire | 서버 통신 | 5.4
  SnapKit | UI Layout | 5.0.0
  Then | code Support | -
- Kingfisher | 이미지 처리 | 6.0
  FSCalendar | 캘린더 | -
 
 - framework
@@ -151,7 +150,9 @@
    
 <br>
 <br>
-
+ 씨밋 아요들의 내용을 더 보고싶다면?
+<br>
+ [우당탕탕](https://roomofsimon.notion.site/60da5e2e738e41c18cffd8a3b3406405)
 <br>
 
 
