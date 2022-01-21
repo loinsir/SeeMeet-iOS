@@ -46,8 +46,6 @@
 		3623EA90278FDE0C00853F87 /* CompletePlansCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA8E278FDE0C00853F87 /* CompletePlansCVC.xib */; };
 		3623EA922791282700853F87 /* PlansReceiveVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA912791282700853F87 /* PlansReceiveVC.swift */; };
 		3623EA942791283600853F87 /* PlansReceiveList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA932791283600853F87 /* PlansReceiveList.storyboard */; };
-		3623EA9E27931EAC00853F87 /* PlansSendListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA9D27931EAC00853F87 /* PlansSendListVC.swift */; };
-		3623EAA027931EC000853F87 /* PlansSendList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA9F27931EC000853F87 /* PlansSendList.storyboard */; };
 		3623EA9A2792A8D100853F87 /* SMRequestPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA992792A8D100853F87 /* SMRequestPopUpVC.swift */; };
 		3623EA9C2792A90E00853F87 /* SMRequestPopUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3623EA9B2792A90E00853F87 /* SMRequestPopUp.storyboard */; };
 		3623EA9E27931EAC00853F87 /* PlansSendListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA9D27931EAC00853F87 /* PlansSendListVC.swift */; };
@@ -177,8 +175,6 @@
 		3623EA932791283600853F87 /* PlansReceiveList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlansReceiveList.storyboard; sourceTree = "<group>"; };
 		3623EA952791D1D300853F87 /* PlansReceiveCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansReceiveCVC.swift; sourceTree = "<group>"; };
 		3623EA962791D1D300853F87 /* PlansReceiveCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlansReceiveCVC.xib; sourceTree = "<group>"; };
-		3623EA9D27931EAC00853F87 /* PlansSendListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansSendListVC.swift; sourceTree = "<group>"; };
-		3623EA9F27931EC000853F87 /* PlansSendList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlansSendList.storyboard; sourceTree = "<group>"; };
 		3623EA992792A8D100853F87 /* SMRequestPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMRequestPopUpVC.swift; sourceTree = "<group>"; };
 		3623EA9B2792A90E00853F87 /* SMRequestPopUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SMRequestPopUp.storyboard; sourceTree = "<group>"; };
 		3623EA9D27931EAC00853F87 /* PlansSendListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansSendListVC.swift; sourceTree = "<group>"; };
@@ -1175,7 +1171,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = U24ZACT97M;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SeeMeet/Resource/Info.plist;
@@ -1206,7 +1202,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = U24ZACT97M;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SeeMeet/Resource/Info.plist;
