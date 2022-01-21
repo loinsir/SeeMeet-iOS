@@ -71,6 +71,7 @@ class PlansReceiveVC: UIViewController {
         $0.backgroundColor = .none
         $0.textAlignment = .left
         $0.text = "야그들아 대방어먹게 시간 비워놔라야그들아 대방어먹게 시간 비워놔라 야그들아 대방어먹게 시간비워놔라야그들아 대방어먹게 시간 비워놔라 야그들아 대방어먹게 시간 비워놔라야그들아 대방어먹게 시간 비워놔라 야그들아 대방어먹게 시간 비워놔라야그들아 대방어먹게 시간 비워놔라 야그들아 대방어먹게 시간 비워놔라야그들아 대방어먹게 시간 비"
+        $0.isEditable = false
     }
     private let withRecieveLabel = UILabel().then{
         $0.attributedText = $0.setTextLineAttribute(defaultText: "나와 함께 받은 사람", value: -0.6)
@@ -540,7 +541,7 @@ class PlansReceiveVC: UIViewController {
         var hostName: String = plansData[0].invitation.host.username
         nameTitleLabel.attributedText = nameTitleLabel.setTextFontColorSpacingAttribute(defaultText: hostName + "님이 보냈어요", value: -0.6, containText: hostName+"님", changingFont: UIFont.hanSansBoldFont(ofSize: 24), color: UIColor.grey06)
         plansTitleLabel.attributedText = plansTitleLabel.setTextLineAttribute(defaultText: plansData[0].invitation.invitationTitle, value: -0.6)
-        plansDetailTextView.attributedText = String.getAttributedText(text: plansData[0].invitation.invitationDesc, letterSpacing: -0.6, lineSpacing: 24)
+        plansDetailTextView.attributedText = String.getAttributedText(text: plansData[0].invitation.invitationDesc, letterSpacing: -0.6, lineSpacing: nil)
         nameDummy = addGuest(guesList: plansData[0].newGuests)
         dateCount = plansData[0].invitationDates.count
     }
