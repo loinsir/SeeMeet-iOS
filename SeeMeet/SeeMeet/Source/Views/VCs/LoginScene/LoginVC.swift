@@ -102,6 +102,11 @@ class LoginVC: UIViewController {
         autoLogin()
         setLoginLayout()
     }
+    func isValidEmail(testStr:String) -> Bool {
+           let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,50}"
+           let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+           return emailTest.evaluate(with: testStr)
+    }
     
     @objc func notSeeButtonClicked(_ sender: UIButton) {
         if isNotSee == true{
@@ -177,9 +182,11 @@ extension LoginVC: UITextFieldDelegate{
         }
     }
     @objc func textFieldDidChange(_ sender: Any?) {
-        if pwdTextField.text?.isEmpty == false && emailTextField.text?.isEmpty == false{
+        if pwdTextField.text?.isEmpty == false && isValidEmail(testStr: emailTextField.text ?? ""){
+            if pwdTextField.text?.count ?? 0 >= 8 {
             loginButton.backgroundColor = UIColor.pink01
             isFull = true
+            }
         }
         else{
             isFull = false

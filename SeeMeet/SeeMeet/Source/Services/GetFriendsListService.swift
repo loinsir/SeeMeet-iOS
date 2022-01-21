@@ -35,7 +35,7 @@ struct GetFriendsListService
     }
     private func judgeStatus(by statusCode: Int, _ data: Data) -> NetworkResult<Any> {
         switch statusCode {
-        case 200: return isValidData(data: data)
+        case 200, 304: return isValidData(data: data)
         case 400: return .pathErr
         case 500: return .serverErr
         default: return .networkFail

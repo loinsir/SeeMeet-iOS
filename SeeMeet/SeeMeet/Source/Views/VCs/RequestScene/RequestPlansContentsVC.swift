@@ -139,6 +139,9 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
         plansTitleTextField.endEditing(true)
         plansContentsTextView.endEditing(true)
     }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+            self.view.endEditing(true)
+        }
   
     @objc func nextButtonTapped() {
         let nextStoryboard = UIStoryboard(name: "RequestPlansDate", bundle: nil)

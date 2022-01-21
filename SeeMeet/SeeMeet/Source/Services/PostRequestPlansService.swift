@@ -25,18 +25,18 @@ struct PostRequestPlansService {
     
     // MARK: - methods
     
-    func requestPlans(guest: [[String: Any]],title: String,contents: String,date: [String],start: [String],end:[String],
+    func requestPlans(guests: [[String: Any]],title: String,contents: String,date: [String],start: [String],end:[String],
                       completion: @escaping (NetworkResult<Any>) -> Void) {
-        let url = Constants.baseURL + Constants.invitationURL
+        let url = Constants.invitationURL
         
-        let requestBody: Parameters = ["guest": guest,
+        let requestBody: Parameters = ["guests": guests,
                                        "invitationTitle": title,
                                        "invitationDesc": contents,
                                        "date": date,
                                        "start": start,
                                        "end": end]
         
-        dump(requestBody)
+//        dump(requestBody)
    
         let request = AF.request(url,
                                  method: .post,

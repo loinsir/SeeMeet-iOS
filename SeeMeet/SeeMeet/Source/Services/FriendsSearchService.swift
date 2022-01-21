@@ -31,7 +31,7 @@ struct FriendsSearchService {
                                  headers: headers)
         
         request.responseData { responseData in
-            dump(responseData)
+//            dump(responseData)
             switch responseData.result {
             case .success:
                 if let statusCode = responseData.response?.statusCode,
