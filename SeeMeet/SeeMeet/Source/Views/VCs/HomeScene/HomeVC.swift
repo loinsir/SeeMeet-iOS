@@ -209,10 +209,25 @@ class HomeVC: UIViewController {
         }
     }
     @objc private func touchUpFriendsButton(_ sender: UIButton) {
+        if UserDefaults.standard.bool(forKey: "isLogin") {
         guard let friendsListVC = UIStoryboard(name: "FriendsList", bundle: nil).instantiateViewController(withIdentifier: FriendsListVC.identifier) as? FriendsListVC else { return }
+        
         self.tabBarController?.tabBar.isHidden = true
         friendsListVC.friendsNameData = friendsData.map { $0.username }
         self.navigationController?.pushViewController(friendsListVC, animated: true)
+        }
+        else {
+            guard let alertVC = SMPopUpVC(withType: .needLogin) as? SMPopUpVC else {return}
+            guard let Login = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "LoginVC") as? LoginVC else {return}
+            alertVC.modalPresentationStyle = .overFullScreen
+            self.present(alertVC, animated: false, completion: nil)
+            alertVC.pinkButtonCompletion = {
+                self.dismiss(animated: false, completion: nil)
+                self.tabBarController?.tabBar.isHidden = true
+                self.navigationController?.pushViewController(Login, animated: true)
+            }
+            
+        }
     }
     @objc private func menuButtonClicked(_ sender: UIButton) {
         myPageView.isHidden = false
