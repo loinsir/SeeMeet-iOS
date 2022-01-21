@@ -115,6 +115,7 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
 //MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        dismissKeyboard()
         getFriendsList()
         setLayout()
         setPlaceholder()
@@ -123,6 +124,16 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
     }
     
 //MARK: Function
+    
+    func dismissKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
+        tap.cancelsTouchesInView = false
+    }
+    
+    @objc func tapped() {
+        plansTitleTextField.endEditing(true)
+        plansContentsTextView.endEditing(true)
+    }
   
     @objc func nextButtonTapped() {
         let nextStoryboard = UIStoryboard(name: "RequestPlansDate", bundle: nil)
@@ -203,10 +214,6 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
                }
     }
     
-    @objc func dismissSearchTable() {
-        searchTextField.endEditing(true)
-    }
-    
 //MARK: Layout
     func setLayout() {
         self.navigationController?.isNavigationBarHidden = true
@@ -244,10 +251,10 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
             $0.leading.bottom.trailing.equalToSuperview()
         }
         searchTableView.snp.makeConstraints{
-            $0.top.equalTo(searchTextField.snp.bottom).offset(10)
+            $0.top.equalTo(searchTextField.snp.bottom).offset(0)
             $0.leading.equalTo(searchTextField.snp.leading).offset(23)
             $0.trailing.equalTo(searchTextField.snp.trailing).offset(-22)
-            $0.height.equalTo(240)
+            $0.height.equalTo(270)
         }
         searchImageView.snp.makeConstraints{
             $0.centerY.equalToSuperview()
@@ -439,6 +446,7 @@ extension RequestPlansContentsVC: UITableViewDelegate{
             searchedNameList.append(filterNameList[indexPath.row])
             guard let name = friendData.filter { $0.username == filterNameList[indexPath.row] }.first else { return }
             searchedFriendList.append(name)
+            nameList = nameList.filter { !searchedNameList.contains($0) }
             setChipView()
             print(searchedNameList)
         }
@@ -460,6 +468,9 @@ extension RequestPlansContentsVC: TapRemoveButtonDelegate{
         print(searchedNameList)
         print(searchedFriendList)
         setChipView()
+        nameList.append(chipView.name)
+        nameList.sort()
+        searchTableView.reloadData()
     }
 }
 

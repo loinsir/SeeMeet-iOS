@@ -269,6 +269,7 @@ class RequestPlansDateVC: UIViewController {
         initWeekCalendarDataList()
         initScheduleDataList()
         layoutCalendarView()
+        initDayLabel()
 
         
         // Do any additional setup after loading the view.
@@ -278,8 +279,8 @@ class RequestPlansDateVC: UIViewController {
         let nextVC = nextStoryboard.instantiateViewController(identifier: "TabbarVC")
         self.tabBarController?.tabBar.isHidden = false
 //        self.navigationController?.pushViewController(nextVC, animated: true)
+        self.tabBarController?.selectedIndex = 0
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toastMessage"), object: "약속 신청을 완료했어요.")
-        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 //MARK: Func
     func initSelectedDay(){
@@ -316,6 +317,16 @@ class RequestPlansDateVC: UIViewController {
     
     }
 
+    func initDayLabel(){
+        let formatter = DateFormatter()
+        formatter.dateFormat = "M월 d일"
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.timeZone = NSTimeZone(name: "ko_KR") as TimeZone?
+        
+        let dateText = formatter.string(from: todayDate) + " \(Date.getKoreanWeekDay(from: todayDate))요일"
+       
+        todayLabel.text  = dateText
+    }
     func initSelectedTime(){
        
         let min = Calendar.current.component(.minute, from: todayDate)
@@ -988,6 +999,7 @@ class RequestPlansDateVC: UIViewController {
         scrollView.isUserInteractionEnabled = true
         
         scheduleTableView.separatorStyle = .none
+        scheduleTableView.backgroundColor = UIColor.grey01
         
         emptyScheduleLabel.isHidden = true
     }
@@ -997,6 +1009,14 @@ class RequestPlansDateVC: UIViewController {
 
 extension RequestPlansDateVC: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if planList.count == 0 {
+            scheduleTableView.isHidden = true
+            emptyScheduleLabel.isHidden = false
+        } else {
+            scheduleTableView.isHidden = false
+            emptyScheduleLabel.isHidden = true
+        }
+        
         return planList.count
     }
     
@@ -1043,37 +1063,37 @@ extension RequestPlansDateVC: tapCellViewDelegate{
         case "일":
             setSelectedDayLabel(by: 0)
             setScheduleTableDataList(by: 0)
-            todayLabel.text = makeTodayLabelText(from: weekCalendarDateList[0])
+            todayLabel.text = makeTodayLabelText(from: weekCalendarDateList[0], week: "일")
                                                     
         case "월":
             setSelectedDayLabel(by: 1)
             setScheduleTableDataList(by: 1)
-            todayLabel.text = makeTodayLabelText(from: weekCalendarDateList[1])
+            todayLabel.text = makeTodayLabelText(from: weekCalendarDateList[1], week: "월")
             
         case "화":
             setSelectedDayLabel(by: 2)
             setScheduleTableDataList(by: 2)
-            todayLabel.text = makeTodayLabelText(from: weekCalendarDateList[2])
+            todayLabel.text = makeTodayLabelText(from: weekCalendarDateList[2], week: "화")
             
         case "수":
             setSelectedDayLabel(by: 3)
             setScheduleTableDataList(by: 3)
-            todayLabel.text = makeTodayLabelText(from: weekCalendarDateList[3])
+            todayLabel.text = makeTodayLabelText(from: weekCalendarDateList[3], week: "수")
             
         case "목":
             setSelectedDayLabel(by: 4)
             setScheduleTableDataList(by: 4)
-            todayLabel.text = makeTodayLabelText(from: weekCalendarDateList[4])
+            todayLabel.text = makeTodayLabelText(from: weekCalendarDateList[4], week: "목")
             
         case "금":
             setSelectedDayLabel(by: 5)
             setScheduleTableDataList(by: 5)
-            todayLabel.text = makeTodayLabelText(from: weekCalendarDateList[5])
+            todayLabel.text = makeTodayLabelText(from: weekCalendarDateList[5], week: "금")
             
         case "토":
             setSelectedDayLabel(by: 6)
             setScheduleTableDataList(by: 6)
-            todayLabel.text = makeTodayLabelText(from: weekCalendarDateList[6])
+            todayLabel.text = makeTodayLabelText(from: weekCalendarDateList[6], week: "토")
             
         default:
             break
@@ -1085,13 +1105,13 @@ extension RequestPlansDateVC: tapCellViewDelegate{
         
     }
     
-    private func makeTodayLabelText(from: Date) -> String {
+    private func makeTodayLabelText(from: Date, week: String) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "M월 d일 a요일"
+        formatter.dateFormat = "M월 d일"
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.timeZone = NSTimeZone(name: "ko_KR") as TimeZone?
         
-        let dateText = formatter.string(from: from)
+        let dateText = formatter.string(from: from) + " \(week)요일"
         return dateText
     }
     
@@ -1169,6 +1189,7 @@ extension RequestPlansDateVC{
                 self.layoutCalendarView()
                 print("스스스스케줄")
                 print(self.scheduleDataList)
+                
                // self.calendar.reloadData()
             case .requestErr(let msg):
                 print(msg)
