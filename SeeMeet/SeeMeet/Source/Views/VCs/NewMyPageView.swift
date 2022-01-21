@@ -26,8 +26,13 @@ class NewMyPage: UIView {
         $0.textColor = UIColor.white
     }
     private let dummyImageView = UIImageView().then{
-        $0.image = UIImage(named: "my_page")
-        
+        if UIScreen.hasNotch == false{
+            $0.image = UIImage(named: "dummyImageView")
+        }
+        else{
+            $0.image = UIImage(named: "my_page")
+        }
+        $0.contentMode = .scaleToFill
     }
     
     func setLayout(){
