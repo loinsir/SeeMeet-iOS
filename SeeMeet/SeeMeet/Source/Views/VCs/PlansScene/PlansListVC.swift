@@ -117,6 +117,7 @@ class PlansListVC: UIViewController {
 //MARK: ViewDidLoad
     override func viewWillAppear(_ animated: Bool) {
         getPlansData()
+        self.tabBarController?.tabBar.isHidden = true
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -497,6 +498,7 @@ extension PlansListVC: UICollectionViewDataSource{
                 if confirmData[indexPath.row].isConfirmed == true && confirmData[indexPath.row].isCancled == false{
                 guard let completeVC = UIStoryboard(name: "CalendarDetail", bundle: nil).instantiateViewController(withIdentifier: "CalendarDetailVC") as? CalendarDetailVC else {return}
                     completeVC.planID = confirmData[indexPath.row].planID
+                    self.tabBarController?.tabBar.isHidden = true
                     self.navigationController?.pushViewController(completeVC, animated: true)
                 }
             
