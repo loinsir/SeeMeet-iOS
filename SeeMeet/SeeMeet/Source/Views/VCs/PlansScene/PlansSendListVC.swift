@@ -399,7 +399,7 @@ class PlansSendListVC: UIViewController {
         titleLabel.text = plansData[0].invitation.invitationTitle
         detailTextView.text = plansData[0].invitation.invitationDesc
         var cnt: [Int] = confirmCount(list: nameBoolList)
-        confirmCountLabel.attributedText = confirmCountLabel.setTextFontColorSpacingAttribute(defaultText: "\(cnt[0])/\(cnt[1])", value: -0.6, containText: "\(cnt[0])", changingFont: UIFont.dinProBoldFont(ofSize: 30), color: UIColor.pink01)
+        confirmCountLabel.attributedText = confirmCountLabel.setTextFontColorSpacingAttribute(defaultText: "\(cnt[0])/\(cnt[1]-1)", value: -0.6, containText: "\(cnt[0])", changingFont: UIFont.dinProBoldFont(ofSize: 30), color: UIColor.pink01)
         if cnt[0] == cnt[1] {
             headLabel.attributedText = headLabel.setTextFontColorSpacingAttribute(defaultText: "약속을 확정해 주세요", value: -0.6, containText: "약속을 확정", changingFont: UIFont.hanSansBoldFont(ofSize: 24), color: UIColor.grey06)
         }
@@ -541,8 +541,8 @@ class PlansSendListVC: UIViewController {
         
         print(yearList, dateList)
         
-        if cnt[0] == cnt[1] {
-            if cnt[1] < plansData[0].invitationDates[checkedIndex].respondent.count {
+        if cnt[0] == cnt[1]-1 {
+            if cnt[1]-1 < plansData[0].invitationDates[checkedIndex - 1].respondent.count {
                 notSelectAlertVC.modalPresentationStyle = .overFullScreen
                 notSelectAlertVC.yearText = yearList
                 notSelectAlertVC.dateText = dateList
