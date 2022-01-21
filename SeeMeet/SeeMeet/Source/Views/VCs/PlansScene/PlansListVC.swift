@@ -494,6 +494,11 @@ extension PlansListVC: UICollectionViewDataSource{
                     }
                 }
             else {
+                if confirmData[indexPath.row].isConfirmed == true && confirmData[indexPath.row].isCancled == false{
+                guard let completeVC = UIStoryboard(name: "CalendarDetail", bundle: nil).instantiateViewController(withIdentifier: "CalendarDetailVC") as? CalendarDetailVC else {return}
+                    completeVC.planID = confirmData[indexPath.row].planID
+                    self.navigationController?.pushViewController(completeVC, animated: true)
+                }
             
             }
     }
