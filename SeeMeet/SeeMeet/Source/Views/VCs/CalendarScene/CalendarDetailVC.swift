@@ -42,7 +42,7 @@ class CalendarDetailVC: UIViewController {
     private let nameTagStackView: UIStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.alignment = .fill
-        $0.distribution = .fillProportionally
+        $0.distribution = .fillEqually
         $0.spacing = 10
         $0.layoutMargins = UIEdgeInsets(top: 10 * heightRatio, left: 10 * widthRatio, bottom: 10 * heightRatio, right: 10 * widthRatio)
         $0.isLayoutMarginsRelativeArrangement = true
@@ -289,6 +289,12 @@ class CalendarDetailVC: UIViewController {
                     }
                     self.nameTagStackView.addArrangedSubview(label)
                     self.nameTagStackView.sizeToFit()
+                }
+                self.nameTagStackView.snp.remakeConstraints{
+                    $0.leading.equalToSuperview().offset(10 * widthRatio)
+                    $0.top.equalTo(self.timeLabel.snp.bottom).offset(20 * heightRatio)
+                    $0.height.equalTo(46 * heightRatio)
+                    $0.width.equalTo(CGFloat(self.nameTagStackView.arrangedSubviews.count) * 73.0 * widthRatio)
                 }
                 
                 let formatter = DateFormatter().then {
