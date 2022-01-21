@@ -2,6 +2,7 @@ import UIKit
 import SnapKit
 import Then
 import CoreMedia
+import SwiftUI
 
 class HomeVC: UIViewController {
 //MARK: Components
@@ -17,6 +18,7 @@ class HomeVC: UIViewController {
     }
     private let menuButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "btn_menu"), for: .normal)
+        $0.addTarget(self, action: #selector(menuButtonClicked(_:)), for: .touchUpInside)
     }
     private let friendsButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "btn_friends"), for: .normal)
@@ -62,6 +64,8 @@ class HomeVC: UIViewController {
         $0.textColor = UIColor.grey04
         $0.textAlignment = .center
     }
+    let myPageView = NewMyPage()
+
 
 //MARK: Var
     var lastEventCount: String = ""
@@ -78,6 +82,8 @@ class HomeVC: UIViewController {
         getFriendsList()
         getHomeData()
         getLastPlansCount()
+        NotificationCenter.default.addObserver(self, selector: #selector(makeToast(_:)), name: NSNotification.Name(rawValue: "toastMessage"), object: nil)
+        setMyPageData()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,6 +145,11 @@ class HomeVC: UIViewController {
             $0.width.equalTo(116)
             $0.height.equalTo(32)
         }
+        
+        self.view.addSubview(myPageView)
+
+        myPageView.frame = CGRect(x: -userWidth * 0.84, y: 0, width: userWidth * 0.84, height: userHeight + 88)
+        myPageView.isHidden = true
     }
     func setCollectionViewLayout() {
         homeBackgroundView.addSubview(eventsCollectionView)
@@ -172,19 +183,47 @@ class HomeVC: UIViewController {
             }
         }
     }
+    func setMyPageData (){
+        if UserDefaults.standard.bool(forKey: "isLogin") {
+            myPageView.nameLabel.setTitle(UserDefaults.standard.string(forKey: "userName") ?? "로그인", for: .normal)
+            myPageView.emailTextLabel.text = UserDefaults.standard.string(forKey: "userEmail") ?? "SeeMeet에서 친구와 약속을 잡아보세요!"
+        }
+    }
 //MARK: Function
     @objc private func notiButtonClicked(_ sender: UIButton){
         guard let plansVC = UIStoryboard(name: "PlansList", bundle: nil).instantiateViewController(withIdentifier: PlansListVC.identifier) as? PlansListVC else {return}
         self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.pushViewController(plansVC, animated: true)
      }
-    
+    @objc func gotoLoginVC(_ sender: UIButton){
+        guard let popUp = SMPopUpVC(withType: .needLogin) as? SMPopUpVC else {return}
+        guard let Login = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "LoginVC") as? LoginVC else {return}
+        popUp.modalPresentationStyle = .overFullScreen
+        if UserDefaults.standard.bool(forKey: "isLogin") == false{
+            self.present(popUp, animated: false, completion: nil)
+            popUp.pinkButtonCompletion = {
+                self.dismiss(animated: false, completion: nil)
+                self.tabBarController?.tabBar.isHidden = true
+                self.navigationController?.pushViewController(Login, animated: true)
+            }
+        }
+    }
     @objc private func touchUpFriendsButton(_ sender: UIButton) {
         guard let friendsListVC = UIStoryboard(name: "FriendsList", bundle: nil).instantiateViewController(withIdentifier: FriendsListVC.identifier) as? FriendsListVC else { return }
         self.tabBarController?.tabBar.isHidden = true
         friendsListVC.friendsNameData = friendsData.map { $0.username }
         self.navigationController?.pushViewController(friendsListVC, animated: true)
     }
+    @objc private func menuButtonClicked(_ sender: UIButton) {
+        myPageView.isHidden = false
+        UIView.animate(withDuration: 1.0){
+            let yFrame = CGAffineTransform(translationX: self.userWidth * 0.84, y: 0)
+            self.myPageView.transform = yFrame
+        }
+    }
+    @objc private func makeToast(_ notification: NSNotification){
+        view.makeToastAnimation(message: notification.object as? String ?? "")
+     }
     
     func dateCal(date: String) -> String{
         let dateFormatter = DateFormatter()
