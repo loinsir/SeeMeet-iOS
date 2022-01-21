@@ -162,6 +162,12 @@ extension FriendsAddVC: UISearchBarDelegate {
         guard let searchEmail = searchBar.text else { return }
         requestFriendsSearchResults(email: searchEmail)
     }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            tableView.isHidden = true
+        }
+    }
 }
 
 extension FriendsAddVC: UITableViewDataSource {
