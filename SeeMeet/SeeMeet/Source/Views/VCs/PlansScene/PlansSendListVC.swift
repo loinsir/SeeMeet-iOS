@@ -76,6 +76,7 @@ class PlansSendListVC: UIViewController {
         $0.text = "야그들아 대방어먹게 시간 비워놔라야그들아 대방어먹게 시간 비워놔라 야그들아 대방어먹게 시간비워놔라야그들아 대방어먹게 시간 비워놔라 야그들아 대방어먹게 시간 비워놔라야그들아 대방어먹게 시간 비워놔라 야그들아 대방어먹게 시간 비워놔라야그들아 대방어먹게 시간 비워놔라 야그들아 대방어먹게 시간 비워놔라야그들아 대방어먹게 시간 비"
         $0.font = UIFont.hanSansRegularFont(ofSize: 14)
         $0.textColor = UIColor.grey06
+        $0.isEditable = false
     }
     private let bottomView = UIView().then{
         $0.backgroundColor = UIColor.white
