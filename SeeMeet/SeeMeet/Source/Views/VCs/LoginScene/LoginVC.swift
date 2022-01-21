@@ -133,7 +133,7 @@ class LoginVC: UIViewController {
                             let accessToken = success.data?.accesstoken as! String
                             let tk = TokenUtils()
                             tk.create("accesstoken", account: "accessToken", value: accessToken)
-                            print(tk.read("accesstoken", account: "accessToken"))
+                            
                             guard let homeVC = UIStoryboard(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "TabbarVC") as? TabbarVC else {return}
                             self.navigationController?.pushViewController(homeVC, animated: true)
                         }

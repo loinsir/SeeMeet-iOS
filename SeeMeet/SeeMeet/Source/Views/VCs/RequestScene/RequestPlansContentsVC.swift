@@ -458,15 +458,14 @@ extension RequestPlansContentsVC: UITableViewDelegate{
 extension RequestPlansContentsVC: TapRemoveButtonDelegate{
     
     func tapRemoveButton(chipView: ChipView) {
-        print("tapped")
+       
         let name: String
         name = chipView.name
         if let idx = searchedNameList.firstIndex(of: name){
             searchedNameList.remove(at: idx)
             searchedFriendList.remove(at: idx)
         }
-        print(searchedNameList)
-        print(searchedFriendList)
+        
         setChipView()
         nameList.append(chipView.name)
         nameList.sort()

@@ -142,7 +142,7 @@ class SelectedDateSheet: UIView {
     func addPickedDate(date: PickedDate){
         if(pickedDateList.count < 4){
             pickedDateList.append(date)
-           print(pickedDateList)
+    
         }
        
     }
@@ -154,7 +154,7 @@ extension SelectedDateSheet: DateTicketViewDelegate {
         if let pickedDate = view.pickedDate,
            let ticketIndex = pickedDateList.firstIndex(where: { $0 == pickedDate }) {
                 pickedDateList.remove(at: ticketIndex)
-            print(pickedDateList)
+         
         }
     }
 }

@@ -373,10 +373,7 @@ class RequestPlansDateVC: UIViewController {
     func initScheduleDataList(){
         let year = String(todayDate.year)
         let month = String(todayDate.month)
-        print("년")
-        print(year)
-        print("월")
-        print(month)
+        
         requestCalendarData(year: year, month: month)
     }
     
@@ -1099,8 +1096,7 @@ extension RequestPlansDateVC: tapCellViewDelegate{
             break
         }
         layoutCalendarView()
-        print("didididididi")
-        print(planList)
+       
         scheduleTableView.reloadData()
         
     }
@@ -1183,12 +1179,12 @@ extension RequestPlansDateVC{
             switch responseData {
             case .success(let response):
                 guard let response = response as? InvitationPlanData else { return }
-                print("응답데이터")
-                print(response.data)
+                
+                
                 self.scheduleDataList = response.data
                 self.layoutCalendarView()
-                print("스스스스케줄")
-                print(self.scheduleDataList)
+                
+            
                 
                // self.calendar.reloadData()
             case .requestErr(let msg):
