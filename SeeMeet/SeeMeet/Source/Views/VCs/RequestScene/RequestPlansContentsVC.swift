@@ -104,8 +104,12 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
 //MARK: Var
     var userWidth: CGFloat = UIScreen.getDeviceWidth()
     var userHeight: CGFloat = UIScreen.getDeviceHeight()
-    var nameList: [String] = ["이유진","김인환","박익범","정재용","오수린","유가영","서강덕","이종현","이선빈","김준희","엄희수","남지윤","구건모","손시형","최유림","이동기","이유정","김현아"]
+    var nameList: [String] = []
     var filterNameList = [String]()
+    
+    var friendData: [FriendsData] = []
+    var searchedFriendList: [FriendsData] = []
+    
     var searchedNameList = [String]()
     
 //MARK: ViewDidLoad
@@ -185,6 +189,7 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
                    case .success(let data) :
                        if let response = data as? FriendsDataModel{
                            self.nameList = response.data.map { $0.username }
+                           self.friendData = response.data
                        }
                    case .requestErr(let message) :
                        print("requestERR")
@@ -432,6 +437,8 @@ extension RequestPlansContentsVC: UITableViewDelegate{
         searchTextField.text = ""//이름 선택하면 텍스트 필드 비우기
         if(searchedNameList.count<3){ //이름 세개까지만 추가
             searchedNameList.append(filterNameList[indexPath.row])
+            guard let name = friendData.filter { $0.username == filterNameList[indexPath.row] }.first else { return }
+            searchedFriendList.append(name)
             setChipView()
             print(searchedNameList)
         }
@@ -448,8 +455,10 @@ extension RequestPlansContentsVC: TapRemoveButtonDelegate{
         name = chipView.name
         if let idx = searchedNameList.firstIndex(of: name){
             searchedNameList.remove(at: idx)
+            searchedFriendList.remove(at: idx)
         }
         print(searchedNameList)
+        print(searchedFriendList)
         setChipView()
     }
 }

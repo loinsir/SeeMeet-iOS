@@ -251,7 +251,7 @@ class RequestPlansDateVC: UIViewController {
         $0.setTitle("약속 신청", for: .normal)
         $0.titleLabel?.font = UIFont.hanSansMediumFont(ofSize: 16)
         $0.layer.cornerRadius = 10
-      //  $0.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(touchRequestButton(_:)), for: .touchUpInside)
     }
     private let fillView = UIView().then{
         $0.backgroundColor = .white   }
@@ -273,7 +273,14 @@ class RequestPlansDateVC: UIViewController {
         
         // Do any additional setup after loading the view.
     }
-    
+    @objc func touchRequestButton(_ button: UIButton) {
+        let nextStoryboard = UIStoryboard(name: "Tabbar", bundle: nil)
+        let nextVC = nextStoryboard.instantiateViewController(identifier: "TabbarVC")
+        self.tabBarController?.tabBar.isHidden = false
+//        self.navigationController?.pushViewController(nextVC, animated: true)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toastMessage"), object: "약속 신청을 완료했어요.")
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
 //MARK: Func
     func initSelectedDay(){
         selectedDay = todayDate
