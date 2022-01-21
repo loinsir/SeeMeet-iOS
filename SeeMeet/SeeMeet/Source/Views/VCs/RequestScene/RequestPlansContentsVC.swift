@@ -11,6 +11,7 @@ import Then
 
 class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
 //MARK: Components
+    
     private let titleView = UIView()
     private let titleLabel = UILabel().then{
         $0.text = "약속 신청"
@@ -18,6 +19,7 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
     }
     private let closeButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "btn_close"), for: .normal)
+        $0.addTarget(self, action: #selector(touchUpCloseButton(_:)), for: .touchUpInside)
     }
     private let friendSelectionLabel = UILabel().then{
         $0.text = "약속 신청할 친구를 선택하세요"
@@ -358,6 +360,14 @@ extension RequestPlansContentsVC: UITextFieldDelegate{
             filterNameList = nameList.filter { $0.lowercased().prefix(searchTextField.text!.count) == searchTextField.text!.lowercased() }
             searchTableView.reloadData()
         }
+    }
+    
+    @objc func touchUpCloseButton(_ sender: UIButton) {
+//        self.tabBarController?.tabBar.selectedItem = self.tabBarController?.tabBar.items
+//        self.tabBarController?.tabBar
+        let nextVC = UIStoryboard(name: "Tabbar", bundle: nil)
+        guard let VC = nextVC.instantiateViewController(withIdentifier: "TabbarVC") as? TabbarVC else { return }
+        navigationController?.pushViewController(VC, animated: false)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

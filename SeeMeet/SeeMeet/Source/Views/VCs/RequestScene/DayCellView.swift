@@ -14,7 +14,11 @@ class DayCellView: UIView {
     
     var montosun: String = "월"
     var day: Int = 3
-    var isScheduled = Bool()
+    var isScheduled = Bool() {
+        didSet {
+            setPinkDotView()
+        }
+    }
     
     var tapCellViewDelegate: tapCellViewDelegate?
     
@@ -161,7 +165,7 @@ class DayCellView: UIView {
         montosunLabel.textColor = .grey04
         dayLabel.textColor = .grey06
     }
-    func setInvalidStae(){
+    func setInvalidState(){
         cellView.layer.borderWidth = 0
         cellView.backgroundColor = .grey02
         montosunLabel.textColor = .grey03
