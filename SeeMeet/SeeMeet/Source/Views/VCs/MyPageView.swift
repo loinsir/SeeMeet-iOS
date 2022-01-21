@@ -74,16 +74,17 @@ class MyPageView: UIView {
         }
     }
     
-    private func loadXib() {
+     func loadXib() {
         let identifier: String = String(describing: (type(of: self)))
         let nibs = Bundle.main.loadNibNamed(identifier, owner: self, options: nil)
-        
+
         guard let customView = nibs?.first as? UIView else { return }
-        
+
         customView.frame = bounds
         addSubview(customView)
     }
     
     @IBAction func touchCloseButton(_ sender: UIButton) {
+        
     }
 }

@@ -128,6 +128,8 @@ class LoginVC: UIViewController {
                         else{
                             //토큰 저장하기~
                             UserDefaults.standard.set(true, forKey: "isLogin")
+                            UserDefaults.standard.set(success.data?.user.username, forKey: "userName")
+                            UserDefaults.standard.set(success.data?.user.email, forKey: "userEmail")
                             let accessToken = success.data?.accesstoken as! String
                             let tk = TokenUtils()
                             tk.create("accesstoken", account: "accessToken", value: accessToken)
