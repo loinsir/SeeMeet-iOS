@@ -388,6 +388,7 @@ class RegisterVC: UIViewController {
                         let tk = TokenUtils()
                         //accesstoken으로 통일 ㄱㄱ
                         tk.create("accesstoken", account: "accessToken", value: accessToken)
+                        UserDefaults.standard.set(true, forKey: "isLogin")
                         /*
                          tk.read(Constants.registerURL, account: "accessToken")
                          */
