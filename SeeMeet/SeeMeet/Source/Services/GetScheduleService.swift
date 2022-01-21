@@ -28,8 +28,9 @@ struct GetScheduleService {
     func getScheduleData(year: String,
                       month: String,
                       completion: @escaping (NetworkResult<Any>) -> Void) {
-        let url = Constants.baseURL + "/plan/month/\(year)/\(month)"
-        
+        let url = Constants.invitationPlanURL+"/\(year)/\(month)"
+        print("url")
+        print(url)
         let request = AF.request(url,
                    method: .get,
                    headers: headers)

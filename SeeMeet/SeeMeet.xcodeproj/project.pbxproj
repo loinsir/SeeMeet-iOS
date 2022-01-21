@@ -118,7 +118,7 @@
 		6AAD47C6278DF01300D8C800 /* UITextField++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAD47C5278DF01300D8C800 /* UITextField++.swift */; };
 		6AC748662798256B0027B823 /* WeekDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC748652798256B0027B823 /* WeekDay.swift */; };
 		6AE863032799DEB70050A978 /* InvitationPlanDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE863022799DEB70050A978 /* InvitationPlanDataModel.swift */; };
-		6AE863052799DFA20050A978 /* RequestResponseDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE863042799DFA20050A978 /* RequestResponseDataModel.swift */; };
+		6AE863052799DFA20050A978 /* PlanRequestDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE863042799DFA20050A978 /* PlanRequestDataModel.swift */; };
 		6AE863072799E2EA0050A978 /* PostRequestPlansService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE863062799E2EA0050A978 /* PostRequestPlansService.swift */; };
 		6AE863092799FABC0050A978 /* GetScheduleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE863082799FABC0050A978 /* GetScheduleService.swift */; };
 		6AF609222790BA6000F49DF4 /* SearchTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF609212790BA6000F49DF4 /* SearchTVC.swift */; };
@@ -239,7 +239,7 @@
 		6AAD47C5278DF01300D8C800 /* UITextField++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField++.swift"; sourceTree = "<group>"; };
 		6AC748652798256B0027B823 /* WeekDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDay.swift; sourceTree = "<group>"; };
 		6AE863022799DEB70050A978 /* InvitationPlanDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationPlanDataModel.swift; sourceTree = "<group>"; };
-		6AE863042799DFA20050A978 /* RequestResponseDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestResponseDataModel.swift; sourceTree = "<group>"; };
+		6AE863042799DFA20050A978 /* PlanRequestDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanRequestDataModel.swift; sourceTree = "<group>"; };
 		6AE863062799E2EA0050A978 /* PostRequestPlansService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRequestPlansService.swift; sourceTree = "<group>"; };
 		6AE863082799FABC0050A978 /* GetScheduleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetScheduleService.swift; sourceTree = "<group>"; };
 		6AF609212790BA6000F49DF4 /* SearchTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTVC.swift; sourceTree = "<group>"; };
@@ -404,7 +404,7 @@
 				19509B6A27986D2A00CAA4C2 /* FriendsSearchResponseModel.swift */,
 				3623EAD727980EC000853F87 /* PlansListDataModel.swift */,
 				6AE863022799DEB70050A978 /* InvitationPlanDataModel.swift */,
-				6AE863042799DFA20050A978 /* RequestResponseDataModel.swift */,
+				6AE863042799DFA20050A978 /* PlanRequestDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -981,7 +981,7 @@
 				36EFE3202785CC3B00466818 /* UITabelView++.swift in Sources */,
 				1950E5142791DAA300ED357B /* FriendsAddVC.swift in Sources */,
 				3623EAC02796ED1000853F87 /* PostRegisterService.swift in Sources */,
-				6AE863052799DFA20050A978 /* RequestResponseDataModel.swift in Sources */,
+				6AE863052799DFA20050A978 /* PlanRequestDataModel.swift in Sources */,
 				19E633DE278D84F200776D0C /* CalendarDetailVC.swift in Sources */,
 				36545312278EA30400A0770F /* UILabel++.swift in Sources */,
 				3623EAC22796F8A500853F87 /* TokenUtils.swift in Sources */,

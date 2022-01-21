@@ -14,8 +14,9 @@ fileprivate let heightRatio = UIScreen.getDeviceHeight() / 812
 class RequestPlansDateVC: UIViewController {
     
 //MARK: Vars
-    var timeList: [String] = ["09:30 - 11:00","09:15 - 14:40","16:40 - 21:50","17:35 - 23:20"]
-    var planList: [String] = ["마라샹궈","솝트세미나","스터디","데이트"]
+    var planList: [(String, String)] = [] // (timeString, planTitle)
+    
+    var planDict: [String: String] = [:]
     
     var todayDate = Date()
     var selectedDate = PickedDate()//선택된 날짜 + 시간
@@ -23,19 +24,12 @@ class RequestPlansDateVC: UIViewController {
     var addedDateList = [PickedDate]()// 선택된 날짜 + 시간 모음
     var defaultStartDate = Date()
     var defaultEndDate = Date()
-    var weekCalendarDateList = [Date]()
+    var weekCalendarDateList = [Date]()//일곱개 날짜 배열
     
     var isOpened: Bool = false
     
     
-    private var scheduleData: [ScheduleData]? {
-        didSet {
-//            if initialFlag {
-//                displayPlansCollectionView()
-//                initialFlag.toggle()
-//            }
-        }
-    }
+    private var scheduleDataList: [ScheduleData]?
     
 
 //MARK: Components
@@ -43,6 +37,7 @@ class RequestPlansDateVC: UIViewController {
     private let titleView = UIView()
     private let backButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "btn_back"), for: .normal)
+        $0.addTarget(self, action: #selector(touchUpBackButton), for: .touchUpInside)
     }
     private let titleLabel = UILabel().then{
         $0.text = "약속 신청"
@@ -50,6 +45,7 @@ class RequestPlansDateVC: UIViewController {
     }
     private let closeButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "btn_close_bold"), for: .normal)
+        $0.addTarget(self, action: #selector(touchUpCloseButton), for: .touchUpInside)
     }
     private let addDateView = UIView().then{
         $0.backgroundColor = UIColor.white
@@ -100,6 +96,7 @@ class RequestPlansDateVC: UIViewController {
     }
     private let prevWeekButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "leftchevron"), for: .normal)
+        $0.tag = 1
     }
     private let presentWeekLabel = UILabel().then{
         $0.text = "2022년 2월"
@@ -109,6 +106,7 @@ class RequestPlansDateVC: UIViewController {
     }
     private let nextWeekButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "rightchevron"), for: .normal)
+        $0.tag = 2
     }
     private let caleandarView = UIView()
     
@@ -160,10 +158,10 @@ class RequestPlansDateVC: UIViewController {
         $0.textColor = UIColor.grey06
     }
     
-    private let scheduleTableView = UITableView().then{
+    private let scheduleTableView = UITableView(frame: CGRect.zero, style: .plain).then{
         $0.register(ScheduleTVC.self, forCellReuseIdentifier: ScheduleTVC.identifier)
         $0.bounces = false
-
+        $0.backgroundColor = UIColor.grey04
     }
     private let emptyScheduleLabel = UILabel().then{
         $0.text = "일정이 없어요"
@@ -260,9 +258,7 @@ class RequestPlansDateVC: UIViewController {
         $0.backgroundColor = .white   }
     
     
-
-
-
+// MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
@@ -272,7 +268,9 @@ class RequestPlansDateVC: UIViewController {
         initSelectedTime()
         setTarget()
         initWeekCalendarDataList()
+        initScheduleDataList()
         layoutCalendarView()
+
         
         // Do any additional setup after loading the view.
     }
@@ -355,6 +353,15 @@ class RequestPlansDateVC: UIViewController {
             timeLabel.text = selectedDate.getStartToEndString()
            
         }
+    func initScheduleDataList(){
+        let year = String(todayDate.year)
+        let month = String(todayDate.month)
+        print("년")
+        print(year)
+        print("월")
+        print(month)
+        requestCalendarData(year: year, month: month)
+    }
     
 
     func initWeekCalendarDataList() {
@@ -438,7 +445,7 @@ class RequestPlansDateVC: UIViewController {
 
     }
     
-    func layoutCalendarView(){
+    func layoutCalendarView(_ tag: Int? = 0){
      var hasToday: Bool = false
         for i in 0..<cellList.count{
             
@@ -456,9 +463,11 @@ class RequestPlansDateVC: UIViewController {
             }
             cellList[i].cellView.isUserInteractionEnabled = true
             
+            //요일셀 날짜 설정
             cellList[i].setDate(montosun: montosun, day: day, isScheduled: true)
+            //요일셀 상태 설정
             if(weekCalendarDateList[i].compare(todayDate) == .orderedAscending){
-                cellList[i].setInvalidStae()
+                cellList[i].setInvalidState()
                 cellList[i].cellView.isUserInteractionEnabled = false
             }
             else if((weekCalendarDateList[i].compare(todayDate) == .orderedSame) && (weekCalendarDateList[i].compare(selectedDay) == .orderedSame)){
@@ -474,15 +483,55 @@ class RequestPlansDateVC: UIViewController {
             else{
                 cellList[i].setBasicState()
             }
+            
+            displayRedDot()
+
         }
         if hasToday == true{
             prevWeekButton.isHidden = true
         }else{
             prevWeekButton.isHidden = false
         }
+        
+        if (weekCalendarDateList.first?.year != weekCalendarDateList.last?.year) || (weekCalendarDateList.first?.month != weekCalendarDateList.last?.month){
+            guard let firstYear = weekCalendarDateList.first?.year else {return}
+            guard let  firstMonth = weekCalendarDateList.first?.month else {return}
+            guard let  lastYear = weekCalendarDateList.last?.year else {return}
+            guard let  lastMonth = weekCalendarDateList.last?.month else {return}
+            switch tag{
+            case 1:
+            requestCalendarData(year: String(firstYear), month: String(firstMonth))
+            case 2:
+                requestCalendarData(year: String(lastYear), month: String(lastMonth))
+            default:
+                break
+            }
+            
+            
+            
+        }
         setPresentWeekLabel()
         
     }
+    private func displayRedDot() {
+        //요일셀 빨간불 설정
+        for (index, date) in weekCalendarDateList.enumerated() {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            formatter.locale = Locale(identifier: "ko_KR")
+            formatter.timeZone = NSTimeZone(name: "ko_KR") as TimeZone?
+            cellList[index].isScheduled = false
+            
+            let dateString: String = formatter.string(from: date)
+            
+            scheduleDataList?.forEach {
+                if dateString == $0.date {
+                    cellList[index].isScheduled = true
+                }
+            }
+        }
+    }
+    
     func setPresentWeekLabel(){
         if (weekCalendarDateList.first?.year != weekCalendarDateList.last?.year) || (weekCalendarDateList.first?.month != weekCalendarDateList.last?.month){
             
@@ -492,6 +541,8 @@ class RequestPlansDateVC: UIViewController {
             guard let  lastYear = weekCalendarDateList.last?.year else {return}
             guard let  lastMonth = weekCalendarDateList.last?.month else {return}
             presentWeekLabel.text = "\(firstYear)년 \(firstMonth)월-\(lastYear)년 \(lastMonth)월"
+        
+            
         }else {
             guard let   year = weekCalendarDateList.first?.year else {return}
             guard let  month = weekCalendarDateList.first?.month else {return}
@@ -613,27 +664,36 @@ class RequestPlansDateVC: UIViewController {
         }
         
     }
-    @objc func tapNextButton(){
+    @objc func tapNextButton(_ sender: UIButton){
         
         for i in 0..<weekCalendarDateList.count{
             weekCalendarDateList[i] = weekCalendarDateList[i].nextWeekDate()
 
         }
         
-        layoutCalendarView()
+        layoutCalendarView(sender.tag)
         
        }
-    @objc func tapPreviousButton(){
+    @objc func tapPreviousButton(_ sender: UIButton){
         
         for i in 0..<weekCalendarDateList.count{
             weekCalendarDateList[i] = weekCalendarDateList[i].prevWeekDate()
         }
-        layoutCalendarView()
+        layoutCalendarView(sender.tag)
         
        }
     
     @objc func tapAddButton(){
         bottomSheetView.addPickedDate(date: selectedDate)
+    }
+    
+    @objc func touchUpBackButton() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func touchUpCloseButton() { //나중에 구현~
+//        self.tabBarController?.tabBar.isHidden = false
+//        navigationController?.popToRootViewController(animated: true)
     }
 
 
@@ -931,12 +991,12 @@ class RequestPlansDateVC: UIViewController {
 
 extension RequestPlansDateVC: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return timeList.count
+        return planList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ScheduleTVC.identifier) as? ScheduleTVC else { return UITableViewCell() }
-        cell.setData(time: timeList[indexPath.row], plansTitle: planList[indexPath.row])
+        cell.setData(time: planList[indexPath.row].0, plansTitle: planList[indexPath.row].1)
         return cell
     }
     
@@ -964,147 +1024,105 @@ extension RequestPlansDateVC: TapTouchAreaViewDelegate{
                 $0.bottom.equalTo(navigationBarView.snp.bottom)
              }
             isOpened = false
+        }
+    }
+}
+
+
+extension RequestPlansDateVC: tapCellViewDelegate{
+    func tapCellView(dayCellView: DayCellView) {
+        planList.removeAll()
       
+        switch dayCellView.montosun{
+        case "일":
+            setSelectedDayLabel(by: 0)
+            setScheduleTableDataList(by: 0)
+            todayLabel.text = makeTodayLabelText(from: weekCalendarDateList[0])
+                                                    
+        case "월":
+            setSelectedDayLabel(by: 1)
+            setScheduleTableDataList(by: 1)
+            todayLabel.text = makeTodayLabelText(from: weekCalendarDateList[1])
+            
+        case "화":
+            setSelectedDayLabel(by: 2)
+            setScheduleTableDataList(by: 2)
+            todayLabel.text = makeTodayLabelText(from: weekCalendarDateList[2])
+            
+        case "수":
+            setSelectedDayLabel(by: 3)
+            setScheduleTableDataList(by: 3)
+            todayLabel.text = makeTodayLabelText(from: weekCalendarDateList[3])
+            
+        case "목":
+            setSelectedDayLabel(by: 4)
+            setScheduleTableDataList(by: 4)
+            todayLabel.text = makeTodayLabelText(from: weekCalendarDateList[4])
+            
+        case "금":
+            setSelectedDayLabel(by: 5)
+            setScheduleTableDataList(by: 5)
+            todayLabel.text = makeTodayLabelText(from: weekCalendarDateList[5])
+            
+        case "토":
+            setSelectedDayLabel(by: 6)
+            setScheduleTableDataList(by: 6)
+            todayLabel.text = makeTodayLabelText(from: weekCalendarDateList[6])
+            
+        default:
+            break
+        }
+        layoutCalendarView()
+        print("didididididi")
+        print(planList)
+        scheduleTableView.reloadData()
+        
+    }
+    
+    private func makeTodayLabelText(from: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "M월 d일 a요일"
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.timeZone = NSTimeZone(name: "ko_KR") as TimeZone?
+        
+        let dateText = formatter.string(from: from)
+        return dateText
+    }
+    
+    private func setScheduleTableDataList(by weekDay: Int) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.timeZone = NSTimeZone(name: "ko_KR") as TimeZone?
+        
+        let dateString: String = formatter.string(from: weekCalendarDateList[weekDay])
+        
+        scheduleDataList?.sort { $0 < $1 }
+        
+        scheduleDataList?.forEach {
+            if dateString == $0.date {
+                let key = "\($0.start) - \($0.end)"
+                planList.append((key, $0.invitationTitle))
+            }
         }
         
         
     }
     
-   
-}
-
-extension RequestPlansDateVC: tapCellViewDelegate{
-    func tapCellView(dayCellView: DayCellView) {
-      
-        switch dayCellView.montosun{
-        case "일":
-            selectedDay = weekCalendarDateList[0]
-            
-            //선택한 요일 셀의 날짜들을 가져와서 상단의 선택된 날짜 데이터를 갱신. 시간과 분은 유지
-            let revisedStartDateComponents = DateComponents(year: weekCalendarDateList[0].year, month: weekCalendarDateList[0].month, day: weekCalendarDateList[0].day, hour: selectedDate.startTime.hour ,minute: selectedDate.startTime.minute)
-            
-            guard let revisedStartDate = Calendar.current.date(from: revisedStartDateComponents) else{return}
-            selectedDate.startTime = revisedStartDate
-            
-            let revisedEndDateComponents = DateComponents(year: weekCalendarDateList[0].year, month: weekCalendarDateList[0].month, day: weekCalendarDateList[0].day, hour: selectedDate.endTime.hour ,minute: selectedDate.endTime.minute)
-            
-            guard let revisedEndDate = Calendar.current.date(from: revisedEndDateComponents) else{return}
-            
-
-            selectedDate.endTime = revisedEndDate
-            updateSelectedDateLabel()
-            
-           
-        case "월":
-            selectedDay = weekCalendarDateList[1]
-            //선택한 요일 셀의 날짜들을 가져와서 상단의 선택된 날짜 데이터를 갱신. 시간과 분은 유지
-            let revisedStartDateComponents = DateComponents(year: weekCalendarDateList[1].year, month: weekCalendarDateList[1].month, day: weekCalendarDateList[1].day, hour: selectedDate.startTime.hour ,minute: selectedDate.startTime.minute)
-            
-            guard let revisedStartDate = Calendar.current.date(from: revisedStartDateComponents) else{return}
-            selectedDate.startTime = revisedStartDate
-            
-            let revisedEndDateComponents = DateComponents(year: weekCalendarDateList[1].year, month: weekCalendarDateList[1].month, day: weekCalendarDateList[1].day, hour: selectedDate.endTime.hour ,minute: selectedDate.endTime.minute)
-            
-            guard let revisedEndDate = Calendar.current.date(from: revisedEndDateComponents) else{return}
-            
-            selectedDate.endTime = revisedEndDate
-            updateSelectedDateLabel()
-            
-        case "화":
-            selectedDay = weekCalendarDateList[2]
-            //선택한 요일 셀의 날짜들을 가져와서 상단의 선택된 날짜 데이터를 갱신. 시간과 분은 유지
-            let revisedStartDateComponents = DateComponents(year: weekCalendarDateList[2].year, month: weekCalendarDateList[2].month, day: weekCalendarDateList[2].day, hour: selectedDate.startTime.hour ,minute: selectedDate.startTime.minute)
-            
-            guard let revisedStartDate = Calendar.current.date(from: revisedStartDateComponents) else{return}
-            selectedDate.startTime = revisedStartDate
-            
-            let revisedEndDateComponents = DateComponents(year: weekCalendarDateList[2].year, month: weekCalendarDateList[2].month, day: weekCalendarDateList[2].day, hour: selectedDate.endTime.hour ,minute: selectedDate.endTime.minute)
-            
-            guard let revisedEndDate = Calendar.current.date(from: revisedEndDateComponents) else{return}
-            
-            selectedDate.endTime = revisedEndDate
-            updateSelectedDateLabel()
-            
-        case "수":
-            selectedDay = weekCalendarDateList[3]
-            //선택한 요일 셀의 날짜들을 가져와서 상단의 선택된 날짜 데이터를 갱신. 시간과 분은 유지
-            let revisedStartDateComponents = DateComponents(year: weekCalendarDateList[3].year, month: weekCalendarDateList[3].month, day: weekCalendarDateList[3].day, hour: selectedDate.startTime.hour ,minute: selectedDate.startTime.minute)
-            
-            guard let revisedStartDate = Calendar.current.date(from: revisedStartDateComponents) else{return}
-            selectedDate.startTime = revisedStartDate
-            
-            let revisedEndDateComponents = DateComponents(year: weekCalendarDateList[3].year, month: weekCalendarDateList[3].month, day: weekCalendarDateList[3].day, hour: selectedDate.endTime.hour ,minute: selectedDate.endTime.minute)
-            
-            guard let revisedEndDate = Calendar.current.date(from: revisedEndDateComponents) else{return}
-            
-            selectedDate.endTime = revisedEndDate
-            updateSelectedDateLabel()
-            
-        case "목":
-            selectedDay = weekCalendarDateList[4]
-            //선택한 요일 셀의 날짜들을 가져와서 상단의 선택된 날짜 데이터를 갱신. 시간과 분은 유지
-            let revisedStartDateComponents = DateComponents(year: weekCalendarDateList[4].year, month: weekCalendarDateList[4].month, day: weekCalendarDateList[4].day, hour: selectedDate.startTime.hour ,minute: selectedDate.startTime.minute)
-            
-            guard let revisedStartDate = Calendar.current.date(from: revisedStartDateComponents) else{return}
-            selectedDate.startTime = revisedStartDate
-            
-            let revisedEndDateComponents = DateComponents(year: weekCalendarDateList[4].year, month: weekCalendarDateList[4].month, day: weekCalendarDateList[4].day, hour: selectedDate.endTime.hour ,minute: selectedDate.endTime.minute)
-            
-            guard let revisedEndDate = Calendar.current.date(from: revisedEndDateComponents) else{return}
-            
-            selectedDate.endTime = revisedEndDate
-            updateSelectedDateLabel()
-            
-        case "금":
-            selectedDay = weekCalendarDateList[5]
-            //선택한 요일 셀의 날짜들을 가져와서 상단의 선택된 날짜 데이터를 갱신. 시간과 분은 유지
-            let revisedStartDateComponents = DateComponents(year: weekCalendarDateList[5].year, month: weekCalendarDateList[5].month, day: weekCalendarDateList[5].day, hour: selectedDate.startTime.hour ,minute: selectedDate.startTime.minute)
-            
-            guard let revisedStartDate = Calendar.current.date(from: revisedStartDateComponents) else{return}
-            selectedDate.startTime = revisedStartDate
-            
-            let revisedEndDateComponents = DateComponents(year: weekCalendarDateList[5].year, month: weekCalendarDateList[5].month, day: weekCalendarDateList[5].day, hour: selectedDate.endTime.hour ,minute: selectedDate.endTime.minute)
-            
-            guard let revisedEndDate = Calendar.current.date(from: revisedEndDateComponents) else{return}
-            
-            selectedDate.endTime = revisedEndDate
-            updateSelectedDateLabel()
-            
-        case "토":
-            selectedDay = weekCalendarDateList[6]
-            //선택한 요일 셀의 날짜들을 가져와서 상단의 선택된 날짜 데이터를 갱신. 시간과 분은 유지
-            let revisedStartDateComponents = DateComponents(year: weekCalendarDateList[6].year, month: weekCalendarDateList[6].month, day: weekCalendarDateList[6].day, hour: selectedDate.startTime.hour ,minute: selectedDate.startTime.minute)
-            
-            guard let revisedStartDate = Calendar.current.date(from: revisedStartDateComponents) else{return}
-            selectedDate.startTime = revisedStartDate
-            
-            let revisedEndDateComponents = DateComponents(year: weekCalendarDateList[6].year, month: weekCalendarDateList[6].month, day: weekCalendarDateList[6].day, hour: selectedDate.endTime.hour ,minute: selectedDate.endTime.minute)
-            
-            guard let revisedEndDate = Calendar.current.date(from: revisedEndDateComponents) else{return}
-            
-            selectedDate.endTime = revisedEndDate
-            updateSelectedDateLabel()
-            
-        default:
-            selectedDay = weekCalendarDateList[0]
-            //선택한 요일 셀의 날짜들을 가져와서 상단의 선택된 날짜 데이터를 갱신. 시간과 분은 유지
-            let revisedStartDateComponents = DateComponents(year: weekCalendarDateList[0].year, month: weekCalendarDateList[0].month, day: weekCalendarDateList[0].day, hour: selectedDate.startTime.hour ,minute: selectedDate.startTime.minute)
-            
-            guard let revisedStartDate = Calendar.current.date(from: revisedStartDateComponents) else{return}
-            selectedDate.startTime = revisedStartDate
-            
-            let revisedEndDateComponents = DateComponents(year: weekCalendarDateList[0].year, month: weekCalendarDateList[0].month, day: weekCalendarDateList[0].day, hour: selectedDate.endTime.hour ,minute: selectedDate.endTime.minute)
-            
-            guard let revisedEndDate = Calendar.current.date(from: revisedEndDateComponents) else{return}
-            
-            selectedDate.endTime = revisedEndDate
-            updateSelectedDateLabel()
-            
-           
-        }
-       
-        layoutCalendarView()
+    private func setSelectedDayLabel(by weekday: Int) {
+        selectedDay = weekCalendarDateList[weekday]
+        //선택한 요일 셀의 날짜들을 가져와서 상단의 선택된 날짜 데이터를 갱신. 시간과 분은 유지
+        let revisedStartDateComponents = DateComponents(year: weekCalendarDateList[weekday].year, month: weekCalendarDateList[weekday].month, day: weekCalendarDateList[weekday].day, hour: selectedDate.startTime.hour ,minute: selectedDate.startTime.minute)
         
+        guard let revisedStartDate = Calendar.current.date(from: revisedStartDateComponents) else{return}
+        selectedDate.startTime = revisedStartDate
+        
+        let revisedEndDateComponents = DateComponents(year: weekCalendarDateList[weekday].year, month: weekCalendarDateList[weekday].month, day: weekCalendarDateList[weekday].day, hour: selectedDate.endTime.hour ,minute: selectedDate.endTime.minute)
+        
+        guard let revisedEndDate = Calendar.current.date(from: revisedEndDateComponents) else{return}
+        
+        selectedDate.endTime = revisedEndDate
+        updateSelectedDateLabel()
     }
     
     
@@ -1113,33 +1131,38 @@ extension RequestPlansDateVC: tapCellViewDelegate{
 //MARK: Network
 
 extension RequestPlansDateVC{
-    func requestPlans(){
-        PostRequestPlansService.shared.requestPlans(guest: <#T##[Host]#>, title: <#T##String#>, contents: <#T##String#>, date: <#T##[String]#>, start: <#T##[String]#>, end: <#T##[String]#>){ responseData in
-            switch responseData {
-            case.success(let requestResponse):
-                guard let response = requestResponse as? RequestResponseData else { return }
-                if let plansData = response.data{
-                    //노티피케이션 센터 이용해서 팝시키고 메인에 토스트 띄우기
-                }
-            case .requestErr(let msg):
-                print("requestERR \(msg)")
-            case .pathErr:
-                print("pathErr")
-            case .serverErr:
-                print("serverErr")
-            case .networkFail:
-                print("networkFail")
-            
-            }
-        }
-    }
-    
+//    func requestPlans(){
+//        PostRequestPlansService.shared.requestPlans(guest: <#T##[Host]#>, title: <#T##String#>, contents: <#T##String#>, date: <#T##[String]#>, start: <#T##[String]#>, end: <#T##[String]#>){ responseData in
+//            switch responseData {
+//            case.success(let requestResponse):
+//                guard let response = requestResponse as? PlanRequestData else { return }
+//                if let plansData = response.data{
+//                    //노티피케이션 센터 이용해서 팝시키고 메인에 토스트 띄우기
+//                }
+//            case .requestErr(let msg):
+//                print("requestERR \(msg)")
+//            case .pathErr:
+//                print("pathErr")
+//            case .serverErr:
+//                print("serverErr")
+//            case .networkFail:
+//                print("networkFail")
+//
+//            }
+//        }
+//    }
+
     func requestCalendarData(year: String, month: String) {
-        GetScheduleService.shared.getScheduleData(year: <#T##String#>, month: <#T##String#>)  { responseData in
+        GetScheduleService.shared.getScheduleData(year: year, month: month)  { responseData in
             switch responseData {
             case .success(let response):
                 guard let response = response as? InvitationPlanData else { return }
-                self.scheduleData = response.data
+                print("응답데이터")
+                print(response.data)
+                self.scheduleDataList = response.data
+                self.layoutCalendarView()
+                print("스스스스케줄")
+                print(self.scheduleDataList)
                // self.calendar.reloadData()
             case .requestErr(let msg):
                 print(msg)
@@ -1154,4 +1177,3 @@ extension RequestPlansDateVC{
     }
 
 }
-

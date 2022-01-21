@@ -64,7 +64,7 @@ struct PostRequestPlansService {
     
     private func isValidDecodableData(data: Data) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
-        guard let decodedData = try? decoder.decode(RequestResponseData.self, from: data) else { return .pathErr }
+        guard let decodedData = try? decoder.decode(PlanRequestData.self, from: data) else { return .pathErr }
         if decodedData.status == 200 {
             return .success(decodedData)
         } else {

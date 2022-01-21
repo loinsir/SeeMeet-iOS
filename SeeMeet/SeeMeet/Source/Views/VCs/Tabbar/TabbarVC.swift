@@ -13,7 +13,7 @@ class TabbarVC: UITabBarController {
     public var tabs: [UIViewController] = []
     private var comeBackIndex = 0
     private var isNotch = UIScreen.hasNotch
-
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

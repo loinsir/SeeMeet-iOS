@@ -8,15 +8,15 @@
 import Foundation
 
 // MARK: - Main
-struct RequestResponseData: Codable {
+struct PlanRequestData: Codable {
     let status: Int
     let success: Bool
     let message: String
-    let data: RequestPlansResultData?
+    let data: PlanRequestResultData?
 }
 
 // MARK: - DataClass
-struct RequestPlansResultData: Codable {
+struct PlanRequestResultData: Codable {
     let invitation: Invitation
     let guests: [Guest]
     let dates: [[RequestDateElement]]
