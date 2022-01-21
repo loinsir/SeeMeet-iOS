@@ -98,7 +98,7 @@ class HomeVC: UIViewController {
     func setHomeLayout() {
         self.navigationController?.isNavigationBarHidden = true
         let viewRatio = userHeight / 724
-        print(viewRatio)
+    
                         
         view.addSubview(homeBackgroundView)
         homeBackgroundView.addSubviews([topView, collectionViewHeadLabel])
@@ -234,7 +234,7 @@ class HomeVC: UIViewController {
 
         let interval = endDate.timeIntervalSince(startDate)
         let days = Int(interval / 86400)
-        print("\(days) 일 차이 난다") //4일
+        
         
         return String(abs(days))
     }
@@ -254,7 +254,7 @@ class HomeVC: UIViewController {
         else {
             return false
         }
-        print("\(days) 일 차이 난다")
+        
     }
     func countPrevious(date: String) -> Int{
         let dateFormatter = DateFormatter()
@@ -267,7 +267,7 @@ class HomeVC: UIViewController {
         let days = Int(interval / 86400)
 
         return days
-        print("\(days) 일 차이 난다")
+        
     }
     func setDayMonth(date: String) -> String{
         let dateFormatter = DateFormatter()

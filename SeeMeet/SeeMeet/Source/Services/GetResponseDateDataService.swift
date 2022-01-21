@@ -8,11 +8,10 @@ struct GetResponseDateDataService
     {
         // completion 클로저를 @escaping closure로 정의합니다.
         var URL = Constants.plansResponseURL + date
-        print(URL)
+      
         let tc = TokenUtils()
         let header : HTTPHeaders = tc.getAuthorizationHeader(serviceID: "accesstoken") ?? ["Content-Type": "application/json"]
-        print(header)
-
+       
         let dataRequest = AF.request(URL,
                                      method: .get,
                                      encoding: JSONEncoding.default,

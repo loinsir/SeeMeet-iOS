@@ -104,13 +104,19 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
 //MARK: Var
     var userWidth: CGFloat = UIScreen.getDeviceWidth()
     var userHeight: CGFloat = UIScreen.getDeviceHeight()
-    var nameList: [String] = ["이유진","김인환","박익범","정재용","오수린","유가영","서강덕","이종현","이선빈","김준희","엄희수","남지윤","구건모","손시형","최유림","이동기","이유정","김현아"]
+    var nameList: [String] = []
     var filterNameList = [String]()
+    
+    var friendData: [FriendsData] = []
+    var searchedFriendList: [FriendsData] = []
+    
     var searchedNameList = [String]()
     
 //MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        dismissKeyboard()
+        getFriendsList()
         setLayout()
         setPlaceholder()
         setDelegate()
@@ -118,6 +124,16 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
     }
     
 //MARK: Function
+    
+    func dismissKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
+        tap.cancelsTouchesInView = false
+    }
+    
+    @objc func tapped() {
+        plansTitleTextField.endEditing(true)
+        plansContentsTextView.endEditing(true)
+    }
   
     @objc func nextButtonTapped() {
         let nextStoryboard = UIStoryboard(name: "RequestPlansDate", bundle: nil)
@@ -177,6 +193,27 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
         }
     }
     
+    func getFriendsList(){
+        GetFriendsListService.shared.getFriendsList(){ (response) in
+                   switch response
+                   {
+                   case .success(let data) :
+                       if let response = data as? FriendsDataModel{
+                           self.nameList = response.data.map { $0.username }
+                           self.friendData = response.data
+                       }
+                   case .requestErr(let message) :
+                       print("requestERR")
+                   case .pathErr :
+                       print("pathERR")
+                   case .serverErr:
+                       print("serverERR")
+                   case .networkFail:
+                       print("networkFail")
+                   }
+               }
+    }
+    
 //MARK: Layout
     func setLayout() {
         self.navigationController?.isNavigationBarHidden = true
@@ -214,10 +251,10 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
             $0.leading.bottom.trailing.equalToSuperview()
         }
         searchTableView.snp.makeConstraints{
-            $0.top.equalTo(searchTextField.snp.bottom).offset(10)
+            $0.top.equalTo(searchTextField.snp.bottom).offset(0)
             $0.leading.equalTo(searchTextField.snp.leading).offset(23)
             $0.trailing.equalTo(searchTextField.snp.trailing).offset(-22)
-            $0.height.equalTo(240)
+            $0.height.equalTo(270)
         }
         searchImageView.snp.makeConstraints{
             $0.centerY.equalToSuperview()
@@ -347,6 +384,8 @@ extension RequestPlansContentsVC: UITextFieldDelegate{
         default:
             textField.layer.borderWidth = 0
         }
+        
+        searchTableView.isHidden = true
     }
     
     @objc func textFieldDidChange(_ sender: Any?) {
@@ -405,23 +444,32 @@ extension RequestPlansContentsVC: UITableViewDelegate{
         searchTextField.text = ""//이름 선택하면 텍스트 필드 비우기
         if(searchedNameList.count<3){ //이름 세개까지만 추가
             searchedNameList.append(filterNameList[indexPath.row])
+            guard let name = friendData.filter { $0.username == filterNameList[indexPath.row] }.first else { return }
+            searchedFriendList.append(name)
+            nameList = nameList.filter { !searchedNameList.contains($0) }
             setChipView()
             print(searchedNameList)
         }
+        tableView.isHidden = true
+        searchTextField.endEditing(true)
     }
 }
 
 extension RequestPlansContentsVC: TapRemoveButtonDelegate{
     
     func tapRemoveButton(chipView: ChipView) {
-        print("tapped")
+       
         let name: String
         name = chipView.name
         if let idx = searchedNameList.firstIndex(of: name){
             searchedNameList.remove(at: idx)
+            searchedFriendList.remove(at: idx)
         }
-        print(searchedNameList)
+        
         setChipView()
+        nameList.append(chipView.name)
+        nameList.sort()
+        searchTableView.reloadData()
     }
 }
 

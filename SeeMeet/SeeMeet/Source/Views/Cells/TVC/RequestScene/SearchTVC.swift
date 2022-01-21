@@ -15,7 +15,7 @@ class SearchTVC: UITableViewCell {
     
     
     private let profileImageView: UIImageView = UIImageView().then{
-        $0.image = UIImage(named: "Ellipse_dummy")
+        $0.image = UIImage(named: "img_profile")
     }
     private let nameLabel: UILabel = UILabel().then{
         $0.font = UIFont.hanSansMediumFont(ofSize: 14)

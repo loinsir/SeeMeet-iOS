@@ -54,10 +54,8 @@ struct PostRegisterService {
         switch statusCode {
         case 200, 404:
             //404가 이제 중복된 이메일 있을때
-            print(statusCode)
             return .success(decodedData)
         case 400:
-            print(decodedData.message)
             return .requestErr(decodedData.message)
         case 500:
             return .serverErr
