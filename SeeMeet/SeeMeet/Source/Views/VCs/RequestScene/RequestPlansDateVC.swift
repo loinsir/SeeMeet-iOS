@@ -280,25 +280,25 @@ class RequestPlansDateVC: UIViewController {
         // Do any additional setup after loading the view.
     }
     @objc func touchRequestButton(_ button: UIButton) {
-        
         let planDateList = bottomSheetView.pickedDateList
         
         let date = planDateList.map { $0.getDateStringForRequest() }
         let start = planDateList.map { $0.getStartTimeStringForRequest()}
         let end = planDateList.map {  $0.getEndTimeStringForRequest() }
         
-        requestPlans(guest: guestsToRequest, title: titleToRequest, contents: contentsToRequest, date: date, start: start, end: end)
+        requestPlans(guests: guestsToRequest, title: titleToRequest, contents: contentsToRequest, date: date, start: start, end: end)
     }
     
-    private func requestPlans(guest: [[String: Any]],
+    private func requestPlans(guests: [[String: Any]],
                               title: String,
                               contents: String,
                               date: [String],
                               start: [String],
                               end: [String]
                               ) {
+        print(guests, title, contents, date, start, end, "gdadfsa")
         PostRequestPlansService.shared.requestPlans(
-            guest: guest,
+            guests: guests,
             title: title,
             contents: contents,
             date: date,
