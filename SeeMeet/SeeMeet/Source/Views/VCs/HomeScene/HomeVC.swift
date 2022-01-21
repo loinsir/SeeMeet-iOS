@@ -55,7 +55,7 @@ class HomeVC: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
-    private let noEventImageView = UIImageView().then{
+    private var noEventImageView = UIImageView().then{
         $0.image = UIImage(named: "img_illust_10")
     }
     private let noEventLabel = UILabel().then{
@@ -364,9 +364,13 @@ class HomeVC: UIViewController {
                            self.setMainillust()
                            if self.homeData[0].data.count == 0 {
                                self.isNoEventLayout()
+                               self.noEventLabel.isHidden = false
+                               self.noEventImageView.isHidden = false
                            }
                            else{
                                self.eventsCollectionView.reloadData()
+                               self.noEventLabel.isHidden = true
+                               self.noEventImageView.isHidden = true
                            }
                        }
                    case .requestErr(let message) :
@@ -455,17 +459,22 @@ extension HomeVC: UICollectionViewDataSource{
         let eventDate = homeData[0].data[indexPath.row].date.components(separatedBy: "-")
         let event = eventDate[1] + "-" + eventDate[2]
         var imageName = ""
-        
-        if Int(homeData[0].data[indexPath.row].count) ?? 0 > 1{
+
+        if Int(homeData[0].data[indexPath.row].count) ?? 0 - 1 > 2{
             imageName = "img_illust_3"
         }
         else{
             imageName = "img_illust_2"
         }
-        cell.setData(dDay: "D" + dDayDate, image: imageName, eventName: homeData[0].data[indexPath.row].invitationTitle, eventData: event)
+        cell.setData(dDay: "D-" + dDayDate, image: imageName, eventName: homeData[0].data[indexPath.row].invitationTitle, eventData: event)
         return cell
     }
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let detailVC = UIStoryboard(name: "CalendarDetail", bundle: nil).instantiateViewController(withIdentifier: "CalendarDetailVC") as? CalendarDetailVC else {return}
+        detailVC.planID = homeData[0].data[indexPath.row].planID
+        self.tabBarController?.tabBar.isHidden = true
+        self.navigationController?.pushViewController(detailVC, animated: true)
+    }
 }
 extension HomeVC: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
