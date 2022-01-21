@@ -1039,14 +1039,22 @@ extension RequestPlansDateVC: TapTouchAreaViewDelegate{
         switch isOpened{
         case false :
             isOpened = true
-            bottomSheetView.snp.updateConstraints {
-                $0.bottom.equalTo(navigationBarView.snp.bottom).offset(310)
-             }
+            UIView.animate(withDuration: 1.0){
+                let yFrame = CGAffineTransform(translationX: 0, y: -310)
+                self.bottomSheetView.transform = yFrame
+            }
+//            bottomSheetView.snp.updateConstraints {
+//                $0.bottom.equalTo(navigationBarView.snp.bottom).offset(310)
+//             }
     
         case true:
-            bottomSheetView.snp.updateConstraints {
-                $0.bottom.equalTo(navigationBarView.snp.bottom)
-             }
+//            bottomSheetView.snp.updateConstraints {
+//                $0.bottom.equalTo(navigationBarView.snp.bottom)
+//             }
+            UIView.animate(withDuration: 1.0){
+                let yFrame = CGAffineTransform(translationX: 0, y: 0)
+                self.bottomSheetView.transform = yFrame
+            }
             isOpened = false
         }
     }
