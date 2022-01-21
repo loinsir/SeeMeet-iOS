@@ -1,5 +1,3 @@
-<img src = "" width="750">  <br>
-
 #  씨밋 - SeeMeet
 > **약속부터 만남까지, 더 가까운 우리 사이 SeeMeet** <br>
 >
