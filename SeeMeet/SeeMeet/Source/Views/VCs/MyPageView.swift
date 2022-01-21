@@ -6,11 +6,7 @@ fileprivate let userWidth: CGFloat = UIScreen.getDeviceWidth()
 fileprivate let heightRatio: CGFloat = userHeight / 812
 fileprivate let widthRatio: CGFloat = userWidth / 375
 
-protocol MyPageTopViewDelegate {
-    func myPageTopView(view: MyPageTopView, touchedCloseButton: UIButton)
-}
-
-class MyPageTopView: UIView {
+class MyPageView: UIView {
     
     // MARK: - IBOutlet
     
@@ -21,9 +17,7 @@ class MyPageTopView: UIView {
     
     @IBOutlet weak var closeButton: UIButton!
     
-    // MARK: - properties
-    var delegate: MyPageTopViewDelegate?
-    
+    @IBOutlet weak var listImage: UIImageView!
     // MARK: - Life cycle
     
     override init(frame: CGRect) {
@@ -73,6 +67,11 @@ class MyPageTopView: UIView {
             $0.trailing.equalToSuperview().offset(-4 * widthRatio)
             $0.bottom.equalToSuperview().offset(-144 * heightRatio)
         }
+        
+        listImage.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalTo(userEmailLabel.snp.bottom).offset(33 * heightRatio)
+        }
     }
     
     private func loadXib() {
@@ -84,8 +83,7 @@ class MyPageTopView: UIView {
         customView.frame = bounds
         addSubview(customView)
     }
-
-    @IBAction func touchUpCloseButton(_ sender: UIButton) {
-        delegate?.myPageTopView(view: self, touchedCloseButton: closeButton)
+    
+    @IBAction func touchCloseButton(_ sender: UIButton) {
     }
 }

@@ -32,8 +32,8 @@
 		1950E51C2791FE7B00ED357B /* FriendsAddTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1950E51A2791FE7B00ED357B /* FriendsAddTVC.xib */; };
 		1968464B279413A900DBAF3A /* DateTicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1968464A279413A900DBAF3A /* DateTicketView.swift */; };
 		197F57B5279913C000FB4467 /* PlanDetailResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197F57B4279913C000FB4467 /* PlanDetailResponseModel.swift */; };
-		197F57B7279A435000FB4467 /* MyPageTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197F57B6279A435000FB4467 /* MyPageTopView.swift */; };
-		197F57B9279A44F000FB4467 /* MyPageTopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 197F57B8279A44F000FB4467 /* MyPageTopView.xib */; };
+		197F57B9279A44F000FB4467 /* MyPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 197F57B8279A44F000FB4467 /* MyPageView.xib */; };
+		197F57BB279A69AF00FB4467 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197F57BA279A69AF00FB4467 /* MyPageView.swift */; };
 		19E633DE278D84F200776D0C /* CalendarDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E633DD278D84F200776D0C /* CalendarDetailVC.swift */; };
 		19E633E1278D853500776D0C /* CalendarDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19E633E0278D853500776D0C /* CalendarDetail.storyboard */; };
 		19F1AF722792AB0300022A6A /* SelectedDateSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F1AF712792AB0300022A6A /* SelectedDateSheet.swift */; };
@@ -161,8 +161,8 @@
 		1950E51A2791FE7B00ED357B /* FriendsAddTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsAddTVC.xib; sourceTree = "<group>"; };
 		1968464A279413A900DBAF3A /* DateTicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTicketView.swift; sourceTree = "<group>"; };
 		197F57B4279913C000FB4467 /* PlanDetailResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailResponseModel.swift; sourceTree = "<group>"; };
-		197F57B6279A435000FB4467 /* MyPageTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTopView.swift; sourceTree = "<group>"; };
-		197F57B8279A44F000FB4467 /* MyPageTopView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyPageTopView.xib; sourceTree = "<group>"; };
+		197F57B8279A44F000FB4467 /* MyPageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyPageView.xib; sourceTree = "<group>"; };
+		197F57BA279A69AF00FB4467 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		19E633DD278D84F200776D0C /* CalendarDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailVC.swift; sourceTree = "<group>"; };
 		19E633E0278D853500776D0C /* CalendarDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CalendarDetail.storyboard; sourceTree = "<group>"; };
 		19F1AF712792AB0300022A6A /* SelectedDateSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedDateSheet.swift; sourceTree = "<group>"; };
@@ -662,7 +662,7 @@
 				1912FCAC278AB77900F33952 /* CalendarScene */,
 				360E6F4A2789A74200DACFD8 /* Tabbar */,
 				36EFE3042785C7BE00466818 /* HomeScene */,
-				197F57B6279A435000FB4467 /* MyPageTopView.swift */,
+				197F57BA279A69AF00FB4467 /* MyPageView.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -670,7 +670,7 @@
 		36EFE3072785C80300466818 /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
-				197F57B8279A44F000FB4467 /* MyPageTopView.xib */,
+				197F57B8279A44F000FB4467 /* MyPageView.xib */,
 				36EFE3092785C81F00466818 /* TVC */,
 				36EFE3082785C81700466818 /* CVC */,
 			);
@@ -866,7 +866,7 @@
 				36EFE2F92785682400466818 /* LaunchScreen.storyboard in Resources */,
 				3682124B2785E643005D7236 /* SpoqaHanSansNeo-Bold.ttf in Resources */,
 				3623EA9C2792A90E00853F87 /* SMRequestPopUp.storyboard in Resources */,
-				197F57B9279A44F000FB4467 /* MyPageTopView.xib in Resources */,
+				197F57B9279A44F000FB4467 /* MyPageView.xib in Resources */,
 				191E8C1A278F01DD0042B8F1 /* SMPopUp.storyboard in Resources */,
 				19E633E1278D853500776D0C /* CalendarDetail.storyboard in Resources */,
 				368212492785E643005D7236 /* SpoqaHanSansNeo-Medium.ttf in Resources */,
@@ -977,7 +977,6 @@
 				6AF609222790BA6000F49DF4 /* SearchTVC.swift in Sources */,
 				36EFE31B2785CC3B00466818 /* UIScreen++.swift in Sources */,
 				3623EACE2797330800853F87 /* GetHomeDataService.swift in Sources */,
-				197F57B7279A435000FB4467 /* MyPageTopView.swift in Sources */,
 				3623EAEE2799D28800853F87 /* GetPlansSendDetailService.swift in Sources */,
 				3623EAEC2799D20C00853F87 /* PlansSendDetailDataModel.swift in Sources */,
 				3623EAF02799F07B00853F87 /* PlansRequestAcceptDataModel.swift in Sources */,
@@ -1031,6 +1030,7 @@
 				3623EAEA2799A3D700853F87 /* PostInvitationRejectService.swift in Sources */,
 				19E633DE278D84F200776D0C /* CalendarDetailVC.swift in Sources */,
 				36545312278EA30400A0770F /* UILabel++.swift in Sources */,
+				197F57BB279A69AF00FB4467 /* MyPageView.swift in Sources */,
 				3623EAC22796F8A500853F87 /* TokenUtils.swift in Sources */,
 				3623EAE02798AF8A00853F87 /* ResponseDateDataModel.swift in Sources */,
 				36D9E8B12789A81A00D5244D /* TabbarVC.swift in Sources */,
