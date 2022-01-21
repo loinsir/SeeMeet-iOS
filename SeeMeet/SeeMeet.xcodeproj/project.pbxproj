@@ -89,6 +89,7 @@
 		3623EAF22799F11500853F87 /* PostPlansRequestAcceptService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAF12799F11500853F87 /* PostPlansRequestAcceptService.swift */; };
 		3623EAF42799F61200853F87 /* InvitationCancelDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAF32799F61200853F87 /* InvitationCancelDataModel.swift */; };
 		3623EAF62799F65900853F87 /* PutInvitationCancelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAF52799F65900853F87 /* PutInvitationCancelService.swift */; };
+		3623EAF8279A9EA500853F87 /* NewMyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EAF7279A9EA500853F87 /* NewMyPageView.swift */; };
 		36545312278EA30400A0770F /* UILabel++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36545311278EA30400A0770F /* UILabel++.swift */; };
 		3682123E2785E643005D7236 /* DINNeuzeitGroteskStd-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3682122F2785E642005D7236 /* DINNeuzeitGroteskStd-Light.otf */; };
 		3682123F2785E643005D7236 /* SpoqaHanSansNeo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 368212302785E642005D7236 /* SpoqaHanSansNeo-Light.ttf */; };
@@ -219,6 +220,7 @@
 		3623EAF12799F11500853F87 /* PostPlansRequestAcceptService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPlansRequestAcceptService.swift; sourceTree = "<group>"; };
 		3623EAF32799F61200853F87 /* InvitationCancelDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationCancelDataModel.swift; sourceTree = "<group>"; };
 		3623EAF52799F65900853F87 /* PutInvitationCancelService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutInvitationCancelService.swift; sourceTree = "<group>"; };
+		3623EAF7279A9EA500853F87 /* NewMyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMyPageView.swift; sourceTree = "<group>"; };
 		36545311278EA30400A0770F /* UILabel++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel++.swift"; sourceTree = "<group>"; };
 		3682122F2785E642005D7236 /* DINNeuzeitGroteskStd-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DINNeuzeitGroteskStd-Light.otf"; sourceTree = "<group>"; };
 		368212302785E642005D7236 /* SpoqaHanSansNeo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Light.ttf"; sourceTree = "<group>"; };
@@ -663,6 +665,7 @@
 				360E6F4A2789A74200DACFD8 /* Tabbar */,
 				36EFE3042785C7BE00466818 /* HomeScene */,
 				197F57BA279A69AF00FB4467 /* MyPageView.swift */,
+				3623EAF7279A9EA500853F87 /* NewMyPageView.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -990,6 +993,7 @@
 				19509B6F27989DAF00CAA4C2 /* FriendsAddService.swift in Sources */,
 				3623EAA42795437400853F87 /* LoginVC.swift in Sources */,
 				6A4A20ED278B5F7000DD4DCD /* RequestPlansContentsVC.swift in Sources */,
+				3623EAF8279A9EA500853F87 /* NewMyPageView.swift in Sources */,
 				3623EAD22797D72500853F87 /* GetLastDateService.swift in Sources */,
 				36EFE2ED2785682200466818 /* AppDelegate.swift in Sources */,
 				6A7C7C0B27920F80006D39F6 /* ChipView.swift in Sources */,
