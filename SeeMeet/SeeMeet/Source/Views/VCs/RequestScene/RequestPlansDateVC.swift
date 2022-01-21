@@ -27,6 +27,11 @@ class RequestPlansDateVC: UIViewController {
     
     var isOpened: Bool = false
     
+    // 넘겨받은 데이터
+    var guestsToRequest: [[String: Any]] = []
+    var titleToRequest: String = ""
+    var contentsToRequest: String = ""
+    
     
     private var scheduleDataList: [ScheduleData]?
     
@@ -275,13 +280,48 @@ class RequestPlansDateVC: UIViewController {
         // Do any additional setup after loading the view.
     }
     @objc func touchRequestButton(_ button: UIButton) {
-        let nextStoryboard = UIStoryboard(name: "Tabbar", bundle: nil)
-        let nextVC = nextStoryboard.instantiateViewController(identifier: "TabbarVC")
-        self.tabBarController?.tabBar.isHidden = false
-//        self.navigationController?.pushViewController(nextVC, animated: true)
-        self.tabBarController?.selectedIndex = 0
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toastMessage"), object: "약속 신청을 완료했어요.")
+        
+        let planDateList = bottomSheetView.pickedDateList
+        
+        let date = planDateList.map { $0.getDateStringForRequest() }
+        let start = planDateList.map { $0.getStartTimeStringForRequest()}
+        let end = planDateList.map {  $0.getEndTimeStringForRequest() }
+        
+        requestPlans(guest: guestsToRequest, title: titleToRequest, contents: contentsToRequest, date: date, start: start, end: end)
     }
+    
+    private func requestPlans(guest: [[String: Any]],
+                              title: String,
+                              contents: String,
+                              date: [String],
+                              start: [String],
+                              end: [String]
+                              ) {
+        PostRequestPlansService.shared.requestPlans(
+            guest: guest,
+            title: title,
+            contents: contents,
+            date: date,
+            start: start,
+            end: end) { responseData in
+                switch responseData {
+                case .success(_), .pathErr:
+                    let nextStoryboard = UIStoryboard(name: "Tabbar", bundle: nil)
+                    let nextVC = nextStoryboard.instantiateViewController(identifier: "TabbarVC")
+                    self.tabBarController?.tabBar.isHidden = false
+                    self.tabBarController?.selectedIndex = 0
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toastMessage"), object: "약속 신청을 완료했어요.")
+                case .requestErr(_):
+                    print("request err")
+                case .networkFail:
+                    print("network err")
+                case .serverErr:
+                    print("server err")
+                }
+            }
+    }
+    
+    
 //MARK: Func
     func initSelectedDay(){
         selectedDay = todayDate

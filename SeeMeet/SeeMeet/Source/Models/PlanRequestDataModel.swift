@@ -10,8 +10,8 @@ import Foundation
 // MARK: - Main
 struct PlanRequestData: Codable {
     let status: Int
-    let success: Bool
-    let message: String
+    let success: Bool?
+    let message: String?
     let data: PlanRequestResultData?
 }
 

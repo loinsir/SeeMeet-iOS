@@ -18,6 +18,27 @@ struct PickedDate {
         return str
     }
     
+    func getDateStringForRequest() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd" // 2020-08-13 16:30
+        let str = dateFormatter.string(from: startTime)
+        return str
+    }
+    
+    func getStartTimeStringForRequest() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm"
+        let str = dateFormatter.string(from: startTime)
+        return str
+    }
+    
+    func getEndTimeStringForRequest() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm"
+        let str = dateFormatter.string(from: endTime)
+        return str
+    }
+    
     func getStartToEndString() -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = NSTimeZone(name: "ko_KR") as TimeZone?

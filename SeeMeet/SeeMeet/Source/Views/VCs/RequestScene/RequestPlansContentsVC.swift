@@ -137,7 +137,12 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
   
     @objc func nextButtonTapped() {
         let nextStoryboard = UIStoryboard(name: "RequestPlansDate", bundle: nil)
-        let nextVC = nextStoryboard.instantiateViewController(identifier: "RequestPlansDateVC")
+        guard let nextVC = nextStoryboard.instantiateViewController(identifier: "RequestPlansDateVC") as? RequestPlansDateVC else { return }
+        
+        nextVC.titleToRequest = plansTitleTextField.text ?? ""
+        nextVC.contentsToRequest = plansContentsTextView.text ?? ""
+        nextVC.guestsToRequest = searchedFriendList.map { ["id": $0.id, "username": $0.username] }
+        
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     func setChipView(){
