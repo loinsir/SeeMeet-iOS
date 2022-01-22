@@ -54,6 +54,10 @@ class FriendsAddTVC: UITableViewCell {
         setLayouts()
     }
     
+    override func prepareForReuse() {
+        addButton.setImage(UIImage(named: "btn_add-friends_circle"), for: .normal)
+    }
+    
     private func setLayouts() {
         selectionStyle = .none
         
