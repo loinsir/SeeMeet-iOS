@@ -125,11 +125,6 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
     
 //MARK: Function
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
-        self.view.endEditing(true)
-    }
-
-    
     func dismissKeyboard() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
         tap.cancelsTouchesInView = false
