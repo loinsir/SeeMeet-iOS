@@ -11,7 +11,7 @@ struct GetPlansListDataService
         print(URL)
         let tc = TokenUtils()
         let header : HTTPHeaders = tc.getAuthorizationHeader(serviceID: "accesstoken") ?? ["Content-Type": "application/json"]
-        print(header)
+//        print(header)
 
         let dataRequest = AF.request(URL,
                                      method: .get,

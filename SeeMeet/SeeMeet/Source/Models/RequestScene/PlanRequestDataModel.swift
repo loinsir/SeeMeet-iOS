@@ -12,13 +12,13 @@ struct PlanRequestData: Codable {
     let status: Int
     let success: Bool?
     let message: String?
-    let data: PlanRequestResultData?
+    let data: PlanRequestResultData
 }
 
 // MARK: - DataClass
 struct PlanRequestResultData: Codable {
-    let invitation: Invitation
-    let guests: [Guest]
+    let invitation: RequestInvitation
+    let guests: [RequestGuest]
     let dates: [[RequestDateElement]]
 }
 

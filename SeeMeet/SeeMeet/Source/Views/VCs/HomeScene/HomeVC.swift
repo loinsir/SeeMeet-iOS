@@ -55,7 +55,7 @@ class HomeVC: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
-    private let noEventImageView = UIImageView().then{
+    private var noEventImageView = UIImageView().then{
         $0.image = UIImage(named: "img_illust_10")
     }
     private let noEventLabel = UILabel().then{
@@ -209,10 +209,25 @@ class HomeVC: UIViewController {
         }
     }
     @objc private func touchUpFriendsButton(_ sender: UIButton) {
+        if UserDefaults.standard.bool(forKey: "isLogin") {
         guard let friendsListVC = UIStoryboard(name: "FriendsList", bundle: nil).instantiateViewController(withIdentifier: FriendsListVC.identifier) as? FriendsListVC else { return }
+        
         self.tabBarController?.tabBar.isHidden = true
         friendsListVC.friendsNameData = friendsData.map { $0.username }
         self.navigationController?.pushViewController(friendsListVC, animated: true)
+        }
+        else {
+            guard let alertVC = SMPopUpVC(withType: .needLogin) as? SMPopUpVC else {return}
+            guard let Login = UIStoryboard(name: "Login", bundle: nil).instantiateViewController(withIdentifier: "LoginVC") as? LoginVC else {return}
+            alertVC.modalPresentationStyle = .overFullScreen
+            self.present(alertVC, animated: false, completion: nil)
+            alertVC.pinkButtonCompletion = {
+                self.dismiss(animated: false, completion: nil)
+                self.tabBarController?.tabBar.isHidden = true
+                self.navigationController?.pushViewController(Login, animated: true)
+            }
+            
+        }
     }
     @objc private func menuButtonClicked(_ sender: UIButton) {
         myPageView.isHidden = false
@@ -294,7 +309,7 @@ class HomeVC: UIViewController {
         let firstComeIn: String = "씨밋과 함께 약속을 잡아볼까요?"
         let firstFriendAdd: String = "친구가 당신의 약속 신청을 기다리고 있어요!"
         let todayMeet: String = "아싸 오늘은 친구 만나는 날이다!"
-        let twoWeek: String = "약속잡기에 딱 좋은 시기에요!"
+        let twoWeek: String = "약속잡기에 딱 좋은\n 시기에요!"
         let threeWeek: String = "친구와 만난지 벌써 \n\(lastEventCount)일이 지났어요"
         let overThreeWeek: String = "친구를 언제 만났는지 기억도 안나요…"
         
@@ -349,9 +364,13 @@ class HomeVC: UIViewController {
                            self.setMainillust()
                            if self.homeData[0].data.count == 0 {
                                self.isNoEventLayout()
+                               self.noEventLabel.isHidden = false
+                               self.noEventImageView.isHidden = false
                            }
                            else{
                                self.eventsCollectionView.reloadData()
+                               self.noEventLabel.isHidden = true
+                               self.noEventImageView.isHidden = true
                            }
                        }
                    case .requestErr(let message) :
@@ -394,6 +413,8 @@ class HomeVC: UIViewController {
                        if let response = data as? FriendsDataModel{
                            self.friendsCount = response.data.count
                            self.friendsData = response.data
+                           self.setMainillust()
+                           print(self.friendsCount, "afsdfa")
                        }
                    case .requestErr(let message) :
                        print("requestERR")
@@ -438,17 +459,22 @@ extension HomeVC: UICollectionViewDataSource{
         let eventDate = homeData[0].data[indexPath.row].date.components(separatedBy: "-")
         let event = eventDate[1] + "-" + eventDate[2]
         var imageName = ""
-        
-        if Int(homeData[0].data[indexPath.row].count) ?? 0 > 1{
+
+        if Int(homeData[0].data[indexPath.row].count) ?? 0 - 1 > 2{
             imageName = "img_illust_3"
         }
         else{
             imageName = "img_illust_2"
         }
-        cell.setData(dDay: "D" + dDayDate, image: imageName, eventName: homeData[0].data[indexPath.row].invitationTitle, eventData: event)
+        cell.setData(dDay: "D-" + dDayDate, image: imageName, eventName: homeData[0].data[indexPath.row].invitationTitle, eventData: event)
         return cell
     }
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let detailVC = UIStoryboard(name: "CalendarDetail", bundle: nil).instantiateViewController(withIdentifier: "CalendarDetailVC") as? CalendarDetailVC else {return}
+        detailVC.planID = homeData[0].data[indexPath.row].planID
+        self.tabBarController?.tabBar.isHidden = true
+        self.navigationController?.pushViewController(detailVC, animated: true)
+    }
 }
 extension HomeVC: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
