@@ -364,6 +364,54 @@
 			path = CalendarScene;
 			sourceTree = "<group>";
 		};
+		19F0EC5627A195BA003B209D /* CalendarScene */ = {
+			isa = PBXGroup;
+			children = (
+				19509B642796C00D00CAA4C2 /* MonthlyPlansResponseModel.swift */,
+				197F57B4279913C000FB4467 /* PlanDetailResponseModel.swift */,
+			);
+			path = CalendarScene;
+			sourceTree = "<group>";
+		};
+		19F0EC5727A19613003B209D /* FriendsScene */ = {
+			isa = PBXGroup;
+			children = (
+				3623EAD32797DAE900853F87 /* FriendsListDataModel.swift */,
+				19509B6A27986D2A00CAA4C2 /* FriendsSearchResponseModel.swift */,
+				19509B6C27989CD800CAA4C2 /* FriendsAddResponseModel.swift */,
+			);
+			path = FriendsScene;
+			sourceTree = "<group>";
+		};
+		19F0EC5827A197D7003B209D /* PlansScene */ = {
+			isa = PBXGroup;
+			children = (
+				3623EADF2798AF8A00853F87 /* ResponseDateDataModel.swift */,
+				3623EAEB2799D20C00853F87 /* PlansSendDetailDataModel.swift */,
+				3623EADB27988AFE00853F87 /* PlansDetailDataModel.swift */,
+				3623EAD727980EC000853F87 /* PlansListDataModel.swift */,
+				3623EAEF2799F07B00853F87 /* PlansRequestAcceptDataModel.swift */,
+			);
+			path = PlansScene;
+			sourceTree = "<group>";
+		};
+		19F0EC5927A19850003B209D /* HomeScene */ = {
+			isa = PBXGroup;
+			children = (
+				3623EACF2797D6FA00853F87 /* LastDateDataModel.swift */,
+				3623EACB2797324600853F87 /* HomeDataModel.swift */,
+			);
+			path = HomeScene;
+			sourceTree = "<group>";
+		};
+		19F0EC5A27A198CC003B209D /* RegisterScene */ = {
+			isa = PBXGroup;
+			children = (
+				3623EABD2796E76500853F87 /* RegisterDataModel.swift */,
+			);
+			path = RegisterScene;
+			sourceTree = "<group>";
+		};
 		360E6F48278998CB00DACFD8 /* HomeScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -434,22 +482,14 @@
 		3623EAB02796A75100853F87 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				19F0EC5A27A198CC003B209D /* RegisterScene */,
+				19F0EC5627A195BA003B209D /* CalendarScene */,
 				6A5302B0279F1DE300DB4C3F /* RequestScene */,
-				3623EABD2796E76500853F87 /* RegisterDataModel.swift */,
-				19509B6C27989CD800CAA4C2 /* FriendsAddResponseModel.swift */,
-				19509B642796C00D00CAA4C2 /* MonthlyPlansResponseModel.swift */,
-				197F57B4279913C000FB4467 /* PlanDetailResponseModel.swift */,
-				3623EACB2797324600853F87 /* HomeDataModel.swift */,
-				3623EACF2797D6FA00853F87 /* LastDateDataModel.swift */,
-				3623EAD32797DAE900853F87 /* FriendsListDataModel.swift */,
-				19509B6A27986D2A00CAA4C2 /* FriendsSearchResponseModel.swift */,
-				3623EAD727980EC000853F87 /* PlansListDataModel.swift */,
-				3623EADB27988AFE00853F87 /* PlansDetailDataModel.swift */,
-				3623EADF2798AF8A00853F87 /* ResponseDateDataModel.swift */,
+				19F0EC5727A19613003B209D /* FriendsScene */,
+				19F0EC5927A19850003B209D /* HomeScene */,
+				19F0EC5827A197D7003B209D /* PlansScene */,
 				3623EAE327994D7A00853F87 /* InvitationPlansDataModel.swift */,
 				3623EAE72799A39900853F87 /* InvitationRejectDataModel.swift */,
-				3623EAEB2799D20C00853F87 /* PlansSendDetailDataModel.swift */,
-				3623EAEF2799F07B00853F87 /* PlansRequestAcceptDataModel.swift */,
 				3623EAF32799F61200853F87 /* InvitationCancelDataModel.swift */,
 			);
 			path = Models;
