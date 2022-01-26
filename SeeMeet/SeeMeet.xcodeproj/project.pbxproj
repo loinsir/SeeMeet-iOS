@@ -407,6 +407,7 @@
 		3623EAAF2796A74900853F87 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				6A5302AF279F1D2C00DB4C3F /* RequestScene */,
 				3623EAB12796A77A00853F87 /* Constants.swift */,
 				3623EAB32796A7DE00853F87 /* NetworkResult.swift */,
 				3623EABF2796ED1000853F87 /* PostRegisterService.swift */,
@@ -419,8 +420,6 @@
 				19509B682798583500CAA4C2 /* FriendsSearchService.swift */,
 				19509B6E27989DAF00CAA4C2 /* FriendsAddService.swift */,
 				3623EAD927980F0600853F87 /* GetPlansListDataService.swift */,
-				6AE863082799FABC0050A978 /* GetScheduleService.swift */,
-				6AE863062799E2EA0050A978 /* PostRequestPlansService.swift */,
 				3623EADD27988B8C00853F87 /* GetPlansDetailService.swift */,
 				3623EAE12798B06C00853F87 /* GetResponseDateDataService.swift */,
 				3623EAE527994DE400853F87 /* PostInvitationService.swift */,
@@ -435,6 +434,7 @@
 		3623EAB02796A75100853F87 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				6A5302B0279F1DE300DB4C3F /* RequestScene */,
 				3623EABD2796E76500853F87 /* RegisterDataModel.swift */,
 				19509B6C27989CD800CAA4C2 /* FriendsAddResponseModel.swift */,
 				19509B642796C00D00CAA4C2 /* MonthlyPlansResponseModel.swift */,
@@ -444,8 +444,6 @@
 				3623EAD32797DAE900853F87 /* FriendsListDataModel.swift */,
 				19509B6A27986D2A00CAA4C2 /* FriendsSearchResponseModel.swift */,
 				3623EAD727980EC000853F87 /* PlansListDataModel.swift */,
-				6AE863022799DEB70050A978 /* InvitationPlanDataModel.swift */,
-				6AE863042799DFA20050A978 /* PlanRequestDataModel.swift */,
 				3623EADB27988AFE00853F87 /* PlansDetailDataModel.swift */,
 				3623EADF2798AF8A00853F87 /* ResponseDateDataModel.swift */,
 				3623EAE327994D7A00853F87 /* InvitationPlansDataModel.swift */,
@@ -775,6 +773,24 @@
 			children = (
 				6A4A20EF278B5FE300DD4DCD /* RequestPlansContents.storyboard */,
 				6A7C7C12279367DF006D39F6 /* RequestPlansDate.storyboard */,
+			);
+			path = RequestScene;
+			sourceTree = "<group>";
+		};
+		6A5302AF279F1D2C00DB4C3F /* RequestScene */ = {
+			isa = PBXGroup;
+			children = (
+				6AE863062799E2EA0050A978 /* PostRequestPlansService.swift */,
+				6AE863082799FABC0050A978 /* GetScheduleService.swift */,
+			);
+			path = RequestScene;
+			sourceTree = "<group>";
+		};
+		6A5302B0279F1DE300DB4C3F /* RequestScene */ = {
+			isa = PBXGroup;
+			children = (
+				6AE863022799DEB70050A978 /* InvitationPlanDataModel.swift */,
+				6AE863042799DFA20050A978 /* PlanRequestDataModel.swift */,
 			);
 			path = RequestScene;
 			sourceTree = "<group>";
