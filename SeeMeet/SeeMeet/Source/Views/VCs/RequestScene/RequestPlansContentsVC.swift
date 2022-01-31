@@ -18,7 +18,7 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
         $0.font = UIFont.hanSansBoldFont(ofSize: 18)
     }
     private let closeButton = UIButton().then{
-        $0.setBackgroundImage(UIImage(named: "btn_close"), for: .normal)
+        $0.setBackgroundImage(UIImage(named: "btn_close_bold"), for: .normal)
         $0.addTarget(self, action: #selector(touchUpCloseButton(_:)), for: .touchUpInside)
     }
     private let friendSelectionLabel = UILabel().then{
