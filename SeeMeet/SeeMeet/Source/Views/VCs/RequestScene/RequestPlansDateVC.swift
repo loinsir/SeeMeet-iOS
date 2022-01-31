@@ -420,11 +420,11 @@ class RequestPlansDateVC: UIViewController {
     func appendWeekCalendarDateList(num: Int) {
         for x in 0...6 {
             if x < num {
-                weekCalendarDateList.append(todayDate.previousDate(value: 6-x))
+                weekCalendarDateList.append(todayDate.previousDate(value: num-x))
             } else if x == num {
                 weekCalendarDateList.append(todayDate)
             } else {
-                weekCalendarDateList.append(todayDate.nextDate(value: x))
+                weekCalendarDateList.append(todayDate.nextDate(value: x-num))
             }
         }
     }
@@ -434,14 +434,7 @@ class RequestPlansDateVC: UIViewController {
     
         switch Date.getKoreanWeekDay(from: todayDate){
         case "일":
-            let num = WeekDay.Sun.rawValue
-            for x in 0...(6-num-1){
-                weekCalendarDateList.append(todayDate.previousDate(value: 6-num-x))
-            }
-            weekCalendarDateList.append(todayDate)
-            for x in 0...(num-1){
-                weekCalendarDateList.append(todayDate.nextDate(value: x+1))
-            }
+            appendWeekCalendarDateList(num: 0)
         case "월":
             appendWeekCalendarDateList(num: 1)
         case "화":
@@ -622,21 +615,6 @@ class RequestPlansDateVC: UIViewController {
             selectedDate.endTime = revisedEndDate
             updateSelectedDateLabel()
             
-        
-//
-//            guard let hourRevisedStartDate = Calendar.current.date(bySetting: .hour, value: 0, of: selectedDate.startTime)else {return}
-//
-//            guard let minuteRevisedStartDate = Calendar.current.date(bySetting: .minute, value: 0, of: hourRevisedStartDate) else {return}
-
-        
-//            guard let hourRevisedEndDate = Calendar.current.date(bySetting: .hour, value: 23, of: selectedDate.endTime)else {return}
-//
-//            guard let minuteRevisedEndDate = Calendar.current.date(bySetting: .minute, value: 55, of: hourRevisedEndDate ) else {return}
-            
-//
-//            selectedDate.startTime = startDate
-//            selectedDate.endTime = endDate
-            
             
             
         } else {
@@ -662,19 +640,6 @@ class RequestPlansDateVC: UIViewController {
         
             updateSelectedDateLabel()
         
-            
-//            guard let hourRevisedStartDate = Calendar.current.date(bySetting: .hour, value: 9, of: selectedDate.startTime)else {return}
-//
-//            guard let minuteRevisedStartDate = Calendar.current.date(bySetting: .minute, value: 0, of: hourRevisedStartDate) else {return}
-//
-//            guard let hourRevisedEndDate = Calendar.current.date(bySetting: .hour, value: 14, of: selectedDate.endTime)else {return}
-//
-//            guard let minuteRevisedEndDate = Calendar.current.date(bySetting: .minute, value: 0, of: hourRevisedEndDate ) else {return}
-//
-//            selectedDate.startTime = minuteRevisedStartDate
-//            selectedDate.endTime = minuteRevisedEndDate
-           
-     
          
         }
         
