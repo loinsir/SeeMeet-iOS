@@ -366,12 +366,12 @@ class PlansListVC: UIViewController {
                    {
                    case .success(let data) :
                        if let response = data as? PlansListDataModel{
-                           self.invitaionData = response.data.invitations
-                           self.confirmData = response.data.confirmedAndCanceld
-                           self.invitationCellCount = response.data.invitations.count
-                           self.confirmCellCount = response.data.confirmedAndCanceld.count
-                           self.progressPlansCount = response.data.invitations.count
-                           self.completePlansCount = response.data.confirmedAndCanceld.count
+                           self.invitaionData = response.data?.invitations ?? []
+                           self.confirmData = response.data?.confirmedAndCanceld ?? []
+                           self.invitationCellCount = response.data?.invitations.count ?? 0
+                           self.confirmCellCount = response.data?.confirmedAndCanceld.count ?? 0
+                           self.progressPlansCount = response.data?.invitations.count ?? 0
+                           self.completePlansCount = response.data?.confirmedAndCanceld.count ?? 0
                            self.setCountLabel()
                            self.setCompleteEmptyView()
                            self.setProgressEmptyView()
@@ -411,7 +411,7 @@ class PlansListVC: UIViewController {
         var cnt: Int = 0
         var boolList: [Bool] = [false, false, false]
         for guest in guesList{
-            boolList[cnt] = guest.isResponse
+            boolList[cnt] = guest.isResponse ?? false
             cnt += 1
         }
         return boolList
