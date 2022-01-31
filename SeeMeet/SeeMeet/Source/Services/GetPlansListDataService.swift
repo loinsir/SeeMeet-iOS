@@ -11,7 +11,6 @@ struct GetPlansListDataService
         print(URL)
         let tc = TokenUtils()
         let header : HTTPHeaders = tc.getAuthorizationHeader(serviceID: "accesstoken") ?? ["Content-Type": "application/json"]
-//        print(header)
 
         let dataRequest = AF.request(URL,
                                      method: .get,
@@ -19,7 +18,7 @@ struct GetPlansListDataService
                                      headers: header)
 
         dataRequest.responseData { dataResponse in
-//            dump(dataResponse)
+            dump(dataResponse)
             switch dataResponse.result {
             case .success:
                 guard let statusCode = dataResponse.response?.statusCode else {return}

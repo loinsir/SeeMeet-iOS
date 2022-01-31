@@ -8,8 +8,9 @@ import Foundation
 // MARK: - HomeDataModel
 struct PlansListDataModel: Codable {
     let status: Int
-    let success: Bool
-    let data: PlansListData
+    let success: Bool?
+    let data: PlansListData?
+    let message: String?
 }
 
 // MARK: - DataClass
@@ -41,7 +42,7 @@ struct Guest: Codable {
     let id: Int
     let username: String
     let impossible: Bool?
-    let isResponse: Bool
+    let isResponse: Bool?
 }
 
 // MARK: - Invitation
@@ -53,7 +54,7 @@ struct Invitation: Codable {
     let createdAt: String
     let isDeleted: Bool
     let guests: [Guest]?
-    let isReceived: Bool
+    let isReceived, isResponse: Bool
     let host: Host?
 
     enum CodingKeys: String, CodingKey {
@@ -65,7 +66,7 @@ struct Invitation: Codable {
         case isCancled = "is_cancled"
         case createdAt = "created_at"
         case isDeleted = "is_deleted"
-        case guests, isReceived, host
+        case guests, isReceived, isResponse, host
     }
 }
 
