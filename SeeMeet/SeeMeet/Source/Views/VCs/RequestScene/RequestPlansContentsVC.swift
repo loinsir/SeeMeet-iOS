@@ -123,6 +123,11 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
         self.searchTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
     }
     
+//MARK: Override
+    //입력하다가 다른 곳 터치시 키패드 내려가게 하기
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 //MARK: Function
     
     func dismissKeyboard() {
