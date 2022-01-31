@@ -59,7 +59,7 @@ class LoginVC: UIViewController {
         emailTextField.snp.makeConstraints{
             $0.leading.equalToSuperview().offset(52)
             $0.top.bottom.equalTo(0)
-            $0.width.equalTo(200)
+            $0.trailing.equalToSuperview().offset(-5)
         }
         pwdSeeButton.snp.makeConstraints{
             $0.trailing.top.bottom.equalToSuperview().offset(0)
@@ -74,7 +74,7 @@ class LoginVC: UIViewController {
         pwdTextField.snp.makeConstraints{
             $0.leading.equalToSuperview().offset(52)
             $0.top.bottom.equalTo(0)
-            $0.width.equalTo(200)
+            $0.trailing.equalToSuperview().offset(-5)
         }
         loginButton.snp.makeConstraints{
             $0.top.equalTo(pwdTextView.snp.bottom).offset(40)
