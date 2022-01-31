@@ -75,6 +75,7 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
         $0.font = UIFont.hanSansBoldFont(ofSize: 14)
         $0.textColor = UIColor.grey06
         $0.attributedPlaceholder = NSAttributedString(string: "제목", attributes: [.foregroundColor: UIColor.grey04, .font: UIFont.hanSansRegularFont(ofSize: 14)])
+        $0.addTarget(self, action: #selector(switchNextButtonStatus), for: .editingChanged)
     }
     
     private let seperateLineView = UIView().then{
@@ -104,13 +105,17 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
 //MARK: Var
     var userWidth: CGFloat = UIScreen.getDeviceWidth()
     var userHeight: CGFloat = UIScreen.getDeviceHeight()
-    var nameList: [String] = []
-    var filterNameList = [String]()
+ 
+   
+    //   var nameList: [String] = []
+    var friendDataList: [FriendsData] = []
     
-    var friendData: [FriendsData] = []
-    var searchedFriendList: [FriendsData] = []
+    // var filterNameList = [String]()
+    var filterdFriendList: [FriendsData] = []
+    //var searchedNameList = [String]()
+    var selectedFriendList: [FriendsData] = []
     
-    var searchedNameList = [String]()
+   
     
 //MARK: ViewDidLoad
     override func viewDidLoad() {
@@ -146,9 +151,14 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
         
         nextVC.titleToRequest = plansTitleTextField.text ?? ""
         nextVC.contentsToRequest = plansContentsTextView.text ?? ""
-        nextVC.guestsToRequest = searchedFriendList.map { ["id": $0.id, "username": $0.username] }
+        nextVC.guestsToRequest = selectedFriendList.map { ["id": $0.id, "username": $0.username] }
         
         self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    @objc func switchNextButtonStatus(){
+      //  if searchedNameList
+        
     }
     func setChipView(){
         searchTextField.placeholder = nil//셀추가시 플레이스 홀더 업애기
@@ -169,7 +179,7 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
             $0.leading.equalTo(chipView2.snp.trailing).offset(11)
             $0.top.equalToSuperview().offset(11)
         }
-        switch searchedNameList.count{
+        switch selectedFriendList.count{
         case 0:
             chipView1.isHidden = true
             chipView2.isHidden = true
@@ -179,22 +189,22 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
             chipView1.isHidden = false
             chipView2.isHidden = true
             chipView3.isHidden = true
-            chipView1.setName(name: searchedNameList[0])
+            chipView1.setFriendsData(friendsData: selectedFriendList[0])
             searchTextField.setLeftPadding(width: 46+2+93-5)
         case 2:
             chipView1.isHidden = false
             chipView2.isHidden = false
             chipView3.isHidden = true
-            chipView1.setName(name: searchedNameList[0])
-            chipView2.setName(name: searchedNameList[1])
+            chipView1.setFriendsData(friendsData: selectedFriendList[0])
+            chipView2.setFriendsData(friendsData: selectedFriendList[1])
             searchTextField.setLeftPadding(width: 46+2+93+93-5)
         case 3:
             chipView1.isHidden = false
             chipView2.isHidden = false
             chipView3.isHidden = false
-            chipView1.setName(name: searchedNameList[0])
-            chipView2.setName(name: searchedNameList[1])
-            chipView3.setName(name: searchedNameList[2])
+            chipView1.setFriendsData(friendsData: selectedFriendList[0])
+            chipView2.setFriendsData(friendsData: selectedFriendList[1])
+            chipView3.setFriendsData(friendsData: selectedFriendList[2])
             searchTextField.setLeftPadding(width: 46+2+93+93+93+100-5)
         default:
             chipView1.isHidden = false
@@ -209,8 +219,7 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
                    {
                    case .success(let data) :
                        if let response = data as? FriendsDataModel{
-                           self.nameList = response.data.map { $0.username }
-                           self.friendData = response.data
+                           self.friendDataList = response.data
                        }
                    case .requestErr(let message) :
                        print("requestERR")
@@ -374,7 +383,7 @@ extension RequestPlansContentsVC: UITextFieldDelegate{
             textField.layer.borderWidth = 1.0
             whiteView.isHidden = false
             searchTableView.isHidden = false
-            filterNameList = nameList
+            filterdFriendList = friendDataList
             searchTableView.reloadData()
         case plansTitleTextField:
             plansContentsView.layer.borderColor = UIColor.pink01.cgColor
@@ -400,13 +409,13 @@ extension RequestPlansContentsVC: UITextFieldDelegate{
     
     @objc func textFieldDidChange(_ sender: Any?) {
         if searchTextField.text == ""{
-            filterNameList = nameList
+            filterdFriendList = friendDataList
             searchTableView.reloadData()
             
         }else {
             whiteView.isHidden = false
             searchTableView.isHidden = false
-            filterNameList = nameList.filter { $0.lowercased().prefix(searchTextField.text!.count) == searchTextField.text!.lowercased() }
+            filterdFriendList = friendDataList.filter { $0.username.lowercased().prefix(searchTextField.text!.count) == searchTextField.text!.lowercased() }
             searchTableView.reloadData()
         }
     }
@@ -435,12 +444,12 @@ extension RequestPlansContentsVC: UITextFieldDelegate{
 
 extension RequestPlansContentsVC: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        filterNameList.count
+        filterdFriendList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchTVC.identifier,for: indexPath) as? SearchTVC else {return UITableViewCell()}
-        cell.setData(name: filterNameList[indexPath.row])
+        cell.setData(name: filterdFriendList[indexPath.row].username)
         return cell
     }
 }
@@ -452,13 +461,13 @@ extension RequestPlansContentsVC: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         searchTextField.text = ""//이름 선택하면 텍스트 필드 비우기
-        if(searchedNameList.count<3){ //이름 세개까지만 추가
-            searchedNameList.append(filterNameList[indexPath.row])
-            guard let name = friendData.filter { $0.username == filterNameList[indexPath.row] }.first else { return }
-            searchedFriendList.append(name)
-            nameList = nameList.filter { !searchedNameList.contains($0) }
+        if(selectedFriendList.count<3){ //이름 세개까지만 추가
+            selectedFriendList.append(filterdFriendList[indexPath.row])
+//            guard let name = friendDataList.filter { $0.username == filterdFriendList[indexPath.row].username }.first else { return }
+//            selectedFriendList.append(name)
+            friendDataList = friendDataList.filter { !selectedFriendList.contains($0) }
             setChipView()
-            print(searchedNameList)
+          
         }
         tableView.isHidden = true
         searchTextField.endEditing(true)
@@ -469,16 +478,15 @@ extension RequestPlansContentsVC: TapRemoveButtonDelegate{
     
     func tapRemoveButton(chipView: ChipView) {
        
-        let name: String
-        name = chipView.name
-        if let idx = searchedNameList.firstIndex(of: name){
-            searchedNameList.remove(at: idx)
-            searchedFriendList.remove(at: idx)
+        
+        let removeFriend = chipView.friendsData
+        if let idx = selectedFriendList.firstIndex(of: removeFriend){
+            selectedFriendList.remove(at: idx)
         }
         
         setChipView()
-        nameList.append(chipView.name)
-        nameList.sort()
+        friendDataList.append(removeFriend)
+        friendDataList.sort()
         searchTableView.reloadData()
     }
 }

@@ -15,10 +15,10 @@ protocol TapRemoveButtonDelegate{
 
 class ChipView: UIView {
     
-    var name: String = ""
+    var friendsData = FriendsData()
     var tapRemoveButtonDelegate: TapRemoveButtonDelegate?
     
-    private let searchedLabel = UILabel().then{
+    private let nameLabel = UILabel().then{
         $0.font = UIFont.hanSansMediumFont(ofSize: 14)
         $0.textColor = UIColor.white
     }
@@ -44,12 +44,12 @@ class ChipView: UIView {
         private func configUI() {
             backgroundColor = UIColor.pink01
             layer.cornerRadius = 13
-            searchedLabel.text = name
+            nameLabel.text = self.friendsData.username
         
         }
         
         private func setLayout() {
-            addSubviews([searchedLabel,removeButton])
+            addSubviews([nameLabel,removeButton])
             
             
             self.snp.makeConstraints({
@@ -62,15 +62,15 @@ class ChipView: UIView {
                 $0.centerY.equalToSuperview()
             }
             
-            searchedLabel.snp.makeConstraints{
+            nameLabel.snp.makeConstraints{
                 $0.leading.equalToSuperview().offset(13)
                 $0.centerY.equalToSuperview()
             }
            
         }
-    func setName(name: String){
-        self.name = name
-        searchedLabel.text = name
+    func setFriendsData(friendsData: FriendsData){
+        self.friendsData = friendsData
+        self.nameLabel.text = friendsData.username
     }
     
     func setGestureRecognizer(){
