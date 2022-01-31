@@ -47,10 +47,6 @@ class RequestPlansDateVC: UIViewController {
         $0.text = "약속 신청"
         $0.font = UIFont.hanSansBoldFont(ofSize: 18)
     }
-    private let closeButton = UIButton().then{
-        $0.setBackgroundImage(UIImage(named: "btn_close_bold"), for: .normal)
-        $0.addTarget(self, action: #selector(touchUpCloseButton), for: .touchUpInside)
-    }
     private let addDateView = UIView().then{
         $0.backgroundColor = UIColor.white
     }
@@ -671,11 +667,6 @@ class RequestPlansDateVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func touchUpCloseButton() { //나중에 구현~
-//        self.tabBarController?.tabBar.isHidden = false
-//        navigationController?.popToRootViewController(animated: true)
-    }
-
 
     
 
@@ -691,8 +682,7 @@ class RequestPlansDateVC: UIViewController {
                           ])
         
         titleView.addSubviews([backButton,
-                               titleLabel,
-                               closeButton])
+                               titleLabel])
         
         addDateView.addSubviews([selectedDateView,
                                  addButton])
@@ -744,11 +734,6 @@ class RequestPlansDateVC: UIViewController {
         titleLabel.snp.makeConstraints{
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
-        }
-        closeButton.snp.makeConstraints{
-            $0.trailing.equalToSuperview().offset(-4)
-            $0.centerY.equalToSuperview()
-            $0.width.height.equalTo(48)
         }
         addDateView.snp.makeConstraints{
             $0.top.equalTo(titleView.snp.bottom)
