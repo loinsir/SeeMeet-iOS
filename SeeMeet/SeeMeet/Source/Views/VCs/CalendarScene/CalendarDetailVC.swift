@@ -264,6 +264,7 @@ class CalendarDetailVC: UIViewController {
                     label.backgroundColor = UIColor.pink01
                     label.clipsToBounds = true
                     label.layer.cornerRadius = 13
+                    label.font = UIFont.hanSansMediumFont(ofSize: 14.0)
 
                     let numberOfCharacters = $0.count
                     label.snp.makeConstraints {
@@ -281,6 +282,7 @@ class CalendarDetailVC: UIViewController {
                     label.backgroundColor = UIColor.grey04
                     label.clipsToBounds = true
                     label.layer.cornerRadius = 13
+                    label.font = UIFont.hanSansMediumFont(ofSize: 14.0)
 
                     let numberOfCharacters = $0.count
                     label.snp.makeConstraints {
