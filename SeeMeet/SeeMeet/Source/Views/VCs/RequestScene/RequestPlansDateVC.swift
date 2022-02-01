@@ -20,7 +20,8 @@ class RequestPlansDateVC: UIViewController {
     var todayDate = Date()
     var selectedDate = PickedDate()//선택된 날짜 + 시간
     var selectedDay = Date()//선택된 날짜
-    var addedDateList = [PickedDate]()// 선택된 날짜 + 시간 모음
+    // 선택된 날짜 + 시간 모음
+    var addedDateList = [PickedDate]()//안 쓰임
     var defaultStartDate = Date()
     var defaultEndDate = Date()
     var weekCalendarDateList = [Date]()//일곱개 날짜 배열
@@ -46,10 +47,6 @@ class RequestPlansDateVC: UIViewController {
     private let titleLabel = UILabel().then{
         $0.text = "약속 신청"
         $0.font = UIFont.hanSansBoldFont(ofSize: 18)
-    }
-    private let closeButton = UIButton().then{
-        $0.setBackgroundImage(UIImage(named: "btn_close_bold"), for: .normal)
-        $0.addTarget(self, action: #selector(touchUpCloseButton), for: .touchUpInside)
     }
     private let addDateView = UIView().then{
         $0.backgroundColor = UIColor.white
@@ -79,8 +76,6 @@ class RequestPlansDateVC: UIViewController {
         $0.bounces = true
         $0.isPagingEnabled = false
         $0.showsVerticalScrollIndicator = true
-       // $0.contentInsetAdjustmentBehavior = .never
-       // $0.frame.size = CGSize(width: UIScreen.getDeviceWidth(), height: 700)
     }
     
     private let selectDateLabel = UILabel().then{
@@ -252,10 +247,11 @@ class RequestPlansDateVC: UIViewController {
     }
     
     private let requestPlansButton = UIButton().then{
-        $0.backgroundColor = UIColor.pink01
+        $0.backgroundColor = UIColor.grey02
         $0.setTitle("약속 신청", for: .normal)
         $0.titleLabel?.font = UIFont.hanSansMediumFont(ofSize: 16)
         $0.layer.cornerRadius = 10
+        $0.isUserInteractionEnabled = false
         $0.addTarget(self, action: #selector(touchRequestButton(_:)), for: .touchUpInside)
     }
     private let fillView = UIView().then{
@@ -275,10 +271,9 @@ class RequestPlansDateVC: UIViewController {
         initScheduleDataList()
         layoutCalendarView()
         initDayLabel()
-
-        
-        // Do any additional setup after loading the view.
+        addGestureRecognizer()
     }
+    
     @objc func touchRequestButton(_ button: UIButton) {
         let planDateList = bottomSheetView.pickedDateList
         
@@ -289,47 +284,24 @@ class RequestPlansDateVC: UIViewController {
         requestPlans(guests: guestsToRequest, title: titleToRequest, contents: contentsToRequest, date: date, start: start, end: end)
     }
     
-    private func requestPlans(guests: [[String: Any]],
-                              title: String,
-                              contents: String,
-                              date: [String],
-                              start: [String],
-                              end: [String]
-                              ) {
-        print(guests, title, contents, date, start, end, "gdadfsa")
-        PostRequestPlansService.shared.requestPlans(
-            guests: guests,
-            title: title,
-            contents: contents,
-            date: date,
-            start: start,
-            end: end) { responseData in
-                switch responseData {
-                case .success(_), .pathErr:
-                    let nextStoryboard = UIStoryboard(name: "Tabbar", bundle: nil)
-                    let nextVC = nextStoryboard.instantiateViewController(identifier: "TabbarVC")
-                    self.tabBarController?.tabBar.isHidden = false
-                    self.tabBarController?.selectedIndex = 0
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toastMessage"), object: "약속 신청을 완료했어요.")
-                case .requestErr(_):
-                    print("request err")
-                case .networkFail:
-                    print("network err")
-                case .serverErr:
-                    print("server err")
-                }
-            }
+   
+        
+    
+    private func addGestureRecognizer() {
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedView(_:)))
+        view.addGestureRecognizer(tapGesture)
     }
     
-    
-//MARK: Func
+    @objc private func tappedView(_ sender: UITapGestureRecognizer)  {
+        bottomSheetView.showSheet(atState: .folded)
+    }
+
     func initSelectedDay(){
         selectedDay = todayDate
     }
     func setDelegate() {
         scheduleTableView.dataSource = self
         scheduleTableView.delegate = self
-        bottomSheetView.tapTouchAreaViewDelegate = self
         sunCell.tapCellViewDelegate = self
         monCell.tapCellViewDelegate = self
         tueCell.tapCellViewDelegate = self
@@ -337,6 +309,7 @@ class RequestPlansDateVC: UIViewController {
         thuCell.tapCellViewDelegate = self
         friCell.tapCellViewDelegate = self
         satCell.tapCellViewDelegate = self
+        bottomSheetView.pickedDateListDelegate = self
         
     }
     func setCellList() {
@@ -671,11 +644,6 @@ class RequestPlansDateVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func touchUpCloseButton() { //나중에 구현~
-//        self.tabBarController?.tabBar.isHidden = false
-//        navigationController?.popToRootViewController(animated: true)
-    }
-
 
     
 
@@ -691,8 +659,7 @@ class RequestPlansDateVC: UIViewController {
                           ])
         
         titleView.addSubviews([backButton,
-                               titleLabel,
-                               closeButton])
+                               titleLabel])
         
         addDateView.addSubviews([selectedDateView,
                                  addButton])
@@ -700,6 +667,7 @@ class RequestPlansDateVC: UIViewController {
         selectedDateView.addSubviews([dateLabel,
                                       timeLabel])
         
+        scrollView.delegate = self
         scrollView.addSubviews([selectDateLabel,
                                 separateLineView,
                                 scheduleView,
@@ -744,11 +712,6 @@ class RequestPlansDateVC: UIViewController {
         titleLabel.snp.makeConstraints{
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
-        }
-        closeButton.snp.makeConstraints{
-            $0.trailing.equalToSuperview().offset(-4)
-            $0.centerY.equalToSuperview()
-            $0.width.height.equalTo(48)
         }
         addDateView.snp.makeConstraints{
             $0.top.equalTo(titleView.snp.bottom)
@@ -938,9 +901,9 @@ class RequestPlansDateVC: UIViewController {
             $0.bottom.equalToSuperview()
         }
         bottomSheetView.snp.makeConstraints{
-            $0.bottom.equalTo(navigationBarView.snp.bottom).offset(310)
+            $0.bottom.equalTo(navigationBarView.snp.bottom).offset(310 * heightRatio)
             $0.trailing.leading.equalToSuperview().offset(0)
-            $0.height.equalTo(480)
+            $0.height.equalTo(482 * heightRatio)
         }
         navigationLineView.snp.makeConstraints{
             $0.leading.trailing.equalToSuperview()
@@ -995,33 +958,6 @@ extension RequestPlansDateVC: UITableViewDataSource{
 extension RequestPlansDateVC: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 35
-    }
-}
-
-extension RequestPlansDateVC: TapTouchAreaViewDelegate{
-    func tapTouchAreaView(dateSheetView: SelectedDateSheet) {
-        
-        switch isOpened{
-        case false :
-            isOpened = true
-            UIView.animate(withDuration: 1.0){
-                let yFrame = CGAffineTransform(translationX: 0, y: -310)
-                self.bottomSheetView.transform = yFrame
-            }
-//            bottomSheetView.snp.updateConstraints {
-//                $0.bottom.equalTo(navigationBarView.snp.bottom).offset(310)
-//             }
-    
-        case true:
-//            bottomSheetView.snp.updateConstraints {
-//                $0.bottom.equalTo(navigationBarView.snp.bottom)
-//             }
-            UIView.animate(withDuration: 1.0){
-                let yFrame = CGAffineTransform(translationX: 0, y: 0)
-                self.bottomSheetView.transform = yFrame
-            }
-            isOpened = false
-        }
     }
 }
 
@@ -1124,29 +1060,54 @@ extension RequestPlansDateVC: tapCellViewDelegate{
     
 }
 
+extension RequestPlansDateVC: PickedDateListChangedDelegate{
+    func pickedDateListChanged(view: SelectedDateSheet) {
+        if view.pickedDateList.count > 0 {
+            requestPlansButton.backgroundColor = UIColor.pink01
+            requestPlansButton.isUserInteractionEnabled  = true
+        }else{
+            requestPlansButton.backgroundColor = UIColor.grey02
+            requestPlansButton.isUserInteractionEnabled  = false
+        }
+    }
+}
+
 //MARK: Network
 
 extension RequestPlansDateVC{
-//    func requestPlans(){
-//        PostRequestPlansService.shared.requestPlans(guest: <#T##[Host]#>, title: <#T##String#>, contents: <#T##String#>, date: <#T##[String]#>, start: <#T##[String]#>, end: <#T##[String]#>){ responseData in
-//            switch responseData {
-//            case.success(let requestResponse):
-//                guard let response = requestResponse as? PlanRequestData else { return }
-//                if let plansData = response.data{
-//                    //노티피케이션 센터 이용해서 팝시키고 메인에 토스트 띄우기
-//                }
-//            case .requestErr(let msg):
-//                print("requestERR \(msg)")
-//            case .pathErr:
-//                print("pathErr")
-//            case .serverErr:
-//                print("serverErr")
-//            case .networkFail:
-//                print("networkFail")
-//
-//            }
-//        }
-//    }
+    
+    private func requestPlans(guests: [[String: Any]],
+                              title: String,
+                              contents: String,
+                              date: [String],
+                              start: [String],
+                              end: [String]
+                              ) {
+        print(guests, title, contents, date, start, end, "gdadfsa")
+        PostRequestPlansService.shared.requestPlans(
+            guests: guests,
+            title: title,
+            contents: contents,
+            date: date,
+            start: start,
+            end: end) { responseData in
+                switch responseData {
+                case .success(_), .pathErr:
+                    let nextStoryboard = UIStoryboard(name: "Tabbar", bundle: nil)
+                    let nextVC = nextStoryboard.instantiateViewController(identifier: "TabbarVC")
+                    self.tabBarController?.tabBar.isHidden = false
+                    self.tabBarController?.selectedIndex = 0
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "toastMessage"), object: "약속 신청을 완료했어요.")
+                case .requestErr(_):
+                    print("request err")
+                case .networkFail:
+                    print("network err")
+                case .serverErr:
+                    print("server err")
+                }
+            }
+    }
+    
 
     func requestCalendarData(year: String, month: String) {
         GetScheduleService.shared.getScheduleData(year: year, month: month)  { responseData in
@@ -1173,4 +1134,10 @@ extension RequestPlansDateVC{
         }
     }
 
+}
+
+extension RequestPlansDateVC: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) { // 스크롤뷰 스크롤하면 바텀 시트 뷰 접는다
+        bottomSheetView.showSheet(atState: .folded)
+    }
 }
