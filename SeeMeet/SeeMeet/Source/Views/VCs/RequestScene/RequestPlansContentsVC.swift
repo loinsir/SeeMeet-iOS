@@ -96,7 +96,8 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
     }
     
     private let nextButton = UIButton().then{
-        $0.backgroundColor = UIColor.pink01
+        $0.backgroundColor = UIColor.grey02
+        $0.isUserInteractionEnabled = false
         $0.setTitle("다음", for: .normal)
         $0.titleLabel?.font = UIFont.hanSansMediumFont(ofSize: 16)
         $0.layer.cornerRadius = 10
@@ -113,7 +114,13 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
     // var filterNameList = [String]()
     var filterdFriendList: [FriendsData] = []
     //var searchedNameList = [String]()
-    var selectedFriendList: [FriendsData] = []
+    var selectedFriendList: [FriendsData] = []{
+        didSet{
+            switchNextButtonStatus()//선택한 친구목록 바뀔 때마다 다음 버튼 활성화할지 판단
+        }
+    }
+    
+    let textViewPlaceHolderConstant = "약속 상세 내용"
     
    
     
@@ -157,7 +164,14 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
     }
     
     @objc func switchNextButtonStatus(){
-      //  if searchedNameList
+        //선택된 친구가 있고 약속제목과 내용이 있을 때
+        if selectedFriendList.count != 0 && plansTitleTextField.hasText && plansContentsTextView.hasText && plansContentsTextView.text != textViewPlaceHolderConstant{
+            nextButton.backgroundColor = UIColor.pink01
+            nextButton.isUserInteractionEnabled  = true
+        }else{
+            nextButton.backgroundColor = UIColor.grey02
+            nextButton.isUserInteractionEnabled  = false
+        }
         
     }
     func setChipView(){
@@ -345,7 +359,7 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
 //MARK: Extension
 extension RequestPlansContentsVC: UITextViewDelegate{
     func setPlaceholder() {
-        plansContentsTextView.text = "약속 상세 내용"
+        plansContentsTextView.text = textViewPlaceHolderConstant
         plansContentsTextView.textColor = UIColor.grey04
     }
     
@@ -360,7 +374,7 @@ extension RequestPlansContentsVC: UITextViewDelegate{
 
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = "약속 상세 내용"
+            textView.text = textViewPlaceHolderConstant
             textView.textColor = UIColor.grey04
         }
         plansContentsView.layer.borderWidth = 0
@@ -372,6 +386,8 @@ extension RequestPlansContentsVC: UITextViewDelegate{
         style.lineSpacing = 10
         attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: NSMakeRange(0, attrString.length))
         textView.attributedText = attrString
+        
+        switchNextButtonStatus()//텍스트뷰 텍스트 바뀔 때 활성화할지 판단
     }
 }
 
@@ -471,6 +487,7 @@ extension RequestPlansContentsVC: UITableViewDelegate{
         }
         tableView.isHidden = true
         searchTextField.endEditing(true)
+        
     }
 }
 
