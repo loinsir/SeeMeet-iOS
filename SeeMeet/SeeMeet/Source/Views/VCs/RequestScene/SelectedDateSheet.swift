@@ -68,9 +68,9 @@ class SelectedDateSheet: UIView {
     }
     
     // 퍌친 상태 Top
-    private lazy var sheetPanMinTopConstant: CGFloat = 812 - 482 * heightRatio
+    private lazy var sheetPanMinTopConstant: CGFloat = userHeight - 482*heightRatio
     // 접힌 상태 Top
-    private lazy var sheetPanMaxTopConstant: CGFloat = 812 - 172 * heightRatio
+    private lazy var sheetPanMaxTopConstant: CGFloat = userHeight - 172*heightRatio
     // 드래그 하기 전에 Bottom Sheet의 top Constraint value를 저장하기 위한 프로퍼티
     private lazy var sheetPanStartingTopConstant: CGFloat = frame.origin.y
     

@@ -12,13 +12,8 @@ struct FriendsDataModel: Codable {
 struct FriendsData: Codable {
     let id: Int
     let username, email: String
-    
-   init(id: Int, username: String, email: String){
-        self.id = id
-        self.username = username
-        self.email = email
-    }
-    init(){//Codable 초기화.. 이거 마자..?흠,,,,이렇게하니까 from:Decoder 채우라는 오류는 안나옴
+
+    init(){
         self.id = 0
         self.username = ""
         self.email = ""
