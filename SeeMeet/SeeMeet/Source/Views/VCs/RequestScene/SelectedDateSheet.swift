@@ -5,6 +5,9 @@ fileprivate let userWidth = UIScreen.getDeviceWidth() - 0.0
 fileprivate let heightRatio = userHeight / 812
 fileprivate let widthRatio = userWidth / 375
 
+protocol PickedDateListChangedDelegate{
+    func pickedDateListChanged(view: SelectedDateSheet)
+}
 class SelectedDateSheet: UIView {
     
     // MARK: - properties
@@ -12,6 +15,9 @@ class SelectedDateSheet: UIView {
     static let identifier: String = "SelectedDateSheet"
     
     var pickedDateList: [PickedDate] = [] {
+        didSet{
+            pickedDateListDelegate?.pickedDateListChanged(view: self)
+        }
         willSet {
             dateTicketsStackView.removeAllSubViews()
             newValue.forEach {
@@ -28,6 +34,7 @@ class SelectedDateSheet: UIView {
         }
     }
     
+    var pickedDateListDelegate: PickedDateListChangedDelegate?
     private let grabber: UIView = UIView().then {
         $0.backgroundColor = UIColor.grey02
         $0.layer.cornerRadius = 2
