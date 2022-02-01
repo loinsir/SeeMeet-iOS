@@ -10,6 +10,9 @@ fileprivate let widthRatio = userWidth / 375
 protocol TapTouchAreaViewDelegate{
     func tapTouchAreaView(dateSheetView: SelectedDateSheet)
 }
+protocol PickedDateListChangedDelegate{
+    func pickedDateListChanged(view: SelectedDateSheet)
+}
 class SelectedDateSheet: UIView {
     
     // MARK: - properties
@@ -17,6 +20,9 @@ class SelectedDateSheet: UIView {
     static let identifier: String = "SelectedDateSheet"
     
     var pickedDateList: [PickedDate] = [] {
+        didSet{
+            pickedDateListDelegate?.pickedDateListChanged(view: self)
+        }
         willSet {
             dateTicketsStackView.removeAllSubViews()
             newValue.forEach {
@@ -34,6 +40,7 @@ class SelectedDateSheet: UIView {
     }
     
     var tapTouchAreaViewDelegate: TapTouchAreaViewDelegate?
+    var pickedDateListDelegate: PickedDateListChangedDelegate?
     
     private let grabber: UIView = UIView().then {
         $0.backgroundColor = UIColor.grey02
