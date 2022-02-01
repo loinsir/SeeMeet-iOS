@@ -27,14 +27,14 @@ struct PickedDate {
     
     func getStartTimeStringForRequest() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "hh:mm"
+        dateFormatter.dateFormat = "HH:mm"
         let str = dateFormatter.string(from: startTime)
         return str
     }
     
     func getEndTimeStringForRequest() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "hh:mm"
+        dateFormatter.dateFormat = "HH:mm"
         let str = dateFormatter.string(from: endTime)
         return str
     }
