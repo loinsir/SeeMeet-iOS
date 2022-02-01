@@ -79,8 +79,6 @@ class RequestPlansDateVC: UIViewController {
         $0.bounces = true
         $0.isPagingEnabled = false
         $0.showsVerticalScrollIndicator = true
-       // $0.contentInsetAdjustmentBehavior = .never
-       // $0.frame.size = CGSize(width: UIScreen.getDeviceWidth(), height: 700)
     }
     
     private let selectDateLabel = UILabel().then{
@@ -275,10 +273,9 @@ class RequestPlansDateVC: UIViewController {
         initScheduleDataList()
         layoutCalendarView()
         initDayLabel()
-
-        
-        // Do any additional setup after loading the view.
+        addGestureRecognizer()
     }
+    
     @objc func touchRequestButton(_ button: UIButton) {
         let planDateList = bottomSheetView.pickedDateList
         
@@ -321,15 +318,21 @@ class RequestPlansDateVC: UIViewController {
             }
     }
     
+    private func addGestureRecognizer() {
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedView(_:)))
+        view.addGestureRecognizer(tapGesture)
+    }
     
-//MARK: Func
+    @objc private func tappedView(_ sender: UITapGestureRecognizer)  {
+        bottomSheetView.showSheet(atState: .folded)
+    }
+
     func initSelectedDay(){
         selectedDay = todayDate
     }
     func setDelegate() {
         scheduleTableView.dataSource = self
         scheduleTableView.delegate = self
-        bottomSheetView.tapTouchAreaViewDelegate = self
         sunCell.tapCellViewDelegate = self
         monCell.tapCellViewDelegate = self
         tueCell.tapCellViewDelegate = self
@@ -700,6 +703,7 @@ class RequestPlansDateVC: UIViewController {
         selectedDateView.addSubviews([dateLabel,
                                       timeLabel])
         
+        scrollView.delegate = self
         scrollView.addSubviews([selectDateLabel,
                                 separateLineView,
                                 scheduleView,
@@ -938,9 +942,9 @@ class RequestPlansDateVC: UIViewController {
             $0.bottom.equalToSuperview()
         }
         bottomSheetView.snp.makeConstraints{
-            $0.bottom.equalTo(navigationBarView.snp.bottom).offset(310)
+            $0.bottom.equalTo(navigationBarView.snp.bottom).offset(310 * heightRatio)
             $0.trailing.leading.equalToSuperview().offset(0)
-            $0.height.equalTo(480)
+            $0.height.equalTo(482 * heightRatio)
         }
         navigationLineView.snp.makeConstraints{
             $0.leading.trailing.equalToSuperview()
@@ -995,33 +999,6 @@ extension RequestPlansDateVC: UITableViewDataSource{
 extension RequestPlansDateVC: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 35
-    }
-}
-
-extension RequestPlansDateVC: TapTouchAreaViewDelegate{
-    func tapTouchAreaView(dateSheetView: SelectedDateSheet) {
-        
-        switch isOpened{
-        case false :
-            isOpened = true
-            UIView.animate(withDuration: 1.0){
-                let yFrame = CGAffineTransform(translationX: 0, y: -310)
-                self.bottomSheetView.transform = yFrame
-            }
-//            bottomSheetView.snp.updateConstraints {
-//                $0.bottom.equalTo(navigationBarView.snp.bottom).offset(310)
-//             }
-    
-        case true:
-//            bottomSheetView.snp.updateConstraints {
-//                $0.bottom.equalTo(navigationBarView.snp.bottom)
-//             }
-            UIView.animate(withDuration: 1.0){
-                let yFrame = CGAffineTransform(translationX: 0, y: 0)
-                self.bottomSheetView.transform = yFrame
-            }
-            isOpened = false
-        }
     }
 }
 
@@ -1173,4 +1150,10 @@ extension RequestPlansDateVC{
         }
     }
 
+}
+
+extension RequestPlansDateVC: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) { // 스크롤뷰 스크롤하면 바텀 시트 뷰 접는다
+        bottomSheetView.showSheet(atState: .folded)
+    }
 }
