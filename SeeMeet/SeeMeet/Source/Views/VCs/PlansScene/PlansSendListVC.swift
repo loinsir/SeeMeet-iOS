@@ -8,10 +8,10 @@
 import UIKit
 
 class sendCellIndex: UITapGestureRecognizer {
-    var cellView: UIView?
+    weak var cellView: UIView?
     var isChecked: Bool?
-    var yearLabel: UILabel?
-    var dateLabel: UILabel?
+    weak var yearLabel: UILabel?
+    weak var dateLabel: UILabel?
 }
 
 class PlansSendListVC: UIViewController {
@@ -342,7 +342,7 @@ class PlansSendListVC: UIViewController {
     }
     //MARK: function
     @objc private func cellClicked(gesture: sendCellIndex){
-        if isChecked == false {
+        if isChecked == false { // 처음 눌렀을때
             isChecked = true
             if gesture.isChecked == false{
                 gesture.isChecked = true
@@ -353,10 +353,11 @@ class PlansSendListVC: UIViewController {
                 gesture.cellView?.layer.borderColor = UIColor.black.cgColor
                 checkedIndex = gesture.cellView?.tag ?? 0
                 confirmButton.backgroundColor = UIColor.pink01
+                confirmButton.isEnabled = true
             }
         }
-        else{
-            if gesture.isChecked == true{
+        else{ //한개라도 눌려있을때
+            if gesture.isChecked == true{ //취소시키는거
                 gesture.isChecked = false
                 isChecked = false
                 gesture.cellView?.backgroundColor = UIColor.grey02
@@ -365,6 +366,28 @@ class PlansSendListVC: UIViewController {
                 gesture.dateLabel?.textColor = UIColor.grey06
                 checkedIndex = gesture.cellView?.tag ?? 0
                 confirmButton.backgroundColor = UIColor.grey02
+                confirmButton.isEnabled = false
+                
+            } else { // 이미눌려있는거 취소시키고 + 새로운거는 눌리도록 처리해야한다.
+                gesture.isChecked = true
+                gesture.cellView?.backgroundColor = UIColor.black
+                gesture.yearLabel?.textColor = UIColor.white
+                gesture.dateLabel?.textColor = UIColor.white
+                gesture.cellView?.layer.borderWidth = 1
+                gesture.cellView?.layer.borderColor = UIColor.black.cgColor
+                checkedIndex = gesture.cellView?.tag ?? 0
+                
+                dateSelectBackgroundView.subviews.filter {
+                    return $0.tag != checkedIndex
+                }.forEach {
+                    guard let cellGesture = $0.gestureRecognizers?.first as? sendCellIndex else { return }
+                    cellGesture.isChecked = false
+                    cellGesture.cellView?.backgroundColor = UIColor.grey02
+                    cellGesture.cellView?.layer.borderWidth = 0
+                    cellGesture.yearLabel?.textColor = UIColor.grey06
+                    cellGesture.dateLabel?.textColor = UIColor.grey06
+                }
+                confirmButton.isEnabled = true
             }
         }
     }
