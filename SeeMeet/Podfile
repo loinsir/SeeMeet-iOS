@@ -8,6 +8,8 @@ def pods
   pod 'Alamofire', '~> 5.4'
   pod 'Then'
   pod 'FSCalendar'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Crashlytics'
 end
 
 
