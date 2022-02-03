@@ -36,6 +36,7 @@
 		197F57BB279A69AF00FB4467 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197F57BA279A69AF00FB4467 /* MyPageView.swift */; };
 		19E633DE278D84F200776D0C /* CalendarDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E633DD278D84F200776D0C /* CalendarDetailVC.swift */; };
 		19E633E1278D853500776D0C /* CalendarDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19E633E0278D853500776D0C /* CalendarDetail.storyboard */; };
+		19EBCD8027AAD21000EC80E0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 19EBCD7F27AAD21000EC80E0 /* GoogleService-Info.plist */; };
 		19F1AF722792AB0300022A6A /* SelectedDateSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F1AF712792AB0300022A6A /* SelectedDateSheet.swift */; };
 		19F1AF7A2793453700022A6A /* SelectedDateSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F1AF792793453700022A6A /* SelectedDateSheet.xib */; };
 		360E6F4627898D4400DACFD8 /* HomeEventCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360E6F4427898D4400DACFD8 /* HomeEventCVC.swift */; };
@@ -170,6 +171,8 @@
 		197F57BA279A69AF00FB4467 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		19E633DD278D84F200776D0C /* CalendarDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailVC.swift; sourceTree = "<group>"; };
 		19E633E0278D853500776D0C /* CalendarDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CalendarDetail.storyboard; sourceTree = "<group>"; };
+		19EBCD7F27AAD21000EC80E0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		19EBCD8127AAD21800EC80E0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		19F1AF712792AB0300022A6A /* SelectedDateSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedDateSheet.swift; sourceTree = "<group>"; };
 		19F1AF792793453700022A6A /* SelectedDateSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectedDateSheet.xib; sourceTree = "<group>"; };
 		360E6F4427898D4400DACFD8 /* HomeEventCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEventCVC.swift; sourceTree = "<group>"; };
@@ -626,6 +629,7 @@
 			children = (
 				36EFE3002785C78600466818 /* Source */,
 				36EFE3012785C79200466818 /* Resource */,
+				19EBCD8127AAD21800EC80E0 /* GoogleService-Info.plist */,
 			);
 			path = SeeMeet;
 			sourceTree = "<group>";
@@ -645,6 +649,7 @@
 		36EFE3012785C79200466818 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				19EBCD7F27AAD21000EC80E0 /* GoogleService-Info.plist */,
 				3682122E2785E579005D7236 /* Font */,
 				36EFE2F52785682400466818 /* Assets.xcassets */,
 				36EFE2FA2785682400466818 /* Info.plist */,
@@ -882,6 +887,7 @@
 				36EFE2E62785682200466818 /* Frameworks */,
 				36EFE2E72785682200466818 /* Resources */,
 				7C18FC687DA2A0628F958E62 /* [CP] Embed Pods Frameworks */,
+				19EBCD7E27AAD08300EC80E0 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -940,6 +946,7 @@
 				197F57B9279A44F000FB4467 /* MyPageView.xib in Resources */,
 				191E8C1A278F01DD0042B8F1 /* SMPopUp.storyboard in Resources */,
 				19E633E1278D853500776D0C /* CalendarDetail.storyboard in Resources */,
+				19EBCD8027AAD21000EC80E0 /* GoogleService-Info.plist in Resources */,
 				368212492785E643005D7236 /* SpoqaHanSansNeo-Medium.ttf in Resources */,
 				3623EAA62795437D00853F87 /* Login.storyboard in Resources */,
 				36EFE2F62785682400466818 /* Assets.xcassets in Resources */,
@@ -978,6 +985,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		19EBCD7E27AAD08300EC80E0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${CONFIGURATION}\" != \"Debug\" ]; then\n    \"${PODS_ROOT}/FirebaseCrashlytics/run\"\n    \"${PODS_ROOT}/FirebaseCrashlytics/upload-symbols\" -gsp ${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist -p ios ${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\nfi\n";
+		};
 		4AC1AF953BA0AEABEE007DF3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1181,7 +1207,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1236,7 +1262,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1256,6 +1282,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3H85AXMVD3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SeeMeet/Resource/Info.plist;

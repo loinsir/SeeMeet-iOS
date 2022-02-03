@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>839367911214-97g5e8c31ho80f0q465oftk0q99dp4p5.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.839367911214-97g5e8c31ho80f0q465oftk0q99dp4p5</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDq8D6adJOcuTvJm75jP85MASywS8WTd4A</string>
+	<key>GCM_SENDER_ID</key>
+	<string>839367911214</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>SeeMeet.iOS</string>
+	<key>PROJECT_ID</key>
+	<string>seemeet-ios-2a2c3</string>
+	<key>STORAGE_BUCKET</key>
+	<string>seemeet-ios-2a2c3.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:839367911214:ios:27c103b5cdefdc1d15bcbf</string>
+</dict>
+</plist>
