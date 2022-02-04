@@ -36,9 +36,9 @@
 		197F57BB279A69AF00FB4467 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197F57BA279A69AF00FB4467 /* MyPageView.swift */; };
 		19E633DE278D84F200776D0C /* CalendarDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E633DD278D84F200776D0C /* CalendarDetailVC.swift */; };
 		19E633E1278D853500776D0C /* CalendarDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19E633E0278D853500776D0C /* CalendarDetail.storyboard */; };
-		19EBCD8027AAD21000EC80E0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 19EBCD7F27AAD21000EC80E0 /* GoogleService-Info.plist */; };
 		19F1AF722792AB0300022A6A /* SelectedDateSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F1AF712792AB0300022A6A /* SelectedDateSheet.swift */; };
 		19F1AF7A2793453700022A6A /* SelectedDateSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F1AF792793453700022A6A /* SelectedDateSheet.xib */; };
+		19FEE1F827AD9B12006C9EF2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 19FEE1F727AD9B12006C9EF2 /* GoogleService-Info.plist */; };
 		360E6F4627898D4400DACFD8 /* HomeEventCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360E6F4427898D4400DACFD8 /* HomeEventCVC.swift */; };
 		360E6F4727898D4400DACFD8 /* HomeEventCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 360E6F4527898D4400DACFD8 /* HomeEventCVC.xib */; };
 		3623EA83278F65AB00853F87 /* ProgressSendCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3623EA81278F65AB00853F87 /* ProgressSendCVC.swift */; };
@@ -171,9 +171,9 @@
 		197F57BA279A69AF00FB4467 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		19E633DD278D84F200776D0C /* CalendarDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailVC.swift; sourceTree = "<group>"; };
 		19E633E0278D853500776D0C /* CalendarDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CalendarDetail.storyboard; sourceTree = "<group>"; };
-		19EBCD7F27AAD21000EC80E0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		19F1AF712792AB0300022A6A /* SelectedDateSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedDateSheet.swift; sourceTree = "<group>"; };
 		19F1AF792793453700022A6A /* SelectedDateSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectedDateSheet.xib; sourceTree = "<group>"; };
+		19FEE1F727AD9B12006C9EF2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		360E6F4427898D4400DACFD8 /* HomeEventCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEventCVC.swift; sourceTree = "<group>"; };
 		360E6F4527898D4400DACFD8 /* HomeEventCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeEventCVC.xib; sourceTree = "<group>"; };
 		3623EA81278F65AB00853F87 /* ProgressSendCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressSendCVC.swift; sourceTree = "<group>"; };
@@ -626,6 +626,7 @@
 		36EFE2EB2785682200466818 /* SeeMeet */ = {
 			isa = PBXGroup;
 			children = (
+				19FEE1F727AD9B12006C9EF2 /* GoogleService-Info.plist */,
 				36EFE3002785C78600466818 /* Source */,
 				36EFE3012785C79200466818 /* Resource */,
 			);
@@ -647,7 +648,6 @@
 		36EFE3012785C79200466818 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				19EBCD7F27AAD21000EC80E0 /* GoogleService-Info.plist */,
 				3682122E2785E579005D7236 /* Font */,
 				36EFE2F52785682400466818 /* Assets.xcassets */,
 				36EFE2FA2785682400466818 /* Info.plist */,
@@ -944,7 +944,7 @@
 				197F57B9279A44F000FB4467 /* MyPageView.xib in Resources */,
 				191E8C1A278F01DD0042B8F1 /* SMPopUp.storyboard in Resources */,
 				19E633E1278D853500776D0C /* CalendarDetail.storyboard in Resources */,
-				19EBCD8027AAD21000EC80E0 /* GoogleService-Info.plist in Resources */,
+				19FEE1F827AD9B12006C9EF2 /* GoogleService-Info.plist in Resources */,
 				368212492785E643005D7236 /* SpoqaHanSansNeo-Medium.ttf in Resources */,
 				3623EAA62795437D00853F87 /* Login.storyboard in Resources */,
 				36EFE2F62785682400466818 /* Assets.xcassets in Resources */,
