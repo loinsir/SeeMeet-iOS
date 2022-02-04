@@ -172,7 +172,6 @@
 		19E633DD278D84F200776D0C /* CalendarDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailVC.swift; sourceTree = "<group>"; };
 		19E633E0278D853500776D0C /* CalendarDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CalendarDetail.storyboard; sourceTree = "<group>"; };
 		19EBCD7F27AAD21000EC80E0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		19EBCD8127AAD21800EC80E0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		19F1AF712792AB0300022A6A /* SelectedDateSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedDateSheet.swift; sourceTree = "<group>"; };
 		19F1AF792793453700022A6A /* SelectedDateSheet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectedDateSheet.xib; sourceTree = "<group>"; };
 		360E6F4427898D4400DACFD8 /* HomeEventCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEventCVC.swift; sourceTree = "<group>"; };
@@ -629,7 +628,6 @@
 			children = (
 				36EFE3002785C78600466818 /* Source */,
 				36EFE3012785C79200466818 /* Resource */,
-				19EBCD8127AAD21800EC80E0 /* GoogleService-Info.plist */,
 			);
 			path = SeeMeet;
 			sourceTree = "<group>";

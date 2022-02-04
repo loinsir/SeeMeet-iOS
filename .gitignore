@@ -11,6 +11,7 @@
 */Pods/
 */.Podfile.swp
 SeeMeet/Podfile.lock
+SeeMeet/SeeMeet/GoogleService-Info.plist
 
 
 ### macOS ###
