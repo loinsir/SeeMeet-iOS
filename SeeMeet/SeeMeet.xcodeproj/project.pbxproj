@@ -351,6 +351,17 @@
 			path = FriendsScene;
 			sourceTree = "<group>";
 		};
+		1960D41D27AFC6E2002558C4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				6A7C7C0A27920F80006D39F6 /* ChipView.swift */,
+				19F1AF712792AB0300022A6A /* SelectedDateSheet.swift */,
+				1968464A279413A900DBAF3A /* DateTicketView.swift */,
+				6A8E387B27958A2E00A480F7 /* DayCellView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		19E633DC278D73CF00776D0C /* CalendarScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -799,12 +810,9 @@
 		6A4A20EB278B58FC00DD4DCD /* RequestScene */ = {
 			isa = PBXGroup;
 			children = (
+				1960D41D27AFC6E2002558C4 /* Components */,
 				6A4A20EC278B5F7000DD4DCD /* RequestPlansContentsVC.swift */,
-				6A7C7C0A27920F80006D39F6 /* ChipView.swift */,
 				6A7C7C0E279364CA006D39F6 /* RequestPlansDateVC.swift */,
-				19F1AF712792AB0300022A6A /* SelectedDateSheet.swift */,
-				1968464A279413A900DBAF3A /* DateTicketView.swift */,
-				6A8E387B27958A2E00A480F7 /* DayCellView.swift */,
 				6A8E388327970D7000A480F7 /* PickedDate.swift */,
 				6AC748652798256B0027B823 /* WeekDay.swift */,
 			);
