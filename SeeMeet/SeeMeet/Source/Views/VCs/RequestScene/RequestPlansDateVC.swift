@@ -577,13 +577,10 @@ class RequestPlansDateVC: UIViewController {
         
        }
     
-    @objc func tapAddButton(){
-        if PostRequestPlansService.sharedParameterData.date.count < 4 {
-            PostRequestPlansService.sharedParameterData.start.append(selectedDate.getStartTimeStringForRequest())
-            PostRequestPlansService.sharedParameterData.end.append(selectedDate.getEndTimeStringForRequest())
-            PostRequestPlansService.sharedParameterData.date.append(selectedDate.getDateStringForRequest())
-            bottomSheetView.tableView.reloadData()
-        }
+    @objc func tapAddButton(){ // 데이터 변경은 바텀 시트쪽에서 처리하도록 몰아넣도록 하자
+        bottomSheetView.addSelectedTimeData(date: selectedDate.getDateStringForRequest(),
+                                            start: selectedDate.getStartTimeStringForRequest(),
+                                            end: selectedDate.getEndTimeStringForRequest())
     }
     
     @objc func touchUpBackButton() {
@@ -1026,6 +1023,8 @@ extension RequestPlansDateVC{
             case .serverErr:
                 print("server err")
             }
+            
+            PostRequestPlansService.sharedParameterData.removeAllData()
         }
     }
     

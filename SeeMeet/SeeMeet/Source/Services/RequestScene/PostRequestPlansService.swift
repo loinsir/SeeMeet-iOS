@@ -29,6 +29,15 @@ struct RequestPlansParameter {
         start.remove(at: index)
         end.remove(at: index)
     }
+    
+    mutating func removeAllData() {
+        guests.removeAll()
+        title?.removeAll()
+        contents?.removeAll()
+        date.removeAll()
+        start.removeAll()
+        end.removeAll()
+    }
 }
 
 struct PostRequestPlansService {

@@ -31,7 +31,7 @@ class SelectedDateSheet: UIView {
         $0.backgroundColor = .clear
     }
     
-    private let selectedCountLabel: UILabel = UILabel().then {
+    let selectedCountLabel: UILabel = UILabel().then {
         $0.text = "0/4"
         $0.textColor = UIColor.pink01
         $0.font = UIFont.dinProMediumFont(ofSize: 14)
@@ -115,16 +115,16 @@ class SelectedDateSheet: UIView {
         }
     }
     
-    private func nearest(to number: CGFloat, inValues values: [CGFloat]) -> CGFloat {
-        guard let nearestVal = values.min(by: { abs(number - $0) < abs(number - $1) }) else { return number }
-        return nearestVal
-    }
-    
     private func setPanGestureRecognizer(){
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(processingPanGesture(_:)))
         panGesture.delaysTouchesBegan = false
         panGesture.delaysTouchesEnded = false
         addGestureRecognizer(panGesture)
+    }
+    
+    private func nearest(to number: CGFloat, inValues values: [CGFloat]) -> CGFloat {
+        guard let nearestVal = values.min(by: { abs(number - $0) < abs(number - $1) }) else { return number }
+        return nearestVal
     }
     
     @objc private func processingPanGesture(_ sender: UIPanGestureRecognizer) {
@@ -167,9 +167,32 @@ class SelectedDateSheet: UIView {
             }
         })
     }
+    
+    func addSelectedTimeData(date: String, start: String, end: String) { // 선택지의 데이터 추가 처리
+        let currentDataCount = PostRequestPlansService.sharedParameterData.date.count
+        if currentDataCount < 4 {
+            PostRequestPlansService.sharedParameterData.date.append(date)
+            PostRequestPlansService.sharedParameterData.start.append(start)
+            PostRequestPlansService.sharedParameterData.end.append(end)
+            
+            selectedCountLabel.text = "\(PostRequestPlansService.sharedParameterData.date.count)/4"
+            tableView.reloadData()
+        }
+        delegate?.selectedDateSheetDidChanged(self)
+    }
 }
 
 // MARK: - extensions
+
+extension SelectedDateSheet: SelectedDateSheetTVCDelegate { // 선택지의 삭제 처리를 여기서 한다.
+    func touchedSelectedDateSheetTVC(cell: SelectedDateSheetTVC) {
+        PostRequestPlansService.sharedParameterData.removeTimeData(at: cell.tag)
+        delegate?.selectedDateSheetDidChanged(self)
+        
+        selectedCountLabel.text = "\(PostRequestPlansService.sharedParameterData.date.count)/4"
+        tableView.reloadData()
+    }
+}
 
 extension SelectedDateSheet: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -198,14 +221,5 @@ extension SelectedDateSheet: UITableViewDataSource {
         cell.timeLabel.text = "\(dateFormatter.string(from: startDate)) ~ \(dateFormatter.string(from: endDate))"
         
         return cell
-    }
-}
-
-extension SelectedDateSheet: SelectedDateSheetTVCDelegate { // 선택지의 삭제 처리를 여기서 한다.
-    func touchedSelectedDateSheetTVC(cell: SelectedDateSheetTVC) {
-        PostRequestPlansService.sharedParameterData.removeTimeData(at: cell.tag)
-        delegate?.selectedDateSheetDidChanged(self)
-        dump(PostRequestPlansService.sharedParameterData)
-        tableView.reloadData()
     }
 }
