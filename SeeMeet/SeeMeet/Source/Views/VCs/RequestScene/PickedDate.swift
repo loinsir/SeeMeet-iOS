@@ -13,7 +13,7 @@ struct PickedDate {
    
     func getDateString() -> String{
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy.MM.dd" // 2020-08-13 16:30
+        dateFormatter.dateFormat = "yyyy.MM.dd" // 2020.08.13 16:30
         let str = dateFormatter.string(from: startTime)
         return str
     }
@@ -49,9 +49,6 @@ struct PickedDate {
         
         return start + "~" + end
     }
-    
-    
-   
 }
 
 extension PickedDate: Equatable {

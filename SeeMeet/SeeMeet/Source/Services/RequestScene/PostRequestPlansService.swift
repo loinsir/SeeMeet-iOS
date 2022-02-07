@@ -1,6 +1,10 @@
 import Foundation
 import Alamofire
 
+protocol RequestPlansParameterDelegate {
+    func requestPlansParameterDelegate(_ parameter: RequestPlansParameter)
+}
+
 struct RequestPlansParameter {
     var guests: [[String: Any]] = []
     var title: String?
@@ -17,6 +21,14 @@ struct RequestPlansParameter {
         && !start.isEmpty
         && !end.isEmpty
     }
+    
+    mutating func removeTimeData(at index: Int) {
+        guard !date.isEmpty && !start.isEmpty && !end.isEmpty else { return } // 배열이 비었는지 검증한다.
+        
+        date.remove(at: index)
+        start.remove(at: index)
+        end.remove(at: index)
+    }
 }
 
 struct PostRequestPlansService {
@@ -27,7 +39,7 @@ struct PostRequestPlansService {
     
     private var headers: HTTPHeaders?
     
-    var parameterData = RequestPlansParameter()  // 싱글턴 객체로 참조할 수 있게 함
+    static var sharedParameterData = RequestPlansParameter()  // 싱글턴 객체로 참조할 수 있게 한다. 약속 신청에 관한 데이터는 여기로 모은다.
     
     // MARK: - initializer
     
@@ -40,16 +52,16 @@ struct PostRequestPlansService {
     
     func requestPlans(completion: @escaping (NetworkResult<Any>) -> Void) {
         
-        guard parameterData.isAnyPropertyNotNil() else { return }
+        guard PostRequestPlansService.sharedParameterData.isAnyPropertyNotNil() else { return } // 값이 모두 채워져 있는지 검증한다.
         
         let url = Constants.invitationURL
         
-        let requestBody: Parameters = ["guests": parameterData.guests,
-                                       "invitationTitle": parameterData.title ?? "",
-                                       "invitationDesc": parameterData.contents ?? "",
-                                       "date": parameterData.date,
-                                       "start": parameterData.start,
-                                       "end": parameterData.end]
+        let requestBody: Parameters = ["guests": PostRequestPlansService.sharedParameterData.guests,
+                                       "invitationTitle": PostRequestPlansService.sharedParameterData.title ?? "",
+                                       "invitationDesc": PostRequestPlansService.sharedParameterData.contents ?? "",
+                                       "date": PostRequestPlansService.sharedParameterData.date,
+                                       "start": PostRequestPlansService.sharedParameterData.start,
+                                       "end": PostRequestPlansService.sharedParameterData.end]
    
         let request = AF.request(url,
                                  method: .post,

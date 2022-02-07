@@ -5,36 +5,18 @@ fileprivate let userWidth = UIScreen.getDeviceWidth() - 0.0
 fileprivate let heightRatio = userHeight / 812
 fileprivate let widthRatio = userWidth / 375
 
-protocol PickedDateListChangedDelegate{
-    func pickedDateListChanged(view: SelectedDateSheet)
+protocol SelectedDateSheetDelegate {
+    func selectedDateSheetDidChanged(_ view: SelectedDateSheet)
 }
+
 class SelectedDateSheet: UIView {
     
     // MARK: - properties
     
     static let identifier: String = "SelectedDateSheet"
     
-    var pickedDateList: [PickedDate] = [] {
-        didSet{
-            pickedDateListDelegate?.pickedDateListChanged(view: self)
-        }
-        willSet {
-            dateTicketsStackView.removeAllSubViews()
-            newValue.forEach {
-                let dateTicketView: DateTicketView = DateTicketView()
-                dateTicketView.delegate = self
-                dateTicketView.pickedDate = $0
-                dateTicketView.dateLabel.text = $0.getDateString()
-                dateTicketView.timeLabel.text = $0.getStartToEndString()
-                dateTicketsStackView.addArrangedSubview(dateTicketView)
-               
-            }
-            updateStackViewHeight(by: newValue.count)
-            selectedCountLabel.text = "\(newValue.count)/4"
-        }
-    }
+    var delegate: SelectedDateSheetDelegate?
     
-    var pickedDateListDelegate: PickedDateListChangedDelegate?
     private let grabber: UIView = UIView().then {
         $0.backgroundColor = UIColor.grey02
         $0.layer.cornerRadius = 2
@@ -55,10 +37,11 @@ class SelectedDateSheet: UIView {
         $0.font = UIFont.dinProMediumFont(ofSize: 14)
     }
     
-    private let dateTicketsStackView: UIStackView = UIStackView().then {
-        $0.axis = .vertical
-        $0.alignment = .fill
-        $0.distribution = .fillEqually
+    let tableView: UITableView = UITableView(frame: CGRect.zero, style: .plain).then {
+        $0.register(SelectedDateSheetTVC.self, forCellReuseIdentifier: SelectedDateSheetTVC.identifier)
+        $0.rowHeight = 73 * heightRatio
+        $0.isScrollEnabled = false
+        $0.isUserInteractionEnabled = true
     }
     
     // Snap 효과를 위한 케이스
@@ -68,9 +51,9 @@ class SelectedDateSheet: UIView {
     }
     
     // 퍌친 상태 Top
-    private lazy var sheetPanMinTopConstant: CGFloat = userHeight - 482*heightRatio
+    private lazy var sheetPanMinTopConstant: CGFloat = userHeight - 482 * heightRatio
     // 접힌 상태 Top
-    private lazy var sheetPanMaxTopConstant: CGFloat = userHeight - 172*heightRatio
+    private lazy var sheetPanMaxTopConstant: CGFloat = userHeight - 172 * heightRatio
     // 드래그 하기 전에 Bottom Sheet의 top Constraint value를 저장하기 위한 프로퍼티
     private lazy var sheetPanStartingTopConstant: CGFloat = frame.origin.y
     
@@ -88,13 +71,15 @@ class SelectedDateSheet: UIView {
         setPanGestureRecognizer()
     }
     
+    // MARK: - func
+    
     private func setLayouts() {
         isUserInteractionEnabled = true
         backgroundColor = .white
         layer.cornerRadius = 20
         getShadowView(color: UIColor.black.cgColor, masksToBounds: false, shadowOffset: CGSize(width: 0, height: -3), shadowRadius: 3, shadowOpacity: 0.1)
         
-        addSubviews([grabber, titleLabel,selectedCountLabel,touchAreaView,dateTicketsStackView])
+        addSubviews([grabber, titleLabel,selectedCountLabel,touchAreaView, tableView])
         
         grabber.snp.makeConstraints {
             $0.height.equalTo(4 * heightRatio)
@@ -118,12 +103,15 @@ class SelectedDateSheet: UIView {
             $0.top.equalToSuperview().offset(31 * heightRatio)
         }
         
-        dateTicketsStackView.snp.makeConstraints {
-           // $0.width.equalTo(349 * widthRatio)
+        tableView.backgroundColor = .clear
+        tableView.separatorColor = .clear
+        tableView.separatorStyle = .none
+        tableView.dataSource = self
+        tableView.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(19 * widthRatio)
             $0.trailing.equalToSuperview().offset(-6 * widthRatio)
-            $0.top.equalTo(titleLabel.snp.bottom)
-            $0.height.equalTo(73 * heightRatio)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(1 * heightRatio)
+            $0.height.equalTo(292 * heightRatio)
         }
     }
     
@@ -179,30 +167,45 @@ class SelectedDateSheet: UIView {
             }
         })
     }
-
-    // 스택뷰 갯수 바뀌고 마지막에 반드시 호출할 함수
-    private func updateStackViewHeight(by count: Int) {
-        dateTicketsStackView.snp.updateConstraints {
-            $0.height.equalTo(73 * Double(count) * heightRatio)
-        }
-    }
-    
-    func addPickedDate(date: PickedDate){
-        if(pickedDateList.count < 4){
-            pickedDateList.append(date)
-        }
-       
-    }
-       
 }
 
 // MARK: - extensions
 
-extension SelectedDateSheet: DateTicketViewDelegate {
-    func dateTicketViewDelete(view: DateTicketView) {
-        if let pickedDate = view.pickedDate,
-           let ticketIndex = pickedDateList.firstIndex(where: { $0 == pickedDate }) {
-                pickedDateList.remove(at: ticketIndex)
+extension SelectedDateSheet: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        PostRequestPlansService.sharedParameterData.date.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell: SelectedDateSheetTVC = tableView.dequeueReusableCell(withIdentifier: SelectedDateSheetTVC.identifier, for: indexPath) as? SelectedDateSheetTVC else { return UITableViewCell() }
+        
+        let cellData = PostRequestPlansService.sharedParameterData
+        
+        cell.tag = indexPath.row
+        cell.delegate = self
+        cell.dateLabel.text = cellData.date[indexPath.row].replacingOccurrences(of: "-", with: ".")
+        
+        let dateFormatter: DateFormatter = DateFormatter().then {
+            $0.dateFormat = "HH:mm"
+            $0.locale = Locale(identifier: "ko_KR")
+            $0.timeZone = TimeZone(identifier: "ko_KR")
         }
+        
+        guard let startDate = dateFormatter.date(from: cellData.start[indexPath.row]),
+              let endDate = dateFormatter.date(from: cellData.end[indexPath.row]) else { return UITableViewCell() }
+        dateFormatter.dateFormat = "a hh:mm"
+        
+        cell.timeLabel.text = "\(dateFormatter.string(from: startDate)) ~ \(dateFormatter.string(from: endDate))"
+        
+        return cell
+    }
+}
+
+extension SelectedDateSheet: SelectedDateSheetTVCDelegate { // 선택지의 삭제 처리를 여기서 한다.
+    func touchedSelectedDateSheetTVC(cell: SelectedDateSheetTVC) {
+        PostRequestPlansService.sharedParameterData.removeTimeData(at: cell.tag)
+        delegate?.selectedDateSheetDidChanged(self)
+        dump(PostRequestPlansService.sharedParameterData)
+        tableView.reloadData()
     }
 }
