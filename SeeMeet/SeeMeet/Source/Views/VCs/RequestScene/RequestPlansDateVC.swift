@@ -512,8 +512,6 @@ class RequestPlansDateVC: UIViewController {
         dateformatter.dateStyle = .none
         dateformatter.timeStyle = .short
         
-        let startDateComponents = DateComponents(year: selectedDate.startTime.year, month: selectedDate.startTime.month, day: selectedDate.startTime.day, hour: startDatePicker.date.hour ,minute: startDatePicker.date.minute)
-        
         let dateComponents = DateComponents(year: selectedDate.startTime.year,
                                             month: selectedDate.startTime.month,
                                             day: selectedDate.startTime.day,
