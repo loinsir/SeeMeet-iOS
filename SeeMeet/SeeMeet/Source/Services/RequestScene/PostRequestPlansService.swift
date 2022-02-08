@@ -1,12 +1,44 @@
-//
-//  PostRequestPlansService.swift
-//  SeeMeet
-//
-//  Created by 이유진 on 2022/01/21.
-//
-
 import Foundation
 import Alamofire
+
+protocol RequestPlansParameterDelegate {
+    func requestPlansParameterDelegate(_ parameter: RequestPlansParameter)
+}
+
+struct RequestPlansParameter {
+    var guests: [[String: Any]] = []
+    var title: String?
+    var contents: String?
+    var date: [String] = []
+    var start: [String] = []
+    var end: [String] = []
+    
+    func isAnyPropertyNotNil() -> Bool {
+        !guests.isEmpty
+        && title != nil
+        && contents != nil
+        && !date.isEmpty
+        && !start.isEmpty
+        && !end.isEmpty
+    }
+    
+    mutating func removeTimeData(at index: Int) {
+        guard !date.isEmpty && !start.isEmpty && !end.isEmpty else { return } // 배열이 비었는지 검증한다.
+        
+        date.remove(at: index)
+        start.remove(at: index)
+        end.remove(at: index)
+    }
+    
+    mutating func removeAllData() {
+        guests.removeAll()
+        title?.removeAll()
+        contents?.removeAll()
+        date.removeAll()
+        start.removeAll()
+        end.removeAll()
+    }
+}
 
 struct PostRequestPlansService {
     
@@ -15,6 +47,8 @@ struct PostRequestPlansService {
     static let shared = PostRequestPlansService()
     
     private var headers: HTTPHeaders?
+    
+    static var sharedParameterData = RequestPlansParameter()  // 싱글턴 객체로 참조할 수 있게 한다. 약속 신청에 관한 데이터는 여기로 모은다.
     
     // MARK: - initializer
     
@@ -25,7 +59,41 @@ struct PostRequestPlansService {
     
     // MARK: - methods
     
-    func requestPlans(guests: [[String: Any]],title: String,contents: String,date: [String],start: [String],end:[String],
+    func requestPlans(completion: @escaping (NetworkResult<Any>) -> Void) {
+        
+        guard PostRequestPlansService.sharedParameterData.isAnyPropertyNotNil() else { return } // 값이 모두 채워져 있는지 검증한다.
+        
+        let url = Constants.invitationURL
+        
+        let requestBody: Parameters = ["guests": PostRequestPlansService.sharedParameterData.guests,
+                                       "invitationTitle": PostRequestPlansService.sharedParameterData.title ?? "",
+                                       "invitationDesc": PostRequestPlansService.sharedParameterData.contents ?? "",
+                                       "date": PostRequestPlansService.sharedParameterData.date,
+                                       "start": PostRequestPlansService.sharedParameterData.start,
+                                       "end": PostRequestPlansService.sharedParameterData.end]
+   
+        let request = AF.request(url,
+                                 method: .post,
+                                 parameters: requestBody,
+                                 encoding: JSONEncoding.default,
+                                 headers: headers)
+        
+        request.responseData { responseData in
+            switch responseData.result {
+            case .success:
+                if let statusCode = responseData.response?.statusCode,
+                   let value = responseData.value {
+                    let networkResult = judgeStatus(by: statusCode, value)
+                    completion(networkResult)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                completion(.networkFail)
+            }
+        }
+    }
+    
+    func requestPlans(guests: [[String: Any]], title: String, contents: String, date: [String],start: [String], end:[String],
                       completion: @escaping (NetworkResult<Any>) -> Void) {
         let url = Constants.invitationURL
         
@@ -35,8 +103,6 @@ struct PostRequestPlansService {
                                        "date": date,
                                        "start": start,
                                        "end": end]
-        
-//        dump(requestBody)
    
         let request = AF.request(url,
                                  method: .post,
@@ -45,7 +111,6 @@ struct PostRequestPlansService {
                                  headers: headers)
         
         request.responseData { responseData in
-            dump(responseData)
             switch responseData.result {
             case .success:
                 if let statusCode = responseData.response?.statusCode,
@@ -77,7 +142,5 @@ struct PostRequestPlansService {
             return .requestErr(decodedData)
         }
     }
-    
-    
-    
 }
+

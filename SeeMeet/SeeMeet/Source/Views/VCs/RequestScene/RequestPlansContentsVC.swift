@@ -156,9 +156,9 @@ class RequestPlansContentsVC: UIViewController,UIGestureRecognizerDelegate {
         let nextStoryboard = UIStoryboard(name: "RequestPlansDate", bundle: nil)
         guard let nextVC = nextStoryboard.instantiateViewController(identifier: "RequestPlansDateVC") as? RequestPlansDateVC else { return }
         
-        nextVC.titleToRequest = plansTitleTextField.text ?? ""
-        nextVC.contentsToRequest = plansContentsTextView.text ?? ""
-        nextVC.guestsToRequest = selectedFriendList.map { ["id": $0.id, "username": $0.username] }
+        PostRequestPlansService.sharedParameterData.title = plansTitleTextField.text ?? ""
+        PostRequestPlansService.sharedParameterData.contents = plansContentsTextView.text ?? ""
+        PostRequestPlansService.sharedParameterData.guests = selectedFriendList.map { ["id": $0.id, "username": $0.username] }
         
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
@@ -494,8 +494,6 @@ extension RequestPlansContentsVC: UITableViewDelegate{
 extension RequestPlansContentsVC: TapRemoveButtonDelegate{
     
     func tapRemoveButton(chipView: ChipView) {
-       
-        
         let removeFriend = chipView.friendsData
         if let idx = selectedFriendList.firstIndex(of: removeFriend){
             selectedFriendList.remove(at: idx)

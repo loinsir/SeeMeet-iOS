@@ -30,7 +30,8 @@
 		1950E5162791DAC900ED357B /* FriendsAdd.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1950E5152791DAC900ED357B /* FriendsAdd.storyboard */; };
 		1950E51B2791FE7B00ED357B /* FriendsAddTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1950E5192791FE7B00ED357B /* FriendsAddTVC.swift */; };
 		1950E51C2791FE7B00ED357B /* FriendsAddTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1950E51A2791FE7B00ED357B /* FriendsAddTVC.xib */; };
-		1968464B279413A900DBAF3A /* DateTicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1968464A279413A900DBAF3A /* DateTicketView.swift */; };
+		1960D42027B10C93002558C4 /* SelectedDateSheetTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1960D41E27B10C93002558C4 /* SelectedDateSheetTVC.swift */; };
+		1960D42127B10C93002558C4 /* SelectedDateSheetTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1960D41F27B10C93002558C4 /* SelectedDateSheetTVC.xib */; };
 		197F57B5279913C000FB4467 /* PlanDetailResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197F57B4279913C000FB4467 /* PlanDetailResponseModel.swift */; };
 		197F57B9279A44F000FB4467 /* MyPageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 197F57B8279A44F000FB4467 /* MyPageView.xib */; };
 		197F57BB279A69AF00FB4467 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197F57BA279A69AF00FB4467 /* MyPageView.swift */; };
@@ -165,7 +166,8 @@
 		1950E5152791DAC900ED357B /* FriendsAdd.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FriendsAdd.storyboard; sourceTree = "<group>"; };
 		1950E5192791FE7B00ED357B /* FriendsAddTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsAddTVC.swift; sourceTree = "<group>"; };
 		1950E51A2791FE7B00ED357B /* FriendsAddTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendsAddTVC.xib; sourceTree = "<group>"; };
-		1968464A279413A900DBAF3A /* DateTicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTicketView.swift; sourceTree = "<group>"; };
+		1960D41E27B10C93002558C4 /* SelectedDateSheetTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedDateSheetTVC.swift; sourceTree = "<group>"; };
+		1960D41F27B10C93002558C4 /* SelectedDateSheetTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectedDateSheetTVC.xib; sourceTree = "<group>"; };
 		197F57B4279913C000FB4467 /* PlanDetailResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailResponseModel.swift; sourceTree = "<group>"; };
 		197F57B8279A44F000FB4467 /* MyPageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyPageView.xib; sourceTree = "<group>"; };
 		197F57BA279A69AF00FB4467 /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
@@ -349,6 +351,25 @@
 				191E8C25278F490A0042B8F1 /* FriendsListTVC.xib */,
 			);
 			path = FriendsScene;
+			sourceTree = "<group>";
+		};
+		1960D41D27AFC6E2002558C4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				6A7C7C0A27920F80006D39F6 /* ChipView.swift */,
+				19F1AF712792AB0300022A6A /* SelectedDateSheet.swift */,
+				6A8E387B27958A2E00A480F7 /* DayCellView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		1960D42227B1638E002558C4 /* RequestScene */ = {
+			isa = PBXGroup;
+			children = (
+				1960D41E27B10C93002558C4 /* SelectedDateSheetTVC.swift */,
+				1960D41F27B10C93002558C4 /* SelectedDateSheetTVC.xib */,
+			);
+			path = RequestScene;
 			sourceTree = "<group>";
 		};
 		19E633DC278D73CF00776D0C /* CalendarScene */ = {
@@ -747,6 +768,7 @@
 		36EFE3092785C81F00466818 /* TVC */ = {
 			isa = PBXGroup;
 			children = (
+				1960D42227B1638E002558C4 /* RequestScene */,
 				191E8C28278F49250042B8F1 /* FriendsScene */,
 			);
 			path = TVC;
@@ -799,12 +821,9 @@
 		6A4A20EB278B58FC00DD4DCD /* RequestScene */ = {
 			isa = PBXGroup;
 			children = (
+				1960D41D27AFC6E2002558C4 /* Components */,
 				6A4A20EC278B5F7000DD4DCD /* RequestPlansContentsVC.swift */,
-				6A7C7C0A27920F80006D39F6 /* ChipView.swift */,
 				6A7C7C0E279364CA006D39F6 /* RequestPlansDateVC.swift */,
-				19F1AF712792AB0300022A6A /* SelectedDateSheet.swift */,
-				1968464A279413A900DBAF3A /* DateTicketView.swift */,
-				6A8E387B27958A2E00A480F7 /* DayCellView.swift */,
 				6A8E388327970D7000A480F7 /* PickedDate.swift */,
 				6AC748652798256B0027B823 /* WeekDay.swift */,
 			);
@@ -968,6 +987,7 @@
 				191E8C22278F47990042B8F1 /* FriendsList.storyboard in Resources */,
 				6A7C7C13279367DF006D39F6 /* RequestPlansDate.storyboard in Resources */,
 				368212472785E643005D7236 /* DINEngschriftStd.otf in Resources */,
+				1960D42127B10C93002558C4 /* SelectedDateSheetTVC.xib in Resources */,
 				3682123E2785E643005D7236 /* DINNeuzeitGroteskStd-Light.otf in Resources */,
 				1950E51C2791FE7B00ED357B /* FriendsAddTVC.xib in Resources */,
 				19F1AF7A2793453700022A6A /* SelectedDateSheet.xib in Resources */,
@@ -1052,6 +1072,7 @@
 				3623EAAE2795929000853F87 /* PlansReceiveCVC.swift in Sources */,
 				3623EAD02797D6FA00853F87 /* LastDateDataModel.swift in Sources */,
 				36EFE3212785CC3B00466818 /* Date++.swift in Sources */,
+				1960D42027B10C93002558C4 /* SelectedDateSheetTVC.swift in Sources */,
 				19509B652796C00D00CAA4C2 /* MonthlyPlansResponseModel.swift in Sources */,
 				19F1AF722792AB0300022A6A /* SelectedDateSheet.swift in Sources */,
 				191E8C2A278FFB870042B8F1 /* SMSearchBar.swift in Sources */,
@@ -1104,7 +1125,6 @@
 				6AE863092799FABC0050A978 /* GetScheduleService.swift in Sources */,
 				360E6F4627898D4400DACFD8 /* HomeEventCVC.swift in Sources */,
 				6A8E388427970D7000A480F7 /* PickedDate.swift in Sources */,
-				1968464B279413A900DBAF3A /* DateTicketView.swift in Sources */,
 				19509B692798583500CAA4C2 /* FriendsSearchService.swift in Sources */,
 				3623EA87278F686A00853F87 /* ProgressReceiveCVC.swift in Sources */,
 				36EFE31A2785CC3B00466818 /* UIViewController++.swift in Sources */,

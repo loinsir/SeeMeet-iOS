@@ -1,15 +1,9 @@
-//
-//  dayCellView.swift
-//  SeeMeet
-//
-//  Created by 이유진 on 2022/01/17.
-//
-
 import UIKit
 
 protocol tapCellViewDelegate{
     func tapCellView(dayCellView: DayCellView )
 }
+
 class DayCellView: UIView {
     
     var montosun: String = "월"
@@ -179,7 +173,6 @@ class DayCellView: UIView {
         isUserInteractionEnabled = true
         
     }
-    
     
     @objc func tapCellView(gestureRecognizer: UIGestureRecognizer){
         tapCellViewDelegate?.tapCellView(dayCellView: self)
