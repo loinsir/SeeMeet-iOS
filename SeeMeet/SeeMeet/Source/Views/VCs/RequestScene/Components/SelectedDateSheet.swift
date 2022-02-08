@@ -79,7 +79,7 @@ class SelectedDateSheet: UIView {
         layer.cornerRadius = 20
         getShadowView(color: UIColor.black.cgColor, masksToBounds: false, shadowOffset: CGSize(width: 0, height: -3), shadowRadius: 3, shadowOpacity: 0.1)
         
-        addSubviews([grabber, titleLabel,selectedCountLabel,touchAreaView, tableView])
+        addSubviews([grabber, titleLabel, selectedCountLabel, touchAreaView, tableView])
         
         grabber.snp.makeConstraints {
             $0.height.equalTo(4 * heightRatio)

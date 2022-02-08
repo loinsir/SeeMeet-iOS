@@ -199,12 +199,13 @@ class RequestPlansDateVC: UIViewController {
     }
 
     private let startDatePicker = UIDatePicker().then{
-            $0.datePickerMode = .time
-            $0.locale = Locale(identifier: "ko-KR")
-            $0.timeZone = .autoupdatingCurrent//몰까
-            $0.preferredDatePickerStyle = .inline
-            $0.minuteInterval = 5
-        }
+        $0.datePickerMode = .time
+        $0.locale = Locale(identifier: "ko-KR")
+        $0.timeZone = .autoupdatingCurrent//몰까
+        $0.preferredDatePickerStyle = .inline
+        $0.minuteInterval = 5
+        $0.tag = 1
+    }
 
     private let timeSeparateView = UIView().then{
         $0.backgroundColor = UIColor.grey01
@@ -225,8 +226,7 @@ class RequestPlansDateVC: UIViewController {
         $0.timeZone = .autoupdatingCurrent//몰까
         $0.preferredDatePickerStyle = .inline
         $0.minuteInterval = 5
-       
-        
+        $0.tag = 2
     }
     private let bottomSheetView = SelectedDateSheet()
     
@@ -300,8 +300,8 @@ class RequestPlansDateVC: UIViewController {
     }
     func setTarget() {
         allDaySwitch.addTarget(self, action: #selector(onClickSwitch(_:)), for: .valueChanged)
-        startDatePicker.addTarget(self, action: #selector(valueChangedDatePicker), for: .valueChanged)
-        endDatePicker.addTarget(self, action: #selector(changedEndDatePicker), for: .valueChanged)
+        startDatePicker.addTarget(self, action: #selector(valueChangedDatePicker(_:)), for: .valueChanged)
+        endDatePicker.addTarget(self, action: #selector(valueChangedDatePicker(_:)), for: .valueChanged)
         addButton.addTarget(self, action: #selector(tapAddButton), for: .touchUpInside)
         
         nextWeekButton.addTarget(self, action: #selector(tapNextButton), for: .touchUpInside)
@@ -513,25 +513,26 @@ class RequestPlansDateVC: UIViewController {
         
         let startDateComponents = DateComponents(year: selectedDate.startTime.year, month: selectedDate.startTime.month, day: selectedDate.startTime.day, hour: startDatePicker.date.hour ,minute: startDatePicker.date.minute)
         
-        guard let revisedStartDate = Calendar.current.date(from: startDateComponents) else{return}
+        let dateComponents = DateComponents(year: selectedDate.startTime.year,
+                                            month: selectedDate.startTime.month,
+                                            day: selectedDate.startTime.day,
+                                            hour: sender.date.hour,
+                                            minute: sender.date.minute)
         
-        selectedDate.startTime = revisedStartDate
+        if let revisedDate = Calendar.current.date(from: dateComponents) {
+            switch sender.tag {
+            case 1:
+                selectedDate.startTime = revisedDate
+            case 2:
+                selectedDate.endTime = revisedDate
+            default:
+                break
+            }
+            
+        }
         updateSelectedDateLabel()
     }
-    
-    @objc func changedEndDatePicker(_ sender: UIDatePicker){
-        let dateformatter = DateFormatter()
-        dateformatter.dateStyle = .none
-        dateformatter.timeStyle = .short
-        
-        let endDateComponents = DateComponents(year: selectedDate.startTime.year, month: selectedDate.startTime.month, day: selectedDate.startTime.day, hour: endDatePicker.date.hour,minute:  endDatePicker.date.minute)
-        
-        guard let revisedEndDate = Calendar.current.date(from: endDateComponents) else{return}
 
-        selectedDate.endTime = revisedEndDate
-        updateSelectedDateLabel()
-        
-    }
     @objc func onClickSwitch(_ sender: UISwitch) {
         
         let dateFormatter = DateFormatter().then {
