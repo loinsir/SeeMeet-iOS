@@ -32,7 +32,6 @@ class RequestPlansDateVC: UIViewController {
     
     private let backButton = UIButton().then{
         $0.setBackgroundImage(UIImage(named: "btn_back"), for: .normal)
-        $0.addTarget(self, action: #selector(touchUpBackButton), for: .touchUpInside)
     }
     
     private let titleLabel = UILabel().then{
@@ -187,8 +186,6 @@ class RequestPlansDateVC: UIViewController {
     }
     private let allDaySwitch = UISwitch().then{
         $0.onTintColor = UIColor.pink01
-       
-
     }
     private let startTimeSettingView = UIView()
     
@@ -243,8 +240,7 @@ class RequestPlansDateVC: UIViewController {
         $0.setTitle("약속 신청", for: .normal)
         $0.titleLabel?.font = UIFont.hanSansMediumFont(ofSize: 16)
         $0.layer.cornerRadius = 10
-        $0.isUserInteractionEnabled = false
-        $0.addTarget(self, action: #selector(touchRequestButton(_:)), for: .touchUpInside)
+        $0.isEnabled = false
     }
     private let fillView = UIView().then{
         $0.backgroundColor = .white   }
@@ -263,18 +259,20 @@ class RequestPlansDateVC: UIViewController {
         initScheduleDataList()
         layoutCalendarView()
         initDayLabel()
-        addGestureRecognizer()
+//        addGestureRecognizer()
     }
     
     @objc func touchRequestButton(_ button: UIButton) {
+        print("tapped")
         requestPlans()
     }
     
     private func addGestureRecognizer() {
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedView(_:)))
+        tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
     }
-    
+
     @objc private func tappedView(_ sender: UITapGestureRecognizer)  {
         bottomSheetView.showSheet(atState: .folded)
     }
@@ -299,6 +297,7 @@ class RequestPlansDateVC: UIViewController {
         cellList.append(contentsOf:[sunCell,monCell,tueCell,wedCell,thuCell,friCell,satCell])
     }
     func setTarget() {
+        backButton.addTarget(self, action: #selector(touchUpBackButton), for: .touchUpInside)
         allDaySwitch.addTarget(self, action: #selector(onClickSwitch(_:)), for: .valueChanged)
         startDatePicker.addTarget(self, action: #selector(valueChangedDatePicker(_:)), for: .valueChanged)
         endDatePicker.addTarget(self, action: #selector(valueChangedDatePicker(_:)), for: .valueChanged)
@@ -306,6 +305,8 @@ class RequestPlansDateVC: UIViewController {
         
         nextWeekButton.addTarget(self, action: #selector(tapNextButton), for: .touchUpInside)
         prevWeekButton.addTarget(self, action: #selector(tapPreviousButton), for: .touchUpInside)
+        
+        requestPlansButton.addTarget(self, action: #selector(touchRequestButton(_:)), for: .touchUpInside)
     }
 
     func initDayLabel(){
@@ -313,8 +314,8 @@ class RequestPlansDateVC: UIViewController {
         formatter.dateFormat = "M월 d일"
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.timeZone = NSTimeZone(name: "ko_KR") as TimeZone?
-        
-        let dateText = formatter.string(from: todayDate) + " \(Date.getCurrentKoreanWeekDay())요일"
+  
+        let dateText = formatter.string(from: todayDate) + " \(Date.getKoreanWeekDay(from: todayDate))요일"
 
         todayLabel.text  = dateText
     }
@@ -381,7 +382,7 @@ class RequestPlansDateVC: UIViewController {
 
     func initWeekCalendarDataList() {
     
-        switch Date.getCurrentKoreanWeekDay() {
+        switch Date.getKoreanWeekDay(from: todayDate) {
         case "일":
             appendWeekCalendarDateList(num: 0)
         case "월":
@@ -1009,6 +1010,7 @@ extension RequestPlansDateVC: SelectedDateSheetDelegate {
 extension RequestPlansDateVC{
     
     private func requestPlans() {
+        print("tapped")
         PostRequestPlansService.shared.requestPlans { responseData in
             switch responseData {
             case .success(_), .pathErr:
